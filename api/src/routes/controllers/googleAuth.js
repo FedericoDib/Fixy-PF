@@ -1,6 +1,6 @@
 var GoogleStategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
-const {DemoClient} = require('../../db');
+const {UserList} = require('../../db');
 
 module.exports = function(passport) {
     
@@ -18,13 +18,14 @@ module.exports = function(passport) {
         //Busca el User en la DB, si existe loguea, sino lo crea y loguea
 
         
-        const userFound = await DemoClient.findOne({where:{googleId: profile.id}})
+        const userFound = await UserList.findOne({where:{googleId: profile.id}})
             if (!userFound){
-                const user = await DemoClient.create({
+                const user = await UserList.create({
                     googleId:profile.id,
+                    email: profile.emails[0].value,
                     name:profile.displayName
                 })   
-            if(user) return done(null, user);
+                if(user) return done(null, user);
             }else{
                 return done(null, userFound)
             };

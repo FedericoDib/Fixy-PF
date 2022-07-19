@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const passport = require('passport');
-require('./controllers/localAuth');
 require('./controllers/googleAuth')(passport);
-const {Client,DemoClient} = require('../db')
-// const {} = require('../db');
+const {Client,DemoClient} = require('../db');
+const { checkUser } = require('./controllers/checkUser');
+
 
 
 // Importar todos los routers;
@@ -12,66 +12,42 @@ const {Client,DemoClient} = require('../db')
 
 const router = Router();
 
+
+
 //GOOGLE REGISTER/LOGIN
 
 router.get ('/google', passport.authenticate('google',{scope : ['email','profile'] }));
 
 router.get ('/google/callback',
     passport.authenticate('google',
-    {successRedirect: '/profile',failureRedirect: '/index',failureMessage: true }), (req,res) =>{
-        res.redirect('/profile')
+    {successRedirect: '/checkUser',failureRedirect: '/index',failureMessage: true, passReqToCallback:true }), (req,res) =>{
+        res.redirect('/checkUser')
     });
 
-// LOCAL REGISTER/LOGIN
+// Chequea si el usuario completo el resto de sus datos de registro
 
-router.get('/signup', (req,res,next) => {
+router.get('/userList', checkAuthenticated, async (req, res) => {
 
-});
+})
 
-router.post('/signup', passport.authenticate('local',{
-    successRedirect:'/profile',
-    // failureRedirect:'/index',
-    passReqToCallback: true
-}));
+router.get ('/checkUser',checkAuthenticated, async (req,res) =>{
+    const {googleId, name, email} = req.user;
+    
 
-// router.post('/signup', async (req, res) =>{
-//     const{email} = req.body
-//     console.log(req.body.name)
-//     const user = await DemoClient.create({
-//         name:req.body.name
-//         // username: req.body.email,
-//         // password: req.body.password,
-//         // name: req.body.name,
-//         // lastName: req.body.lastName,
-//         // province: req.body.province,
-//         // city:req.body.city,
-//         // adress:req.body.adress
-//     });
-//     res.send(user)
-// })
+    const userRegistered = await checkUser(googleId, name, email);
 
-router.get('/signin', (req,res,next) => {
+    res.send(userRegistered);
 
 });
 
-router.post('/signin', (req,res,next) => {
-
-});
-
-
-
-
-
-
+// Ruta para un logueo Fallido
 
 router.get ('/index',(req,res) =>{
-    // console.log(req.body)
-    res.send("HOME")
+    
+    res.send("Login Failed");
 });
 
-router.get ('/profile',checkAuthenticated,(req,res) =>{
-    res.send("hola")
-});
+
 
 
 
