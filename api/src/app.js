@@ -5,7 +5,6 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport');
 const session = require('express-session');
-require('./routes/controllers/localAuth');
 // require('./db.js');
 
 const server = express();

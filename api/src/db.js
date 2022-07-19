@@ -5,7 +5,7 @@ const path = require('path');
 const modelClient = require('./models/Client');
 const modelProfessional = require('./models/Professional');
 const modelRequest = require('./models/Request');
-const modelUserDemo = require('./models/DemoClient')
+const modelUserDemo = require('./models/UserList')
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -44,11 +44,11 @@ Request.belongsTo(Professional, {
   as: "professional",
 });
 
-DemoClient.hasMany(Request, { as: "requests" });
-Request.belongsTo(DemoClient, {
-  foreignKey: "clientId",
-  as: "demoClient",
-});
+// DemoClient.hasMany(Request, { as: "requests" });
+// Request.belongsTo(DemoClient, {
+//   foreignKey: "clientId",
+//   as: "demoClient",
+// });
 
 
 module.exports = {
