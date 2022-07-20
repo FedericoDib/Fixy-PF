@@ -9,6 +9,10 @@ module.exports = (sequelize) => {
             primaryKey: true,
             allowNull:true
         },
+        expoToken:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
         firstLogin:{
             type: DataTypes.BOOLEAN,
             defaultValue: true
