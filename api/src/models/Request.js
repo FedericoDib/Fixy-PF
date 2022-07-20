@@ -12,12 +12,8 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull:false
         },
-        // professionalId:{
-        //     type: DataTypes.UUID,
-        //     allowNull:false
-        // },
-        professionals:{
-            type: DataTypes.ARRAY(DataTypes.JSON)
+        associatedProfessionals:{
+            type: DataTypes.ARRAY(DataTypes.STRING)
         },
         affair:{
             type: DataTypes.STRING,
@@ -33,14 +29,6 @@ module.exports = (sequelize) => {
         status:{
             type: DataTypes.ENUM('declined','pending','accepted','finished'),
             defaultValue: 'pending',  
-        },
-        budgetDescription:{
-            type: DataTypes.STRING,
-            allowNull: false  
-        },
-        budgetPrice:{
-            type: DataTypes.FLOAT,
-            allowNull: false
         },
         budget:{
             type: DataTypes.ARRAY(DataTypes.JSON)
