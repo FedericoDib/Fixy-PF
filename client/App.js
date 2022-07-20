@@ -19,11 +19,11 @@ export default function App() {
 					/>
 					<Stack.Screen name='Onboarding' component={OnBoarding} />
 					{/* <Stack.Screen name='Selection' component={Selection} />
-				<Stack.Screen
-					name='ProfessionalSignUp'
-					component={ProfessionalSignUp}
-				/>
-				<Stack.Screen name='ClientSignUp' component={ClientSignUp} /> */}
+					<Stack.Screen
+						name='ProfessionalSignUp'
+						component={ProfessionalSignUp}
+					/>
+					<Stack.Screen name='ClientSignUp' component={ClientSignUp} /> */}
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>
@@ -38,4 +38,3 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 });
-
