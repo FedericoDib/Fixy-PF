@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
             primaryKey: true,
             allowNull: false
         },
+        expoToken:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
         status:{
             type: DataTypes.BOOLEAN,
             defaultValue:false
