@@ -1,10 +1,6 @@
+import axios from 'axios';
+const GOOGLE_SIGN_UP = 'GOOGLE_SIGN_UP';
 
-import axios from 'axios'
-const GOOGLE_SIGN_UP = 'GOOGLE_SIGN_UP'
+export const googleSignUp = () => {
 
-const googleSignUp = ()=>{
-  return function(dispatch) {
-    return axios.get('https://localhost:3000/google')
-    .then((response)=> console.log(response))
-  }
-}
+};
