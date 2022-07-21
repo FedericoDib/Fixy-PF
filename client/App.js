@@ -5,7 +5,7 @@ import OnBoarding from './Components/OnBoarding/OnBoarding';
 import Login from './Components/Login/Login';
 import { Provider } from 'react-redux/es/exports';
 import store from './Redux/Store';
-import Tabs from './Components/tabs';
+import Tabs from './Components/BottomTabNavigation/BottomTabNavigation';
 
 export default function App() {
 	const Stack = createNativeStackNavigator();
