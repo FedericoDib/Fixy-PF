@@ -6,6 +6,7 @@ const { Client, DemoClient, Request, Professional } = require("../db");
 const { checkUser } = require("./controllers/checkUser");
 
 const typeWorkRouter = require("./middlewares/typeWork");
+const requestRouter = require("./middlewares/request");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -109,7 +110,7 @@ router.post("/client/create", async (req, res) => {
 });
 
 router.use("/type", typeWorkRouter);
-
+router.use("/request", requestRouter);
 //Middleware para validar
 
 function checkAuthenticated(req, res, next) {
