@@ -25,7 +25,11 @@ export default function App() {
 					component={ProfessionalSignUp}
 				/>
 				<Stack.Screen name='ClientSignUp' component={ClientSignUp} /> */}
-					<Stack.Screen name='HomeClient' component={Tabs} />
+					<Stack.Screen
+						name='HomeClient'
+						component={Tabs}
+						options={{ headerShown: false }}
+					/>
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>
