@@ -7,8 +7,8 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 const Home_Client = () => {
   return (<>
   <BackgroundView></BackgroundView>
-    <Flex fill>
-        <Box inline={true}>
+    <Flex fill inline={true}>
+        <Box>
             <Text>Hola, Federico</Text>
             <NotificationsButtonStyled><IconButton icon={props => <Icon name="notifications" {...props} />}/></NotificationsButtonStyled>
         </Box>
