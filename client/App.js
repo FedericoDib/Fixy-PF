@@ -5,6 +5,7 @@ import OnBoarding from './Components/OnBoarding/OnBoarding';
 import Login from './Components/Login/Login';
 import { Provider } from 'react-redux/es/exports';
 import store from './Redux/Store';
+import Tabs from './Components/BottomTabNavigation/BottomTabNavigation';
 
 export default function App() {
 	const Stack = createNativeStackNavigator();
@@ -12,18 +13,23 @@ export default function App() {
 		<Provider store={store}>
 			<NavigationContainer>
 				<Stack.Navigator>
-					<Stack.Screen
+					{/* <Stack.Screen
 						name='Login'
 						component={Login}
 						options={{ headerShown: false }}
 					/>
 					<Stack.Screen name='Onboarding' component={OnBoarding} />
-					{/* <Stack.Screen name='Selection' component={Selection} />
+					<Stack.Screen name='Selection' component={Selection} />
+				<Stack.Screen
+					name='ProfessionalSignUp'
+					component={ProfessionalSignUp}
+				/>
+				<Stack.Screen name='ClientSignUp' component={ClientSignUp} /> */}
 					<Stack.Screen
-						name='ProfessionalSignUp'
-						component={ProfessionalSignUp}
+						name='HomeClient'
+						component={Tabs}
+						options={{ headerShown: false }}
 					/>
-					<Stack.Screen name='ClientSignUp' component={ClientSignUp} /> */}
 				</Stack.Navigator>
 			</NavigationContainer>
 		</Provider>
