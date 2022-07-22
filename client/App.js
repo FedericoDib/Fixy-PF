@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnBoarding from "./Components/OnBoarding/OnBoarding";
 import Login from "./Components/Login/Login";
-import { Provider } from "react-redux/es/exports";
+import { Provider } from "react-redux";
 import store from "./Redux/Store";
 import Tabs from "./Components/BottomTabNavigation/BottomTabNavigation";
 import ClientSignUp from "./Components/SignUpForm/ClientSignUp/ClientSignUp";
