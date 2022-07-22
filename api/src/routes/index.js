@@ -9,6 +9,7 @@ const clientRouter = require("./middlewares/client");
 const typeWorkRouter = require("./middlewares/typeWork");
 const requestRouter = require("./middlewares/request");
 const budgetRouter = require("./middlewares/budget");
+const userInfo = require("./middlewares/userInfo");
 
 const router = Router();
 
@@ -69,5 +70,6 @@ router.use("/client", clientRouter);
 router.use("/type", typeWorkRouter);
 router.use("/request", requestRouter);
 router.use("/budget", budgetRouter);
+router.use("/userInfo", userInfo);
 
 module.exports = router;
