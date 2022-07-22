@@ -182,58 +182,12 @@ const ProfessionalSignUp = ({ navigation }) => {
             />
             <TextInput placeholder="Dirección" style={STYLES.input} />
           </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="lock-outline"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Contraseña"
-              style={STYLES.input}
-              secureTextEntry
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="lock-outline"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Repetir Contraseña"
-              style={STYLES.input}
-              secureTextEntry
-            />
-          </View>
+
           <View style={STYLES.btnPrimary}>
             <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
               Registrarse
             </Text>
           </View>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            marginTop: 40,
-            marginBottom: 20,
-          }}
-        >
-          <Text style={{ color: COLORS.light, fontWeight: "bold" }}>
-            Ya tienes cuenta?
-          </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text
-              style={{ color: COLORS.pink, fontWeight: "bold", marginLeft: 6 }}
-            >
-              Ingresa Aquí
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

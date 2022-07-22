@@ -1,9 +1,11 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   SafeAreaView,
   View,
   Text,
+  Button,
   TextInput,
   Image,
   useWindowDimensions,
@@ -12,9 +14,27 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import STYLES from "./ClientSignUpStyles";
 import COLORS from "./Colors";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import * as ImagePicker from "expo-image-picker";
 
 const SignUpScreen = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
   return (
     <SafeAreaView
       style={[
@@ -23,7 +43,7 @@ const SignUpScreen = ({ navigation }) => {
       ]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ marginTop: 50 }}>
+        <View style={{ marginTop: 90 }}>
           <Text
             style={{ fontSize: 27, fontWeight: "bold", color: COLORS.dark }}
           >
@@ -43,33 +63,23 @@ const SignUpScreen = ({ navigation }) => {
             Registrate para continuar
           </Text>
         </View>
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
+          <Button title="Elige una foto de tu Galeria" onPress={pickImage} />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200, marginTop: 10 }}
+            />
+          )}
+        </View>
         <View style={{ marginTop: 20 }}>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="lock-outline"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Contraseña"
-              style={STYLES.input}
-              secureTextEntry
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="lock-outline"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Repetir Contraseña"
-              style={STYLES.input}
-              secureTextEntry
-            />
-          </View>
           <View style={STYLES.inputContainer}>
             <Icon
               name="phone-iphone"
@@ -106,32 +116,12 @@ const SignUpScreen = ({ navigation }) => {
             />
             <TextInput placeholder="Dirección" style={STYLES.input} />
           </View>
+
           <View style={STYLES.btnPrimary}>
             <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
               Registrate
             </Text>
           </View>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            marginTop: 40,
-            marginBottom: 20,
-          }}
-        >
-          <Text style={{ color: COLORS.light, fontWeight: "bold" }}>
-            Ya tienes cuenta?
-          </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Text
-              style={{ color: COLORS.pink, fontWeight: "bold", marginLeft: 6 }}
-            >
-              Ingresa Aquí
-            </Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
