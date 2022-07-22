@@ -44,23 +44,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "babel-eslint": "^10.1.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-config-standard-jsx": "^11.0.0",
-    "eslint-config-standard-react": "^11.0.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.30.1",
     "prettier": "^2.7.1"
   },
-  "private": true,
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "standard",
-      "standard-jsx",
-      "standard-react"
-    ]
-  }
+  "private": true
 }
