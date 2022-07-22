@@ -23,22 +23,11 @@ const SignUpScreen = ({ navigation }) => {
       ]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flexDirection: "row", marginTop: 75 }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 22,
-              color: COLORS.secondary,
-            }}
-          >
-            FIXY
-          </Text>
-        </View>
         <View style={{ marginTop: 50 }}>
           <Text
             style={{ fontSize: 27, fontWeight: "bold", color: COLORS.dark }}
           >
-            Welcome
+            Bienvenido
           </Text>
           <Text style={{ fontSize: 15, fontWeight: "bold", color: "green" }}>
             Sapo Verde
@@ -51,7 +40,7 @@ const SignUpScreen = ({ navigation }) => {
               color: COLORS.light,
             }}
           >
-            Sign up to continue
+            Registrate para continuar
           </Text>
         </View>
         <View style={{ marginTop: 20 }}>
@@ -119,7 +108,7 @@ const SignUpScreen = ({ navigation }) => {
           </View>
           <View style={STYLES.btnPrimary}>
             <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-              Sign Up
+              Registrate
             </Text>
           </View>
         </View>
@@ -140,7 +129,7 @@ const SignUpScreen = ({ navigation }) => {
             <Text
               style={{ color: COLORS.pink, fontWeight: "bold", marginLeft: 6 }}
             >
-              Sign in
+              Ingresa Aquí
             </Text>
           </TouchableOpacity>
         </View>
