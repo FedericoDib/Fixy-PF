@@ -5,16 +5,18 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        borderWidth: 2,
-        borderRadius: 50,
+        borderWidth: 1,
+        borderRadius: 10,
         overflow: "hidden",
         margin: 10,
+        backgroundColor: "#FFFFFF",
     },
     textName: {
-        fontSize: 25,
+        fontSize: 15,
     },
     textProfession: {
-        fontSize: 20,
+        fontSize: 15,
+        fontWeight: "bold",
     },
     imageContainer: {
         display: "flex",
@@ -25,6 +27,20 @@ const styles = StyleSheet.create({
     textContainer: {
         display: "flex",
         flex: 4,
+    },
+    nameAndReviewContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginRight: 10,
+    },
+    reviewContainer: {
+        flexDirection: "row",
+        backgroundColor: "#FFF5E7",
+        padding: 4,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        justifyContent: "space-around",
+        width: 70,
     },
 });
 
