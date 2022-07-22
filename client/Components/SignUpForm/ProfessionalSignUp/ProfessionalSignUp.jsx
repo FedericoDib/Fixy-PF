@@ -44,18 +44,8 @@ const ProfessionalSignUp = ({ navigation }) => {
       ]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flexDirection: "row", marginTop: 75 }}>
-          <Text
-            style={{
-              fontWeight: "bold",
-              fontSize: 22,
-              color: COLORS.secondary,
-            }}
-          >
-            FIXY
-          </Text>
-        </View>
-        <View style={{ marginTop: 50 }}>
+        <View style={{ flexDirection: "row", marginTop: 40 }}></View>
+        <View style={{ marginTop: 20 }}>
           <Text
             style={{ fontSize: 27, fontWeight: "bold", color: COLORS.dark }}
           >
@@ -91,7 +81,7 @@ const ProfessionalSignUp = ({ navigation }) => {
               />
             )}
           </View>
-          <View style={{ marginTop: 20 }}></View>
+          <View style={{ marginTop: 10 }}></View>
           <View
             style={{
               flex: 1,
@@ -125,7 +115,7 @@ const ProfessionalSignUp = ({ navigation }) => {
                 Gasista
               </Text>
               <Icon2
-                name="smoke-detector-outline"
+                name="gas-cylinder"
                 color={COLORS.dark}
                 size={20}
                 style={STYLES.iconProf}
@@ -145,14 +135,14 @@ const ProfessionalSignUp = ({ navigation }) => {
           </View>
 
           <View style={STYLES.inputContainer}>
-            <Icon
-              name="upload-file"
+            <Icon2
+              name="file-document-outline"
               color={COLORS.light}
               size={20}
               style={STYLES.inputIcon}
             />
             <TextInput
-              placeholder="Matricula Profesional"
+              placeholder="Matricula Profesional (Numero)"
               style={STYLES.input}
             />
           </View>

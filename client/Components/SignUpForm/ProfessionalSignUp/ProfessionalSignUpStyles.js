@@ -28,8 +28,9 @@ const STYLES = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 20,
     width: 100,
+    marginBottom: 20,
   },
 
   iconProf: {
