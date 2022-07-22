@@ -1,5 +1,5 @@
 const { Router, request } = require("express");
-const { Professional, Request } = require("../../db");
+const { Professional, Request, Client } = require("../../db");
 
 const router = Router();
 
@@ -33,6 +33,41 @@ router.put("/:id", async (req, res) => {
     .send(
       `combinado la request ${request.id} y el profesional ${professional.googleId}`
     );
+});
+
+// MUESTRA LOS CLIENTES ASOCIADOS A LA REQUEST
+
+router.get("/client", async (req, res) => {
+  const requests = await Request.findAll({
+    include: [
+      {
+        model: Client,
+        as: "client",
+        attributes: ["name", "province", "city"],
+      },
+    ],
+    attributes: ["affair", "description"],
+  });
+
+  console.log(requests);
+
+  res.send(requests);
+});
+
+// MUESTRA LOS  PROFESIONALES ASOCIADOS A LA REQUEST
+
+router.get("/professional", async (req, res) => {
+  const request = await Request.findAll({
+    include: [
+      {
+        model: Professional,
+        attributes: ["name", "province", "city"],
+      },
+    ],
+    attributes: ["affair", "description"],
+  });
+
+  res.send(request);
 });
 
 module.exports = router;

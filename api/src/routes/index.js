@@ -10,9 +10,6 @@ const typeWorkRouter = require("./middlewares/typeWork");
 const requestRouter = require("./middlewares/request");
 const budgetRouter = require("./middlewares/budget");
 
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-
 const router = Router();
 
 // ----------------- RUTA LOGIN -----------------------
