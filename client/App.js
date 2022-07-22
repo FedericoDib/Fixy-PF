@@ -5,6 +5,7 @@ import OnBoarding from './Components/OnBoarding/OnBoarding';
 import Login from './Components/Login/Login';
 import { Provider } from 'react-redux/es/exports';
 import store from './Redux/Store';
+import SolutionScreen from './Components/SolutionForm/SolutionForm';
 
 export default function App() {
 	const Stack = createNativeStackNavigator();
@@ -12,6 +13,11 @@ export default function App() {
 		<Provider store={store}>
 			<NavigationContainer>
 				<Stack.Navigator>
+				<Stack.Screen
+						name='SolutionScreen'
+						component={SolutionScreen}
+						options={{ headerShown: false }}
+					/>
 					<Stack.Screen
 						name='Login'
 						component={Login}
