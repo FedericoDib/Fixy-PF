@@ -8,6 +8,7 @@ import {
     Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import IconStart from "react-native-vector-icons/Foundation";
 import styles from "./CardListStyle";
 import { useNavigation } from "@react-navigation/native";
 
@@ -17,8 +18,8 @@ export default function CardList({ item }) {
         <ScrollView>
             <TouchableHighlight
                 activeOpacity={0.9}
-                underlayColor="#59e42f"
-                onPress={() => navigation.navigate(`Onboarding`)}
+                underlayColor="white"
+                onPress={() => navigation.navigate(`HomeClient`)}
             >
                 <View style={styles.cardContainer}>
                     <View style={styles.imageContainer}>
@@ -28,7 +29,19 @@ export default function CardList({ item }) {
     /> */}
                     </View>
                     <View style={styles.textContainer}>
-                        <Text style={styles.textName}>{item.name}</Text>
+                        <View style={styles.nameAndReviewContainer}>
+                            <Text style={styles.textName}>{item.name}</Text>
+                            <View style={styles.reviewContainer}>
+                                <IconStart
+                                    name="star"
+                                    color="#E1C85A"
+                                    size={19}
+                                />
+                                <Text style={styles.textName}>
+                                    {item.review}
+                                </Text>
+                            </View>
+                        </View>
                         <Text style={styles.textProfession}>
                             {item.profession}
                         </Text>

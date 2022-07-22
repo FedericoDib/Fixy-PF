@@ -2,8 +2,8 @@ import { View, FlatList, StyleSheet, Alert } from "react-native";
 import { useSelector } from "react-redux/es/exports";
 import CardList from "./CardList";
 import { Stack, TextInput, IconButton } from "@react-native-material/core";
-import Icon from "react-native-vector-icons/EvilIcons";
 import React, { useState } from "react";
+import style from "./ListStyle";
 
 export default function List() {
     const [inputSearch, setInputSearch] = useState("");
@@ -18,11 +18,23 @@ export default function List() {
         },
     ];
     let data = [
-        { name: "Maximiliano Blas Silva", profession: "electricista" },
-        { name: "Javi", profession: "electricista" },
-        { name: "Federico Hugo Dib", profession: "electricista" },
-        { name: "Fiorenza Seia", profession: "electricista" },
-        { name: "Maxemiliano Blas Silva", profession: "electricista" },
+        {
+            name: "Maximiliano Blas Silva",
+            profession: "electricista",
+            review: "4.8",
+        },
+        { name: "Javi", profession: "electricista", review: "3.8" },
+        {
+            name: "Federico Hugo Dib",
+            profession: "electricista",
+            review: "4.5",
+        },
+        { name: "Fiorenza Seia", profession: "electricista", review: "4.2" },
+        {
+            name: "Maxemiliano Blas Silva",
+            profession: "electricista",
+            review: "4.9",
+        },
     ];
     function onChange(e) {
         setInputSearch(e.text);
@@ -31,7 +43,7 @@ export default function List() {
     }
 
     return (
-        <View>
+        <View style={style.mainContainer}>
             <View>
                 <TextInput
                     onChangeText={(text) => onChange({ text })}
