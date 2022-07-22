@@ -12,9 +12,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    associatedProfessionals: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
     affair: {
       type: DataTypes.STRING,
       allowNull: false,

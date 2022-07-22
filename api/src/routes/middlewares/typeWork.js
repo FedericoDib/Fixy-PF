@@ -38,10 +38,10 @@ router.get("/gasista", async (req, res) => {
   }
 });
 
-router.get("/electricista", async (req, res) => {
-  const electricistas = await findType("electricista");
+router.get("/plomero", async (req, res) => {
+  const plomeros = await findType("plomero");
   try {
-    res.status(200).send(electricistas);
+    res.status(200).send(plomeros);
   } catch (error) {
     res.status(400).send(error);
   }

@@ -1,17 +1,21 @@
 const { Router } = require("express");
 const passport = require("passport");
 require("./controllers/googleAuth")(passport);
-const { Client, DemoClient, Request, Professional } = require("../db");
 
 const { checkUser } = require("./controllers/checkUser");
 
+const professionalRouter = require("./middlewares/professional");
+const clientRouter = require("./middlewares/client");
 const typeWorkRouter = require("./middlewares/typeWork");
 const requestRouter = require("./middlewares/request");
+const budgetRouter = require("./middlewares/budget");
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
 const router = Router();
+
+// ----------------- RUTA LOGIN -----------------------
 
 //GOOGLE REGISTER/LOGIN
 
@@ -51,66 +55,6 @@ router.get("/index", (req, res) => {
   res.send("Login Failed");
 });
 
-router.post("/professional/create", async (req, res) => {
-  const {
-    googleId,
-    name,
-    email,
-    perfilPic,
-    enrollment,
-    profession,
-    province,
-    city,
-    address,
-    availableTimes,
-    expoToken,
-  } = req.body;
-
-  await Professional.create({
-    perfilPic,
-    enrollment,
-    profession,
-    province,
-    city,
-    address,
-    availableTimes,
-    googleId,
-    name,
-    email,
-    expoToken,
-  });
-  res.send("profesional modified");
-});
-
-router.post("/client/create", async (req, res) => {
-  const {
-    expoToken,
-    googleId,
-    name,
-    email,
-    phoneNumber,
-    perfilPic,
-    province,
-    city,
-    address,
-  } = req.body;
-
-  await Client.create({
-    expoToken,
-    phoneNumber,
-    perfilPic,
-    province,
-    city,
-    address,
-    googleId,
-    name,
-    email,
-  });
-  res.send("client modified");
-});
-
-router.use("/type", typeWorkRouter);
-router.use("/request", requestRouter);
 //Middleware para validar
 
 function checkAuthenticated(req, res, next) {
@@ -120,5 +64,13 @@ function checkAuthenticated(req, res, next) {
 
   res.redirect("/index");
 }
+
+// ----------------------- FIN DE RUTA LOGIN ----------------------------
+
+router.use("/professional", professionalRouter);
+router.use("/client", clientRouter);
+router.use("/type", typeWorkRouter);
+router.use("/request", requestRouter);
+router.use("/budget", budgetRouter);
 
 module.exports = router;
