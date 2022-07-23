@@ -13,6 +13,7 @@
     "@expo-google-fonts/exo-2": "^0.2.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-material/core": "^1.3.7",
+    "@react-native-picker/picker": "2.4.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/material-bottom-tabs": "^6.2.2",
     "@react-navigation/native": "^6.0.11",
