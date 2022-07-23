@@ -12,7 +12,10 @@ const rootReducer = (state = initialState, action) => {
 				professionals: action.payload,
 			};
 		case GOOGLE_LOGIN:
-			console.log(action.payload);
+			return {
+				...state,
+				user: action.payload ,
+			};
 		default:
 			return state;
 	}
