@@ -1,15 +1,12 @@
 const { Client } = require('../../db');
 
 const checkUser = async (googleId) => {
-	console.log('hola 3');
-
 	const clientFound = await Client.findOne({ where: { googleId } });
 	const professionalFound = await Client.findOne({ where: { googleId } });
 
 	//BUSCA EN LA DB DATOS DEL USUARIO, AGREGANDO PROPIEDAD "isRegistered"
 
 	if (!clientFound || !professionalFound) {
-		console.log('hola4');
 		const userFound = {
 			isRegistered: false,
 			expoToken: null,
@@ -25,7 +22,6 @@ const checkUser = async (googleId) => {
 
 		return userFound;
 	} else if (clientFound) {
-		console.log(clientFound);
 		const userFound = {
 			isRegistered: true,
 			expoToken: clientFound.dataValues.expoToken,

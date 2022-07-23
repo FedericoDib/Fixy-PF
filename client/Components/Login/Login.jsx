@@ -30,7 +30,6 @@ const Login = () => {
 
 	const dispatch = useDispatch();
 
-	console.log(user);
 	useEffect(() => {
 		if (user) {
 			dispatch(googleLogin(user.id));
