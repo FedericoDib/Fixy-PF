@@ -11,6 +11,7 @@
     "express-session": "^1.17.3",
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.14",
     "morgan": "^1.10.0",
     "node-fetch": "^3.2.4",
     "passport": "^0.6.0",
