@@ -39,7 +39,6 @@ const SolutionScreen = ({ navigation }) => {
                 style={{ margin: 12, borderWidth: 1, borderRadius:5}}
                 onChangeText={onChangeText}
                 value={text}
-
                 placeholder=" Tell us your problem.."
 
       />
