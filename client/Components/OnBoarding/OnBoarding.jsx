@@ -41,6 +41,7 @@ export default function OnBoarding() {
         viewabilityConfig={viewConfig}
         ref={slidesRef}
       />
+
       <Paginator data={slides} scrollX={scrollX} />
     </View>
   );
@@ -49,7 +50,7 @@ export default function OnBoarding() {
 const style = StyleSheet.create({
   container: {
     flex: 3,
-    backgroundColor: "yellow",
+    backgroundColor: "#fff",
     paddingBottom: 55,
   },
 });
