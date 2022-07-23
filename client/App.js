@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -58,3 +59,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 });
+=======
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import store from './Redux/Store';
+import Main from './Components/Main/Main';
+
+export default function App() {
+	return (
+		<Provider store={store}>
+			<NavigationContainer>
+        <Main/>
+      </NavigationContainer>
+		</Provider>
+	);
+}
+>>>>>>> dc62032a4e8f616edbb70183999a2a32b5e7297e

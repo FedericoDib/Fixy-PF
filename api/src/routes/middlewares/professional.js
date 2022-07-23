@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const { Professional } = require("../../db");
 
+const db = require("../../db.hardcode.json");
+
 const router = Router();
 
 router.post("/create", async (req, res) => {
@@ -32,6 +34,16 @@ router.post("/create", async (req, res) => {
     expoToken,
   });
   res.send("profesional modified");
+});
+
+router.get("/", (req, res) => {
+  const { profession } = req.query;
+
+  if (profession) {
+    res.send(db.professional.filter((p) => p.profession === profession));
+  } else {
+    res.send(db.professional);
+  }
 });
 
 module.exports = router;

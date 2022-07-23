@@ -1,28 +1,55 @@
-const {Client} = require('../../db')
+const { Client } = require('../../db');
 
+const checkUser = async (googleId) => {
+	const clientFound = await Client.findOne({ where: { googleId } });
+	const professionalFound = await Client.findOne({ where: { googleId } });
 
-const checkUser = async (googleId,name, email) => {
+	//BUSCA EN LA DB DATOS DEL USUARIO, AGREGANDO PROPIEDAD "isRegistered"
 
-    const clientFound = await Client.findOne({where:{googleId: googleId}});
-    const professionalFound = await Client.findOne({where:{googleId: googleId}})
+	if (!clientFound || !professionalFound) {
+		const userFound = {
+			isRegistered: false,
+			expoToken: null,
+			email: null,
+			name: null,
+			phoneNumber: null,
+			perfilPic: null,
+			province: null,
+			city: null,
+			address: null,
+			reviews: null,
+		};
 
+		return userFound;
+	} else if (clientFound) {
+		const userFound = {
+			isRegistered: true,
+			expoToken: clientFound.dataValues.expoToken,
+			email: clientFound.dataValues.email,
+			name: clientFound.dataValues.name,
+			phoneNumber: clientFound.dataValues.phoneNumber,
+			perfilPic: clientFound.dataValues.perfilPic,
+			province: clientFound.dataValues.province,
+			city: clientFound.dataValues.city,
+			address: clientFound.dataValues.address,
+			reviews: clientFound.dataValues.reviews,
+		};
+		return userFound;
+	} else if (professionalFound) {
+		const userFound = {
+			isRegistered: true,
+			expoToken: professionalFound.dataValues.expoToken,
+			email: professionalFound.dataValues.email,
+			name: professionalFound.dataValues.name,
+			phoneNumber: professionalFound.dataValues.phoneNumber,
+			perfilPic: professionalFound.dataValues.perfilPic,
+			province: professionalFound.dataValues.province,
+			city: professionalFound.dataValues.city,
+			address: professionalFound.dataValues.address,
+			reviews: professionalFound.dataValues.reviews,
+		};
+		return userFound;
+	}
+};
 
-    if (!clientFound) {
-        return {registerComplete: false, googleId: googleId, name: name, email: email}
-    } else if (!professionalFound) {
-        return {registerComplete: false, googleId: googleId, name: name, email: email}
-    }else if (clientFound.city === '-') {
-        return {registerComplete: false, googleId: clientFound.googleId }
-    } else if (professionalFound.city === '-'){ 
-        return {registerComplete: false, googleId: clientFound.googleId }
-    } else if (clientFound.city !== '-') {
-        return {registerComplete: true, googleId: clientFound.googleId }
-    } else if (professionalFound.city !== '-'){ 
-        return {registerComplete: true, googleId: clientFound.googleId }
-    
-
-    }
-}
-
-module.exports = {checkUser}
-
+module.exports = { checkUser };
