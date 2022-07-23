@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from '../OnBoarding/OnBoarding';
@@ -10,8 +10,8 @@ import { StyleSheet, Text, View } from 'react-native';
 const Main = () => {
 	const Stack = createNativeStackNavigator();
 	const user = useSelector((state) => state.user);
-
-	return (
+	
+  return (
 		<Stack.Navigator>
 			<Stack.Screen
 				name='Login'
