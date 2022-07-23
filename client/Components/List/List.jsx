@@ -1,14 +1,20 @@
 import { View, FlatList, StyleSheet, Alert } from "react-native";
-import { useSelector } from "react-redux/es/exports";
 import CardList from "./CardList";
 import { Stack, TextInput, IconButton } from "@react-native-material/core";
 import React, { useState } from "react";
 import style from "./ListStyle";
+import { useSelector, useDispatch, useEffect } from "react-redux";
+import getAllProfessionalsJson from "../../Redux/Action";
 
 export default function List() {
     const [inputSearch, setInputSearch] = useState("");
     const [filterData, setFilterData] = useState([]);
-    // const users = useSelector((state) => state.users);
+    const professionals = useSelector((state) => state.professionals);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllProfessionalsJson());
+    }, []);
+    console.log(professionals);
     // const typeOfUser = useSelector((state) => state.typeOfUser.value);
     // console.log(typeOfUser);
     let newdata = [];
