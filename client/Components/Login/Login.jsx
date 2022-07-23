@@ -8,6 +8,13 @@ import { styles } from './LoginStyles';
 import * as SecureStore from 'expo-secure-store';
 import { useDispatch } from 'react-redux';
 import { googleLogin } from '../../Redux/Action';
+import { useSelector } from 'react-redux';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import OnBoarding from '../OnBoarding/OnBoarding';
+import Selection from '../Selection/Selection';
+import Home_Client from '../Home_Client/Home_Client';
+import ClientSignUp from '../SignUpForm/ClientSignUp/ClientSignUp';
+import ProfessionalSignUp from '../SignUpForm/ProfessionalSignUp/ProfessionalSignUp';
 // "client_id":"302940809798-bb9fvtjipv232sglpnrglc228fp28r1q.apps.googleusercontent.com"
 // "client_secret":"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"
 
@@ -99,6 +106,53 @@ const Login = () => {
 
 	// }
 
+	const Stack = createNativeStackNavigator();
+	const loggedUser = useSelector((state) => state.user);
+
+	const NotRegisteredStack = () => {
+		return (
+			<Stack.Navigator initialRouteName='Selection'>
+				<Stack.Screen
+					name='OnBoarding'
+					component={OnBoarding}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name='Selection'
+					component={Selection}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name='ProfessionalSignUp'
+					component={ProfessionalSignUp}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name='ClientSignUp'
+					component={ClientSignUp}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name='HomeClient'
+					component={Home_Client}
+					options={{ headerShown: false }}
+				/>
+			</Stack.Navigator>
+		);
+	};
+
+	const RegisteredStack = () => {
+		return (
+			<Stack.Navigator>
+				<Stack.Screen
+					name='HomeClient'
+					component={Home_Client}
+					options={{ headerShown: false }}
+				/>
+			</Stack.Navigator>
+		);
+	};
+
 	return (
 		<View style={styles.container}>
 			{user === null ? (
@@ -116,17 +170,10 @@ const Login = () => {
 						<Text>Continuar con Google</Text>
 					</TouchableHighlight>
 				</View>
+			) : loggedUser.isRegistered ? (
+				<RegisteredStack />
 			) : (
-				<View>
-					<Text>Lo lograste!</Text>
-					<TouchableHighlight
-						onPress={() => {
-							handleLogOut();
-						}}
-					>
-						<Text>LOGOUT</Text>
-					</TouchableHighlight>
-				</View>
+				<NotRegisteredStack />
 			)}
 		</View>
 	);
