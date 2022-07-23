@@ -29,12 +29,13 @@ export default function OnBoarding() {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      Alert.alert("Estas en la ultima slide");
+      navigation.navigate("HomeClient");
     }
   };
+
   return (
     <View style={style.container}>
-      <View style={{ flex: 18 }}>
+      <View style={{ flex: 16 }}>
         <FlatList
           data={slides}
           renderItem={({ item }) => <OnBoardingItem item={item} />}
@@ -64,12 +65,14 @@ export default function OnBoarding() {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-around",
-            backgroundColor: "green",
-            flex: 2,
+            justifyContent: "space-evenly",
+            backgroundColor: "#fff",
+            flex: 3,
+            marginBottom: 80,
           }}
         >
           <TouchableOpacity
+            onPress={() => navigation.navigate("HomeClient")}
             style={[
               style.btnNyP,
               {
@@ -92,7 +95,7 @@ export default function OnBoarding() {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingTop: 10 }}>
           <Paginator data={slides} scrollX={scrollX} />
         </View>
       </View>
@@ -105,5 +108,13 @@ const style = StyleSheet.create({
     backgroundColor: "#fff",
     paddingBottom: 55,
     flex: 1,
+  },
+  btnNyP: {
+    backgroundColor: "#493d8a",
+    height: 50,
+    borderRadius: 5,
+    justifyContent: "center",
+    width: 100,
+    alignItems: "center",
   },
 });

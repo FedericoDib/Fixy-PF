@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from "react-native";
 import Constants from "expo-constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function OnBoardingItem({ item }) {
   const { width, height } = useWindowDimensions();
@@ -34,16 +33,16 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 60,
+    paddingTop: 50,
     backgroundColor: "transparent",
-    backgroundColor: "yellow",
+    backgroundColor: "#fff",
     height: 800,
     marginBottom: 200,
   },
   title: {
     fontWeight: "800",
     fontSize: 28,
-    marginBottom: 70,
+    marginBottom: 60,
     color: "#493d8a",
     textAlign: "center",
   },
@@ -54,14 +53,6 @@ const styles = StyleSheet.create({
     marginTop: 45,
     fontSize: 20,
     color: "#62656b",
-    backgroundColor: "red",
-  },
-  btnNyP: {
-    backgroundColor: "#493d8a",
-    height: 50,
-    borderRadius: 5,
-    justifyContent: "center",
-    width: 100,
-    alignItems: "center",
+    backgroundColor: "#fff",
   },
 });

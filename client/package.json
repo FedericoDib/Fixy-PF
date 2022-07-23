@@ -10,8 +10,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/exo-2": "^0.2.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-material/core": "^1.3.7",
+    "@react-native-picker/picker": "2.4.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/material-bottom-tabs": "^6.2.2",
     "@react-navigation/native": "^6.0.11",
@@ -19,7 +21,14 @@
     "@react-navigation/stack": "^6.2.2",
     "axios": "^0.27.2",
     "expo": "~45.0.0",
-    "expo-status-bar": "~1.3.0",
+    "expo-auth-session": "~3.6.1",
+    "expo-font": "~10.1.0",
+		"expo-image-picker": "~13.1.1",
+		"expo-random": "~12.2.0",
+		"expo-secure-store": "~11.2.0",
+		"expo-status-bar": "~1.3.0",
+		"expo-updates": "~0.13.3",
+		"expo-web-browser": "~10.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
@@ -39,12 +48,6 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "use-sync-external-store": "^1.2.0",
-    "web-vitals": "^2.1.4",
-    "expo-image-picker": "~13.1.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "prettier": "^2.7.1"
-  },
-  "private": true
+    "web-vitals": "^2.1.4"
+  }
 }

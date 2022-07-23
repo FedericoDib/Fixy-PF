@@ -1,18 +1,24 @@
-import { GET_ALL } from "../Action/index";
+import { GET_ALL, GOOGLE_LOGIN } from '../Action/index';
 const initialState = {
-  professionals: [],
+	professionals: [],
+	user: {},
 };
 
 const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_ALL:
-      return {
-        ...state,
-        professionals: action.payload,
-      };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case GET_ALL:
+			return {
+				...state,
+				professionals: action.payload,
+			};
+		case GOOGLE_LOGIN:
+			return {
+				...state,
+				user: action.payload ,
+			};
+		default:
+			return state;
+	}
 };
 
 export default rootReducer;
