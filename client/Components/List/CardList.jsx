@@ -38,7 +38,7 @@ export default function CardList({ item }) {
                                     size={19}
                                 />
                                 <Text style={styles.textName}>
-                                    {item.review}
+                                    {item.reviews[0].rating}
                                 </Text>
                             </View>
                         </View>

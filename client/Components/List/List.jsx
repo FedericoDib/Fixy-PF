@@ -1,10 +1,10 @@
 import { View, FlatList, StyleSheet, Alert } from "react-native";
 import CardList from "./CardList";
 import { Stack, TextInput, IconButton } from "@react-native-material/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "./ListStyle";
-import { useSelector, useDispatch, useEffect } from "react-redux";
-import getAllProfessionalsJson from "../../Redux/Action";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllProfessionals } from "../../Redux/Action";
 
 export default function List() {
     const [inputSearch, setInputSearch] = useState("");
@@ -12,42 +12,19 @@ export default function List() {
     const professionals = useSelector((state) => state.professionals);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getAllProfessionalsJson());
+        dispatch(getAllProfessionals());
     }, []);
-    console.log(professionals);
-    // const typeOfUser = useSelector((state) => state.typeOfUser.value);
-    // console.log(typeOfUser);
     let newdata = [];
     let dataDefault = [
         {
             name: "Profesional no encontrado",
         },
     ];
-    let data = [
-        {
-            name: "Maximiliano Blas Silva",
-            profession: "electricista",
-            review: "4.8",
-        },
-        { name: "Javi", profession: "electricista", review: "3.8" },
-        {
-            name: "Federico Hugo Dib",
-            profession: "electricista",
-            review: "4.5",
-        },
-        { name: "Fiorenza Seia", profession: "electricista", review: "4.2" },
-        {
-            name: "Maxemiliano Blas Silva",
-            profession: "electricista",
-            review: "4.9",
-        },
-    ];
     function onChange(e) {
         setInputSearch(e.text);
-        newdata = data.filter((user) => user.name.includes(e.text));
+        newdata = professionals.filter((user) => user.name.includes(e.text));
         setFilterData(newdata);
     }
-
     return (
         <View style={style.mainContainer}>
             <View>
@@ -69,7 +46,7 @@ export default function List() {
                         ? filterData
                         : inputSearch.length
                         ? dataDefault
-                        : data
+                        : professionals
                 }
                 renderItem={({ item }) => <CardList item={item} />}
             />
