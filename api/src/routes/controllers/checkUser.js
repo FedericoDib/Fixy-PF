@@ -1,65 +1,59 @@
-const {Client} = require('../../db')
-
+const { Client } = require('../../db');
 
 const checkUser = async (googleId) => {
+	console.log('hola 3');
 
-    const clientFound = await Client.findOne({where:{googleId}});
-    const professionalFound = await Client.findOne({where:{googleId}});
+	const clientFound = await Client.findOne({ where: { googleId } });
+	const professionalFound = await Client.findOne({ where: { googleId } });
 
-    //BUSCA EN LA DB DATOS DEL USUARIO, AGREGANDO PROPIEDAD "isRegistered"
-    
-    if (!clientFound || !professionalFound) {
-        const userFound = {
-            isRegistered: false,
-            expoToken: null,
-            email:null,
-            name:null,
-            phoneNumber:null,
-            perfilPic:null,
-            province:null,
-            city:null,
-            address:null,
-            reviews:null
-        }
+	//BUSCA EN LA DB DATOS DEL USUARIO, AGREGANDO PROPIEDAD "isRegistered"
 
-        return userFound
-    
-    }
-    else if (clientFound) {
-        console.log(clientFound);
-        const userFound = {
-            isRegistered: true,
-            expoToken: clientFound.dataValues.expoToken,
-            email:clientFound.dataValues.email,
-            name:clientFound.dataValues.name,
-            phoneNumber:clientFound.dataValues.phoneNumber,
-            perfilPic:clientFound.dataValues.perfilPic,
-            province:clientFound.dataValues.province,
-            city:clientFound.dataValues.city,
-            address:clientFound.dataValues.address,
-            reviews:clientFound.dataValues.reviews
-        }
-        return userFound;
-    
-    
-    
-    } 
-    else if (professionalFound){
-        const userFound = {
-            isRegistered: true,
-            expoToken: professionalFound.dataValues.expoToken,
-            email:professionalFound.dataValues.email,
-            name:professionalFound.dataValues.name,
-            phoneNumber:professionalFound.dataValues.phoneNumber,
-            perfilPic:professionalFound.dataValues.perfilPic,
-            province:professionalFound.dataValues.province,
-            city:professionalFound.dataValues.city,
-            address:professionalFound.dataValues.address,
-            reviews:professionalFound.dataValues.reviews
-        }
-        return userFound
-    };
-}
+	if (!clientFound || !professionalFound) {
+		console.log('hola4');
+		const userFound = {
+			isRegistered: false,
+			expoToken: null,
+			email: null,
+			name: null,
+			phoneNumber: null,
+			perfilPic: null,
+			province: null,
+			city: null,
+			address: null,
+			reviews: null,
+		};
 
-module.exports = {checkUser};
+		return userFound;
+	} else if (clientFound) {
+		console.log(clientFound);
+		const userFound = {
+			isRegistered: true,
+			expoToken: clientFound.dataValues.expoToken,
+			email: clientFound.dataValues.email,
+			name: clientFound.dataValues.name,
+			phoneNumber: clientFound.dataValues.phoneNumber,
+			perfilPic: clientFound.dataValues.perfilPic,
+			province: clientFound.dataValues.province,
+			city: clientFound.dataValues.city,
+			address: clientFound.dataValues.address,
+			reviews: clientFound.dataValues.reviews,
+		};
+		return userFound;
+	} else if (professionalFound) {
+		const userFound = {
+			isRegistered: true,
+			expoToken: professionalFound.dataValues.expoToken,
+			email: professionalFound.dataValues.email,
+			name: professionalFound.dataValues.name,
+			phoneNumber: professionalFound.dataValues.phoneNumber,
+			perfilPic: professionalFound.dataValues.perfilPic,
+			province: professionalFound.dataValues.province,
+			city: professionalFound.dataValues.city,
+			address: professionalFound.dataValues.address,
+			reviews: professionalFound.dataValues.reviews,
+		};
+		return userFound;
+	}
+};
 
+module.exports = { checkUser };
