@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
-
+import { useDispatch } from 'react-redux';
 import {
 	SafeAreaView,
 	View,
@@ -15,10 +15,25 @@ import STYLES from './ClientSignUpStyles';
 import COLORS from './Colors';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
+import { createUser } from '../../../Redux/Action';
+
+const falseUser = {
+	googleId: 'hfuidshfuisdhfrereuidqqshf',
+	expoToken: '989089080',
+	firstLogin: true,
+	email: 'elami@elami.com',
+	name: 'Ami',
+	phoneNumber: '4546445',
+	perfilPic: 'fsdfsdfdsfsd',
+	province: 'dsadasdsad',
+	city: 'dsadasdas',
+	address: 'dasdsadas',
+};
 
 const SignUpScreen = ({ navigation }) => {
 	const { width, height } = useWindowDimensions();
 	const [image, setImage] = useState(null);
+	const dispatch = useDispatch();
 
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
@@ -36,9 +51,9 @@ const SignUpScreen = ({ navigation }) => {
 		}
 	};
 
-  const goToHome = ()=>{
-    navigation.navigate('HomeClient')
-  }
+	const goToHome = () => {
+		navigation.navigate('HomeClient');
+	};
 	return (
 		<SafeAreaView
 			style={[
@@ -122,7 +137,7 @@ const SignUpScreen = ({ navigation }) => {
 					</View>
 
 					<View style={STYLES.btnPrimary}>
-						<TouchableOpacity onPress={goToHome}>
+						<TouchableOpacity onPress={() => dispatch(createUser(falseUser))}>
 							<Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
 								Registrate
 							</Text>
