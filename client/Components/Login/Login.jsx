@@ -32,12 +32,11 @@ const Login = () => {
   //CHEQUEA SI HAY DATOS EN EL SECURE STORE
   useEffect(() => {
     getSecureData();
+
     if (activeToken) {
       fetchUserInfoSigned(activeToken);
     }
   }, [activeToken]);
-
-  console.log("ACTIVE TOKEN: " + activeToken);
 
   //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
   async function getSecureData() {
@@ -47,13 +46,13 @@ const Login = () => {
 
   // BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
   function fetchUserInfoSigned(token) {
-    console.log(token);
+    //console.log(token);
     console.log("FETCHEO");
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${token} ` },
     })
       .then((response) => response.json())
-      .then((json) => dispatch(googleLogin(json.id)))
+      .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }
 
