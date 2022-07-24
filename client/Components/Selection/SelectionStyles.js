@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     },
     text: {
         color: "#8781B8",
-        fontFamily: "sans-serif",
+//        fontFamily: "sans-serif",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

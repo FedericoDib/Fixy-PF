@@ -6,7 +6,6 @@ import LoginStack from '../../navigations/LoginStack';
 
 const Main = () => {
 	const user = useSelector((state) => state.user);
-
 	return (
 		<React.Fragment>
 			{Object.getOwnPropertyNames(user).length > 0 ? (

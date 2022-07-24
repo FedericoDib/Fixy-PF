@@ -1,4 +1,4 @@
-import { GET_ALL, GOOGLE_LOGIN } from '../Action/index';
+import { GET_ALL, GOOGLE_LOGIN, LOG_OUT } from '../Action/index';
 const initialState = {
 	professionals: [],
 	user: {},
@@ -14,7 +14,12 @@ const rootReducer = (state = initialState, action) => {
 		case GOOGLE_LOGIN:
 			return {
 				...state,
-				user: action.payload ,
+				user: action.payload,
+			};
+		case LOG_OUT:
+			return {
+				...state,
+				user: action.payload,
 			};
 		default:
 			return state;

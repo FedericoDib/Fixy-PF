@@ -5,6 +5,7 @@ import Selection from '../Components/Selection/Selection';
 import Home_Client from '../Components/Home_Client/Home_Client';
 import ClientSignUp from '../Components/SignUpForm/ClientSignUp/ClientSignUp';
 import ProfessionalSignUp from '../Components/SignUpForm/ProfessionalSignUp/ProfessionalSignUp';
+import Tabs from '../Components/BottomTabNavigation/BottomTabNavigation';
 const Stack = createNativeStackNavigator();
 
 const NotRegisteredStack = () => {
@@ -32,11 +33,11 @@ const NotRegisteredStack = () => {
         component={ClientSignUp}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name='HomeClient'
-        component={Home_Client}
+        component={Tabs}
         options={{ headerShown: false }}
-      /> */}
+      />
       </Stack.Group>
     </Stack.Navigator>
   );

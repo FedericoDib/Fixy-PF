@@ -8,7 +8,10 @@ import {
 import style from "./SelectionStyles"
 
 
-export default function Selection() {
+export default function Selection({navigation}) {
+  const goToForm = () =>{
+    navigation.navigate('ClientSignUp')
+  }
     return (
         <View style={style.mainContainer}>
             <View style={style.titleContainer}>
@@ -16,7 +19,7 @@ export default function Selection() {
             </View>
             <View style={style.buttonsContainer}>
                 <View>
-                    <TouchableOpacity style={style.button}>
+                    <TouchableOpacity style={style.button} onPress={goToForm}>
                         <Text style={style.text}>Cliente</Text>
                         <View>
                             <Image
