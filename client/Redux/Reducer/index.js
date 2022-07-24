@@ -1,6 +1,13 @@
-import { GET_ALL, GOOGLE_LOGIN, LOG_OUT, CREATE_USER } from "../Action/index";
+import {
+  GET_ALL,
+  GOOGLE_LOGIN,
+  LOG_OUT,
+  CREATE_USER,
+  SEARCH_NAME_PROFESSIONAL,
+} from "../Action/index";
 const initialState = {
   professionals: [],
+  copyProfessionals: [],
   user: {},
 };
 
@@ -10,6 +17,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         professionals: action.payload,
+        copyProfessionals: action.payload,
       };
     case GOOGLE_LOGIN:
       return {
@@ -26,6 +34,13 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: { ...state.user, ...action.payload },
+      };
+    case SEARCH_NAME_PROFESSIONAL:
+      return {
+        ...state,
+        professionals: state.copyProfessionals.filter((p) =>
+          p.name.toLowerCase().includes(action.payload.toLowerCase())
+        ),
       };
 
     default:

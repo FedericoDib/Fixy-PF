@@ -3,6 +3,7 @@ export const GOOGLE_LOGIN = "GOOGLE_LOGIN";
 export const GET_ALL = "GET_ALL";
 export const LOG_OUT = "LOG_OUT";
 export const CREATE_USER = "CREATE_USER";
+export const SEARCH_NAME_PROFESSIONAL = "SEARCH_NAME_PROFESSIONAL";
 
 // import db from "../../db.hardcode.json";
 
@@ -53,9 +54,9 @@ export const createUser = (payload) => {
   };
 };
 
-// export const getAllProfessionalsJson = () => {
-// 	return {
-// 		type: GET_ALL,
-// 		payload: db.professional,
-// 	};
-// };
+export const searchProfessional = (name) => {
+  return {
+    type: SEARCH_NAME_PROFESSIONAL,
+    payload: name,
+  };
+};

@@ -4,7 +4,7 @@ import { Stack, TextInput, IconButton } from "@react-native-material/core";
 import React, { useState, useEffect } from "react";
 import style from "./ListStyle";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllProfessionals } from "../../Redux/Action";
+import { getAllProfessionals, searchProfessional } from "../../Redux/Action";
 
 export default function List({ navigation }) {
   const [inputSearch, setInputSearch] = useState("");
@@ -12,22 +12,25 @@ export default function List({ navigation }) {
   const professionals = useSelector((state) => state.professionals);
   const dispatch = useDispatch();
 
-  let newdata = [];
-  let dataDefault = [
-    {
-      name: "Profesional no encontrado",
-    },
-  ];
-  function onChange(e) {
-    setInputSearch(e.text);
-    newdata = professionals.filter((user) => user.name.includes(e.text));
-    setFilterData(newdata);
-  }
+  // let newdata = [];
+  // let dataDefault = [
+  //   {
+  //     name: "Profesional no encontrado",
+  //   },
+  // ];
+  // function onChange(e) {
+  //   setInputSearch(e.text);
+  //   newdata = professionals.filter((user) => user.name.includes(e.text));
+  //   setFilterData(newdata);
+  // }
+  const handleChange = (e) => {
+    dispatch(searchProfessional(e.text));
+  };
   return (
     <View style={style.mainContainer}>
       <View>
         <TextInput
-          onChangeText={(text) => onChange({ text })}
+          onChangeText={(text) => handleChange({ text })}
           label="Buscar"
           variant="outlined"
           // trailing={(props) => (
