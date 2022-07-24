@@ -4,7 +4,7 @@ import slides from "./slides";
 import OnBoardingItem from "./OnBoardingItem";
 import Paginator from "./Paginator";
 
-export default function OnBoarding({navigation}) {
+export default function OnBoarding() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const viewableItemsChangue = useRef(({ viewableItems }) => {
