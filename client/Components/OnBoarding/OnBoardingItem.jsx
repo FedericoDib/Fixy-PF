@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  useWindowDimensions,
-  ScrollView,
-} from "react-native";
-import Constants from "expo-constants";
+	View,
+	Text,
+	Image,
+	StyleSheet,
+	useWindowDimensions,
+	ScrollView,
+} from 'react-native';
+import Constants from 'expo-constants';
 
 export default function OnBoardingItem({ item }) {
   const { width, height } = useWindowDimensions();
