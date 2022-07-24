@@ -1,5 +1,5 @@
 import React from "react";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 //import AppLoading from "expo-app-loading";
 import {
   Flex,
@@ -11,7 +11,7 @@ import {
   Wrap,
 } from "@react-native-material/core";
 import Logo from "../../assets/FIXy.svg";
-import { 
+import {
   Exo2_100Thin,
   Exo2_100Thin_Italic,
   Exo2_200ExtraLight,
@@ -29,15 +29,13 @@ import {
   Exo2_800ExtraBold,
   Exo2_800ExtraBold_Italic,
   Exo2_900Black,
-  Exo2_900Black_Italic 
-} from '@expo-google-fonts/exo-2'
+  Exo2_900Black_Italic,
+} from "@expo-google-fonts/exo-2";
 
 import Icon from "@expo/vector-icons/MaterialIcons";
 import Icon2 from "@expo/vector-icons/FontAwesome5";
 
-const Home_Client = () => {
-
-
+const Home_Client = ({ navigation }) => {
   let [fontsLoaded, error] = useFonts({
     Exo2_100Thin,
     Exo2_100Thin_Italic,
@@ -56,7 +54,7 @@ const Home_Client = () => {
     Exo2_800ExtraBold,
     Exo2_800ExtraBold_Italic,
     Exo2_900Black,
-    Exo2_900Black_Italic 
+    Exo2_900Black_Italic,
   });
 
   if (!fontsLoaded) {
@@ -65,10 +63,18 @@ const Home_Client = () => {
 
   return (
     <>
-      <Flex inline justify="space-between" style={{fontFamily: "Exo2_400Regular"}}>
+      <Flex
+        inline
+        justify="space-between"
+        style={{ fontFamily: "Exo2_400Regular" }}
+      >
         <Box m={30}>
-          <Text style={{fontFamily: "Exo2_700Bold_Italic"}} variant="h6">Hi, Federico</Text>
-          <Text style={{fontFamily: "Exo2_400Regular"}}>How can we help you?</Text>
+          <Text style={{ fontFamily: "Exo2_700Bold_Italic" }} variant="h6">
+            Hi, Federico
+          </Text>
+          <Text style={{ fontFamily: "Exo2_400Regular" }}>
+            How can we help you?
+          </Text>
         </Box>
         <Box m={30}>
           <IconButton
@@ -90,7 +96,9 @@ const Home_Client = () => {
               overflow: "hidden",
             }}
           >
-            <Text style={{fontFamily: "Exo2_400Regular"}}>Active solutions: 0</Text>
+            <Text style={{ fontFamily: "Exo2_400Regular" }}>
+              Active solutions: 0
+            </Text>
           </Box>
           <Box
             ml={10}
@@ -104,13 +112,16 @@ const Home_Client = () => {
               overflow: "hidden",
             }}
           >
-            <Text style={{fontFamily: "Exo2_400Regular"}}>Finished solutions: 0</Text>
+            <Text style={{ fontFamily: "Exo2_400Regular" }}>
+              Finished solutions: 0
+            </Text>
           </Box>
         </Wrap>
         <Box mh={30}>
-        <Logo alignSelf="center" width={300} heigth={300} />
+          <Logo alignSelf="center" width={300} heigth={300} />
           <Button
-            titleStyle={{fontFamily: "Exo2_600SemiBold"}}
+            onPress={() => navigation.navigate("SolutionForm")}
+            titleStyle={{ fontFamily: "Exo2_600SemiBold" }}
             title="I need a solution"
             trailing={(props) => <Icon2 name="house-damage" {...props} />}
           />

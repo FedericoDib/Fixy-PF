@@ -25,9 +25,9 @@ const Login = () => {
       });
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    getSecureData();
-  }, []);
+  // useEffect(() => {
+  //   getSecureData();
+  // }, []);
 
   //CHEQUEA SI HAY DATOS EN EL SECURE STORE
   useEffect(() => {
@@ -41,6 +41,7 @@ const Login = () => {
   //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
   async function getSecureData() {
     let credentials = await SecureStore.getItemAsync("key");
+    console.log("soy credentials", credentials);
     if (credentials) setActiveToken(credentials);
   }
 
@@ -52,6 +53,7 @@ const Login = () => {
       headers: { Authorization: `Bearer ${token} ` },
     })
       .then((response) => response.json())
+      //.then((json) => console.log(json.email))
       .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }

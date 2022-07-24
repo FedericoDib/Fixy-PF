@@ -7,7 +7,7 @@ export const CREATE_USER = "CREATE_USER";
 // import db from "../../db.hardcode.json";
 
 export const googleLogin = (payload) => {
-  console.log("ESTOY EN LA ACTION", payload);
+  // console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
       `http://192.168.0.11:3000/userInfo`,
@@ -20,17 +20,17 @@ export const googleLogin = (payload) => {
   };
 };
 
-// export const getAllProfessionals = (profession) => {
-// 	return async (dispatch) => {
-// 		const info = await axios.get(
-// 			`http://192.168.00.202:3000/professional?profession=${profession}`
-// 		);
-// 		return dispatch({
-// 			type: GET_ALL,
-// 			payload: info.data,
-// 		});
-// 	};
-// };
+export const getAllProfessionals = (profession) => {
+  return async (dispatch) => {
+    const info = await axios.get(
+      `http://192.168.0.11:3000/professional?profession=${profession}`
+    );
+    return dispatch({
+      type: GET_ALL,
+      payload: info.data,
+    });
+  };
+};
 
 export const logOut = () => {
   return { type: LOG_OUT, payload: {} };

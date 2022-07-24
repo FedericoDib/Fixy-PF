@@ -1,6 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home_Client from "../Components/Home_Client/Home_Client";
 import Tabs from "../Components/BottomTabNavigation/BottomTabNavigation";
+import List from "../Components/List/List";
+import Resume from "../Components/Resume/Resume";
+import SolutionScreen from "../Components/SolutionForm/SolutionForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +14,21 @@ const RegisteredStack = () => {
         <Stack.Screen
           name="HomeClient"
           component={Tabs}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SolutionForm"
+          component={SolutionScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="List"
+          component={List}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Resume"
+          component={Resume}
           options={{ headerShown: false }}
         />
       </Stack.Group>
