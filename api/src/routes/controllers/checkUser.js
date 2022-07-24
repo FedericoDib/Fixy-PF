@@ -1,7 +1,10 @@
 const { Client, Professional } = require("../../db");
 
 const checkUser = async ({ id, name, email }) => {
-  const clientFound = await Client.findOne({ where: { googleId: id } });
+  console.log("SOY EL ID", id);
+  const clientFound = await Client.findOne({
+    where: { isRegistered: true },
+  });
   const professionalFound = await Professional.findOne({
     where: { googleId: id },
   });
@@ -25,7 +28,7 @@ const checkUser = async ({ id, name, email }) => {
     return userFound;
   } else if (clientFound) {
     console.log("NOSE", clientFound);
-    return userFound;
+    return clientFound;
   } else if (professionalFound) {
     const userFound = {
       isRegistered: true,

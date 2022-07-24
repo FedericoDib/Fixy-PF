@@ -7,6 +7,7 @@ export const CREATE_USER = "CREATE_USER";
 // import db from "../../db.hardcode.json";
 
 export const googleLogin = (payload) => {
+  console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
       `http://192.168.0.11:3000/userInfo`,

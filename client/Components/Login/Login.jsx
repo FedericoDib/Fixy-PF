@@ -56,6 +56,8 @@ const Login = () => {
       .catch((error) => console.error(error));
   }
 
+  console.log("SOY LOGGED:", isLogged);
+
   useEffect(() => {
     //CHEQUEA SI EL LOGUEO EN GOOGLE FUE CORRECTO, GUARDA LOS DATOS EN SECURE STORE Y PIDE DATOS DEL USUARIO
     if (response?.type === "success") {
@@ -73,11 +75,12 @@ const Login = () => {
 
   // BUSCA EN API GOOGLE INFO DEL USER
   function fetchUserInfo() {
+    console.log("Hola soy una funcion");
     fetch(`https://www.googleapis.com/userinfo/v2/me`, {
       headers: { Authorization: `Bearer ${accesToken}` },
     })
       .then((response) => response.json())
-      .then((json) => dispatch(googleLogin(json.id)))
+      .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }
 

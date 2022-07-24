@@ -7,6 +7,7 @@ router.post("/create", async (req, res) => {
   console.log("holaa");
   console.log("SOY EL BODY:", req.body);
   const {
+    isRegistered,
     expoToken,
     googleId,
     name,
@@ -20,6 +21,7 @@ router.post("/create", async (req, res) => {
   } = req.body;
 
   let user = await Client.create({
+    isRegistered,
     expoToken,
     phoneNumber,
     perfilPic,
