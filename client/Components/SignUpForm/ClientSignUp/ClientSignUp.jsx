@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import {
   SafeAreaView,
   View,
@@ -13,12 +13,27 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import STYLES from "./ClientSignUpStyles";
 import COLORS from "./Colors";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { createUser } from "../../../Redux/Action";
 
 const SignUpScreen = ({ navigation }) => {
+  const user = useSelector((state) => state.user);
+
+  const falseUser = {
+    ...user,
+    isRegistered: true,
+    expoToken: "115515123",
+    phoneNumber: "4546445",
+    perfilPic: "fsdfsdfdsfsd",
+    province: "dsadasdsad",
+    city: "dsadasdas",
+    address: "dasdsadas",
+  };
+  console.log("ESTOY EN SIGNUP", falseUser);
   const { width, height } = useWindowDimensions();
   const [image, setImage] = useState(null);
+  const dispatch = useDispatch();
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -35,10 +50,14 @@ const SignUpScreen = ({ navigation }) => {
       setImage(result.uri);
     }
   };
+
+  const goToHome = () => {
+    navigation.navigate("HomeClient");
+  };
   return (
     <SafeAreaView
       style={[
-        { paddingHorizontal: 40, flex: 3, backgroundColor: "#fff" },
+        { paddingHorizontal: 40, flex: 3, backgroundColor: "#D6D4D8" },
         { width, height },
       ]}
     >
@@ -49,8 +68,8 @@ const SignUpScreen = ({ navigation }) => {
           >
             Bienvenido
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: "bold", color: "green" }}>
-            Sapo Verde
+          <Text style={{ fontSize: 15, fontWeight: "bold", color: "#493d8a" }}>
+            {user.name}
           </Text>
           <Text
             style={{
@@ -71,7 +90,11 @@ const SignUpScreen = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <Button title="Elige una foto de tu Galeria" onPress={pickImage} />
+          <Button
+            style={STYLES.btnGalery}
+            title="Elige una foto de tu Galeria"
+            onPress={pickImage}
+          />
           {image && (
             <Image
               source={{ uri: image }}
@@ -118,9 +141,11 @@ const SignUpScreen = ({ navigation }) => {
           </View>
 
           <View style={STYLES.btnPrimary}>
-            <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-              Registrate
-            </Text>
+            <TouchableOpacity onPress={() => dispatch(createUser(falseUser))}>
+              <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+                Registrate
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
