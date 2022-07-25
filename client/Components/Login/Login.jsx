@@ -7,6 +7,7 @@ import { styles } from "./LoginStyles";
 import * as SecureStore from "expo-secure-store";
 import { useDispatch } from "react-redux";
 import { googleLogin } from "../../Redux/Action";
+import Logo from "../../assets/FIXy.svg";
 
 const MY_SECURE_AUTH_STATE_KEY = "1234";
 
@@ -25,9 +26,6 @@ const Login = () => {
       });
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   getSecureData();
-  // }, []);
 
   //CHEQUEA SI HAY DATOS EN EL SECURE STORE
   useEffect(() => {
@@ -41,24 +39,20 @@ const Login = () => {
   //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
   async function getSecureData() {
     let credentials = await SecureStore.getItemAsync("key");
-    console.log("soy credentials", credentials);
+
     if (credentials) setActiveToken(credentials);
   }
 
   // BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
   function fetchUserInfoSigned(token) {
-    //console.log(token);
-    console.log("FETCHEO");
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${token} ` },
     })
       .then((response) => response.json())
-      //.then((json) => console.log(json.email))
+
       .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }
-
-  console.log("SOY LOGGED:", isLogged);
 
   useEffect(() => {
     //CHEQUEA SI EL LOGUEO EN GOOGLE FUE CORRECTO, GUARDA LOS DATOS EN SECURE STORE Y PIDE DATOS DEL USUARIO
@@ -77,7 +71,6 @@ const Login = () => {
 
   // BUSCA EN API GOOGLE INFO DEL USER
   function fetchUserInfo() {
-    console.log("Hola soy una funcion");
     fetch(`https://www.googleapis.com/userinfo/v2/me`, {
       headers: { Authorization: `Bearer ${accesToken}` },
     })
@@ -86,14 +79,9 @@ const Login = () => {
       .catch((error) => console.error(error));
   }
 
-  //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
-  //   async function getSecureData() {
-  //     let credentials = await SecureStore.getItemAsync("key");
-  //     if (credentials) setActiveToken(credentials);
-  //   }
-
   return (
     <View style={styles.container}>
+      <Logo />
       <View style={styles.wrapper}>
         <Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
         <Text style={styles.subTitle}>Ingresa o Registrate para continuar</Text>
@@ -103,7 +91,7 @@ const Login = () => {
           underlayColor="#ccc"
           style={styles.button}
         >
-          <Text>Continuar con Google</Text>
+          <Text style={styles.textbutton}>Continuar con Google</Text>
         </TouchableHighlight>
       </View>
     </View>

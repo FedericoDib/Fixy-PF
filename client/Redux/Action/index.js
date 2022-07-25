@@ -11,7 +11,7 @@ export const googleLogin = (payload) => {
   // console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
-      `http://192.168.0.11:3000/userInfo`,
+      `http://192.168.1.102:3000/userInfo`,
       payload
     );
     return dispatch({
@@ -24,7 +24,7 @@ export const googleLogin = (payload) => {
 export const getAllProfessionals = (profession) => {
   return async (dispatch) => {
     const info = await axios.get(
-      `http://192.168.0.11:3000/professional?profession=${profession}`
+      `http://192.168.1.102:3000/professional?profession=${profession}`
     );
     return dispatch({
       type: GET_ALL,
@@ -41,7 +41,7 @@ export const createUser = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://192.168.0.11:3000/client/create`,
+        `http://192.168.1.102:3000/client/create`,
         payload
       );
       return dispatch({

@@ -19,6 +19,7 @@ import { createUser } from "../../../Redux/Action";
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
+
   const falseUser = {
     ...user,
     isRegistered: true,
@@ -56,7 +57,7 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <SafeAreaView
       style={[
-        { paddingHorizontal: 40, flex: 3, backgroundColor: "#fff" },
+        { paddingHorizontal: 40, flex: 3, backgroundColor: "#D6D4D8" },
         { width, height },
       ]}
     >
@@ -67,8 +68,8 @@ const SignUpScreen = ({ navigation }) => {
           >
             Bienvenido
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: "bold", color: "green" }}>
-            Sapo Verde
+          <Text style={{ fontSize: 15, fontWeight: "bold", color: "#493d8a" }}>
+            {user.name}
           </Text>
           <Text
             style={{
@@ -89,7 +90,11 @@ const SignUpScreen = ({ navigation }) => {
             marginTop: 20,
           }}
         >
-          <Button title="Elige una foto de tu Galeria" onPress={pickImage} />
+          <Button
+            style={STYLES.btnGalery}
+            title="Elige una foto de tu Galeria"
+            onPress={pickImage}
+          />
           {image && (
             <Image
               source={{ uri: image }}
