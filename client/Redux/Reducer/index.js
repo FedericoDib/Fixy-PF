@@ -1,24 +1,51 @@
-import { GET_ALL, GOOGLE_LOGIN } from '../Action/index';
+import {
+  GET_ALL,
+  GOOGLE_LOGIN,
+  LOG_OUT,
+  CREATE_USER,
+  SEARCH_NAME_PROFESSIONAL,
+} from "../Action/index";
 const initialState = {
-	professionals: [],
-	user: {},
+  professionals: [],
+  copyProfessionals: [],
+  user: {},
 };
 
 const rootReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case GET_ALL:
-			return {
-				...state,
-				professionals: action.payload,
-			};
-		case GOOGLE_LOGIN:
-			return {
-				...state,
-				user: action.payload ,
-			};
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case GET_ALL:
+      return {
+        ...state,
+        professionals: action.payload,
+        copyProfessionals: action.payload,
+      };
+    case GOOGLE_LOGIN:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case CREATE_USER:
+      console.log("ESTOY EN EL REDUCER", action.payload);
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      };
+    case SEARCH_NAME_PROFESSIONAL:
+      return {
+        ...state,
+        professionals: state.copyProfessionals.filter((p) =>
+          p.name.toLowerCase().includes(action.payload.toLowerCase())
+        ),
+      };
+
+    default:
+      return state;
+  }
 };
 
 export default rootReducer;

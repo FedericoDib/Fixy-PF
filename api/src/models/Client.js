@@ -13,6 +13,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      isRegistered: {
+        type: DataTypes.BOOLEAN,
+      },
       firstLogin: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

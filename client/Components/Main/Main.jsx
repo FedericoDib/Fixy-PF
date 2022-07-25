@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+<<<<<<< HEAD
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnBoarding from "../OnBoarding/OnBoarding";
 import Login from "../Login/Login";
@@ -63,4 +64,28 @@ const styles = StyleSheet.create({
     },
 });
 
+=======
+import RegisteredStack from "../../navigations/RegisteredStack";
+import NotRegisteredStack from "../../navigations/NotRegisteredStack";
+import LoginStack from "../../navigations/LoginStack";
+
+const Main = () => {
+  const user = useSelector((state) => state.user);
+  console.log("ESTOY EN MAIN: ", user);
+  return (
+    <React.Fragment>
+      {Object.getOwnPropertyNames(user).length > 0 ? (
+        <React.Fragment>
+          {!user.isRegistered ? <NotRegisteredStack /> : <RegisteredStack />}
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <LoginStack />
+        </React.Fragment>
+      )}
+    </React.Fragment>
+  );
+};
+
+>>>>>>> c474df0fc370f27ca5fa254790266f0c3f0dadd5
 export default Main;

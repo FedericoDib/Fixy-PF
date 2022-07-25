@@ -39,10 +39,10 @@ router.post("/create", async (req, res) => {
 router.get("/", (req, res) => {
   const { profession } = req.query;
 
-  if (profession) {
-    res.send(db.professional.filter((p) => p.profession === profession));
-  } else {
+  if (profession === "Unknown") {
     res.send(db.professional);
+  } else {
+    res.send(db.professional.filter((p) => p.profession === profession));
   }
 });
 

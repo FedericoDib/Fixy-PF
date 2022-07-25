@@ -1,135 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import * as WebBrowser from 'expo-web-browser';
-import * as Google from 'expo-auth-session/providers/google';
-import * as AuthSession from 'expo-auth-session';
-import { fetchUserInfoAsync } from 'expo-auth-session';
-import { Text, TouchableHighlight, View, Platform } from 'react-native';
-import { styles } from './LoginStyles';
-import * as SecureStore from 'expo-secure-store';
-import { useDispatch } from 'react-redux';
-import { googleLogin } from '../../Redux/Action';
-// "client_id":"302940809798-bb9fvtjipv232sglpnrglc228fp28r1q.apps.googleusercontent.com"
-// "client_secret":"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"
+import React, { useState, useEffect } from "react";
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+import * as AuthSession from "expo-auth-session";
+import { Text, TouchableHighlight, View, Platform } from "react-native";
+import { styles } from "./LoginStyles";
+import * as SecureStore from "expo-secure-store";
+import { useDispatch } from "react-redux";
+import { googleLogin } from "../../Redux/Action";
+import Logo from "../../assets/FIXy.svg";
 
-const MY_SECURE_AUTH_STATE_KEY = '1234';
+const MY_SECURE_AUTH_STATE_KEY = "1234";
 
 WebBrowser.maybeCompleteAuthSession();
 const redirectUri = AuthSession.makeRedirectUri({ useProxy: false });
 
 const Login = () => {
-	const [accesToken, setAccessToken] = useState(null);
-	const [user, setUser] = useState(null);
-	const [activeToken, setActiveToken] = useState(null);
-	const [isLogged, setIsLogged] = useState(false);
-	const [request, response, promptAsync] = isLogged
-		? null
-		: Google.useAuthRequest({
-				expoClientId:
-					'302940809798-bb9fvtjipv232sglpnrglc228fp28r1q.apps.googleusercontent.com',
-		  });
+  const [accesToken, setAccessToken] = useState(null);
+  const [activeToken, setActiveToken] = useState(null);
+  const [isLogged, setIsLogged] = useState(false);
+  const [request, response, promptAsync] = isLogged
+    ? null
+    : Google.useAuthRequest({
+        expoClientId:
+          "302940809798-bb9fvtjipv232sglpnrglc228fp28r1q.apps.googleusercontent.com",
+      });
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (user) {
-			dispatch(googleLogin(user.id));
-		}
-	}, [user]);
+  //CHEQUEA SI HAY DATOS EN EL SECURE STORE
+  useEffect(() => {
+    getSecureData();
 
-	useEffect(() => {
-		//CHEQUE SI HAY DATOS EN EL SECURE STORE
-		// let secureData = getSecureData().then(token);
-		// // getSecureData()
-		// // .then(token)
-		// console.log('U',secureData);
-		// if (res){
-		// 	setAccessToken(res);
-		// 	accesToken && fetchUserInfo();
-		// }
+    if (activeToken) {
+      fetchUserInfoSigned(activeToken);
+    }
+  }, [activeToken]);
 
-		if (activeToken) {
-		}
-		//CHEQUEA SI EL LOGUEO EN GOOGLE FUE CORRECTO, GUARDA LOS DATOS EN SECURE STORE Y PIDE DATOS DEL USUARIO
-		if (response?.type === 'success') {
-			const auth = response.params.access_token;
-			const storageValue = JSON.stringify(auth);
+  //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
+  async function getSecureData() {
+    let credentials = await SecureStore.getItemAsync("key");
 
-			if (Platform.OS !== 'web') {
-				SecureStore.setItemAsync('key', storageValue);
-			}
-			const { authentication } = response;
-			setAccessToken(authentication.accessToken);
-			accesToken && fetchUserInfo();
-		}
-		// getValue()
-		// .then(res => {console.log('AUTH DATA',res)});
-	}, [response, accesToken]);
+    if (credentials) setActiveToken(credentials);
+  }
 
-	// BUSCA EN API GOOGLE INFO DEL USER
-	function fetchUserInfo() {
-		fetch(`https://www.googleapis.com/userinfo/v2/me`, {
-			headers: { Authorization: `Bearer ${accesToken}` },
-		})
-			.then((response) => response.json())
-			.then((json) => setUser(json))
-			.catch((error) => console.error(error));
-	}
+  // BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
+  function fetchUserInfoSigned(token) {
+    fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${token} ` },
+    })
+      .then((response) => response.json())
 
-	//TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
-	async function getSecureData() {
-		let credentials = await SecureStore.getItemAsync('key');
+      .then((json) => dispatch(googleLogin(json)))
+      .catch((error) => console.error(error));
+  }
 
-		if (credentials) setActiveToken(credentials);
-		// if(credentials){
-		// 	// console.log('json',credentials)
-		// 		return credentials;
-		// }
-		// else {
-		// 	return null;
-		// }
-	}
+  useEffect(() => {
+    //CHEQUEA SI EL LOGUEO EN GOOGLE FUE CORRECTO, GUARDA LOS DATOS EN SECURE STORE Y PIDE DATOS DEL USUARIO
+    if (response?.type === "success") {
+      const auth = response.params.access_token;
+      const storageValue = JSON.stringify(auth);
 
-	// LOGOUT
-	const handleLogOut = () => {
-		setUser(null);
-		SecureStore.deleteItemAsync('key');
-	};
+      if (Platform.OS !== "web") {
+        SecureStore.setItemAsync("key", storageValue);
+      }
+      const { authentication } = response;
+      setAccessToken(authentication.accessToken);
+      accesToken && fetchUserInfo();
+    }
+  }, [response, accesToken]);
 
-	// function handleLogOut(){
+  // BUSCA EN API GOOGLE INFO DEL USER
+  function fetchUserInfo() {
+    fetch(`https://www.googleapis.com/userinfo/v2/me`, {
+      headers: { Authorization: `Bearer ${accesToken}` },
+    })
+      .then((response) => response.json())
+      .then((json) => dispatch(googleLogin(json)))
+      .catch((error) => console.error(error));
+  }
 
-	// }
-
-	return (
-		<View style={styles.container}>
-			{user === null ? (
-				<View style={styles.wrapper}>
-					<Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
-					<Text style={styles.subTitle}>
-						Ingresa o Registrate para continuar
-					</Text>
-					<TouchableHighlight
-						onPress={() => promptAsync({ redirectUri })}
-						activeOpacity={0.6}
-						underlayColor='#ccc'
-						style={styles.button}
-					>
-						<Text>Continuar con Google</Text>
-					</TouchableHighlight>
-				</View>
-			) : (
-				<View>
-					<Text>Lo lograste!</Text>
-					<TouchableHighlight
-						onPress={() => {
-							handleLogOut();
-						}}
-					>
-						<Text>LOGOUT</Text>
-					</TouchableHighlight>
-				</View>
-			)}
-		</View>
-	);
+  return (
+    <View style={styles.container}>
+      <Logo />
+      <View style={styles.wrapper}>
+        <Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
+        <Text style={styles.subTitle}>Ingresa o Registrate para continuar</Text>
+        <TouchableHighlight
+          onPress={() => promptAsync({ redirectUri })}
+          activeOpacity={0.6}
+          underlayColor="#ccc"
+          style={styles.button}
+        >
+          <Text style={styles.textbutton}>Continuar con Google</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
+  );
 };
 
 export default Login;

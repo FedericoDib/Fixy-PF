@@ -4,7 +4,10 @@ const { Client } = require("../../db");
 const router = Router();
 
 router.post("/create", async (req, res) => {
+  console.log("holaa");
+  console.log("SOY EL BODY:", req.body);
   const {
+    isRegistered,
     expoToken,
     googleId,
     name,
@@ -14,9 +17,11 @@ router.post("/create", async (req, res) => {
     province,
     city,
     address,
+    firstLogin,
   } = req.body;
 
-  await Client.create({
+  let user = await Client.create({
+    isRegistered,
     expoToken,
     phoneNumber,
     perfilPic,
@@ -26,8 +31,10 @@ router.post("/create", async (req, res) => {
     googleId,
     name,
     email,
+    firstLogin,
   });
-  res.send("client modified");
+  console.log(user);
+  res.send(user);
 });
 
 module.exports = router;
