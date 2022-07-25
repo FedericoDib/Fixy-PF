@@ -7,6 +7,7 @@ const modelProfessional = require("./models/Professional");
 const modelRequest = require("./models/Request");
 const modelUserDemo = require("./models/UserList");
 const modelBudget = require("./models/Budget");
+
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -33,7 +34,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Client, Professional, Request } = sequelize.models;
+const { Client, Professional, Request, Budget } = sequelize.models;
 
 // Aca estan las relaciones
 
@@ -47,6 +48,17 @@ Request.belongsTo(Client, {
 // DE PROFESIONALES A REQUESTS
 Professional.belongsToMany(Request, { through: "professional_request" });
 Request.belongsToMany(Professional, { through: "professional_request" });
+
+// DE BUDGET A REQUEST
+Request.hasMany(Budget, { as: "budgets", foreignKey: "requestId" });
+Budget.belongsTo(Request, { foreignKey: "requestId", as: "request" });
+
+// DE PROFESSIONAL A BUDGET
+Professional.hasMany(Budget, { as: "budgets", foreignKey: "professionalId" });
+Budget.belongsTo(Professional, {
+  foreignKey: "professionalId",
+  as: "professional",
+});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
