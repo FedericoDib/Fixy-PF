@@ -1,10 +1,11 @@
 import {
-  GET_ALL,
+  GET_ALL_PROFESSIONALS,
   GOOGLE_LOGIN,
   LOG_OUT,
-  CREATE_USER,
+  CREATE_CLIENT,
   SEARCH_NAME_PROFESSIONAL,
   MERCADO_PAGO,
+  CREATE_PROFESSIONAL
 } from "../Action/index";
 const initialState = {
   professionals: [],
@@ -15,7 +16,7 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL:
+    case GET_ALL_PROFESSIONALS:
       return {
         ...state,
         professionals: action.payload,
@@ -31,8 +32,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-    case CREATE_USER:
-      console.log("ESTOY EN EL REDUCER", action.payload);
+    case CREATE_CLIENT:
       return {
         ...state,
         user: { ...state.user, ...action.payload },
@@ -49,6 +49,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         ordenMp: action.payload,
       };
+    
+    case CREATE_PROFESSIONAL:
+      return {
+        ...state,
+        user: { ...state.user, ...action.payload },
+      }  
 
     default:
       return state;
