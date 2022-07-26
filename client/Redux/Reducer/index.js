@@ -5,12 +5,14 @@ import {
     CREATE_USER,
     SEARCH_NAME_PROFESSIONAL,
     MERCADO_PAGO,
+    GET_ALL_REQUEST,
 } from "../Action/index";
 const initialState = {
     professionals: [],
     copyProfessionals: [],
     user: {},
     ordenMp: "",
+    requests: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -49,7 +51,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 ordenMp: action.payload,
             };
-
+        case GET_ALL_REQUEST:
+            return {
+                ...state,
+                requests: action.payload,
+            };
         default:
             return state;
     }

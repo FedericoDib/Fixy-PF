@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     textContainer: {
         display: "flex",
         flex: 4,
+        paddingLeft: "3%",
     },
     nameAndReviewContainer: {
         flexDirection: "row",
