@@ -4,11 +4,13 @@ import {
   LOG_OUT,
   CREATE_USER,
   SEARCH_NAME_PROFESSIONAL,
+  MERCADO_PAGO,
 } from "../Action/index";
 const initialState = {
   professionals: [],
   copyProfessionals: [],
   user: {},
+  ordenMp: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -41,6 +43,11 @@ const rootReducer = (state = initialState, action) => {
         professionals: state.copyProfessionals.filter((p) =>
           p.name.toLowerCase().includes(action.payload.toLowerCase())
         ),
+      };
+    case MERCADO_PAGO:
+      return {
+        ...state,
+        ordenMp: action.payload,
       };
 
     default:

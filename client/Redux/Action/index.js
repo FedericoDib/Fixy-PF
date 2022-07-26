@@ -4,6 +4,7 @@ export const GET_ALL = "GET_ALL";
 export const LOG_OUT = "LOG_OUT";
 export const CREATE_USER = "CREATE_USER";
 export const SEARCH_NAME_PROFESSIONAL = "SEARCH_NAME_PROFESSIONAL";
+export const MERCADO_PAGO = "MERCADO_PAGO";
 
 // import db from "../../db.hardcode.json";
 
@@ -11,7 +12,7 @@ export const googleLogin = (payload) => {
   // console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
-      `http://192.168.1.102:3000/userInfo`,
+      `https://backend-fixy.herokuapp.com/userInfo`,
       payload
     );
     return dispatch({
@@ -24,7 +25,7 @@ export const googleLogin = (payload) => {
 export const getAllProfessionals = (profession) => {
   return async (dispatch) => {
     const info = await axios.get(
-      `http://192.168.1.102:3000/professional?profession=${profession}`
+      `https://backend-fixy.herokuapp.com/professional?profession=${profession}`
     );
     return dispatch({
       type: GET_ALL,
@@ -41,12 +42,28 @@ export const createUser = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://192.168.1.102:3000/client/create`,
+        `https://backend-fixy.herokuapp.com/client/create`,
         payload
       );
       return dispatch({
         type: CREATE_USER,
         payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const mercadoPago = () => {
+  return async (dispatch) => {
+    try {
+      let response = await axios.post(
+        "https://backend-fixy.herokuapp.com/mp/orden"
+      );
+      return dispatch({
+        type: MERCADO_PAGO,
+        payload: response.data.body.sandbox_init_point,
       });
     } catch (e) {
       console.log(e);
