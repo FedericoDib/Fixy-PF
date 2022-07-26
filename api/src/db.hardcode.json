@@ -1,4 +1,83 @@
 {
+    "request": [
+       
+        {
+            "id": 1,
+            "affair": "Luz",
+            "description": "exploto el foco",
+            "status": "pending",
+            "date": "20/05/2022"
+        },
+        {
+            "id": 2,
+            "affair": "Gas",
+            "description": "caño fuga",
+            "status": "pending",
+            "date": "20/05/2022"
+        },
+
+        {
+            "id": 3,
+            "affair": "Plomeria",
+            "description": "caño roto",
+            "status": "refused",
+            "date": "20/05/2022"
+        },
+
+        {
+            "id": 4,
+            "affair": "Gas",
+            "description": "termo pinchado",
+            "status": "accepted",
+            "date": "20/05/2022"
+        },
+
+        {
+            "id": 5,
+            "affair": "Luz",
+            "description": "termica en mal funcionamiento",
+            "status": "accepted",
+            "date": "20/05/2022"
+        },
+        {
+            "id": 6,
+            "affair": "Plomeria",
+            "description": "cambio llave de paso",
+            "status": "refused",
+            "date": "20/05/2022"
+        },
+        {
+            "id": 7,
+            "affair": "Luz",
+            "description": "cambio de disyuntor",
+            "status": "pending",
+            "date": "20/05/2022"
+        },
+
+        {
+            "id": 8,
+            "affair": "Gas",
+            "description": "colocacion de estufa",
+            "status": "refused",
+            "date": "20/05/2022"
+        },
+         {
+            "id": 9,
+            "affair": "Plomeria",
+            "description": "caño roto",
+            "status": "accepted",
+            "date": "20/05/2022"
+        },
+        {
+            "id": 10,
+            "affair": "Luz",
+            "description": "colocaciopn de puesta a tierra",
+            "status": "pending",
+            "date": "20/05/2022"
+        }
+
+    ],
+    
     "professional": [
         {
             "id": 1,

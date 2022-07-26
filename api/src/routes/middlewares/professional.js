@@ -46,4 +46,19 @@ router.get("/", (req, res) => {
   }
 });
 
+router.get("/profil", async (req, res) => {
+  const id = req.query.id;
+  console.log(id);
+  const profesional = await Professional.findOne({ where: { googleId: id } });
+  res.send(profesional);
+});
+
+router.put("/", async (req, res) => {
+  const id = req.query.id;
+  await Professional.update(req.body, {
+    where: { googleId: id },
+  });
+  res.json({ succes: "se ha modificado" });
+});
+
 module.exports = router;
