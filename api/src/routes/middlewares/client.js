@@ -37,4 +37,19 @@ router.post("/create", async (req, res) => {
   res.send(user);
 });
 
+router.get("/profile", async (req, res) => {
+  const id = req.query.id;
+  console.log(id);
+  const client = await Client.findOne({ where: { googleId: id } });
+  res.send(client);
+});
+
+router.put("/", async (req, res) => {
+  const id = req.query.id;
+  await Client.update(req.body, {
+    where: { googleId: id },
+  });
+  res.json({ succes: "se ha modificado" });
+});
+
 module.exports = router;

@@ -1,14 +1,14 @@
 const { Router } = require("express");
-const { Budget } = require("../../db");
+const { Budget, Request, Professional } = require("../../db");
 
 const router = Router();
 
 // CREA EL BUDGET
 
 router.post("/", async (req, res) => {
-  const { requestId, professionalId, description, price } = req.body;
+  const { description, price, requestId, professionalId } = req.body;
 
-  await Budget.create({ requestId, professionalId, description, price });
+  await Budget.create({ description, price, requestId, professionalId });
 
   res.status(201).send("budget Create");
 });
@@ -16,9 +16,23 @@ router.post("/", async (req, res) => {
 // ENVIA TODOS LOS BUDGETS
 
 router.get("/", async (req, res) => {
-  const budgets = await Budget.findAll();
+  const budget = await Budget.findAll({
+    include: [
+      {
+        model: Request,
+        as: "request",
+        // attributes: ["affair", "description"],
+      },
+      {
+        model: Professional,
+        as: "professional",
+        // attributes: ["name"],
+      },
+    ],
+    // attributes: ["id", "price", "description"],
+  });
 
-  res.status(200).send(budgets);
+  res.send(budget);
 });
 
 // ENVIA SOLO UN BUDGET
@@ -32,10 +46,10 @@ router.get("/:id", async (req, res) => {
 // MODIFICA UN BUDGET
 
 router.put("/:id", async (req, res) => {
-  const { requestId, professionalId, description, price } = req.body;
+  const { description, price } = req.body;
 
   await Budget.update(
-    { requestId, professionalId, description, price },
+    { description, price },
     {
       where: {
         id: req.params.id,
