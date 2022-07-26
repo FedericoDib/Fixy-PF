@@ -33,7 +33,6 @@ const rootReducer = (state = initialState, action) => {
         user: action.payload,
       };
     case CREATE_CLIENT:
-      console.log("ESTOY EN EL REDUCER", action.payload);
       return {
         ...state,
         user: { ...state.user, ...action.payload },

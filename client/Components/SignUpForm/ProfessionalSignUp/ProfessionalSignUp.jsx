@@ -32,7 +32,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 		isRegistered: true,
 		googleId: 'p' + user.googleId,
 	});
-	console.log(user);
+
 
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
@@ -296,12 +296,14 @@ const ProfessionalSignUp = ({ navigation }) => {
 					</Picker>
 
 					<TouchableOpacity
-						onPress={dispatch(
-							createProfessional({
-								...input,
-								availableTimes: [minTime, maxTime],
-							})
-						)}
+						onPress={() =>
+							dispatch(
+								createProfessional({
+									...input,
+									availableTimes: [minTime, maxTime],
+								})
+							)
+						}
 						style={STYLES.btnPrimary}
 					>
 						<Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
