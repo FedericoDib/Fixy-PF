@@ -63,7 +63,7 @@ export const mercadoPago = () => {
       );
       return dispatch({
         type: MERCADO_PAGO,
-        payload: response.data.body.sandbox_init_point,
+        payload: response.data,
       });
     } catch (e) {
       console.log(e);
