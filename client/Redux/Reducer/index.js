@@ -10,7 +10,7 @@ const initialState = {
   professionals: [],
   copyProfessionals: [],
   user: {},
-  ordenMp: {},
+  ordenMp: "",
 };
 
 const rootReducer = (state = initialState, action) => {

@@ -12,7 +12,7 @@ export const googleLogin = (payload) => {
   // console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
-      `https://backend-fixy.herokuapp.com/userInfo`,
+      `http://192.168.0.11:3000/userInfo`,
       payload
     );
     return dispatch({
@@ -25,7 +25,7 @@ export const googleLogin = (payload) => {
 export const getAllProfessionals = (profession) => {
   return async (dispatch) => {
     const info = await axios.get(
-      `https://backend-fixy.herokuapp.com/professional?profession=${profession}`
+      `http://192.168.0.11:3000/professional?profession=${profession}`
     );
     return dispatch({
       type: GET_ALL,
@@ -42,7 +42,7 @@ export const createUser = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `https://backend-fixy.herokuapp.com/client/create`,
+        `http://192.168.0.11:3000/client/create`,
         payload
       );
       return dispatch({
@@ -58,9 +58,8 @@ export const createUser = (payload) => {
 export const mercadoPago = () => {
   return async (dispatch) => {
     try {
-      let response = await axios.post(
-        "https://backend-fixy.herokuapp.com/mp/orden"
-      );
+      let response = await axios.post("http://192.168.0.11:3000/mp/orden");
+      console.log(response.data);
       return dispatch({
         type: MERCADO_PAGO,
         payload: response.data,

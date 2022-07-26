@@ -17,19 +17,24 @@ const ordenPago = async (req, res) => {
       },
     ],
     notification_url:
-      "https://93ca-2800-810-49c-2385-bdcb-93ce-b33d-f116.ngrok.io/mp/notificacion",
+      "https://4fd0-2800-810-49c-2385-1d60-50ab-c460-1742.ngrok.io/mp/notificacion",
   };
 
   mercadopago.preferences
     .create(preference)
-    .then((r) => res.json(r))
+    .then((r) => {
+      let response = r;
+      //console.log(response.body.sandbox_init_point);
+      res.send(response.body.sandbox_init_point);
+    })
     .catch((e) => console.log(e));
 };
 
 const notificacionOrden = async (req, res) => {
   const datos = req.query;
-
-  console.log(datos);
+  console.log("DATOS", datos);
+  const datillos = datos;
+  console.log("DATILLOS", datillos);
 
   res.status(200);
 };

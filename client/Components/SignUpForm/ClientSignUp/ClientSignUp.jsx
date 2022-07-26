@@ -22,6 +22,7 @@ const SignUpScreen = ({ navigation }) => {
 
   const falseUser = {
     ...user,
+    googleId: "c" + user.googleId,
     isRegistered: true,
     expoToken: "115515123",
     phoneNumber: "4546445",
