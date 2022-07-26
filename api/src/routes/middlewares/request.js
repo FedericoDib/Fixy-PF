@@ -1,7 +1,14 @@
 const { Router, request } = require("express");
 const { Professional, Request, Client } = require("../../db");
 
+const db = require("../../db.hardcode.json");
+
 const router = Router();
+
+// router.get("/", async (req, res) => {
+//   console.log(db.request);
+//   res.send("hola");
+// });
 
 router.post("/", async (req, res) => {
   const { clientId, affair, date, description, status } = req.body;
@@ -43,10 +50,10 @@ router.get("/client", async (req, res) => {
       {
         model: Client,
         as: "client",
-        attributes: ["name", "province", "city"],
+        // attributes: ["name", "province", "city"],
       },
     ],
-    attributes: ["affair", "description"],
+    // attributes: ["affair", "description"],
   });
 
   console.log(requests);

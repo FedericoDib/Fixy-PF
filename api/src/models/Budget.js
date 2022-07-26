@@ -17,6 +17,14 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      estimatedBudget: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      turn: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       createdAt: false,
