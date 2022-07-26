@@ -29,6 +29,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      phoneNumber:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       perfilPic: {
         type: DataTypes.STRING,
         defaultValue: "-",
