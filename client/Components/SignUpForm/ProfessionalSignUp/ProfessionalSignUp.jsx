@@ -16,15 +16,17 @@ import STYLES from './ProfessionalSignUpStyles';
 import COLORS from './Colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as ImagePicker from 'expo-image-picker';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Picker } from '@react-native-picker/picker';
+import { createProfessional } from '../../../Redux/Action';
 
 const ProfessionalSignUp = ({ navigation }) => {
 	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
 	const { width, height } = useWindowDimensions();
 	const [image, setImage] = useState(null);
 	const [minTime, setMinTime] = useState('00:00');
-  const [maxTime, setMaxTime] = useState('23:00');
+	const [maxTime, setMaxTime] = useState('23:00');
 	const [input, setInput] = useState({
 		...user,
 		isRegistered: true,
@@ -47,8 +49,6 @@ const ProfessionalSignUp = ({ navigation }) => {
 			setImage(result.uri);
 		}
 	};
-
-
 
 	return (
 		<SafeAreaView
@@ -258,7 +258,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 							<Picker.Item label={value} value={value} key={`min${value}`} />
 						))}
 					</Picker>
-            <Text style={STYLES.input}>Horario final</Text>
+					<Text style={STYLES.input}>Horario final</Text>
 					<Picker
 						selectedValue={maxTime}
 						onValueChange={(value) => setMaxTime(value)}
@@ -296,7 +296,12 @@ const ProfessionalSignUp = ({ navigation }) => {
 					</Picker>
 
 					<TouchableOpacity
-						onPress={console.log(input)}
+						onPress={dispatch(
+							createProfessional({
+								...input,
+								availableTimes: [minTime, maxTime],
+							})
+						)}
 						style={STYLES.btnPrimary}
 					>
 						<Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>

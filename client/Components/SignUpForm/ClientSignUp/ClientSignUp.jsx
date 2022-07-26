@@ -16,7 +16,7 @@ import STYLES from './ClientSignUpStyles';
 import COLORS from './Colors';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { createUser } from '../../../Redux/Action';
+import { createClient } from '../../../Redux/Action';
 
 const SignUpScreen = ({ navigation }) => {
 	const user = useSelector((state) => state.user);
@@ -149,7 +149,7 @@ const SignUpScreen = ({ navigation }) => {
 					</View>
 
 					<View style={STYLES.btnPrimary}>
-						<TouchableOpacity onPress={() => dispatch(createUser(input))}>
+						<TouchableOpacity onPress={() => dispatch(createClient(input))}>
 							<Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18 }}>
 								Registrate
 							</Text>

@@ -1,10 +1,11 @@
 import axios from 'axios';
 export const GOOGLE_LOGIN = 'GOOGLE_LOGIN';
-export const GET_ALL = 'GET_ALL';
+export const GET_ALL_PROFESSIONALS = 'GET_ALL_PROFESSIONALS';
 export const LOG_OUT = 'LOG_OUT';
-export const CREATE_USER = 'CREATE_USER';
+export const CREATE_CLIENT = 'CREATE_CLIENT';
 export const SEARCH_NAME_PROFESSIONAL = 'SEARCH_NAME_PROFESSIONAL';
 export const MERCADO_PAGO = 'MERCADO_PAGO';
+export const CREATE_PROFESSIONAL = 'CREATE_PROFESSIONAL';
 
 // import db from "../../db.hardcode.json";
 
@@ -28,7 +29,7 @@ export const getAllProfessionals = (profession) => {
 			`http://192.168.0.202:3000/professional?profession=${profession}`
 		);
 		return dispatch({
-			type: GET_ALL,
+			type: GET_ALL_PROFESSIONALS,
 			payload: info.data,
 		});
 	};
@@ -38,7 +39,7 @@ export const logOut = () => {
 	return { type: LOG_OUT, payload: {} };
 };
 
-export const createUser = (payload) => {
+export const createClient = (payload) => {
 	return async (dispatch) => {
 		try {
 			let response = await axios.post(
@@ -46,7 +47,24 @@ export const createUser = (payload) => {
 				payload
 			);
 			return dispatch({
-				type: CREATE_USER,
+				type: CREATE_CLIENT,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const createProfessional = (payload) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.post(
+				`http://192.168.0.202:3000/professional/create`,
+				payload
+			);
+			return dispatch({
+				type: CREATE_PROFESSIONAL,
 				payload: response.data,
 			});
 		} catch (e) {

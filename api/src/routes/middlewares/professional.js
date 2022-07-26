@@ -21,7 +21,7 @@ router.post("/create", async (req, res) => {
     expoToken,
   } = req.body;
 
-  await Professional.create({
+  let newProfessional = await Professional.create({
     perfilPic,
     enrollment,
     profession,
@@ -35,7 +35,7 @@ router.post("/create", async (req, res) => {
     email,
     expoToken,
   });
-  res.send("profesional modified");
+  res.send(newProfessional);
 });
 
 router.get("/", (req, res) => {
