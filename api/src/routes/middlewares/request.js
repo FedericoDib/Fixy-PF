@@ -13,7 +13,7 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { clientId, affair, date, description, status } = req.body;
 
-  await Request.create({
+  let newRequest = await Request.create({
     clientId,
     affair,
     date,
@@ -21,14 +21,13 @@ router.post("/", async (req, res) => {
     status,
   });
 
-  res.send("Solicitud creada con exito");
+  res.send(newRequest);
 });
 
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { googleId } = req.body;
+router.put("/", async (req, res) => {
+  const { googleId, idRequest } = req.body;
 
-  const request = await Request.findOne({ where: { id } });
+  const request = await Request.findOne({ where: { id: idRequest } });
   const professional = await Professional.findOne({
     where: { googleId },
   });

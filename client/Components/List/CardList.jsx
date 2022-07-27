@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
+import { useDispatch, useSelector } from "react-redux";
+import { requestToProfessional } from "../../Redux/Action";
 import styles from "./CardListStyle";
 
 export default function CardList({ item, navigation }) {
@@ -17,12 +19,21 @@ export default function CardList({ item, navigation }) {
     rating.reduce((accumulator, currentValue) => accumulator + currentValue) /
     item.reviews.length;
 
+  const dispatch = useDispatch();
+  const request = useSelector((state) => state.request);
+
+  const handleSubmit = () => {
+    dispatch(
+      requestToProfessional({ googleId: item.googleId, idRequest: request.id })
+    );
+  };
+
   return (
     <ScrollView>
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="white"
-        onPress={() => navigation.navigate("Pay")}
+        onPress={() => handleSubmit()}
       >
         <View style={styles.cardContainer}>
           <View style={styles.imageContainer}>

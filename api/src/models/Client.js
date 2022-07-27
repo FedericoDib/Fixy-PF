@@ -36,7 +36,6 @@ module.exports = (sequelize) => {
       perfilPic: {
         type: DataTypes.STRING,
         defaultValue: "-",
-        allowNull: false,
       },
       province: {
         type: DataTypes.STRING,

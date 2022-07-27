@@ -5,12 +5,15 @@ import {
   CREATE_CLIENT,
   SEARCH_NAME_PROFESSIONAL,
   MERCADO_PAGO,
-  CREATE_PROFESSIONAL
+  CREATE_PROFESSIONAL,
+  CREATE_REQUEST,
+  REQUEST_TO_PROFESSIONAL,
 } from "../Action/index";
 const initialState = {
   professionals: [],
   copyProfessionals: [],
   user: {},
+  request: {},
   ordenMp: "",
 };
 
@@ -49,12 +52,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         ordenMp: action.payload,
       };
-    
+
     case CREATE_PROFESSIONAL:
       return {
         ...state,
         user: { ...state.user, ...action.payload },
-      }  
+      };
+    case CREATE_REQUEST:
+      return {
+        ...state,
+        request: action.payload,
+      };
+    case REQUEST_TO_PROFESSIONAL:
+      return {
+        ...state,
+      };
 
     default:
       return state;
