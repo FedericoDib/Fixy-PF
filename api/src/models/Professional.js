@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       },
       expoToken: {
         type: DataTypes.STRING,
-        allowNull: false,
+        //allowNull: false,
       },
       status: {
         type: DataTypes.BOOLEAN,
@@ -21,6 +21,9 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+      isRegistered: {
+        type: DataTypes.BOOLEAN,
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -29,10 +32,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      phoneNumber:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       perfilPic: {
         type: DataTypes.STRING,
         defaultValue: "-",
-        allowNull: false,
+        //allowNull: false,
       },
       enrollment: {
         type: DataTypes.STRING,

@@ -4,8 +4,6 @@ const { Client } = require("../../db");
 const router = Router();
 
 router.post("/create", async (req, res) => {
-  console.log("holaa");
-  console.log("SOY EL BODY:", req.body);
   const {
     isRegistered,
     expoToken,
@@ -33,7 +31,6 @@ router.post("/create", async (req, res) => {
     email,
     firstLogin,
   });
-  console.log(user);
   res.send(user);
 });
 
