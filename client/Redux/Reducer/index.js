@@ -1,23 +1,25 @@
 import {
-	GET_ALL,
+	GET_ALL_PROFESSIONALS,
 	GOOGLE_LOGIN,
 	LOG_OUT,
-	CREATE_USER,
+	CREATE_CLIENT,
 	SEARCH_NAME_PROFESSIONAL,
 	MERCADO_PAGO,
-	GET_ALL_REQUEST,
+	CREATE_PROFESSIONAL,
+	CREATE_REQUEST,
+	REQUEST_TO_PROFESSIONAL,
 } from '../Action/index';
 const initialState = {
 	professionals: [],
 	copyProfessionals: [],
 	user: {},
+	request: {},
 	ordenMp: '',
-	requests: [],
 };
 
 const rootReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case GET_ALL:
+		case GET_ALL_PROFESSIONALS:
 			return {
 				...state,
 				professionals: action.payload,
@@ -33,8 +35,7 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				user: action.payload,
 			};
-		case CREATE_USER:
-			console.log('ESTOY EN EL REDUCER', action.payload);
+		case CREATE_CLIENT:
 			return {
 				...state,
 				user: { ...state.user, ...action.payload },
@@ -51,11 +52,22 @@ const rootReducer = (state = initialState, action) => {
 				...state,
 				ordenMp: action.payload,
 			};
-		case GET_ALL_REQUEST:
+
+		case CREATE_PROFESSIONAL:
 			return {
 				...state,
-				requests: action.payload,
+				user: { ...state.user, ...action.payload },
 			};
+		case CREATE_REQUEST:
+			return {
+				...state,
+				request: action.payload,
+			};
+		case REQUEST_TO_PROFESSIONAL:
+			return {
+				...state,
+			};
+
 		default:
 			return state;
 	}

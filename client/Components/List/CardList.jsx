@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
+import { useDispatch, useSelector } from "react-redux";
+import { requestToProfessional } from "../../Redux/Action";
 import styles from "./CardListStyle";
 import { useSelector } from "react-redux";
 
@@ -23,18 +25,26 @@ export default function CardList({ item, navigation }) {
     } else {
     }
 
-    return (
-        <ScrollView>
-            {user.googleId[0] === "c" ? (
-                <TouchableHighlight
-                    activeOpacity={0.9}
-                    underlayColor="white"
-                    onPress={() => navigation.navigate("Resume")}
-                >
-                    <View style={styles.cardContainer}>
-                        <View style={styles.imageContainer}>
-                            <Icon name="user" color="black" size={40} />
-                            {/* <Image
+  const dispatch = useDispatch();
+  const request = useSelector((state) => state.request);
+
+  const handleSubmit = () => {
+    dispatch(
+      requestToProfessional({ googleId: item.googleId, idRequest: request.id })
+    );
+  };
+
+  return (
+    <ScrollView>
+      <TouchableHighlight
+        activeOpacity={0.9}
+        underlayColor="white"
+        onPress={() => handleSubmit()}
+      >
+        <View style={styles.cardContainer}>
+          <View style={styles.imageContainer}>
+            <Icon name="user" color="black" size={40} />
+            {/* <Image
         source={item.image}
     /> */}
                         </View>

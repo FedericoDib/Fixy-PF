@@ -5,19 +5,26 @@ const router = Router();
 
 const db = require('../../db.hardcode.json');
 
-router.get('/', async (req, res) => {
-	res.send(db.request);
-});
-
 router.post('/', async (req, res) => {
 	const { clientId, affair, date, description, status } = req.body;
 
-	await Request.create({
+	let newRequest = await Request.create({
 		clientId,
 		affair,
 		date,
 		description,
 		status,
+	});
+
+	res.send(newRequest);
+});
+
+router.put('/', async (req, res) => {
+	const { googleId, idRequest } = req.body;
+
+	const request = await Request.findOne({ where: { id: idRequest } });
+	const professional = await Professional.findOne({
+		where: { googleId },
 	});
 
 	res.send('Solicitud creada con exito');
