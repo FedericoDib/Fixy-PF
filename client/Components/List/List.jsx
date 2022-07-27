@@ -9,9 +9,15 @@ import { getAllProfessionals, searchProfessional } from "../../Redux/Action";
 export default function List({ navigation }) {
     const [inputSearch, setInputSearch] = useState("");
     const [filterData, setFilterData] = useState([]);
+    const [data, setData] = useState([]);
     const professionals = useSelector((state) => state.professionals);
+    const requests = useSelector((state) => state.requests);
+    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
+    if (!data.length) {
+        user.googleId[0] === "c" ? setData(professionals) : setData(requests);
+    }
     // let newdata = [];
     // let dataDefault = [
     //   {
@@ -28,19 +34,23 @@ export default function List({ navigation }) {
     };
     return (
         <View style={style.mainContainer}>
-            <View style={{ flex: 1 }}>
-                <TextInput
-                    onChangeText={(text) => handleChange({ text })}
-                    label="Buscar"
-                    variant="outlined"
-                    // trailing={(props) => (
-                    //     <IconButton
-                    //         icon={(props) => <Icon name="search" {...props} />}
-                    //         {...props}
-                    //     />
-                    // )}
-                />
-            </View>
+            {user.googleId[0] === "c" ? (
+                <View style={{ flex: 1 }}>
+                    <TextInput
+                        onChangeText={(text) => handleChange({ text })}
+                        label="Buscar"
+                        variant="outlined"
+                        // trailing={(props) => (
+                        //     <IconButton
+                        //         icon={(props) => <Icon name="search" {...props} />}
+                        //         {...props}
+                        //     />
+                        // )}
+                    />
+                </View>
+            ) : (
+                <View></View>
+            )}
             <View style={{ flex: 10 }}>
                 <FlatList
                     data={
@@ -48,7 +58,7 @@ export default function List({ navigation }) {
                             ? filterData
                             : inputSearch.length
                             ? dataDefault
-                            : professionals
+                            : data
                     }
                     renderItem={({ item }) => (
                         <CardList navigation={navigation} item={item} />
