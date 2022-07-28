@@ -33,32 +33,32 @@ export default function CardList({ item, navigation }) {
 
   return (
     <ScrollView>
-      {user.googleId[0] === "c" ? (
-        <TouchableHighlight
-          activeOpacity={0.9}
-          underlayColor="white"
-          onPress={() => handleSubmit()}
-        >
-          <View style={styles.cardContainer}>
-            <View style={styles.imageContainer}>
-              <Icon name="user" color="black" size={40} />
-              {/* <Image
+      {/* {user.googleId[0] === "c" ? ( */}
+      <TouchableHighlight
+        activeOpacity={0.9}
+        underlayColor="white"
+        onPress={() => handleSubmit()}
+      >
+        <View style={styles.cardContainer}>
+          <View style={styles.imageContainer}>
+            <Icon name="user" color="black" size={40} />
+            {/* <Image
         source={item.image}
     /> */}
-            </View>
-            <View style={styles.textContainer}>
-              <View style={styles.nameAndReviewContainer}>
-                <Text style={styles.textName}>{item.name}</Text>
-                <View style={styles.reviewContainer}>
-                  <IconStart name="star" color="#E1C85A" size={19} />
-                  <Text style={styles.textName}>{item.rating}</Text>
-                </View>
-              </View>
-              <Text style={styles.textProfession}>{item.profession}</Text>
-            </View>
           </View>
-        </TouchableHighlight>
-      ) : (
+          <View style={styles.textContainer}>
+            <View style={styles.nameAndReviewContainer}>
+              <Text style={styles.textName}>{item.name}</Text>
+              <View style={styles.reviewContainer}>
+                <IconStart name="star" color="#E1C85A" size={19} />
+                <Text style={styles.textName}>{item.rating}</Text>
+              </View>
+            </View>
+            <Text style={styles.textProfession}>{item.profession}</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+      {/* ) : (
         <TouchableHighlight
           activeOpacity={0.9}
           underlayColor="white"
@@ -81,7 +81,7 @@ export default function CardList({ item, navigation }) {
             </View>
           </View>
         </TouchableHighlight>
-      )}
+      )} */}
     </ScrollView>
   );
 }
