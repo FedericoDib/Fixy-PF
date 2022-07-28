@@ -15,7 +15,7 @@ import COLORS from "../SignUpForm/ClientSignUp/Colors";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch } from "react-redux";
-import { getAllProfessionals } from "../../Redux/Action";
+import { createRequest, getAllProfessionals } from "../../Redux/Action";
 import PrimaryButton from "../General/PrimaryButton";
 
 const SolutionScreen = ({ navigation }) => {
@@ -24,8 +24,12 @@ const SolutionScreen = ({ navigation }) => {
   const [Hour, setHour] = useState("Unknown");
   const [Professional, setProfessional] = useState("Unknown");
   const [text, onChangeText] = React.useState(null);
+  const [input, setInput] = useState({
+    affair: "Heladera",
+  });
 
   const handleSubmit = () => {
+    dispatch(createRequest(input));
     dispatch(getAllProfessionals(Professional));
     navigation.navigate("List");
   };
@@ -58,7 +62,11 @@ const SolutionScreen = ({ navigation }) => {
         </View>
         <Text style={{ marginTop: 25, fontWeigth: 500 }}>Fecha</Text>
         <View style={STYLES.inputContainer}>
-          <TextInput placeholder="DD/MM/AAAA" style={STYLES.input} />
+          <TextInput
+            placeholder="DD/MM/AAAA"
+            onChangeText={(text) => setInput({ ...input, date: text })}
+            style={STYLES.input}
+          />
           <Icon1
             name="calendar"
             color={COLORS.light}
@@ -104,7 +112,7 @@ const SolutionScreen = ({ navigation }) => {
             multiline
             numberOfLines={5}
             style={{ margin: 12, borderWidth: 1, borderRadius: 5, width: 345 }}
-            onChangeText={onChangeText}
+            onChangeText={(text) => setInput({ ...input, description: text })}
             value={text}
             placeholder="Describe tu problema..."
           />

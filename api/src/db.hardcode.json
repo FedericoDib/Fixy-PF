@@ -1,83 +1,191 @@
 {
     "request": [
-       
         {
-            "id": 1,
-            "affair": "Luz",
-            "description": "exploto el foco",
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
             "status": "pending",
-            "date": "20/05/2022"
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
         },
         {
-            "id": 2,
-            "affair": "Gas",
-            "description": "caño fuga",
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
             "status": "pending",
-            "date": "20/05/2022"
-        },
-
-        {
-            "id": 3,
-            "affair": "Plomeria",
-            "description": "caño roto",
-            "status": "refused",
-            "date": "20/05/2022"
-        },
-
-        {
-            "id": 4,
-            "affair": "Gas",
-            "description": "termo pinchado",
-            "status": "accepted",
-            "date": "20/05/2022"
-        },
-
-        {
-            "id": 5,
-            "affair": "Luz",
-            "description": "termica en mal funcionamiento",
-            "status": "accepted",
-            "date": "20/05/2022"
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
         },
         {
-            "id": 6,
-            "affair": "Plomeria",
-            "description": "cambio llave de paso",
-            "status": "refused",
-            "date": "20/05/2022"
-        },
-        {
-            "id": 7,
-            "affair": "Luz",
-            "description": "cambio de disyuntor",
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
             "status": "pending",
-            "date": "20/05/2022"
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
         },
-
         {
-            "id": 8,
-            "affair": "Gas",
-            "description": "colocacion de estufa",
-            "status": "refused",
-            "date": "20/05/2022"
-        },
-         {
-            "id": 9,
-            "affair": "Plomeria",
-            "description": "caño roto",
-            "status": "accepted",
-            "date": "20/05/2022"
-        },
-        {
-            "id": 10,
-            "affair": "Luz",
-            "description": "colocaciopn de puesta a tierra",
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
             "status": "pending",
-            "date": "20/05/2022"
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
+        },
+        {
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
+            "status": "pending",
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
+        },
+        {
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
+            "status": "pending",
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
+        },
+        {
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco en mi cuarto",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
+            "status": "pending",
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
+        },
+        {
+            "id": "fe5398dc-666b-4fa3-a970-a1c6775e716d",
+            "affair": "exploto el foco",
+            "date": "26/07/2022",
+            "description": "prendi la luz y exploto",
+            "status": "pending",
+            "budget": null,
+            "clientId": "3",
+            "client": {
+                "googleId": "3",
+                "expoToken": "1",
+                "isRegistered": null,
+                "firstLogin": true,
+                "email": "jose@fixy.com",
+                "name": "Juan Marinez",
+                "phoneNumber": "1142451823",
+                "perfilPic": "unafoto",
+                "province": "cordoba",
+                "city": "berazategui",
+                "address": "sdf 123",
+                "reviews": [{}]
+            }
         }
-
     ],
-    
+
     "professional": [
         {
             "id": 1,
@@ -86,9 +194,11 @@
             "profession": "electricista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
+            "reviews": [
+                {
+                    "rating": "3"
+                }
+            ]
         },
         {
             "id": 2,
@@ -97,9 +207,11 @@
             "profession": "electricista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 3,
@@ -108,9 +220,11 @@
             "profession": "electricista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 4,
@@ -119,9 +233,11 @@
             "profession": "electricista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
+            "reviews": [
+                {
+                    "rating": "4"
+                }
+            ]
         },
         {
             "id": 5,
@@ -130,9 +246,11 @@
             "profession": "electricista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
+            "reviews": [
+                {
+                    "rating": "2"
+                }
+            ]
         },
         {
             "id": 6,
@@ -141,9 +259,11 @@
             "profession": "plomero",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
+            "reviews": [
+                {
+                    "rating": "3"
+                }
+            ]
         },
         {
             "id": 7,
@@ -152,9 +272,11 @@
             "profession": "plomero",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 8,
@@ -163,9 +285,11 @@
             "profession": "plomero",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 9,
@@ -174,9 +298,11 @@
             "profession": "plomero",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
+            "reviews": [
+                {
+                    "rating": "4"
+                }
+            ]
         },
         {
             "id": 10,
@@ -185,9 +311,11 @@
             "profession": "plomero",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
+            "reviews": [
+                {
+                    "rating": "2"
+                }
+            ]
         },
         {
             "id": 11,
@@ -196,9 +324,11 @@
             "profession": "gasista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
+            "reviews": [
+                {
+                    "rating": "3"
+                }
+            ]
         },
         {
             "id": 12,
@@ -207,9 +337,11 @@
             "profession": "gasista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 13,
@@ -218,9 +350,11 @@
             "profession": "gasista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
+            "reviews": [
+                {
+                    "rating": "5"
+                }
+            ]
         },
         {
             "id": 14,
@@ -229,9 +363,11 @@
             "profession": "gasista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
+            "reviews": [
+                {
+                    "rating": "4"
+                }
+            ]
         },
         {
             "id": 15,
@@ -240,179 +376,213 @@
             "profession": "gasista",
             "province": "Buenos Aires",
             "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
+            "reviews": [
+                {
+                    "rating": "2"
+                }
+            ]
         }
     ],
     "budget": {
         "id": 1,
         "description": "Budget for your solution",
         "price": "6000",
-        "professional": [{
-            "id": 1,
-            "name": "Maximillian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "electricista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
-        },
-        {
-            "id": 2,
-            "name": "Fiorenza M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "electricista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 3,
-            "name": "Javier M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "electricista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 4,
-            "name": "Marian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "electricista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
-        },
-        {
-            "id": 5,
-            "name": "Frederick M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "electricista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
-        },
-        {
-            "id": 6,
-            "name": "Maximillian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "plomero",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
-        },
-        {
-            "id": 7,
-            "name": "Fiorenza M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "plomero",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 8,
-            "name": "Javier M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "plomero",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 9,
-            "name": "Marian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "plomero",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
-        },
-        {
-            "id": 10,
-            "name": "Frederick M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "plomero",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
-        },
-        {
-            "id": 11,
-            "name": "Maximillian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "gasista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "3"
-            }]
-        },
-        {
-            "id": 12,
-            "name": "Fiorenza M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "gasista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 13,
-            "name": "Javier M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "gasista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "5"
-            }]
-        },
-        {
-            "id": 14,
-            "name": "Marian M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "gasista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "4"
-            }]
-        },
-        {
-            "id": 15,
-            "name": "Frederick M. Smith",
-            "perfilPic": "https://randomuser.me/api/portraits",
-            "profession": "gasista",
-            "province": "Buenos Aires",
-            "city": "Buenos Aires",
-            "reviews": [{
-                "rating": "2"
-            }]
-        }]
+        "professional": [
+            {
+                "id": 1,
+                "name": "Maximillian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "electricista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "3"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Fiorenza M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "electricista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "name": "Javier M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "electricista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Marian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "electricista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "4"
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "name": "Frederick M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "electricista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "2"
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "name": "Maximillian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "plomero",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "3"
+                    }
+                ]
+            },
+            {
+                "id": 7,
+                "name": "Fiorenza M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "plomero",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 8,
+                "name": "Javier M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "plomero",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 9,
+                "name": "Marian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "plomero",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "4"
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "name": "Frederick M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "plomero",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "2"
+                    }
+                ]
+            },
+            {
+                "id": 11,
+                "name": "Maximillian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "gasista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "3"
+                    }
+                ]
+            },
+            {
+                "id": 12,
+                "name": "Fiorenza M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "gasista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 13,
+                "name": "Javier M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "gasista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "5"
+                    }
+                ]
+            },
+            {
+                "id": 14,
+                "name": "Marian M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "gasista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "4"
+                    }
+                ]
+            },
+            {
+                "id": 15,
+                "name": "Frederick M. Smith",
+                "perfilPic": "https://randomuser.me/api/portraits",
+                "profession": "gasista",
+                "province": "Buenos Aires",
+                "city": "Buenos Aires",
+                "reviews": [
+                    {
+                        "rating": "2"
+                    }
+                ]
+            }
+        ]
     }
 }

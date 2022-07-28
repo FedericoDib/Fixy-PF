@@ -3,10 +3,10 @@ const { Client, Professional } = require("../../db");
 const checkUser = async ({ id, name, email }) => {
   console.log("SOY EL ID", id);
   const clientFound = await Client.findOne({
-    where: { googleId: id },
+    where: { googleId: "c" + id },
   });
   const professionalFound = await Professional.findOne({
-    where: { googleId: id },
+    where: { googleId: "p" + id },
   });
 
   //BUSCA EN LA DB DATOS DEL USUARIO, AGREGANDO PROPIEDAD "isRegistered"

@@ -1,6 +1,31 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
+	mainContainer: {
+		flex: 1,
+		marginTop: '10%',
+		marginHorizontal: '5%',
+	},
+	textContainer: {
+		marginVertical: '0.5%',
+	},
+	centerField: {
+		backgroundColor: '#9BBBFC',
+		padding: '2%',
+		borderRadius: 10,
+		alignItems: 'center',
+		marginTop: '2%',
+	},
+	button: {
+		backgroundColor: '#F9CE67',
+		borderRadius: 10,
+		marginTop: '5%',
+	},
+	textButton: {
+		padding: '2.5%',
+		borderRadius: 10,
+		alignItems: 'center',
+	},
 	cardContainer: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -8,7 +33,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 10,
 		overflow: 'hidden',
-		margin: 10,
+		marginVertical: '2%',
 		backgroundColor: '#FFFFFF',
 	},
 	textName: {
@@ -24,25 +49,24 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-	textContainer: {
+	textCardContainer: {
 		display: 'flex',
 		flex: 4,
-		paddingLeft: '3%',
 	},
 	nameAndReviewContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginRight: 10,
+		marginRight: '5%',
 	},
 	reviewContainer: {
 		flexDirection: 'row',
 		backgroundColor: '#FFF5E7',
-		padding: 4,
+		padding: '2%',
 		borderRadius: 10,
-		paddingHorizontal: 10,
+		paddingHorizontal: '5%',
 		justifyContent: 'space-around',
-		width: 70,
+		width: '30%',
 	},
 });
 
-export default styles;
+export default style;

@@ -6,34 +6,31 @@ import {
   View,
   Text,
   Button,
-  TextInput,
   Image,
+  TextInput,
   useWindowDimensions,
 } from "react-native";
+
 import Icon from "react-native-vector-icons/MaterialIcons";
 import STYLES from "./ClientSignUpStyles";
 import COLORS from "./Colors";
 import { ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { createUser } from "../../../Redux/Action";
+import { createClient } from "../../../Redux/Action";
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
-
-  const falseUser = {
-    ...user,
-    isRegistered: true,
-    expoToken: "115515123",
-    phoneNumber: "4546445",
-    perfilPic: "fsdfsdfdsfsd",
-    province: "dsadasdsad",
-    city: "dsadasdas",
-    address: "dasdsadas",
-  };
-  console.log("ESTOY EN SIGNUP", falseUser);
   const { width, height } = useWindowDimensions();
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
+  const [input, setInput] = useState({
+    ...user,
+    isRegistered: true,
+    googleId: "c" + "11",
+    expoToken: "11",
+    name: "marianou",
+    email: "marianou@gmail.com",
+  });
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -44,16 +41,13 @@ const SignUpScreen = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
+    console.log(result.uri);
 
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
-  const goToHome = () => {
-    navigation.navigate("HomeClient");
-  };
   return (
     <SafeAreaView
       style={[
@@ -110,7 +104,11 @@ const SignUpScreen = ({ navigation }) => {
               size={20}
               style={STYLES.inputIcon}
             />
-            <TextInput placeholder="Celular" style={STYLES.input} />
+            <TextInput
+              placeholder="Celular"
+              style={STYLES.input}
+              onChangeText={(text) => setInput({ ...input, phoneNumber: text })}
+            />
           </View>
           <View style={STYLES.inputContainer}>
             <Icon
@@ -119,7 +117,11 @@ const SignUpScreen = ({ navigation }) => {
               size={20}
               style={STYLES.inputIcon}
             />
-            <TextInput placeholder="Provincia" style={STYLES.input} />
+            <TextInput
+              placeholder="Provincia"
+              style={STYLES.input}
+              onChangeText={(text) => setInput({ ...input, province: text })}
+            />
           </View>
           <View style={STYLES.inputContainer}>
             <Icon
@@ -128,7 +130,11 @@ const SignUpScreen = ({ navigation }) => {
               size={20}
               style={STYLES.inputIcon}
             />
-            <TextInput placeholder="Ciudad" style={STYLES.input} />
+            <TextInput
+              placeholder="Ciudad"
+              style={STYLES.input}
+              onChangeText={(text) => setInput({ ...input, city: text })}
+            />
           </View>
           <View style={STYLES.inputContainer}>
             <Icon
@@ -137,11 +143,15 @@ const SignUpScreen = ({ navigation }) => {
               size={20}
               style={STYLES.inputIcon}
             />
-            <TextInput placeholder="Dirección" style={STYLES.input} />
+            <TextInput
+              placeholder="Dirección"
+              style={STYLES.input}
+              onChangeText={(text) => setInput({ ...input, address: text })}
+            />
           </View>
 
           <View style={STYLES.btnPrimary}>
-            <TouchableOpacity onPress={() => dispatch(createUser(falseUser))}>
+            <TouchableOpacity onPress={() => dispatch(createClient(input))}>
               <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
                 Registrate
               </Text>

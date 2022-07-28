@@ -14,37 +14,55 @@ router.post("/create", async (req, res) => {
     enrollment,
     profession,
     province,
+    phoneNumber,
     city,
     address,
     availableTimes,
     expoToken,
+    isRegistered,
   } = req.body;
 
-  await Professional.create({
+  let newProfessional = await Professional.create({
+    googleId,
+    name,
+    email,
     perfilPic,
     enrollment,
     profession,
     province,
+    phoneNumber,
     city,
     address,
     availableTimes,
-    googleId,
-    name,
-    email,
     expoToken,
+    isRegistered,
   });
-  res.send("profesional modified");
+  res.send(newProfessional);
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const { profession } = req.query;
-
+  let professionals;
   if (profession === "Unknown") {
-    res.send(db.professional);
+    professionals = await Professional.findAll();
+    res.send(professionals);
   } else {
-    res.send(db.professional.filter((p) => p.profession === profession));
+    professionals = await Professional.findAll({
+      where: { profession },
+    });
+    res.send(professionals);
   }
 });
+
+// router.get('/', (req, res) => {
+// 	const { profession } = req.query;
+
+// 	if (profession === 'Unknown') {
+// 		res.send(db.professional);
+// 	} else {
+// 		res.send(db.professional.filter((p) => p.profession === profession));
+// 	}
+// });
 
 router.get("/profil", async (req, res) => {
   const id = req.query.id;
