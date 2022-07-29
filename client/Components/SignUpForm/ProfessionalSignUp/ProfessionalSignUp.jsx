@@ -20,14 +20,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { Picker } from "@react-native-picker/picker";
 import { createProfessional } from "../../../Redux/Action";
 import { createClient, uploadImage } from "../../../Redux/Action";
+import PrimarySlider from '../../General/Slider/Slider';
 
 const ProfessionalSignUp = ({ navigation }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { width, height } = useWindowDimensions();
   const [image, setImage] = useState(null);
-  const [minTime, setMinTime] = useState("00:00");
-  const [maxTime, setMaxTime] = useState("23:00");
+  const [minTime, setMinTime] = useState(0);
+	const [maxTime, setMaxTime] = useState(24);
   const [input, setInput] = useState({
     ...user,
     isRegistered: true,
@@ -225,78 +226,15 @@ const ProfessionalSignUp = ({ navigation }) => {
               onChangeText={(text) => setInput({ ...input, address: text })}
             />
           </View>
-          <Text style={STYLES.input}>Horario laboral de inicio</Text>
-          <Picker
-            selectedValue={minTime}
-            onValueChange={(value) => setMinTime(value)}
-            mode="dropdown"
-            style={{ borderRadius: 5 }}
-          >
-            {[
-              "00:00",
-              "01:00",
-              "02:00",
-              "03:00",
-              "04:00",
-              "05:00",
-              "06:00",
-              "07:00",
-              "08:00",
-              "09:00",
-              "10:00",
-              "11:00",
-              "12:00",
-              "13:00",
-              "14:00",
-              "15:00",
-              "16:00",
-              "17:00",
-              "18:00",
-              "19:00",
-              "20:00",
-              "21:00",
-              "22:00",
-              "23:00",
-            ].map((value) => (
-              <Picker.Item label={value} value={value} key={`min${value}`} />
-            ))}
-          </Picker>
-          <Text style={STYLES.input}>Horario final</Text>
-          <Picker
-            selectedValue={maxTime}
-            onValueChange={(value) => setMaxTime(value)}
-            mode="dropdown"
-            style={{ borderRadius: 5 }}
-          >
-            {[
-              "00:00",
-              "01:00",
-              "02:00",
-              "03:00",
-              "04:00",
-              "05:00",
-              "06:00",
-              "07:00",
-              "08:00",
-              "09:00",
-              "10:00",
-              "11:00",
-              "12:00",
-              "13:00",
-              "14:00",
-              "15:00",
-              "16:00",
-              "17:00",
-              "18:00",
-              "19:00",
-              "20:00",
-              "21:00",
-              "22:00",
-              "23:00",
-            ].map((value) => (
-              <Picker.Item label={value} value={value} key={`max${value}`} />
-            ))}
-          </Picker>
+          <Text style={STYLES.input}>Horario laboral</Text>
+					<PrimarySlider
+						min={0}
+						max={24}
+						low={minTime}
+						high={maxTime}
+						setMinTime={setMinTime}
+						setMaxTime={setMaxTime}
+					/>
 
           <TouchableOpacity
             onPress={() =>

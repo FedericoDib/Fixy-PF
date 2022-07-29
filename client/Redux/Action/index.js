@@ -21,7 +21,7 @@ import {
 
 // import db from "../../db.hardcode.json";
 
-const localhost = '192.168.0.11';
+const localhost = '192.168.0.202';
 
 export const googleLogin = (payload) => {
 	// console.log("ESTOY EN LA ACTION", payload);
