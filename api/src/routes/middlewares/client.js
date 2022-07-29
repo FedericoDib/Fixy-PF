@@ -34,7 +34,7 @@ router.post("/create", async (req, res) => {
   res.send(user);
 });
 
-router.get("/profile", async (req, res) => {
+router.get("/", async (req, res) => {
   const id = req.query.id;
   console.log(id);
   const client = await Client.findOne({ where: { googleId: id } });

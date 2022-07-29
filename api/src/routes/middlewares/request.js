@@ -6,7 +6,7 @@ const router = Router();
 const db = require("../../db.hardcode.json");
 
 router.post("/", async (req, res) => {
-  const { clientId, affair, date, description, status } = req.body;
+  const { clientId, affair, date, description, address, status } = req.body;
 
   let newRequest = await Request.create({
     clientId,
@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
     date,
     description,
     status,
+    address,
   });
 
   res.send(newRequest);

@@ -19,10 +19,13 @@ export default function CardList({ item, navigation }) {
   const request = useSelector((state) => state.request);
 
   if (user.googleId[0] === "c") {
-    let rating = item.reviews.map((e) => e.rating);
-    rating =
-      rating.reduce((accumulator, currentValue) => accumulator + currentValue) /
-      item.reviews.length;
+    if (professionals.length) {
+      let rating = item.reviews.map((e) => e.rating);
+      rating =
+        rating.reduce(
+          (accumulator, currentValue) => accumulator + currentValue
+        ) / item.reviews.length;
+    }
   }
 
   const handleSubmit = () => {

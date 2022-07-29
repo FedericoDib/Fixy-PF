@@ -11,6 +11,7 @@ const requestRouter = require("./middlewares/request");
 const budgetRouter = require("./middlewares/budget");
 const userInfo = require("./middlewares/userInfo");
 const mpRouter = require("./middlewares/mp/mp");
+const reviewsRouter = require("./middlewares/reviews");
 
 const router = Router();
 
@@ -73,5 +74,6 @@ router.use("/request", requestRouter);
 router.use("/budget", budgetRouter);
 router.use("/userInfo", userInfo);
 router.use("/mp", mpRouter);
+router.use("/reviews", reviewsRouter);
 
 module.exports = router;
