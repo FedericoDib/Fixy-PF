@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const GOOGLE_LOGIN = 'GOOGLE_LOGIN';
 export const GET_ALL_PROFESSIONALS = 'GET_ALL_PROFESSIONALS';
+export const GET_ALL_CLIENTS = 'GET_ALL_CLIENTS';
 export const LOG_OUT = 'LOG_OUT';
 export const CREATE_CLIENT = 'CREATE_CLIENT';
 export const SEARCH_NAME_PROFESSIONAL = 'SEARCH_NAME_PROFESSIONAL';
@@ -18,6 +19,7 @@ import {
 	uploadBytes,
 	uploadString,
 } from 'firebase/storage';
+import { async } from '@firebase/util';
 
 // import db from "../../db.hardcode.json";
 
@@ -32,6 +34,28 @@ export const googleLogin = (payload) => {
 		);
 		return dispatch({
 			type: GOOGLE_LOGIN,
+			payload: response.data,
+		});
+	};
+};
+
+export const getAllProfessionals = (profession) => {
+	return async (dispatch) => {
+		const info = await axios.get(
+			`http://${localhost}:3000/professional?profession=${profession}`
+		);
+		return dispatch({
+			type: GET_ALL_PROFESSIONALS,
+			payload: info.data,
+		});
+	};
+};
+
+export const getAllClients = (id) => {
+	return async (dispatch) => {
+		let response = await axios.get(`http://${localhost}:3000/client?id=${id}`);
+		return dispatch({
+			type: GET_ALL_CLIENTS,
 			payload: response.data,
 		});
 	};
@@ -56,18 +80,6 @@ export const uploadImage = (uri) => {
 		const subir = await uploadBytes(probando, blob);
 		const bajar = await getDownloadURL(subir.ref);
 		console.log(bajar);
-	};
-};
-
-export const getAllProfessionals = (profession) => {
-	return async (dispatch) => {
-		const info = await axios.get(
-			`http://${localhost}:3000/professional?profession=${profession}`
-		);
-		return dispatch({
-			type: GET_ALL_PROFESSIONALS,
-			payload: info.data,
-		});
 	};
 };
 
@@ -102,20 +114,6 @@ export const createProfessional = (payload) => {
 			return dispatch({
 				type: CREATE_PROFESSIONAL,
 				payload: response.data,
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	};
-};
-
-export const mercadoPago = () => {
-	return async (dispatch) => {
-		try {
-			let response = await axios.post(`http://${localhost}:3000/mp/orden`);
-			return dispatch({
-				type: MERCADO_PAGO,
-				payload: response.data.body.sandbox_init_point,
 			});
 		} catch (e) {
 			console.log(e);
@@ -201,5 +199,19 @@ export const createReviewClient = (payload) => {
 			type: CREATE_REVIEW_CLIENT,
 			payload: info.data,
 		});
+	};
+};
+
+export const mercadoPago = () => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.post(`http://${localhost}:3000/mp/orden`);
+			return dispatch({
+				type: MERCADO_PAGO,
+				payload: response.data.body.sandbox_init_point,
+			});
+		} catch (e) {
+			console.log(e);
+		}
 	};
 };

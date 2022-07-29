@@ -11,30 +11,39 @@ export default function List({ navigation }) {
   const [filterData, setFilterData] = useState([]);
   const [data, setData] = useState([]);
   const professionals = useSelector((state) => state.professionals);
-  const requests = useSelector((state) => state.requests);
+  const requests = useSelector((state) => state.allRequests);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   if (!data.length) {
-    user.googleId[0] === "c" ? setData(professionals) : setData(requests);
+    if (user.googleId[0] === "c") {
+      if (professionals.length) {
+        setData(professionals);
+      } else {
+        setData([{}]);
+      }
+    }
+    setData(requests.requests);
   }
-  // let newdata = [];
-  // let dataDefault = [
-  //   {
-  //     name: "Profesional no encontrado",
-  //   },
-  // ];
-  // function onChange(e) {
-  //   setInputSearch(e.text);
-  //   newdata = professionals.filter((user) => user.name.includes(e.text));
-  //   setFilterData(newdata);
-  // }
+  console.log("PROFESSIONALS", professionals);
+  // console.log(data);
+  let newdata = [];
+  let dataDefault = [
+    {
+      name: "Profesional no encontrado",
+    },
+  ];
+  function onChange(e) {
+    setInputSearch(e.text);
+    newdata = professionals.filter((user) => user.name.includes(e.text));
+    setFilterData(newdata);
+  }
   const handleChange = (e) => {
     dispatch(searchProfessional(e.text));
   };
   return (
     <View style={style.mainContainer}>
-      {/* {user.googleId[0] === "c" ? (
+      {user.googleId[0] === "c" ? (
         <View style={{ flex: 1 }}>
           <TextInput
             onChangeText={(text) => handleChange({ text })}
@@ -50,7 +59,7 @@ export default function List({ navigation }) {
         </View>
       ) : (
         <View></View>
-      )} */}
+      )}
       <View style={{ flex: 10 }}>
         <FlatList
           data={

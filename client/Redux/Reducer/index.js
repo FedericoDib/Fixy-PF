@@ -13,26 +13,27 @@ import {
   CREATE_REVIEW_CLIENT,
 } from "../Action/index";
 const initialState = {
-  professionals: [],
-  copyProfessionals: [],
   user: {},
+  professionals: [],
+  clients: [],
+  copyProfessionals: [],
   request: {},
   ordenMp: "",
-  allRequests: [],
+  allRequests: {},
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GOOGLE_LOGIN:
+      return {
+        ...state,
+        user: action.payload,
+      };
     case GET_ALL_PROFESSIONALS:
       return {
         ...state,
         professionals: action.payload,
         copyProfessionals: action.payload,
-      };
-    case GOOGLE_LOGIN:
-      return {
-        ...state,
-        user: action.payload,
       };
     case LOG_OUT:
       return {

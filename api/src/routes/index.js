@@ -4,15 +4,6 @@ require("./controllers/googleAuth")(passport);
 
 const { checkUser } = require("./controllers/checkUser");
 
-const professionalRouter = require("./middlewares/professional");
-const clientRouter = require("./middlewares/client");
-const typeWorkRouter = require("./middlewares/typeWork");
-const requestRouter = require("./middlewares/request");
-const budgetRouter = require("./middlewares/budget");
-const userInfo = require("./middlewares/userInfo");
-const mpRouter = require("./middlewares/mp/mp");
-const reviewsRouter = require("./middlewares/reviews");
-
 const router = Router();
 
 // ----------------- RUTA LOGIN -----------------------
@@ -66,10 +57,16 @@ function checkAuthenticated(req, res, next) {
 }
 
 // ----------------------- FIN DE RUTA LOGIN ----------------------------
+const professionalRouter = require("./middlewares/professional");
+const clientRouter = require("./middlewares/client");
+const requestRouter = require("./middlewares/request");
+const budgetRouter = require("./middlewares/budget");
+const userInfo = require("./middlewares/userInfo");
+const mpRouter = require("./middlewares/mp/mp");
+const reviewsRouter = require("./middlewares/reviews");
 
 router.use("/professional", professionalRouter);
 router.use("/client", clientRouter);
-router.use("/type", typeWorkRouter);
 router.use("/request", requestRouter);
 router.use("/budget", budgetRouter);
 router.use("/userInfo", userInfo);

@@ -37,8 +37,13 @@ router.post("/create", async (req, res) => {
 router.get("/", async (req, res) => {
   const id = req.query.id;
   console.log(id);
-  const client = await Client.findOne({ where: { googleId: id } });
-  res.send(client);
+  if (id) {
+    const client = await Client.findOne({ where: { googleId: id } });
+    res.send(client);
+  } else {
+    const clients = await Client.findAll();
+    res.send(clients);
+  }
 });
 
 router.put("/", async (req, res) => {
