@@ -10,7 +10,7 @@ import {
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
 import { useDispatch, useSelector } from "react-redux";
-import { requestToProfessional } from "../../Redux/Action";
+import { getRequestDetail, requestToProfessional } from "../../Redux/Action";
 import styles from "./CardListStyle";
 
 export default function CardList({ item, navigation }) {
@@ -20,6 +20,7 @@ export default function CardList({ item, navigation }) {
   const professionals = useSelector((state) => state.professionals);
 
   console.log("ITEM", item);
+  console.log(request);
 
   if (user.googleId[0] === "c") {
     if (professionals.length) {
@@ -35,6 +36,11 @@ export default function CardList({ item, navigation }) {
     dispatch(
       requestToProfessional({ googleId: item.googleId, idRequest: request.id })
     );
+  };
+
+  const pressBudget = () => {
+    dispatch(getRequestDetail(item.id));
+    navigation.navigate("BudgetForm");
   };
 
   return (
@@ -68,7 +74,7 @@ export default function CardList({ item, navigation }) {
         <TouchableHighlight
           activeOpacity={0.9}
           underlayColor="white"
-          onPress={() => navigation.navigate("Resume")}
+          onPress={() => pressBudget()}
         >
           <View style={styles.cardContainer}>
             <View style={styles.textContainer}>

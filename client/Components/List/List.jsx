@@ -7,24 +7,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllProfessionals, searchProfessional } from "../../Redux/Action";
 
 export default function List({ navigation }) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const professionals = useSelector((state) => state.professionals);
+  const requests = useSelector((state) => state.allRequests);
   const [inputSearch, setInputSearch] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [data, setData] = useState([]);
-  const professionals = useSelector((state) => state.professionals);
-  const requests = useSelector((state) => state.allRequests);
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
-  if (!data.length) {
-    if (user.googleId[0] === "c") {
-      if (professionals.length) {
-        setData(professionals);
-      } else {
-        setData([{}]);
-      }
-    }
-    setData(requests.requests);
-  }
+  // if (!data.length) {
+  // if (user.googleId[0] === "c") {
+  //   // if (professionals.length) {
+  //   return setData(professionals);
+  //  // } else {
+  //   // setData([{}]);
+  //   // }
+  // } else {
+  //   return setData(requests.requests);
+  // }
+  // }
+
   console.log("PROFESSIONALS", professionals);
   // console.log(data);
   let newdata = [];
