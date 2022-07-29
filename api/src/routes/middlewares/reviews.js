@@ -49,3 +49,5 @@ router.put("/client", async (req, res) => {
 
   res.send(client);
 });
+
+module.exports = router;

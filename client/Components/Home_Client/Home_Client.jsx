@@ -41,7 +41,7 @@ import { getAllRequest } from "../../Redux/Action";
 
 const Home_Client = ({ navigation }) => {
   const user = useSelector((state) => state.user);
-  const request = useSelector((state) => state.allRequests);
+  const requests = useSelector((state) => state.allRequests);
 
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const Home_Client = ({ navigation }) => {
     }
   }, []);
 
-  console.log("ESTOY EN HOME", request);
+  console.log("ESTOY EN HOME", requests);
 
   // let [fontsLoaded, error] = useFonts({
   //   Exo2_100Thin,
@@ -80,46 +80,62 @@ const Home_Client = ({ navigation }) => {
 
   return (
     <>
-      <Flex inline justify="space-between">
-        <Box style={{ marginTop: 70 }} m={30}>
-          <Text variant="h6">Hola, {user.name}</Text>
-          <Text>Cómo podemos ayudarte?</Text>
-        </Box>
-        <Box style={{ marginTop: 70 }} m={30}>
-          <IconButton
-            icon={(props) => <Icon name="notifications" {...props} />}
-          />
-        </Box>
-      </Flex>
-      <Flex style={styles.wrapper} center fill>
-        <Wrap style={{ justifyContent: "space-evenly" }} m={4}>
-          <Box
-            ml={10}
-            w={180}
-            h={50}
-            style={{
-              backgroundColor: "#faf089",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 10,
-              overflow: "hidden",
-            }}
-          >
-            <Text>Solicitudes activas: 0</Text>
-          </Box>
-        </Wrap>
+      {user.googleId.includes("c") ? (
+        <React.Fragment>
+          <Flex inline justify="space-between">
+            <Box style={{ marginTop: 70 }} m={30}>
+              <Text variant="h6">Hola, {user.name}</Text>
+              <Text>Cómo podemos ayudarte?</Text>
+            </Box>
+            <Box style={{ marginTop: 70 }} m={30}>
+              <IconButton
+                icon={(props) => <Icon name="notifications" {...props} />}
+              />
+            </Box>
+          </Flex>
+          <Flex style={styles.wrapper} center fill>
+            <Wrap style={{ justifyContent: "space-evenly" }} m={4}>
+              <Box
+                ml={10}
+                w={180}
+                h={50}
+                style={{
+                  backgroundColor: "#faf089",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 10,
+                  overflow: "hidden",
+                }}
+              >
+                <Text>Solicitudes activas: 0</Text>
+              </Box>
+            </Wrap>
 
-        <PrimaryButton
-          onPress={() => navigation.navigate("SolutionForm")}
-          title="Necesito una solucion"
-          trailing={(props) => <Icon2 name="house-damage" {...props} />}
-        />
-        <Image
-          source={require("../../assets/noProblemHome.png")}
-          alignSelf="center"
-          style={styles.image}
-        />
-      </Flex>
+            <PrimaryButton
+              onPress={() => navigation.navigate("SolutionForm")}
+              title="Necesito una solucion"
+              trailing={(props) => <Icon2 name="house-damage" {...props} />}
+            />
+            <Image
+              source={require("../../assets/noProblemHome.png")}
+              alignSelf="center"
+              style={styles.image}
+            />
+          </Flex>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          {requests.requests && requests.requests.length > 0 ? (
+            <React.Fragment>
+              <Text>Tenes solicitudes</Text>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Text>No tenes solicitudes</Text>
+            </React.Fragment>
+          )}
+        </React.Fragment>
+      )}
     </>
   );
 };

@@ -19,7 +19,7 @@ const initialState = {
   copyProfessionals: [],
   request: {},
   ordenMp: "",
-  allRequests: [],
+  allRequests: {},
 };
 
 const rootReducer = (state = initialState, action) => {

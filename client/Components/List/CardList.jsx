@@ -19,6 +19,8 @@ export default function CardList({ item, navigation }) {
   const request = useSelector((state) => state.request);
   const professionals = useSelector((state) => state.professionals);
 
+  console.log("ITEM", item);
+
   if (user.googleId[0] === "c") {
     if (professionals.length) {
       let rating = item.reviews.map((e) => e.rating);
@@ -37,32 +39,32 @@ export default function CardList({ item, navigation }) {
 
   return (
     <ScrollView>
-      {/* {user.googleId[0] === "c" ? ( */}
-      <TouchableHighlight
-        activeOpacity={0.9}
-        underlayColor="white"
-        onPress={() => handleSubmit()}
-      >
-        <View style={styles.cardContainer}>
-          <View style={styles.imageContainer}>
-            <Icon name="user" color="black" size={40} />
-            {/* <Image
+      {user.googleId[0] === "c" ? (
+        <TouchableHighlight
+          activeOpacity={0.9}
+          underlayColor="white"
+          onPress={() => handleSubmit()}
+        >
+          <View style={styles.cardContainer}>
+            <View style={styles.imageContainer}>
+              <Icon name="user" color="black" size={40} />
+              {/* <Image
         source={item.image}
     /> */}
-          </View>
-          <View style={styles.textContainer}>
-            <View style={styles.nameAndReviewContainer}>
-              <Text style={styles.textName}>{item.name}</Text>
-              <View style={styles.reviewContainer}>
-                <IconStart name="star" color="#E1C85A" size={19} />
-                <Text style={styles.textName}>{item.rating}</Text>
-              </View>
             </View>
-            <Text style={styles.textProfession}>{item.profession}</Text>
+            <View style={styles.textContainer}>
+              <View style={styles.nameAndReviewContainer}>
+                <Text style={styles.textName}>{item.name}</Text>
+                <View style={styles.reviewContainer}>
+                  <IconStart name="star" color="#E1C85A" size={19} />
+                  <Text style={styles.textName}>{item.rating}</Text>
+                </View>
+              </View>
+              <Text style={styles.textProfession}>{item.profession}</Text>
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
-      {/* ) : (
+        </TouchableHighlight>
+      ) : (
         <TouchableHighlight
           activeOpacity={0.9}
           underlayColor="white"
@@ -79,13 +81,13 @@ export default function CardList({ item, navigation }) {
                 <Text style={styles.textName}>{item.date}</Text>
               </View>
               <View style={styles.nameAndReviewContainer}>
-                <Text style={styles.textProfession}>{item.client.name}</Text>
-                <Text style={styles.textName}>{item.client.city}</Text>
+                {/* <Text style={styles.textProfession}>{item.client.name}</Text> */}
+                <Text style={styles.textName}>{item.address}</Text>
               </View>
             </View>
           </View>
         </TouchableHighlight>
-      )} */}
+      )}
     </ScrollView>
   );
 }
