@@ -12,6 +12,7 @@ export const REQUEST_TO_PROFESSIONAL = 'REQUEST_TO_PROFESSIONAL';
 export const GET_ALL_REQUEST = 'GET_ALL_REQUEST';
 export const CREATE_REVIEW_PROFESSIONAL = 'CREATE_REVIEW_PROFESSIONAL';
 export const CREATE_REVIEW_CLIENT = 'CREATE_REVIEW_CLIENT';
+export const SAVE_PERFILPIC = 'SAVE_PERFILPIC';
 import storage from '../../Firebase/Firebase';
 import {
 	getDownloadURL,
@@ -80,6 +81,10 @@ export const uploadImage = (uri) => {
 		const subir = await uploadBytes(probando, blob);
 		const bajar = await getDownloadURL(subir.ref);
 		console.log(bajar);
+		return dispatch({
+			type: SAVE_PERFILPIC,
+			payload: bajar,
+		});
 	};
 };
 
