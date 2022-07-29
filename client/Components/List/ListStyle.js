@@ -9,6 +9,19 @@ const style = StyleSheet.create({
         flex: 1,
         marginTop: 35,
     },
+    button: {
+        backgroundColor: "white",
+        borderRadius: 10,
+        marginTop: 10,
+        flex: 1,
+        justifyContent: "center",
+    },
+    textButton: {
+        padding: 1,
+        borderRadius: 10,
+        alignItems: "center",
+        justifyContent: "center",
+    },
 });
 
 export default style;
