@@ -5,6 +5,7 @@ import List from "../Components/List/List";
 import Resume from "../Components/Resume/Resume";
 import SolutionScreen from "../Components/SolutionForm/SolutionForm";
 import Pay from "../Components/Pay/Pay";
+import BudgetForm from "../Components/BudgetForm/BudgetForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,11 @@ const RegisteredStack = () => {
         <Stack.Screen
           name="HomeClient"
           component={Tabs}
+          options={{ headerShown: false }}
+        />
+      <Stack.Screen
+          name="BudgetForm"
+          component={BudgetForm}
           options={{ headerShown: false }}
         />
         <Stack.Screen
