@@ -11,6 +11,13 @@ export const REQUEST_TO_PROFESSIONAL = "REQUEST_TO_PROFESSIONAL";
 export const GET_ALL_REQUEST = "GET_ALL_REQUEST";
 export const CREATE_REVIEW_PROFESSIONAL = "CREATE_REVIEW_PROFESSIONAL";
 export const CREATE_REVIEW_CLIENT = "CREATE_REVIEW_CLIENT";
+import storage from "../../Firebase/Firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadString,
+} from "firebase/storage";
 
 // import db from "../../db.hardcode.json";
 
@@ -27,6 +34,28 @@ export const googleLogin = (payload) => {
       type: GOOGLE_LOGIN,
       payload: response.data,
     });
+  };
+};
+
+export const uploadImage = (uri) => {
+  return async (dispatch) => {
+    const probando = ref(storage, `imageProfile/${Date.now().toString()}.jpg`);
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", uri, true);
+      xhr.send(null);
+    });
+    const subir = await uploadBytes(probando, blob);
+    const bajar = await getDownloadURL(subir.ref);
+    console.log(bajar);
   };
 };
 

@@ -19,6 +19,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useSelector, useDispatch } from "react-redux";
 import { Picker } from "@react-native-picker/picker";
 import { createProfessional } from "../../../Redux/Action";
+import { createClient, uploadImage } from "../../../Redux/Action";
 
 const ProfessionalSignUp = ({ navigation }) => {
   const user = useSelector((state) => state.user);
@@ -31,29 +32,24 @@ const ProfessionalSignUp = ({ navigation }) => {
     ...user,
     isRegistered: true,
     googleId: "p" + user.googleId,
-    expoToken: "fdsadasf",
-    enrollment: "163",
-    profession: "electricista",
-    province: "baires",
-    city: "asdfdfsa",
-    address: "dsafjkdff",
-    availableTimes: ["100.031"],
-    phoneNumber: "12313465",
   });
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    console.log(result);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
+      if (!result.cancelled) {
+        dispatch(uploadImage(result.uri));
+        setImage(result.uri);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

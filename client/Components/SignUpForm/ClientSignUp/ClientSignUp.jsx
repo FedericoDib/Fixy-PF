@@ -16,7 +16,7 @@ import STYLES from "./ClientSignUpStyles";
 import COLORS from "./Colors";
 import { ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { createClient } from "../../../Redux/Action";
+import { createClient, uploadImage } from "../../../Redux/Action";
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
@@ -34,17 +34,20 @@ const SignUpScreen = ({ navigation }) => {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
 
-    console.log(result.uri);
-
-    if (!result.cancelled) {
-      setImage(result.uri);
+      if (!result.cancelled) {
+        dispatch(uploadImage(result.uri));
+        setImage(result.uri);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
