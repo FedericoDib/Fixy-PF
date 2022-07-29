@@ -17,6 +17,7 @@ export default function CardList({ item, navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const request = useSelector((state) => state.request);
+  const professionals = useSelector((state) => state.professionals);
 
   if (user.googleId[0] === "c") {
     if (professionals.length) {

@@ -26,10 +26,10 @@ const SignUpScreen = ({ navigation }) => {
   const [input, setInput] = useState({
     ...user,
     isRegistered: true,
-    googleId: "c" + "1456132",
+    googleId: "c" + user.googleId,
     expoToken: "11",
-    name: "marianou",
-    email: "marianou@gmail.com",
+    // name: "marianou",
+    // email: "marianou@gmail.com",
   });
 
   const pickImage = async () => {

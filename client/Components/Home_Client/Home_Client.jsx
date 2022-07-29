@@ -46,8 +46,9 @@ const Home_Client = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllRequest(user.googleId));
-    // dispatch(getClient(request.requests[0].clientId));
+    if (user.googleId.includes("p")) {
+      dispatch(getAllRequest(user.googleId));
+    }
   }, []);
 
   console.log("ESTOY EN HOME", request);

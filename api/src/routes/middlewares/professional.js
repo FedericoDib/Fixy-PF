@@ -43,13 +43,19 @@ router.post("/create", async (req, res) => {
 router.get("/", async (req, res) => {
   const { profession } = req.query;
   let professionals;
-  if (profession === "Unknown") {
-    professionals = await Professional.findAll();
-    res.send(professionals);
+  if (profession) {
+    if (profession === "Unknown") {
+      professionals = await Professional.findAll();
+      res.send(professionals);
+    } else {
+      professionals = await Professional.findAll({
+        where: { profession },
+      });
+      res.send(professionals);
+    }
   } else {
-    professionals = await Professional.findAll({
-      where: { profession },
-    });
+    professionals = await Professional.findAll();
+
     res.send(professionals);
   }
 });

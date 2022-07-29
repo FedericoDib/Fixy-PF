@@ -11,7 +11,7 @@ export default function List({ navigation }) {
   const [filterData, setFilterData] = useState([]);
   const [data, setData] = useState([]);
   const professionals = useSelector((state) => state.professionals);
-  const requests = useSelector((state) => state.requests);
+  const requests = useSelector((state) => state.allRequests);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
