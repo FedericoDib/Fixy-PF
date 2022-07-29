@@ -14,18 +14,20 @@ import STYLES from "../SignUpForm/ClientSignUp/ClientSignUpStyles";
 import COLORS from "../SignUpForm/ClientSignUp/Colors";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRequest, getAllProfessionals } from "../../Redux/Action";
 import PrimaryButton from "../General/PrimaryButton";
 
 const SolutionScreen = ({ navigation }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const { width, height } = useWindowDimensions();
   const [Hour, setHour] = useState("Unknown");
   const [Professional, setProfessional] = useState("Unknown");
   const [text, onChangeText] = React.useState(null);
   const [input, setInput] = useState({
     affair: "Heladera",
+    clientId: user.googleId,
   });
 
   const handleSubmit = () => {
@@ -51,6 +53,7 @@ const SolutionScreen = ({ navigation }) => {
         <View style={STYLES.inputContainer}>
           <TextInput
             placeholder="Provincia, Ciudad, Calle"
+            onChangeText={(text) => setInput({ ...input, address: text })}
             style={STYLES.input}
           />
           <Icon

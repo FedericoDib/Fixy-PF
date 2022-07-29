@@ -26,7 +26,7 @@ const SignUpScreen = ({ navigation }) => {
   const [input, setInput] = useState({
     ...user,
     isRegistered: true,
-    googleId: "c" + "11",
+    googleId: "c" + "1456132",
     expoToken: "11",
     name: "marianou",
     email: "marianou@gmail.com",
