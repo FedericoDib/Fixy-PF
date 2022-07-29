@@ -1,0 +1,60 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fixyauth-staging-162125-authRole",
+      "UnauthRoleArn": "arn:aws:iam::835674680231:role/amplify-fixyauth-staging-162125-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::835674680231:role/amplify-fixyauth-staging-162125-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-fixyauth-staging-162125-deployment",
+      "UnauthRoleName": "amplify-fixyauth-staging-162125-unauthRole",
+      "StackName": "amplify-fixyauth-staging-162125",
+      "StackId": "arn:aws:cloudformation:us-east-1:835674680231:stack/amplify-fixyauth-staging-162125/54047b20-0e91-11ed-9a77-0aa338b73971",
+      "AmplifyAppId": "d1mgr0klfhpiz2"
+    }
+  },
+  "auth": {
+    "FIXYAuth": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-east-1_atxvTX7Bu",
+        "AppClientIDWeb": "5dio8vch58e1beqrsffgi3j0fv",
+        "AppClientID": "4jk4mrsjj4q16hj4amjb4fi1t",
+        "HostedUIDomain": "fixy-staging",
+        "IdentityPoolId": "us-east-1:e666b506-df38-4fc7-9a9c-def86ac17914",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:835674680231:userpool/us-east-1_atxvTX7Bu",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"fixy://\"],\"LogoutURLs\":[\"fixy://\"]}",
+        "UserPoolName": "FIXYAuth"
+      },
+      "lastPushTimeStamp": "2022-07-29T00:51:52.304Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-fixyauth-staging-162125-deployment/amplify-cfn-templates/auth/FIXYAuth-cloudformation-template.json",
+        "logicalId": "authFIXYAuth"
+      },
+      "lastPushDirHash": "hulXFD0fAJR24K/jGUj9+Xu7nsY="
+    }
+  }
+}
