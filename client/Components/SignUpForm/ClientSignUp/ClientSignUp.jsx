@@ -20,6 +20,7 @@ import { createClient, uploadImage } from "../../../Redux/Action";
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
+  const perfilPickarda = useSelector((state) => state.perfilPic);
   const { width, height } = useWindowDimensions();
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const SignUpScreen = ({ navigation }) => {
     expoToken: "11",
     name: "marianou",
     email: "marianou@gmail.com",
+    perfilPic: perfilPickarda,
   });
 
   const pickImage = async () => {
@@ -45,6 +47,8 @@ const SignUpScreen = ({ navigation }) => {
       if (!result.cancelled) {
         dispatch(uploadImage(result.uri));
         setImage(result.uri);
+
+        console.log(perfilPickarda, "soy la perfilpick loko");
       }
     } catch (error) {
       console.log(error);

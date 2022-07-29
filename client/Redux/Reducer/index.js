@@ -11,6 +11,7 @@ import {
   GET_ALL_REQUEST,
   CREATE_REVIEW_PROFESSIONAL,
   CREATE_REVIEW_CLIENT,
+  SAVE_PERFILPIC,
 } from "../Action/index";
 const initialState = {
   professionals: [],
@@ -19,6 +20,7 @@ const initialState = {
   request: {},
   ordenMp: "",
   allRequests: [],
+  perfilPic: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -55,6 +57,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         ordenMp: action.payload,
+      };
+
+    case SAVE_PERFILPIC:
+      return {
+        ...state,
+        perfilPic: action.payload,
       };
 
     case CREATE_PROFESSIONAL:
