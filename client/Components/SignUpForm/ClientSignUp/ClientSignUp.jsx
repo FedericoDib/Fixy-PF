@@ -27,10 +27,10 @@ const SignUpScreen = ({ navigation }) => {
   const [input, setInput] = useState({
     ...user,
     isRegistered: true,
-    googleId: "c" + user.googleId,
+    googleId: "c" + 'askdjakd',
     expoToken: "11",
-    name: "marianou",
-    email: "marianou@gmail.com",
+    name: "fede",
+    email: "fede@gmail.com",
     perfilPic: perfilPickarda,
   });
 

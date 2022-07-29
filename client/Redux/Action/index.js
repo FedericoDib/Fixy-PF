@@ -24,7 +24,7 @@ import { async } from '@firebase/util';
 
 // import db from "../../db.hardcode.json";
 
-const localhost = '192.168.0.202';
+const localhost = '192.168.0.6';
 
 export const googleLogin = (payload) => {
 	// console.log("ESTOY EN LA ACTION", payload);

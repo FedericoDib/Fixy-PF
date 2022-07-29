@@ -11,7 +11,7 @@ const Main = () => {
     <React.Fragment>
       {Object.getOwnPropertyNames(user).length > 0 ? (
         <React.Fragment>
-          {!user.isRegistered ? <NotRegisteredStack /> : <RegisteredStack />}
+          {!user.isRegistered ? <RegisteredStack /> : <RegisteredStack />}
         </React.Fragment>
       ) : (
         <React.Fragment>
