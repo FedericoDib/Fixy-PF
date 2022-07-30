@@ -32,7 +32,7 @@ export default function List({ navigation }) {
       if (professionals.length) {
         setData(professionals);
       } else {
-        setData([{ name: "no se encontro profesional" }]);
+        setData([{ name: "no se encontro profesional", reviews: [3] }]);
       }
     } else {
       let filteredRequests = requests.requests.filter(
@@ -48,6 +48,7 @@ export default function List({ navigation }) {
   let dataDefault = [
     {
       name: "Profesional no encontrado",
+      reviews: [3],
     },
   ];
   function onChange(e) {
