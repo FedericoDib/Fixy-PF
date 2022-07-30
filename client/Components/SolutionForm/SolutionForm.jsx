@@ -39,7 +39,7 @@ const SolutionScreen = ({ navigation }) => {
     );
     // console.log({ ...input, availableTime: `${minTime} - ${maxTime}` });
     dispatch(getAllProfessionals(Professional));
-    navigation.navigate("List");
+    navigation.navigate("Loader");
   };
 
   return (
@@ -69,7 +69,7 @@ const SolutionScreen = ({ navigation }) => {
             style={STYLES.inputIcon}
           />
         </View>
-        <Text style={{ marginTop: 25, fontWeigth: 500 }}>Fecha</Text>
+        <Text style={{ marginTop: 25, fontWeigth: '500' }}>Fecha</Text>
         <View style={STYLES.inputContainer}>
           <TextInput
             placeholder="DD/MM/AAAA"

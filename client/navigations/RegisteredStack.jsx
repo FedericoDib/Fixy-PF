@@ -7,6 +7,7 @@ import SolutionScreen from "../Components/SolutionForm/SolutionForm";
 import Pay from "../Components/Pay/Pay";
 import BudgetForm from "../Components/BudgetForm/BudgetForm";
 import RequestDetail from "../Components/RequestDetail/RequestDetail";
+import Loader from "../Components/General/Loader";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,11 @@ const RegisteredStack = () => {
         <Stack.Screen
           name="RequestDetail"
           component={RequestDetail}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Loader"
+          component={Loader}
           options={{ headerShown: false }}
         />
       </Stack.Group>
