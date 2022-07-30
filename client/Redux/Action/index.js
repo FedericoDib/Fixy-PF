@@ -182,11 +182,11 @@ export const getRequestDetail = (id) => {
 	};
 };
 
-export const getAllRequest = (id) => {
-	console.log('action', id);
+export const getAllRequest = (user,id) => {
+
 	return async (dispatch) => {
 		const info = await axios.get(
-			`http://${localhost}:3000/professional/request?id=${id}`
+			`http://${localhost}:3000/request/${user}?id=${id}`
 		);
 		console.log(info.data);
 		return dispatch({
@@ -246,28 +246,58 @@ export const mercadoPago = () => {
 	};
 };
 
-export const getAllBudgets = (id)=>{
-  return async (dispatch)=>{
+export const getAllBudgets = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(
+				`http://${localhost}:3000/professional/budget?id=${id}`
+			);
+			return dispatch({
+				type: GET_ALL_BUDGETS,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const getBudgetDetail = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const deleteBudget = (id)=>{
+  return async (dispatch) => {
     try{
-      let response = await axios.get(`http://${localhost}:3000/professional/budget?id=${id}`)
-      return dispatch({
-        type: GET_ALL_BUDGETS,
-        payload: response.data
-      })
+      let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
     }catch(e){
       console.log(e)
     }
   }
 }
 
-export const getBudgetDetail = (id) =>{
-  return async()=>{
+export const deleteRequest = (id)=>{
+  return async (dispatch) => {
     try{
-      let response = await axios.get(`http://${localhost}:3000/budget?id=${id}`)
-      return dispatch({
-        type: GET_BUDGET_DETAIL,
-        payload: response.data
-      })
+      let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
     }catch(e){
       console.log(e)
     }

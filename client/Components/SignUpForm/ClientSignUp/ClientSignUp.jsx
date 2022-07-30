@@ -29,8 +29,8 @@ const SignUpScreen = ({ navigation }) => {
 		isRegistered: true,
 		googleId: 'c' + user.googleId,
 		expoToken: '11',
-		// name: "marianou",
-		// email: "marianou@gmail.com",
+		// name: 'marianou',
+		// email: 'marianou@gmail.com',
 		// perfilPic: perfilPickarda,
 	});
 

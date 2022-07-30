@@ -122,6 +122,7 @@ const rootReducer = (state = initialState, action) => {
 			};
     
     case GET_BUDGET_DETAIL:
+      //console.log('------------------', action.payload)
       return {
         ...state,
         budgetDetail: action.payload

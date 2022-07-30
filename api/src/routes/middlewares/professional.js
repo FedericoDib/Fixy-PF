@@ -84,34 +84,7 @@ router.get("/", async (req, res) => {
 //   res.send(requests);
 // });
 
-router.get("/request", async (req, res) => {
-  const { id } = req.query;
-  console.log(id);
 
-  const requests = await Professional.findOne({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Request,
-        attributes: [
-          "affair",
-          "description",
-          "date",
-          "address",
-          "clientId",
-          "status",
-          "id",
-          "availableTime",
-        ],
-      },
-    ],
-    attributes: ["name"],
-  });
-
-  res.send(requests);
-});
 // router.get('/', (req, res) => {
 // 	const { profession } = req.query;
 

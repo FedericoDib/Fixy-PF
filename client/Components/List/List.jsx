@@ -34,14 +34,21 @@ export default function List({ navigation, route }) {
 
 	useEffect(() => {
 		if (user.googleId[0] === 'c') {
+			console.log(
+				'HHHHHHHHHHHHDDDDDDDDDDDDDDDDDDDDDDDDDDPPPPPPPPPPPPPPP',
+				requests
+			);
+			// if(route&&route.params.data === 'active'){
+			//   console.log
+			// }
 			if (professionals.length) setData(professionals);
 		} else {
-			if (route.params.data === 'budget') {
+			if (route && route.params.data === 'budget') {
 				setData(budgets);
 			} else {
 				if (requests.requests.length) {
-					let filteredRequests = requests.requests.filter(
-						(e) => e.status === route.params.data
+					let filteredRequests = requests.requests.filter((e) =>
+						route ? e.status === route.params.data : e.status.includes('')
 					);
 					setData(filteredRequests);
 				}
@@ -150,7 +157,11 @@ export default function List({ navigation, route }) {
 							item.estimatedBudget ? (
 								<BudgetCard item={item} navigation={navigation} />
 							) : (
-								<CardList navigation={navigation} item={item} />
+								<CardList
+									navigation={navigation}
+									item={item}
+									route={route ? route.params.data : 'pending'}
+								/>
 							)
 						}
 					/>

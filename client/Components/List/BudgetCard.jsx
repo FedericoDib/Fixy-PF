@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import { getBudgetDetail } from '../../Redux/Action';
 
 const BudgetCard = ({ item, navigation }) => {
-  console.log('itemmmmmmmmmmmmmmm', item)
+
 	const dispatch = useDispatch();
 	return (
 		<TouchableOpacity

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Budget, Request, Professional } = require('../../db');
+const { Budget, Request, Professional, Op } = require('../../db');
 
 const router = Router();
 
@@ -29,6 +29,20 @@ router.post('/', async (req, res) => {
 	res.status(201).send('budget Create');
 });
 
+// ENVIA SOLO UN BUDGET
+
+router.get('/:id', async (req, res) => {
+	try {
+		const budget = await Budget.findOne({
+			where: { [Op.or]: [{ id: req.params.id }, { requestId: req.params.id }] },
+		});
+
+		res.status(200).send(budget);
+	} catch (e) {
+		console.log(e);
+	}
+});
+
 // ENVIA TODOS LOS BUDGETS
 
 router.get('/', async (req, res) => {
@@ -49,14 +63,6 @@ router.get('/', async (req, res) => {
 	});
 
 	res.send(budget);
-});
-
-// ENVIA SOLO UN BUDGET
-
-router.get('/', async (req, res) => {
-	const budget = await Budget.findByPk(req.query.id);
-
-	res.status(200).send(budget);
 });
 
 // MODIFICA UN BUDGET

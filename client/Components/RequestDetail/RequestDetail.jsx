@@ -19,8 +19,7 @@ import { useSelector } from "react-redux";
 export default function RequestDetail({ navigation }) {
   const request = useSelector((state) => state.requestDetail);
   const client = useSelector((state) => state.clients);
-  console.log("REQUEST DETAAIL1: ", request);
-  console.log("REQUEST DETAAIL2: ", client);
+
   //   const request = {
   //     id: "fe5398dc-666b-4fa3-a970-a1c6775e716d",
   //     affair: "exploto el foco",

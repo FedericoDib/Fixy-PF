@@ -42,19 +42,27 @@ import Icon from '@expo/vector-icons/MaterialIcons';
 import Icon2 from '@expo/vector-icons/FontAwesome5';
 import { styles } from './Home_Client_Style';
 import PrimaryButton from '../General/PrimaryButton';
-import { getAllRequest, getAllBudgets } from '../../Redux/Action';
+import {
+	getAllRequest,
+	getAllBudgets,
+	getAllProfessionals,
+} from '../../Redux/Action';
 
 const Home_Client = ({ navigation }) => {
 	const user = useSelector((state) => state.user);
 	const requests = useSelector((state) => state.allRequests);
-
+  
 	const dispatch = useDispatch();
-
+  
 	useEffect(() => {
-		if (user.googleId.includes('p')) {
-			dispatch(getAllRequest(user.googleId));
+    if (user.googleId.includes('p')) {
+      dispatch(getAllRequest('professional', user.googleId));
+		} else {
+      dispatch(getAllRequest('client', user.googleId));
+			dispatch(getAllProfessionals('Unknown'));
+      console.log('-----------------', requests)
 		}
-	}, []);
+	}, [user]);
 
 	console.log('ESTOY EN HOME', user);
 
@@ -82,7 +90,6 @@ const Home_Client = ({ navigation }) => {
 	// if (!fontsLoaded) {
 	//   return <Text>Loading...</Text>;
 	// }
-	console.log('request', requests.requests);
 
 	return (
 		<>
@@ -121,11 +128,42 @@ const Home_Client = ({ navigation }) => {
 							title='Necesito una solucion'
 							trailing={(props) => <Icon2 name='house-damage' {...props} />}
 						/>
-						<Image
-							source={require('../../assets/noProblemHome.png')}
-							alignSelf='center'
-							style={styles.image}
-						/>
+
+						<View style={styles.buttonContainer}>
+							<TouchableOpacity
+								onPress={() => navigation.navigate('List', { data: 'active' })}
+								style={styles.button}
+							>
+								<View>
+									<Text style={styles.textButton}>Solicitudes activas</Text>
+								</View>
+							</TouchableOpacity>
+							<View style={styles.buttonWrapper}>
+								<TouchableOpacity
+									onPress={() =>
+										navigation.navigate('List', { data: 'pending' })
+									}
+									style={[styles.button, { width: '45%' }]}
+								>
+									<View>
+										<Text style={styles.textButton}>
+											Presupuestos recibidos
+										</Text>
+									</View>
+								</TouchableOpacity>
+								<TouchableOpacity
+									onPress={() => {
+										dispatch(getAllBudgets(user.googleId));
+										navigation.navigate('List', { data: 'request' });
+									}}
+									style={[styles.button, { width: '45%' }]}
+								>
+									<View>
+										<Text style={styles.textButton}>Solicitudes enviadas</Text>
+									</View>
+								</TouchableOpacity>
+							</View>
+						</View>
 					</React.Fragment>
 				) : (
 					<View style={styles.buttonContainer}>
@@ -148,8 +186,9 @@ const Home_Client = ({ navigation }) => {
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => {
-                  dispatch(getAllBudgets(user.googleId))
-                  navigation.navigate('List', { data: 'budget' })}}
+									dispatch(getAllBudgets(user.googleId));
+									navigation.navigate('List', { data: 'budget' });
+								}}
 								style={[styles.button, { width: '45%' }]}
 							>
 								<View>
