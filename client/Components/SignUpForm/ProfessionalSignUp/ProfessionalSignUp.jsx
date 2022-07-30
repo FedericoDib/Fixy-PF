@@ -21,6 +21,8 @@ import { Picker } from "@react-native-picker/picker";
 import { createProfessional } from "../../../Redux/Action";
 import { createClient, uploadImage } from "../../../Redux/Action";
 import PrimarySlider from '../../General/Slider/Slider';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications'; 
 
 const ProfessionalSignUp = ({ navigation }) => {
   const user = useSelector((state) => state.user);
@@ -31,9 +33,45 @@ const ProfessionalSignUp = ({ navigation }) => {
 	const [maxTime, setMaxTime] = useState(24);
   const [input, setInput] = useState({
     ...user,
+    expoToken: expoPushToken,
     isRegistered: true,
     googleId: "p" + user.googleId,
   });
+  const [expoPushToken, setExpoPushToken] = useState('');
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    
+  }, []);
+
+  async function registerForPushNotificationsAsync () {
+    if (Device.isDevice) {
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!');
+        return;
+      }
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      
+      setInput({...input, expoToken: token})
+      
+    } else {
+      alert('Must use physical device for Push Notifications');
+    }
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 0],
+        lightColor: '#FF231F7C',
+      });
+    }
+    };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
