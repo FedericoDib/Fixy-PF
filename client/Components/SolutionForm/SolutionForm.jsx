@@ -17,6 +17,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { createRequest, getAllProfessionals } from "../../Redux/Action";
 import PrimaryButton from "../General/PrimaryButton";
+import PrimarySlider from "../General/Slider/Slider";
 
 const SolutionScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const SolutionScreen = ({ navigation }) => {
   const { width, height } = useWindowDimensions();
   const [Hour, setHour] = useState("Unknown");
   const [Professional, setProfessional] = useState("Unknown");
+  const [minTime, setMinTime] = useState(0);
+  const [maxTime, setMaxTime] = useState(24);
   const [text, onChangeText] = React.useState(null);
   const [input, setInput] = useState({
     affair: "Heladera",
@@ -31,7 +34,10 @@ const SolutionScreen = ({ navigation }) => {
   });
 
   const handleSubmit = () => {
-    dispatch(createRequest(input));
+    dispatch(
+      createRequest({ ...input, availableTime: `${minTime} - ${maxTime}` })
+    );
+    // console.log({ ...input, availableTime: `${minTime} - ${maxTime}` });
     dispatch(getAllProfessionals(Professional));
     navigation.navigate("Loader");
   };
@@ -80,7 +86,7 @@ const SolutionScreen = ({ navigation }) => {
 
         <Text style={{ marginTop: 25, fontweigth: 500 }}>Horario</Text>
         <View style={{ marginTop: 15 }}>
-          <Picker
+          {/* <Picker
             selectedValue={Hour}
             onValueChange={(value, index) => setHour(value)}
             mode="dropdown"
@@ -92,7 +98,15 @@ const SolutionScreen = ({ navigation }) => {
             <Picker.Item label="12 PM - 14 PM" value="14" />
             <Picker.Item label="14 PM - 16 PM" value="16" />
             <Picker.Item label="16 PM - 18 PM" value="18" />
-          </Picker>
+          </Picker> */}
+          <PrimarySlider
+            min={0}
+            max={24}
+            low={minTime}
+            high={maxTime}
+            setMinTime={setMinTime}
+            setMaxTime={setMaxTime}
+          />
         </View>
 
         <Text style={{ marginTop: 25, fontweigth: 500 }}>Profesional</Text>

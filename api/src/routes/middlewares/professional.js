@@ -103,6 +103,7 @@ router.get("/request", async (req, res) => {
           "clientId",
           "status",
           "id",
+          "availableTime",
         ],
       },
     ],
