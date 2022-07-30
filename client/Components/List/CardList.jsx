@@ -10,33 +10,46 @@ import {
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
 import { useDispatch, useSelector } from "react-redux";
-import { getRequestDetail, requestToProfessional } from "../../Redux/Action";
+import {
+  getAllClients,
+  getRequestDetail,
+  requestToProfessional,
+} from "../../Redux/Action";
 import styles from "./CardListStyle";
 import { professionals, user } from "./Hardcode";
 
 let rating;
 export default function CardList({ item, navigation }) {
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const request = useSelector((state) => state.request);
   // const professionals = useSelector((state) => state.professionals);
+  console.log("ITEM AJJAJAJA", item.id);
+  console.log("CLINT ID", item.clientId);
 
   if (user.googleId[0] === "c") {
     if (professionals.length) {
-      rating = item.reviews.map((e) => e.rating);
-      rating =
-        rating.reduce(
-          (accumulator, currentValue) => accumulator + currentValue
-        ) / item.reviews.length;
+      rating = item.reviews ? item.reviews.map((e) => e.rating) : 1;
+      rating = rating.length
+        ? rating.reduce(
+            (accumulator, currentValue) => accumulator + currentValue
+          ) / item.reviews.length
+        : 1;
     }
   }
   const handleSubmit = () => {
-    dispatch(
-      requestToProfessional({
-        googleId: item.googleId,
-        idRequest: request.id,
-      })
-    );
+    if (user.googleId.includes("c")) {
+      dispatch(
+        requestToProfessional({
+          googleId: item.googleId,
+          idRequest: request.id,
+        })
+      );
+    } else {
+      dispatch(getRequestDetail(item.id));
+      dispatch(getAllClients(item.clientId));
+      navigation.navigate("RequestDetail");
+    }
   };
 
   return (
@@ -70,13 +83,13 @@ export default function CardList({ item, navigation }) {
         <TouchableHighlight
           activeOpacity={0.9}
           underlayColor="white"
-          onPress={() => navigation.navigate("Resume")}
+          onPress={() => handleSubmit()}
         >
           <View style={styles.cardContainer}>
             <View style={styles.textContainer}>
               <View style={styles.nameAndReviewContainer}>
                 <Text style={styles.textName}>
-                  {item.affair.length < 20
+                  {item.affair && item.affair.length < 20
                     ? `${item.affair}`
                     : `${item.affair.slice(0, 20)} ...`}
                 </Text>

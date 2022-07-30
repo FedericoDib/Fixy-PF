@@ -16,7 +16,6 @@ const BudgetForm = () => {
   const [maxBudget, setMaxBudget] = useState(0);
   const [input, setInput] = useState({
     professionalId: professional.googleId,
-    requestId: request.id,
   });
 
   console.log("soy request pa", request);
@@ -131,6 +130,7 @@ const BudgetForm = () => {
           onPress={() =>
             dispatch(
               createBudget({
+                requestId: request.id,
                 estimatedBudget: `${minBudget} - ${maxBudget}`,
                 turn: turn,
                 ...input,

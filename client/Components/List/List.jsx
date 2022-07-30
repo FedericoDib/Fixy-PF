@@ -11,16 +11,20 @@ import { Stack, TextInput, IconButton } from "@react-native-material/core";
 import React, { useState, useEffect } from "react";
 import style from "./ListStyle";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllProfessionals, searchProfessional } from "../../Redux/Action";
-import { professionals, user, requests } from "./Hardcode";
+import {
+  getAllProfessionals,
+  getAllRequest,
+  searchProfessional,
+} from "../../Redux/Action";
+// import { professionals, user, requests } from "./Hardcode";
 
 export default function List({ navigation }) {
   const [inputSearch, setInputSearch] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [data, setData] = useState([]);
-  //   const professionals = useSelector((state) => state.professionals);
-  // const requests = useSelector((state) => state.allRequests);
-  //   const user = useSelector((state) => state.user);
+  const professionals = useSelector((state) => state.professionals);
+  const requests = useSelector((state) => state.allRequests);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   if (!data.length) {
@@ -39,7 +43,7 @@ export default function List({ navigation }) {
   }
 
   // console.log("PROFESSIONALS", professionals);
-  // console.log(data);
+  console.log("DATA", data);
   let newdata = [];
   let dataDefault = [
     {

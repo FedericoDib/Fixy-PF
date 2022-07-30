@@ -14,6 +14,7 @@ import {
   SAVE_PERFILPIC,
   GET_REQUEST_DETAIL,
   CREATE_BUDGET,
+  GET_ALL_CLIENTS,
 } from "../Action/index";
 const initialState = {
   user: {},
@@ -39,6 +40,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         professionals: action.payload,
         copyProfessionals: action.payload,
+      };
+    case GET_ALL_CLIENTS:
+      return {
+        ...state,
+        clients: action.payload,
       };
     case LOG_OUT:
       return {
