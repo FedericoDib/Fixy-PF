@@ -6,9 +6,23 @@ const router = Router();
 // CREA EL BUDGET
 
 router.post("/", async (req, res) => {
-  const { description, price, requestId, professionalId } = req.body;
+  const {
+    description,
+    price,
+    requestId,
+    professionalId,
+    estimatedBudget,
+    turn,
+  } = req.body;
 
-  await Budget.create({ description, price, requestId, professionalId });
+  await Budget.create({
+    description,
+    price,
+    requestId,
+    professionalId,
+    estimatedBudget,
+    turn,
+  });
 
   res.status(201).send("budget Create");
 });

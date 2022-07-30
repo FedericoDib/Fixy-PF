@@ -33,6 +33,18 @@ router.put("/", async (req, res) => {
   res.send("Solicitud creada con exito");
 });
 
+router.get("/", async (req, res) => {
+  const { id } = req.query;
+  let request;
+  if (id) {
+    request = await Request.findOne({ where: { id } });
+    res.send(request);
+  } else {
+    request = await Request.findAll();
+    res.send(request);
+  }
+});
+
 // router.put('/:id', async (req, res) => {
 // 	const { id } = req.params;
 // 	const { googleId } = req.body;

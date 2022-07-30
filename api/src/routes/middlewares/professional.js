@@ -95,7 +95,15 @@ router.get("/request", async (req, res) => {
     include: [
       {
         model: Request,
-        attributes: ["affair", "description", "date", "address", "clientId"],
+        attributes: [
+          "affair",
+          "description",
+          "date",
+          "address",
+          "clientId",
+          "status",
+          "id",
+        ],
       },
     ],
     attributes: ["name"],
