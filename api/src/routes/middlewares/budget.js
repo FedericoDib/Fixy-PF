@@ -9,19 +9,21 @@ router.post("/", async (req, res) => {
   const {
     description,
     price,
-    requestId,
-    professionalId,
     estimatedBudget,
     turn,
+    requestId,
+    professionalId,
+    clientId,
   } = req.body;
 
   await Budget.create({
     description,
     price,
-    requestId,
-    professionalId,
     estimatedBudget,
     turn,
+    requestId,
+    professionalId,
+    clientId,
   });
 
   res.status(201).send("budget Create");

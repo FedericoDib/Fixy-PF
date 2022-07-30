@@ -60,6 +60,10 @@ Budget.belongsTo(Professional, {
   as: "professional",
 });
 
+// DE BUDGET A CLIENT
+Client.hasMany(Budget, { as: "budgets", foreignKey: "clientId" });
+Budget.belongsTo(Client, { foreignKey: "clientId", as: "clients" });
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

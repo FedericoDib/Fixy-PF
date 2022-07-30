@@ -130,6 +130,7 @@ const BudgetForm = () => {
           onPress={() =>
             dispatch(
               createBudget({
+                clientId: request.clientId,
                 requestId: request.id,
                 estimatedBudget: `${minBudget} - ${maxBudget}`,
                 turn: turn,
