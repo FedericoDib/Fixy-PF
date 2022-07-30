@@ -48,7 +48,15 @@ export default function List({ navigation, route }) {
 			}
 		}
 		console.log('DATA', data);
-	}, [professionals, requests, user, budgets]);
+	}, [professionals, requests, user, budgets, route.params.data]);
+
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('blur', () => {
+			setData([])
+		});
+
+		return unsubscribe;
+	}, [navigation]);
 
 	// console.log("PROFESSIONALS", professionals);
 	let newdata = [];
