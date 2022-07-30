@@ -15,6 +15,9 @@ export const CREATE_REVIEW_CLIENT = 'CREATE_REVIEW_CLIENT';
 export const SAVE_PERFILPIC = 'SAVE_PERFILPIC';
 export const GET_REQUEST_DETAIL = 'GET_REQUEST_DETAIL';
 export const CREATE_BUDGET = 'CREATE_BUDGET';
+export const GET_ALL_BUDGETS = 'GET_ALL_BUDGETS';
+export const GET_BUDGET_DETAIL = 'GET_BUDGET_DETAIL';
+
 import storage from '../../Firebase/Firebase';
 import {
 	getDownloadURL,
@@ -242,3 +245,31 @@ export const mercadoPago = () => {
 		}
 	};
 };
+
+export const getAllBudgets = (id)=>{
+  return async (dispatch)=>{
+    try{
+      let response = await axios.get(`http://${localhost}:3000/professional/budget?id=${id}`)
+      return dispatch({
+        type: GET_ALL_BUDGETS,
+        payload: response.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+
+export const getBudgetDetail = (id) =>{
+  return async()=>{
+    try{
+      let response = await axios.get(`http://${localhost}:3000/budget?id=${id}`)
+      return dispatch({
+        type: GET_BUDGET_DETAIL,
+        payload: response.data
+      })
+    }catch(e){
+      console.log(e)
+    }
+  }
+}

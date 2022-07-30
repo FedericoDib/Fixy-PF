@@ -39,4 +39,30 @@ export const styles = StyleSheet.create({
 		fontSize: 15,
     textTransform: "uppercase",
 	},
+  button: {
+    height: 100,
+    backgroundColor: theme.colors.threePalet.primary,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 14,
+    padding:5
+  },
+  buttonContainer: {
+    flex: 1,
+    width: '100%',
+    padding: 10,
+    justifyContent: 'space-evenly'
+  },
+  buttonWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  textButton:{
+    textAlign: 'center',
+    fontWeight:'bold',
+    textTransform: "uppercase",
+    color: '#f1f1f1'
+  }
 });

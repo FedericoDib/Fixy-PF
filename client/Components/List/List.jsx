@@ -15,36 +15,42 @@ import {
 	getAllProfessionals,
 	getAllRequest,
 	searchProfessional,
+	getAllBudgets,
 } from '../../Redux/Action';
 import Loader from '../General/Loader';
+import BudgetCard from './BudgetCard';
 // import { professionals, user, requests } from "./Hardcode";
 
-export default function List({ navigation }) {
+export default function List({ navigation, route }) {
 	const [inputSearch, setInputSearch] = useState('');
 	const [filterData, setFilterData] = useState([]);
 	const [data, setData] = useState([]);
+	const [isRefreshing, setIsRefreshing] = useState(false);
 	const professionals = useSelector((state) => state.professionals);
 	const requests = useSelector((state) => state.allRequests);
 	const user = useSelector((state) => state.user);
+	const budgets = useSelector((state) => state.budgets);
 	const dispatch = useDispatch();
 
-	if (!data.length) {
+	useEffect(() => {
 		if (user.googleId[0] === 'c') {
-			if (professionals.length) {
-				setData(professionals);
-			} else {
-				setData([]);
-			}
+			if (professionals.length) setData(professionals);
 		} else {
-			let filteredRequests = requests.requests.filter(
-				(e) => e.status === 'pending'
-			);
-			setData(filteredRequests);
+			if (route.params.data === 'budget') {
+				setData(budgets);
+			} else {
+				if (requests.requests.length) {
+					let filteredRequests = requests.requests.filter(
+						(e) => e.status === route.params.data
+					);
+					setData(filteredRequests);
+				}
+			}
 		}
-	}
+		console.log('DATA', data);
+	}, [professionals, requests, user, budgets]);
 
 	// console.log("PROFESSIONALS", professionals);
-	console.log('DATA', data);
 	let newdata = [];
 	let dataDefault = [
 		{
@@ -58,6 +64,10 @@ export default function List({ navigation }) {
 	}
 	const handleChange = (e) => {
 		dispatch(searchProfessional(e.text));
+	};
+
+	const onRefresh = () => {
+		dispatch(getAllRequest(user.googleId));
 	};
 
 	return (
@@ -122,13 +132,19 @@ export default function List({ navigation }) {
 			)}
 			<View style={{ flex: 6 }}>
 				{!data.length ? (
-					<Text>No se encontraron profesionales</Text>
+					<Text>No se encontraron</Text>
 				) : (
 					<FlatList
 						data={data}
-						renderItem={({ item }) => (
-							<CardList navigation={navigation} item={item} />
-						)}
+						onRefresh={onRefresh}
+						refreshing={isRefreshing}
+						renderItem={({ item }) =>
+							item.estimatedBudget ? (
+								<BudgetCard item={item} navigation={navigation} />
+							) : (
+								<CardList navigation={navigation} item={item} />
+							)
+						}
 					/>
 				)}
 			</View>

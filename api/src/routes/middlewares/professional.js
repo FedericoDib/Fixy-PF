@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Professional, Request, Client } = require("../../db");
+const { Professional, Request, Client, Budget } = require("../../db");
 
 const db = require("../../db.hardcode.json");
 
@@ -135,6 +135,26 @@ router.put("/", async (req, res) => {
     where: { googleId: id },
   });
   res.json({ succes: "se ha modificado" });
+});
+
+router.get("/budget", async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
+
+  const requests = await Professional.findOne({
+    where: {
+      googleId: id,
+    },
+    include: [
+      {
+        model: Budget,
+        as: "budgets",
+      },
+    ],
+    attributes: ["name"],
+  });
+
+  res.send(requests);
 });
 
 module.exports = router;
