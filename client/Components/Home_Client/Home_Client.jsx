@@ -126,7 +126,7 @@ const Home_Client = ({ navigation }) => {
         {user.googleId.includes("c") ? (
           <React.Fragment>
             <PrimaryButton
-              onPress={() => navigation.navigate("SolutionForm")}
+              onPress={() => navigation.navigate("Paypal")}
               title="Necesito una solucion"
               trailing={(props) => <Icon2 name="house-damage" {...props} />}
             />

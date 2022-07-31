@@ -10,6 +10,7 @@ import RequestDetail from "../Components/RequestDetail/RequestDetail";
 import Loader from "../Components/General/Loader";
 import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
 import UserDetail from "../Components/UserDetail/UserDetail";
+import Paypal from "../Components/Paypal/Paypal";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,11 @@ const RegisteredStack = () => {
         <Stack.Screen
           name="ProfileDetail"
           component={UserDetail}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Paypal"
+          component={Paypal}
           options={{ headerShown: false }}
         />
       </Stack.Group>
