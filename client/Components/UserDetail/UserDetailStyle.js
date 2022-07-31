@@ -1,47 +1,74 @@
 import { StyleSheet } from 'react-native';
+import theme from '../../theme/theme';
 
 const styles = StyleSheet.create({
-	cardContainer: {
-		display: 'flex',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		borderWidth: 1,
-		borderRadius: 10,
-		overflow: 'hidden',
-		margin: 10,
-		backgroundColor: '#FFFFFF',
-	},
-	textName: {
-		fontSize: 15,
-	},
-	textProfession: {
-		fontSize: 15,
-		fontWeight: 'bold',
-	},
-	imageContainer: {
-		display: 'flex',
+	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
+		backgroundColor: '#fff',
 	},
-	textContainer: {
-		display: 'flex',
-		flex: 4,
-		paddingLeft: '3%',
+	text: {
+		color: theme.colors.threePalet.primary,
 	},
-	nameAndReviewContainer: {
+	image: {
+		flex: 1,
+		width: undefined,
+		height: undefined,
+	},
+	titleBar: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginRight: 10,
+		marginTop: 24,
+		marginHorizontal: 16,
 	},
-	reviewContainer: {
+	profileImage: {
+		width: 200,
+		height: 200,
+		borderRadius: 100,
+		borderWidth: 4,
+		borderColor: theme.colors.firstPalet.primary,
+		overflow: 'hidden',
+	},
+	infoContainer: {
+		alignSelf: 'center',
+		alignItems: 'center',
+		textAlign: 'center',
+	},
+	reviewsContainer: {
 		flexDirection: 'row',
-		backgroundColor: '#FFF5E7',
-		padding: 4,
-		borderRadius: 10,
-		paddingHorizontal: 10,
-		justifyContent: 'space-around',
-		width: 70,
+		alignSelf: 'center',
+		marginVertical: 16,
+	},
+	reviewBox: {
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		flex: 1,
+	},
+	headerList: {
+		flexDirection: 'row',
+		marginHorizontal: 16,
+		marginVertical: 8,
+		fontSize: 20,
+	},
+	reviewHeader: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	review: {
+		margin: 8,
+		fontSize: 16,
+		fontWeight: 'bold',
+		paddingHorizontal: 16,
+		paddingVertical: 8,
+		borderWidth: 1,
+		borderRadius: 8,
+		borderColor: theme.colors.threePalet.primary,
+	},
+	name: {
+		fontSize: 18,
+		fontWeight: '500',
+		paddingHorizontal: 16,
+		color: theme.colors.threePalet.primary,
 	},
 });
 
