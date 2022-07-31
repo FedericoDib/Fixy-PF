@@ -12,36 +12,44 @@ import {
   Image,
   SafeAreaView,
 } from "react-native";
-import { logOut } from "../../Redux/Action";
+import { editProfile, logOut } from "../../Redux/Action";
 import PrimaryButton from "../General/PrimaryButton";
 import styles from "./ProfileStyles";
 import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Feather";
 
-const DATA = [
-  { id: 1, text: "3513611410" },
-  { id: 2, text: "Ciudad" },
-  { id: 3, text: "Barrio" },
-  { id: 4, text: "P sherman calle wallaby 42" },
-];
 const Profile = () => {
-  const [data, setdata] = useState(DATA);
   const [isRender, setisRender] = useState(false);
   const [isModalVisible, setisModalVisible] = useState(false);
   const [inputText, setinputText] = useState();
   const [editItem, seteditItem] = useState();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
+  const DATA = [
+    { id: 1, text: `${user.phoneNumber}` },
+    { id: 2, text: `${user.province}` },
+    { id: 3, text: `${user.city}` },
+    { id: 4, text: `${user.address}` },
+  ];
+  const [data, setdata] = useState(DATA);
   const onPressItem = (item) => {
     setisModalVisible(true);
     setinputText(item.text);
     seteditItem(item.id);
   };
 
+  const [input, setInput] = useState({
+    id: user.googleId,
+    phoneNumber: user.phoneNumber,
+    province: user.province,
+    city: user.city,
+    address: user.address,
+  });
+
   const handleEditItem = (editItem) => {
     const newData = data.map((item) => {
       if (item.id == editItem) {
+        //console.log("item text", item.id);
         item.text = inputText;
         return item;
       }
@@ -54,6 +62,26 @@ const Profile = () => {
   const onPressSaveEdit = () => {
     handleEditItem(editItem); //guarda los cambios
     setisModalVisible(false); //cierra el modal
+    switch (editItem) {
+      case 1:
+        setInput({ ...input, phoneNumber: data[0].text });
+        dispatch(editProfile(input));
+        break;
+      case 2:
+        setInput({ ...input, province: data[1].text });
+        dispatch(editProfile(input));
+        break;
+      case 3:
+        setInput({ ...input, city: data[2].text });
+        dispatch(editProfile(input));
+        break;
+      case 4:
+        setInput({ ...input, address: data[3].text });
+        dispatch(editProfile(input));
+        break;
+      default:
+        break;
+    }
   };
 
   const handleLogOut = () => {
@@ -80,11 +108,13 @@ const Profile = () => {
         <Image
           style={styles.image}
           source={{
-            uri: "https://fotos.perfil.com/2016/06/01/trim/900/900/0627-messi-perdon-g-tel.jpg",
+            uri: user.perfilPic.length
+              ? `${user.perfilPic}`
+              : "https://i.pinimg.com/originals/b8/08/07/b8080715de29eabbbba78c1b2c9d70be.png",
           }}
         />
         <Text style={styles.name}>{user.name}</Text>
-        <Text style={{ marginBottom: 30 }}>Leomessi@hotmail.com</Text>
+        <Text style={{ marginBottom: 30 }}>{user.email}</Text>
       </View>
       <View>
         <FlatList
@@ -104,6 +134,7 @@ const Profile = () => {
               style={styles.textInput}
               onChangeText={(text) => setinputText(text)}
               defaultValue={inputText}
+              // setInput={...input, }
               editable={true}
               multiline={false}
               maxLength={200}
