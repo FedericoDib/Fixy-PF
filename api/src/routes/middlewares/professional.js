@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Professional, Request, Client } = require("../../db");
+const { Professional, Request, Client, Budget } = require("../../db");
 
 const db = require("../../db.hardcode.json");
 
@@ -84,34 +84,7 @@ router.get("/", async (req, res) => {
 //   res.send(requests);
 // });
 
-router.get("/request", async (req, res) => {
-  const { id } = req.query;
-  console.log(id);
 
-  const requests = await Professional.findOne({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Request,
-        attributes: [
-          "affair",
-          "description",
-          "date",
-          "address",
-          "clientId",
-          "status",
-          "id",
-          "availableTime",
-        ],
-      },
-    ],
-    attributes: ["name"],
-  });
-
-  res.send(requests);
-});
 // router.get('/', (req, res) => {
 // 	const { profession } = req.query;
 
@@ -135,6 +108,26 @@ router.put("/", async (req, res) => {
     where: { googleId: id },
   });
   res.json({ succes: "se ha modificado" });
+});
+
+router.get("/budget", async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
+
+  const requests = await Professional.findOne({
+    where: {
+      googleId: id,
+    },
+    include: [
+      {
+        model: Budget,
+        as: "budgets",
+      },
+    ],
+    attributes: ["name"],
+  });
+
+  res.send(requests);
 });
 
 module.exports = router;

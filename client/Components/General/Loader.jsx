@@ -7,7 +7,7 @@ const Loader = ({ text, navigation }) => {
 	const professionals = useSelector((state) => state.professionals);
 
 	useEffect(() => {
-		if (professionals.length) navigation.navigate('List');
+		if (professionals.length) navigation.navigate('List',{ data: '' });
 	}, []);
 
 	return (

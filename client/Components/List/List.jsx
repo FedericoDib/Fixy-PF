@@ -1,10 +1,10 @@
 import {
-    View,
-    FlatList,
-    StyleSheet,
-    Alert,
-    TouchableHighlight,
-    Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Alert,
+  TouchableHighlight,
+  Text,
 } from "react-native";
 import CardList from "./CardList";
 import { Stack, TextInput, IconButton } from "@react-native-material/core";
@@ -19,35 +19,76 @@ import {
     orderByReview,
     averageReview,
     averageReviewOff,
+    getAllBudgets,
 } from "../../Redux/Action";
 // import { professionals, user, requests } from "./Hardcode";
+import Loader from "../General/Loader";
+import BudgetCard from "./BudgetCard";
 
-export default function List({ navigation }) {
+export default function List({ navigation, route  }) {
     const [inputSearch, setInputSearch] = useState("");
     const [filterData, setFilterData] = useState([]);
     const [data, setData] = useState([]);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const professionals = useSelector((state) => state.professionals);
     const requests = useSelector((state) => state.allRequests);
     const user = useSelector((state) => state.user);
     const order = useSelector((state) => state.order);
     const notOrder = useSelector((state) => state.notOrder);
     const averageReviews = useSelector((state) => state.averageReviews);
+    const budgets = useSelector((state) => state.budgets);
     const dispatch = useDispatch();
 
-    if (!data.length) {
+    useEffect(() => {
         if (user.googleId[0] === "c") {
-            if (professionals.length) {
-                setData(professionals);
-            } else {
-                setData([{ name: "no se encontro profesional" }]);
-            }
+          console.log(
+            "HHHHHHHHHHHHDDDDDDDDDDDDDDDDDDDDDDDDDDPPPPPPPPPPPPPPP",
+            route.params.data
+          );
+          // if(route&&route.params.data === 'active'){
+          //   console.log
+          // }
+          if (professionals.length)
+            route.params.data === "pending"
+              ? setData(budgets)
+              : setData(professionals);
         } else {
-            let filteredRequests = requests.requests.filter(
-                (e) => e.status === "pending"
-            );
-            setData(filteredRequests);
+          if (route && route.params.data === "budget") {
+            setData(budgets);
+          } else {
+            if (requests.requests.length) {
+              let filteredRequests = requests.requests.filter((e) =>
+                route ? e.status === route.params.data : e.status.includes("")
+              );
+              setData(filteredRequests);
+            }
+          }
         }
-    }
+        console.log("DATA", data);
+      }, [professionals, requests, user, budgets, route.params.data]);
+    
+      // useEffect(() => {
+      // 	const unsubscribe = navigation.addListener('blur', () => {
+      // 		setData([])
+      // 	});
+    
+      // 	return unsubscribe;
+      // }, [navigation]);
+
+    // if (!data.length) {
+    //     if (user.googleId[0] === "c") {
+    //         if (professionals.length) {
+    //             setData(professionals);
+    //         } else {
+    //             setData([{ name: "no se encontro profesional" }]);
+    //         }
+    //     } else {
+    //         let filteredRequests = requests.requests.filter(
+    //             (e) => e.status === "pending"
+    //         );
+    //         setData(filteredRequests);
+    //     }
+    // }
 
     // console.log("PROFESSIONALS", professionals);
     // console.log("DATA", data);
@@ -87,6 +128,10 @@ export default function List({ navigation }) {
 
         setData(professionals);
     };
+
+    const onRefresh = () => {
+        dispatch(getAllRequest(user.googleId));
+      };
 
     return (
         <View style={style.mainContainer}>
@@ -156,12 +201,26 @@ export default function List({ navigation }) {
                 <View></View>
             )}
             <View style={{ flex: 6 }}>
-                <FlatList
-                    data={data.length ? data : dataDefault}
-                    renderItem={({ item }) => (
-                        <CardList navigation={navigation} item={item} />
-                    )}
+        {!data.length ? (
+          <Text>No se encontraron</Text>
+        ) : (
+          <FlatList
+            data={data}
+            onRefresh={onRefresh}
+            refreshing={isRefreshing}
+            renderItem={({ item }) =>
+              item.estimatedBudget ? (
+                <BudgetCard item={item} navigation={navigation} />
+              ) : (
+                <CardList
+                  navigation={navigation}
+                  item={item}
+                  route={route ? route.params.data : "pending"}
                 />
+              )
+            }
+          />
+        )}
             </View>
         </View>
     );

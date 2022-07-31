@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     View,
     Text,
@@ -70,7 +70,9 @@ export default function CardList({ item, navigation }) {
         } else {
             dispatch(getRequestDetail(item.id));
             dispatch(getAllClients(item.clientId));
-            navigation.navigate("RequestDetail");
+            route === 'pending'
+				? navigation.navigate('RequestDetail')
+				: navigation.navigate('Resume', { item: item });
         }
     };
 

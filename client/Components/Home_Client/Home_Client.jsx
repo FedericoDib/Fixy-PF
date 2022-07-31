@@ -11,7 +11,12 @@ import {
   Wrap,
 } from "@react-native-material/core";
 
-import { Image, TouchableHighlight, View } from "react-native";
+import {
+  Image,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
 // import {
 //   Exo2_100Thin,
 //   Exo2_100Thin_Italic,
@@ -37,7 +42,12 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 import Icon2 from "@expo/vector-icons/FontAwesome5";
 import { styles } from "./Home_Client_Style";
 import PrimaryButton from "../General/PrimaryButton";
-import { getAllRequest } from "../../Redux/Action";
+import {
+  getAllRequest,
+  getAllBudgets,
+  getAllProfessionals,
+  getAllBudgetsClient,
+} from "../../Redux/Action";
 
 const Home_Client = ({ navigation }) => {
   const user = useSelector((state) => state.user);
@@ -47,9 +57,14 @@ const Home_Client = ({ navigation }) => {
 
   useEffect(() => {
     if (user.googleId.includes("p")) {
-      dispatch(getAllRequest(user.googleId));
+      dispatch(getAllRequest("professional", user.googleId));
+    } else {
+      dispatch(getAllRequest("client", user.googleId));
+      dispatch(getAllProfessionals("Unknown"));
+      dispatch(getAllBudgetsClient(user.googleId));
+      console.log("-----------------", requests);
     }
-  }, [dispatch]);
+  }, [user]);
 
   console.log("ESTOY EN HOME", user);
 
@@ -77,7 +92,6 @@ const Home_Client = ({ navigation }) => {
   // if (!fontsLoaded) {
   //   return <Text>Loading...</Text>;
   // }
-  console.log("request", requests.requests);
 
   return (
     <>
@@ -116,56 +130,75 @@ const Home_Client = ({ navigation }) => {
               title="Necesito una solucion"
               trailing={(props) => <Icon2 name="house-damage" {...props} />}
             />
-            <Image
-              source={require("../../assets/noProblemHome.png")}
-              alignSelf="center"
-              style={styles.image}
-            />
+
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("List", { data: "active" })}
+                style={styles.button}
+              >
+                <View>
+                  <Text style={styles.textButton}>Solicitudes activas</Text>
+                </View>
+              </TouchableOpacity>
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("List", { data: "pending" })
+                  }
+                  style={[styles.button, { width: "45%" }]}
+                >
+                  <View>
+                    <Text style={styles.textButton}>
+                      Presupuestos recibidos
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    dispatch(getAllBudgets(user.googleId));
+                    navigation.navigate("List", { data: "request" });
+                  }}
+                  style={[styles.button, { width: "45%" }]}
+                >
+                  <View>
+                    <Text style={styles.textButton}>Solicitudes enviadas</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            {requests.requests && requests.requests.length > 0 ? (
-              <React.Fragment>
-                {requests.requests.map((item, index) => (
-                  <TouchableHighlight
-                    activeOpacity={0.9}
-                    underlayColor="white"
-                    onPress={() => navigation.navigate("BudgetForm")}
-                    key={`activeRequest-${index}`}
-                  >
-                    <View style={styles.cardContainer}>
-                      <View style={styles.textContainer}>
-                        <View style={styles.nameAndReviewContainer}>
-                          <Text style={styles.textName}>
-                            {item.affair.length < 20
-                              ? `${item.affair}`
-                              : `${item.affair.slice(0, 20)} ...`}
-                          </Text>
-                          <Text style={styles.textName}>{item.date}</Text>
-                        </View>
-                        <View style={styles.nameAndReviewContainer}>
-                          <Text style={styles.textName}>{item.address}</Text>
-                        </View>
-                      </View>
-                    </View>
-                  </TouchableHighlight>
-                ))}
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                <PrimaryButton
-                  onPress={() => navigation.navigate("List")}
-                  title="Ver solicitudes"
-                  trailing={(props) => <Icon2 name="house-damage" {...props} />}
-                />
-                <Image
-                  source={require("../../assets/noProblemHome.png")}
-                  alignSelf="center"
-                  style={styles.image}
-                />
-              </React.Fragment>
-            )}
-          </React.Fragment>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("List", { data: "active" })}
+              style={styles.button}
+            >
+              <View>
+                <Text style={styles.textButton}>Solicitudes activas</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("List", { data: "pending" })}
+                style={[styles.button, { width: "45%" }]}
+              >
+                <View>
+                  <Text style={styles.textButton}>Solicitudes recibidas</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(getAllBudgets(user.googleId));
+                  navigation.navigate("List", { data: "budget" });
+                }}
+                style={[styles.button, { width: "45%" }]}
+              >
+                <View>
+                  <Text style={styles.textButton}>Presupuestos enviados</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
         )}
       </Flex>
     </>

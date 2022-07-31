@@ -1,5 +1,5 @@
-import "react-native-gesture-handler";
-import React, { useState } from "react";
+import 'react-native-gesture-handler';
+import React, { useState } from 'react';
 import {
     SafeAreaView,
     View,
@@ -50,7 +50,7 @@ const SolutionScreen = ({ navigation }) => {
         );
         // console.log({ ...input, availableTime: `${minTime} - ${maxTime}` });
         dispatch(getAllProfessionals(Professional));
-        navigation.navigate("List");
+        navigation.navigate('Loader');
     };
 
     return (

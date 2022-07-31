@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Client } = require("../../db");
+const { Client, Professional, Budget } = require("../../db");
 
 const router = Router();
 
@@ -46,12 +46,38 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
-  const id = req.query.id;
-  await Client.update(req.body, {
-    where: { googleId: id },
+router.put("/profile", async (req, res) => {
+  const { id, phoneNumber, province, city, address } = req.body;
+  const client = await Client.findOne({ where: { googleId: id } });
+  const professional = await Professional.findOne({ where: { googleId: id } });
+
+  if (client) {
+    client.update({ phoneNumber, province, city, address });
+    return res.send(client);
+  } else if (professional) {
+    professional.update({ phoneNumber, province, city, address });
+    return res.send(professional);
+  }
+});
+
+router.get("/budget", async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
+
+  const budgets = await Client.findOne({
+    where: {
+      googleId: id,
+    },
+    include: [
+      {
+        model: Budget,
+        as: "budgets",
+      },
+    ],
+    attributes: ["name"],
   });
-  res.json({ succes: "se ha modificado" });
+
+  res.send(budgets);
 });
 
 module.exports = router;

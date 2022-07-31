@@ -21,6 +21,10 @@ export const AVERAGE_REVIEW = 'AVERAGE_REVIEW';
 export const COUNT_OFF = 'COUNT_OFF';
 export const COUNT_ADDITION = 'COUNT_ADDITION';
 export const AVERAGE_REVIEW_OFF = 'AVERAGE_REVIEW_OFF';
+export const GET_ALL_BUDGETS = 'GET_ALL_BUDGETS';
+export const GET_BUDGET_DETAIL = 'GET_BUDGET_DETAIL';
+export const EDIT_PROFILE = 'EDIT_PROFILE';
+export const GET_ALL_BUDGETS_CLIENT = 'GET_ALL_BUDGETS_CLIENT';
 
 import storage from '../../Firebase/Firebase';
 import {
@@ -186,11 +190,10 @@ export const getRequestDetail = (id) => {
 	};
 };
 
-export const getAllRequest = (id) => {
-	console.log('action', id);
+export const getAllRequest = (user, id) => {
 	return async (dispatch) => {
 		const info = await axios.get(
-			`http://${localhost}:3000/professional/request?id=${id}`
+			`http://${localhost}:3000/request/${user}?id=${id}`
 		);
 		console.log(info.data);
 		return dispatch({
@@ -247,6 +250,90 @@ export const mercadoPago = () => {
 		} catch (e) {
 			console.log(e);
 		}
+	};
+};
+
+export const getAllBudgets = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(
+				`http://${localhost}:3000/professional/budget?id=${id}`
+			);
+			return dispatch({
+				type: GET_ALL_BUDGETS,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const getBudgetDetail = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const deleteBudget = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const deleteRequest = (id) => {
+	return async (dispatch) => {
+		try {
+			let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+			return dispatch({
+				type: GET_BUDGET_DETAIL,
+				payload: response.data,
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	};
+};
+
+export const editProfile = (payload) => {
+	console.log('PAYLOAD ACTION', payload);
+	return async (dispatch) => {
+		let response = await axios.put(
+			`http://${localhost}:3000/client/profile`,
+			payload
+		);
+		return dispatch({
+			type: EDIT_PROFILE,
+			payload: response.data,
+		});
+	};
+};
+
+export const getAllBudgetsClient = (id) => {
+	return async (dispatch) => {
+		let response = await axios.get(
+			`http://${localhost}:3000/client/budget?id=${id}`
+		);
+		return dispatch({
+			type: GET_ALL_BUDGETS_CLIENT,
+			payload: response.data,
+		});
 	};
 };
 
