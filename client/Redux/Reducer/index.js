@@ -26,6 +26,7 @@ import {
 	GET_BUDGET_DETAIL,
 	EDIT_PROFILE,
 	GET_ALL_BUDGETS_CLIENT,
+	USER_DETAIL,
 } from '../Action/index';
 const initialState = {
 	user: {},
@@ -43,6 +44,7 @@ const initialState = {
 	averageReviews: [],
 	budgets: [],
 	budgetDetail: {},
+	userDetail: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -203,7 +205,11 @@ const rootReducer = (state = initialState, action) => {
 					return 0;
 				}),
 			};
-
+		case USER_DETAIL:
+			return {
+				...state,
+				userDetail: action.payload,
+			};
 		default:
 			return state;
 	}

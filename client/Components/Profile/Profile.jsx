@@ -105,14 +105,14 @@ const Profile = () => {
   return (
     <SafeAreaView>
       <View style={{ marginTop: 70, alignItems: "center" }}>
-        <Image
+        {/* <Image
           style={styles.image}
           source={{
             uri: user.perfilPic.length
               ? `${user.perfilPic}`
               : "https://i.pinimg.com/originals/b8/08/07/b8080715de29eabbbba78c1b2c9d70be.png",
           }}
-        />
+        /> */}
         <Text style={styles.name}>{user.name}</Text>
         <Text style={{ marginBottom: 30 }}>{user.email}</Text>
       </View>

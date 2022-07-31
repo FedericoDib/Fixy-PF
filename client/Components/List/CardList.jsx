@@ -16,6 +16,7 @@ import {
     requestToProfessional,
     averageReview,
     countAddition,
+    userDetail,
 } from "../../Redux/Action";
 import styles from "./CardListStyle";
 // import { professionals, user } from "./Hardcode";
@@ -62,10 +63,7 @@ export default function CardList({ item, navigation }) {
     const handleSubmit = () => {
         if (user.googleId.includes("c")) {
             dispatch(
-                requestToProfessional({
-                    googleId: item.googleId,
-                    idRequest: request.id,
-                })
+                userDetail(item.googleId, "professional")
             );
         } else {
             dispatch(getRequestDetail(item.id));

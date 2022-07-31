@@ -1,79 +1,9 @@
 import { View, Text, ScrollView, TouchableHighlight, SafeAreaView, Image, FlatList } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import AntDesignIcon from '@expo/vector-icons/AntDesign';
 import IconStar from "react-native-vector-icons/Foundation";
 import styles from './UserDetailStyle'
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Martha',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    name: 'Julian',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58634a0f-3da1-471f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-571f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-461f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-4718f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd26-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-14557329d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-    review: '4.9'
-  },
-  {
-    id: '58694a0f-3da1-421f-bd16-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-14552e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-  },
-  {
-    id: '5869450f-3da1-471f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-  },
-  {
-    id: '58694a0f-3da1-47006f-bd96-145571e29d72',
-    name: 'Marcos',
-    comment: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem.',
-  },
-];
+import {requestToProfessional, userDetail} from '../../Redux/Action'
 
 const Review = ({ name, comment, review }) => (
   <View style={styles.review}>
@@ -86,6 +16,17 @@ const Review = ({ name, comment, review }) => (
 );
 
 const UserDetail = () => {
+
+  const handleSubmit = () => {
+      dispatch(
+          requestToProfessional({
+              googleId: item.googleId,
+              idRequest: request.id,
+          })
+      );
+  }
+
+
 
   const renderItem = ({ item }) => (
     <Review name={item.name} comment={item.comment} review={item.review} />
@@ -123,6 +64,13 @@ const UserDetail = () => {
           keyExtractor={review => review.id}
         />
         </View>
+        {user.googleId.includes("c") ? (
+          <TouchableHighlight
+          activeOpacity={0.9}
+          underlayColor="white"
+          onPress={() => handleSubmit()}
+      > <Text>Enviar Solicitud</Text></TouchableHighlight>
+        ): null }
     </SafeAreaView>
   )
 }

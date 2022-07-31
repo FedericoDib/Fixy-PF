@@ -25,6 +25,7 @@ export const GET_ALL_BUDGETS = 'GET_ALL_BUDGETS';
 export const GET_BUDGET_DETAIL = 'GET_BUDGET_DETAIL';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const GET_ALL_BUDGETS_CLIENT = 'GET_ALL_BUDGETS_CLIENT';
+export const USER_DETAIL = 'USER_DETAIL';
 
 import storage from '../../Firebase/Firebase';
 import {
@@ -37,7 +38,7 @@ import { async } from '@firebase/util';
 
 // import db from "../../db.hardcode.json";
 
-const localhost = '192.168.1.122';
+const localhost = '192.168.100.27';
 
 export const googleLogin = (payload) => {
 	// console.log("ESTOY EN LA ACTION", payload);
@@ -375,5 +376,15 @@ export const countAddition = (payload) => {
 	return {
 		type: COUNT_ADDITION,
 		payload,
+	};
+};
+
+export const userDetail = (id, user) => {
+	return async (dispatch) => {
+		let response = await axios.get(`http://${localhost}:3000/${user}/${id}`);
+		return dispatch({
+			type: USER_DETAIL,
+			payload: response.data,
+		});
 	};
 };
