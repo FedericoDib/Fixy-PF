@@ -15,6 +15,13 @@ export const CREATE_REVIEW_CLIENT = 'CREATE_REVIEW_CLIENT';
 export const SAVE_PERFILPIC = 'SAVE_PERFILPIC';
 export const GET_REQUEST_DETAIL = 'GET_REQUEST_DETAIL';
 export const CREATE_BUDGET = 'CREATE_BUDGET';
+export const ORDER_BY_CITY = 'ORDER_BY_CITY';
+export const ORDER_BY_REVIEW = 'ORDER_BY_REVIEW';
+export const AVERAGE_REVIEW = 'AVERAGE_REVIEW';
+export const COUNT_OFF = 'COUNT_OFF';
+export const COUNT_ADDITION = 'COUNT_ADDITION';
+export const AVERAGE_REVIEW_OFF = 'AVERAGE_REVIEW_OFF';
+
 import storage from '../../Firebase/Firebase';
 import {
 	getDownloadURL,
@@ -26,7 +33,7 @@ import { async } from '@firebase/util';
 
 // import db from "../../db.hardcode.json";
 
-const localhost = '192.168.0.161';
+const localhost = '192.168.1.122';
 
 export const googleLogin = (payload) => {
 	// console.log("ESTOY EN LA ACTION", payload);
@@ -240,5 +247,46 @@ export const mercadoPago = () => {
 		} catch (e) {
 			console.log(e);
 		}
+	};
+};
+
+export const orderByCity = (payload) => {
+	return {
+		type: ORDER_BY_CITY,
+		payload,
+	};
+};
+
+export const orderByReview = (payload) => {
+	return {
+		type: ORDER_BY_REVIEW,
+		payload,
+	};
+};
+
+export const averageReview = (payload) => {
+	return {
+		type: AVERAGE_REVIEW,
+		payload,
+	};
+};
+
+export const averageReviewOff = (payload) => {
+	return {
+		type: AVERAGE_REVIEW_OFF,
+		payload,
+	};
+};
+
+export const countOff = (payload) => {
+	return {
+		type: COUNT_OFF,
+		payload,
+	};
+};
+export const countAddition = (payload) => {
+	return {
+		type: COUNT_ADDITION,
+		payload,
 	};
 };
