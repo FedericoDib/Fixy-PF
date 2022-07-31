@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import RegisteredStack from "../../navigations/RegisteredStack";
 import NotRegisteredStack from "../../navigations/NotRegisteredStack";
 import LoginStack from "../../navigations/LoginStack";
-import UserDetail from "../UserDetail/UserDetail";
 
 const Main = () => {
   const user = useSelector((state) => state.user);
@@ -12,7 +11,7 @@ const Main = () => {
     <React.Fragment>
       {Object.getOwnPropertyNames(user).length > 0 ? (
         <React.Fragment>
-          {!user.isRegistered ? <UserDetail/> : <UserDetail/>}
+          {!user.isRegistered ? <NotRegisteredStack /> : <RegisteredStack />}
         </React.Fragment>
       ) : (
         <React.Fragment>
