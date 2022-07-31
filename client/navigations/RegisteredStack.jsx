@@ -8,7 +8,8 @@ import Pay from "../Components/Pay/Pay";
 import BudgetForm from "../Components/BudgetForm/BudgetForm";
 import RequestDetail from "../Components/RequestDetail/RequestDetail";
 import Loader from "../Components/General/Loader";
-import BudgetDetail from "../Components/BudgetDetail/BudgetDetail"
+import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
+import UserDetail from "../Components/UserDetail/UserDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -59,6 +60,11 @@ const RegisteredStack = () => {
         <Stack.Screen
           name="BudgetDetail"
           component={BudgetDetail}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ProfileDetail"
+          component={UserDetail}
           options={{ headerShown: false }}
         />
       </Stack.Group>

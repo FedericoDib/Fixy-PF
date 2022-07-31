@@ -14,9 +14,11 @@ import { useNavigation } from "@react-navigation/native";
 import style from "./RequestDetailStyle";
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userDetail } from "../../Redux/Action";
 
 export default function RequestDetail({ navigation }) {
+  const dispatch = useDispatch();
   const request = useSelector((state) => state.requestDetail);
   const client = useSelector((state) => state.clients);
 
@@ -56,12 +58,41 @@ export default function RequestDetail({ navigation }) {
   //       ],
   //     },
   //   };
+  //console.log("CLIENTE ID", client);
+  const handleSubmit = () => {
+    dispatch(userDetail(client.googleId, "client"));
+    navigation.navigate("ProfileDetail");
+  };
 
   return (
     <ScrollView style={style.mainContainer}>
       <React.Fragment>
         {request && client ? (
           <React.Fragment>
+            <TouchableHighlight
+              activeOpacity={0.9}
+              underlayColor="white"
+              onPress={() => handleSubmit()}
+            >
+              <View style={style.cardContainer}>
+                <View style={style.imageContainer}>
+                  <Icon name="user" color="black" size={40} />
+                  {/* <Image
+        source={item.image}
+    /> */}
+                </View>
+                <View style={style.textContainer}>
+                  <View style={style.nameAndReviewContainer}>
+                    <Text style={style.textName}>{client.name}</Text>
+                    <View style={style.reviewContainer}>
+                      <IconStart name="star" color="#E1C85A" size={19} />
+                      {/* <Text style={style.textName}>{rating}</Text> */}
+                    </View>
+                  </View>
+                  {/* <Text style={style.textProfession}>{client.profession}</Text> */}
+                </View>
+              </View>
+            </TouchableHighlight>
             <View style={style.textContainer}>
               <Text>Asunto</Text>
               <View style={style.centerField}>

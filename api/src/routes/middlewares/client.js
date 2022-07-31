@@ -80,4 +80,9 @@ router.get("/budget", async (req, res) => {
   res.send(budgets);
 });
 
+router.get("/:id", async (req, res) => {
+  const client = await Client.findOne({ where: { googleId: req.params.id } });
+  res.send(client);
+});
+
 module.exports = router;

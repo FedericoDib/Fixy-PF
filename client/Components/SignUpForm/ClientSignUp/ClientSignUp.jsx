@@ -17,8 +17,8 @@ import COLORS from "./Colors";
 import { ScrollView, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { createClient, uploadImage } from "../../../Redux/Action";
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.user);
@@ -30,50 +30,49 @@ const SignUpScreen = ({ navigation }) => {
     ...user,
     isRegistered: true,
     googleId: "c" + user.googleId,
-    expoToken:expoPushToken
-    // name: "marianou",
-    // email: "marianou@gmail.com",
+    expoToken: expoPushToken,
+    name: "marianou",
+    email: "marianou@gmail.com",
     // perfilPic: perfilPickarda,
   });
-  const [expoPushToken, setExpoPushToken] = useState('');
- 
+  const [expoPushToken, setExpoPushToken] = useState("");
 
   //NOTIFICATIONS TOKEN
 
-
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-    
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
   }, []);
 
-  async function registerForPushNotificationsAsync () {
+  async function registerForPushNotificationsAsync() {
     if (Device.isDevice) {
-      const { status: existingStatus } = await Notifications.getPermissionsAsync();
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
-      if (existingStatus !== 'granted') {
+      if (existingStatus !== "granted") {
         const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
         return;
       }
       const token = (await Notifications.getExpoPushTokenAsync()).data;
-      
-      setInput({...input, expoToken: token})
-      
+
+      setInput({ ...input, expoToken: token });
     } else {
-      alert('Must use physical device for Push Notifications');
+      alert("Must use physical device for Push Notifications");
     }
-    if (Platform.OS === 'android') {
-      Notifications.setNotificationChannelAsync('default', {
-        name: 'default',
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
         importance: Notifications.AndroidImportance.MAX,
         vibrationPattern: [0, 250, 250, 0],
-        lightColor: '#FF231F7C',
+        lightColor: "#FF231F7C",
       });
     }
-    };
+  }
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library

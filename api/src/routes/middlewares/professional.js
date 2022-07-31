@@ -84,7 +84,6 @@ router.get("/", async (req, res) => {
 //   res.send(requests);
 // });
 
-
 // router.get('/', (req, res) => {
 // 	const { profession } = req.query;
 
@@ -128,6 +127,13 @@ router.get("/budget", async (req, res) => {
   });
 
   res.send(requests);
+});
+
+router.get("/:id", async (req, res) => {
+  const professional = await Professional.findOne({
+    where: { googleId: req.params.id },
+  });
+  res.send(professional);
 });
 
 module.exports = router;
