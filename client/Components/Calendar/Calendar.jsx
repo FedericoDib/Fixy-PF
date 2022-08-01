@@ -66,23 +66,21 @@ const CalendarView = ({ navigation }) => {
   } , [])
 
   const formatItem = (events) => {
-    const newObj = {};
     events?.map(event => {
-      if (newObj[event.date]) {
-        newObj[event.date].push(event);
-      }
-      
-      newObj[event.date] = [{
+      if (items.hasOwnProperty(event.date)) {
+        items[event.date].push(event);
+      } else {
+        items[event.date] = [{
           affair: event.affair,
           description: event.description,
           date: event.date,
           availableTime: event.availableTime,
-      }, ]
-      setItems({...items, ...newObj});
+          selectedColor: theme.colors.threePalet.primary,
+      }];
+      }
     }
     )
-  }
-  console.log(items);
+  } 
 
   const renderEmptyData = () => {
     return (
