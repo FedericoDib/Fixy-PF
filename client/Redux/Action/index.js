@@ -26,6 +26,7 @@ export const GET_BUDGET_DETAIL = "GET_BUDGET_DETAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_ALL_BUDGETS_CLIENT = "GET_ALL_BUDGETS_CLIENT";
 export const USER_DETAIL = "USER_DETAIL";
+export const PAYPAL_PRICE = "PAYPAL_PRICE";
 
 import storage from "../../Firebase/Firebase";
 import {
@@ -386,5 +387,33 @@ export const userDetail = (id, user) => {
       type: USER_DETAIL,
       payload: response.data,
     });
+  };
+};
+
+export const paypalPrice = (price) => {
+  console.log("ACTION PRICE", price);
+  return async (dispatch) => {
+    let response = await axios.get(
+      `http://${localhost}:3000/paypal/paypal?price=${price}`
+    );
+    return dispatch({
+      type: PAYPAL_PRICE,
+      payload: response.data,
+    });
+  };
+};
+
+export const rejectBudgetClient = (payload) => {
+  return async (dispatch) => {
+    let response = await axios.put(
+      `http://${localhost}:3000/client/budget`,
+      payload
+    );
+  };
+};
+
+export const setStatusRequestToActive = (id) => {
+  return async (dispatch) => {
+    let response = await axios.put(`http://${localhost}:3000/request/${id}`);
   };
 };

@@ -25,13 +25,14 @@ paypal.configure({
 });
 
 app.get("/paypal", (req, res) => {
+  console.log("PRICE", req.query.price);
   var create_payment_json = {
     intent: "sale",
     payer: {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://192.168.0.11:3000/paypal/success",
+      return_url: `http://192.168.0.11:3000/paypal/success?price=${req.query.price}`,
       cancel_url: "http://192.168.0.11:3000/paypal/cancel",
     },
     transactions: [
@@ -39,9 +40,9 @@ app.get("/paypal", (req, res) => {
         item_list: {
           items: [
             {
-              name: "item",
-              sku: "item",
-              price: "1.00",
+              name: "VISITA",
+              sku: "VISITA",
+              price: `${req.query.price}.00`,
               currency: "USD",
               quantity: 1,
             },
@@ -49,9 +50,9 @@ app.get("/paypal", (req, res) => {
         },
         amount: {
           currency: "USD",
-          total: "1.00",
+          total: `${req.query.price}.00`,
         },
-        description: "This is the payment description.",
+        description: "VISITA POR SERVICIOS DE MANTENIMIENTO DEL HOGAR.",
       },
     ],
   };
@@ -77,7 +78,7 @@ app.get("/success", (req, res) => {
       {
         amount: {
           currency: "USD",
-          total: "1.00",
+          total: `${req.query.price}.00`,
         },
       },
     ],
