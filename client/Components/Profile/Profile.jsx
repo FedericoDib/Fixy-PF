@@ -17,6 +17,8 @@ import PrimaryButton from "../General/PrimaryButton";
 import styles from "./ProfileStyles";
 import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Feather";
+import * as GoogleSignIn from 'expo-google-sign-in'
+
 
 const Profile = () => {
   const [isRender, setisRender] = useState(false);
@@ -85,8 +87,8 @@ const Profile = () => {
   };
 
   const handleLogOut = () => {
+    GoogleSignIn.signOutAsync();
     dispatch(logOut());
-    SecureStore.deleteItemAsync("key");
   };
 
   const renderItem = ({ item, index }) => {
