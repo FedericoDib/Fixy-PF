@@ -8,7 +8,7 @@ const modelRequest = require('./models/Request');
 const modelUserDemo = require('./models/UserList');
 const modelBudget = require('./models/Budget');
 
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
 // const sequelize = new Sequelize(
 // 	`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/fixyHome`,
