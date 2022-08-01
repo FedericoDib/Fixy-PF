@@ -62,7 +62,7 @@ router.put("/profile", async (req, res) => {
 
 router.get("/budget", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
+  console.log("hola loco ");
 
   const budgets = await Client.findOne({
     where: {
@@ -76,8 +76,18 @@ router.get("/budget", async (req, res) => {
     ],
     attributes: ["name"],
   });
+  //console.log(budgets.__proto__);
 
   res.send(budgets);
+});
+
+router.put("/budget", async (req, res) => {
+  const { clientId, budgetId } = req.body;
+  let budget = await Budget.findByPk(budgetId);
+  let client = await Client.findOne({ where: { googleId: clientId } });
+
+  client.removeBudget(budget);
+  res.send("por favor anda");
 });
 
 router.get("/:id", async (req, res) => {

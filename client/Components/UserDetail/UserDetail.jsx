@@ -12,7 +12,7 @@ import AntDesignIcon from "@expo/vector-icons/AntDesign";
 import IconStar from "react-native-vector-icons/Foundation";
 import styles from "./UserDetailStyle";
 import { requestToProfessional, userDetail } from "../../Redux/Action";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Review = ({ name, comment, review }) => (
   <View style={styles.review}>
@@ -25,17 +25,21 @@ const Review = ({ name, comment, review }) => (
 );
 
 const UserDetail = ({ navigation }) => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const request = useSelector((state) => state.request);
+  console.log("request", request);
   const userDetail = useSelector((state) => state.userDetail);
-  console.log(userDetail);
+  console.log("USER DETAIL", userDetail);
 
   const handleSubmit = () => {
     dispatch(
       requestToProfessional({
-        googleId: item.googleId,
+        googleId: userDetail.googleId,
         idRequest: request.id,
       })
     );
+    navigation.popToTop();
   };
 
   const renderItem = ({ item }) => (

@@ -1,57 +1,63 @@
-const { Router, request } = require('express');
-const { Professional, Request, Client } = require('../../db');
+const { Router, request } = require("express");
+const { Professional, Request, Client } = require("../../db");
 
 const router = Router();
 
-const db = require('../../db.hardcode.json');
+const db = require("../../db.hardcode.json");
 
-router.post('/', async (req, res) => {
-	const {
-		clientId,
-		affair,
-		date,
-		description,
-		address,
-		status,
-		availableTime,
-	} = req.body;
+router.post("/", async (req, res) => {
+  const {
+    clientId,
+    affair,
+    date,
+    description,
+    address,
+    status,
+    availableTime,
+  } = req.body;
 
-	let newRequest = await Request.create({
-		clientId,
-		affair,
-		date,
-		description,
-		status,
-		address,
-		availableTime,
-	});
+  let newRequest = await Request.create({
+    clientId,
+    affair,
+    date,
+    description,
+    status,
+    address,
+    availableTime,
+  });
 
-	res.send(newRequest);
+  res.send(newRequest);
 });
 
-router.put('/', async (req, res) => {
-	const { googleId, idRequest } = req.body;
+router.put("/:id", async (req, res) => {
+  await Request.update({ status: "active" }, { where: { id: req.params.id } });
 
-	const request = await Request.findOne({ where: { id: idRequest } });
-	const professional = await Professional.findOne({
-		where: { googleId },
-	});
-
-	await request.addProfessional(professional);
-
-	res.send('Solicitud creada con exito');
+  res.send("ok");
 });
 
-router.get('/', async (req, res) => {
-	const { id } = req.query;
-	let request;
-	if (id) {
-		request = await Request.findOne({ where: { id } });
-		res.send(request);
-	} else {
-		request = await Request.findAll();
-		res.send(request);
-	}
+router.put("/", async (req, res) => {
+  const { googleId, idRequest } = req.body;
+
+  const request = await Request.findOne({ where: { id: idRequest } });
+  const professional = await Professional.findOne({
+    where: { googleId },
+  });
+
+  await request.addProfessional(professional);
+
+  res.send("Solicitud creada con exito");
+});
+
+router.get("/", async (req, res) => {
+  const { id } = req.query;
+  let request;
+  if (id) {
+    request = await Request.findOne({ where: { id } });
+    res.send(request);
+  } else {
+    request = await Request.findAll();
+    res.send(request);
+  }
 });
 
 // router.put('/:id', async (req, res) => {
@@ -72,71 +78,71 @@ router.get('/', async (req, res) => {
 // 		);
 // });
 
-router.get('/professional', async (req, res) => {
-	const { id } = req.query;
-	console.log(id);
+router.get("/professional", async (req, res) => {
+  const { id } = req.query;
+  console.log(id);
 
-	const requests = await Professional.findOne({
-		where: {
-			googleId: id,
-		},
-		include: [
-			{
-				model: Request,
-				attributes: [
-					'affair',
-					'description',
-					'date',
-					'address',
-					'clientId',
-					'status',
-					'id',
-					'availableTime',
-				],
-			},
-		],
-		attributes: ['name'],
-	});
+  const requests = await Professional.findOne({
+    where: {
+      googleId: id,
+    },
+    include: [
+      {
+        model: Request,
+        attributes: [
+          "affair",
+          "description",
+          "date",
+          "address",
+          "clientId",
+          "status",
+          "id",
+          "availableTime",
+        ],
+      },
+    ],
+    attributes: ["name"],
+  });
 
-	res.send(requests);
+  res.send(requests);
 });
 
 // MUESTRA LOS CLIENTES ASOCIADOS A LA REQUEST
 
-router.get('/client', async (req, res) => {
-	const { id } = req.query;
-	const requests = await Client.findAll({
-		where: {
-			googleId: id,
-		},
-		include: [
-			{
-				model: Request,
-				as: 'requests',
-			},
-		],
-		attributes: ['name'],
-	});
+router.get("/client", async (req, res) => {
+  const { id } = req.query;
+  const requests = await Client.findAll({
+    where: {
+      googleId: id,
+    },
+    include: [
+      {
+        model: Request,
+        as: "requests",
+      },
+    ],
+    attributes: ["name"],
+  });
 
-	console.log(requests);
+  console.log(requests);
 
-	res.send(requests);
+  res.send(requests);
 });
 
 // MUESTRA LOS  PROFESIONALES ASOCIADOS A LA REQUEST
 
-router.get('/professional', async (req, res) => {
-	const request = await Request.findAll({
-		include: [
-			{
-				model: Professional,
-				attributes: ['name', 'province', 'city'],
-			},
-		],
-		attributes: ['affair', 'description'],
-	});
+router.get("/professional", async (req, res) => {
+  const request = await Request.findAll({
+    include: [
+      {
+        model: Professional,
+        attributes: ["name", "province", "city"],
+      },
+    ],
+    attributes: ["affair", "description"],
+  });
 
-	res.send(request);
+  res.send(request);
 });
 
 module.exports = router;
