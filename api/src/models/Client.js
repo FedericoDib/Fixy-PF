@@ -11,8 +11,7 @@ module.exports = (sequelize) => {
 			},
 			expoToken: {
 				type: DataTypes.STRING,
-				allowNull: false,
-				defaultValue: '',
+				allowNull: true,
 			},
 			isRegistered: {
 				type: DataTypes.BOOLEAN,
