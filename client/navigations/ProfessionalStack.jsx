@@ -14,12 +14,12 @@ import Paypal from "../Components/Paypal/Paypal";
 
 const Stack = createNativeStackNavigator();
 
-const RegisteredStack = () => {
+const ProfessionalStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Group>
         <Stack.Screen
-          name="HomeClient"
+          name="HomeProfessional"
           component={Tabs}
           options={{ headerShown: false }}
         />
@@ -78,4 +78,4 @@ const RegisteredStack = () => {
   );
 };
 
-export default RegisteredStack;
+export default ProfessionalStack;
