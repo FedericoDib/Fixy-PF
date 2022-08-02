@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const { Professional, Request, Client, Budget } = require("../../db");
 
-const db = require("../../db.hardcode.json");
-
 const router = Router();
 
 router.post("/create", async (req, res) => {
@@ -21,119 +19,103 @@ router.post("/create", async (req, res) => {
     expoToken,
     isRegistered,
   } = req.body;
-
-  let newProfessional = await Professional.create({
-    googleId,
-    name,
-    email,
-    perfilPic,
-    enrollment,
-    profession,
-    province,
-    phoneNumber,
-    city,
-    address,
-    availableTimes,
-    expoToken,
-    isRegistered,
-  });
-  res.send(newProfessional);
+  try {
+    let newProfessional = await Professional.create({
+      googleId,
+      name,
+      email,
+      perfilPic,
+      enrollment,
+      profession,
+      province,
+      phoneNumber,
+      city,
+      address,
+      availableTimes,
+      expoToken,
+      isRegistered,
+    });
+    res.status(201).send(newProfessional);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.get("/", async (req, res) => {
   const { profession } = req.query;
-  let professionals;
-  if (profession) {
-    if (profession === "Unknown") {
-      professionals = await Professional.findAll();
-      res.send(professionals);
+  try {
+    let professionals;
+    if (profession) {
+      if (profession === "Unknown") {
+        professionals = await Professional.findAll();
+        res.send(professionals);
+      } else {
+        professionals = await Professional.findAll({
+          where: { profession },
+        });
+        if (professionals.length) {
+          res.send(professionals);
+        } else {
+          res.status(400).send("No hay profesionales");
+        }
+      }
     } else {
-      professionals = await Professional.findAll({
-        where: { profession },
-      });
+      professionals = await Professional.findAll();
+
       res.send(professionals);
     }
-  } else {
-    professionals = await Professional.findAll();
-
-    res.send(professionals);
+  } catch (error) {
+    res.status(400).send(error);
   }
-});
-
-// router.get("/request", async (req, res) => {
-//   const { id } = req.body;
-
-//   const requests = await Request.findOne({
-//     where: {
-//       id: id,
-//     },
-//     include: [
-//       {
-//         model: Professional,
-//         attributes: ["name"],
-//       },
-//       {
-//         model: Client,
-//         as: "client",
-//         attributes: ["name", "city"],
-//       },
-//     ],
-//     attributes: ["affair", "description", "date"],
-//   });
-
-//   res.send(requests);
-// });
-
-// router.get('/', (req, res) => {
-// 	const { profession } = req.query;
-
-// 	if (profession === 'Unknown') {
-// 		res.send(db.professional);
-// 	} else {
-// 		res.send(db.professional.filter((p) => p.profession === profession));
-// 	}
-// });
-
-router.get("/profil", async (req, res) => {
-  const id = req.query.id;
-  console.log(id);
-  const profesional = await Professional.findOne({ where: { googleId: id } });
-  res.send(profesional);
-});
-
-router.put("/", async (req, res) => {
-  const id = req.query.id;
-  await Professional.update(req.body, {
-    where: { googleId: id },
-  });
-  res.json({ succes: "se ha modificado" });
 });
 
 router.get("/budget", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
 
-  const requests = await Professional.findOne({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Budget,
-        as: "budgets",
-      },
-    ],
-    attributes: ["name"],
-  });
-
-  res.send(requests);
+  try {
+    if (!id) {
+      res.status(400).send("no hay id");
+    } else {
+      const budgets = await Professional.findOne({
+        where: {
+          googleId: id,
+        },
+        include: [
+          {
+            model: Budget,
+            as: "budgets",
+          },
+        ],
+        attributes: ["name"],
+      });
+      if (budgets) {
+        if (budgets.budgets.length) {
+          res.status(200).send(budgets);
+        } else {
+          res.status(400).send("no tiene presupuestos");
+        }
+      } else {
+        res.status(400).send("no existe ese profesional");
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
-  const professional = await Professional.findOne({
-    where: { googleId: req.params.id },
-  });
-  res.send(professional);
+  try {
+    const professional = await Professional.findOne({
+      where: { googleId: req.params.id },
+    });
+    if (professional) {
+      res.status(200).send(professional);
+    } else {
+      res.status(400).send("no existe ese professional");
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 module.exports = router;

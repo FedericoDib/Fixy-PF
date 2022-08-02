@@ -18,31 +18,42 @@ router.post("/create", async (req, res) => {
     firstLogin,
   } = req.body;
 
-  let user = await Client.create({
-    isRegistered,
-    expoToken,
-    phoneNumber,
-    perfilPic,
-    province,
-    city,
-    address,
-    googleId,
-    name,
-    email,
-    firstLogin,
-  });
-  res.send(user);
+  try {
+    let user = await Client.create({
+      isRegistered,
+      expoToken,
+      phoneNumber,
+      perfilPic,
+      province,
+      city,
+      address,
+      googleId,
+      name,
+      email,
+      firstLogin,
+    });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.get("/", async (req, res) => {
   const id = req.query.id;
-  console.log(id);
-  if (id) {
-    const client = await Client.findOne({ where: { googleId: id } });
-    res.send(client);
-  } else {
-    const clients = await Client.findAll();
-    res.send(clients);
+  try {
+    if (id) {
+      const client = await Client.findOne({ where: { googleId: id } });
+      if (client) {
+        res.status(200).send(client);
+      } else {
+        res.status(400).send("no existe ese cliente");
+      }
+    } else {
+      const clients = await Client.findAll();
+      res.status(200).send(clients);
+    }
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
@@ -51,48 +62,76 @@ router.put("/profile", async (req, res) => {
   const client = await Client.findOne({ where: { googleId: id } });
   const professional = await Professional.findOne({ where: { googleId: id } });
 
-  if (client) {
-    client.update({ phoneNumber, province, city, address });
-    return res.send(client);
-  } else if (professional) {
-    professional.update({ phoneNumber, province, city, address });
-    return res.send(professional);
+  try {
+    if (client) {
+      client.update({ phoneNumber, province, city, address });
+      return res.status(202).send(client);
+    } else if (professional) {
+      professional.update({ phoneNumber, province, city, address });
+      return res.status(202).send(professional);
+    }
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
 router.get("/budget", async (req, res) => {
   const { id } = req.query;
-  console.log("hola loco ");
 
-  const budgets = await Client.findOne({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Budget,
-        as: "budgets",
+  try {
+    if (!id) {
+      res.status(400).send("no hay id");
+    }
+    const budgets = await Client.findOne({
+      where: {
+        googleId: id,
       },
-    ],
-    attributes: ["name"],
-  });
-  //console.log(budgets.__proto__);
-
-  res.send(budgets);
+      include: [
+        {
+          model: Budget,
+          as: "budgets",
+        },
+      ],
+      attributes: ["name"],
+    });
+    //console.log(budgets.__proto__);
+    if (!budgets) {
+      res.status(400).send("no existe este cliente");
+    } else {
+      if (budgets.budgets.length) {
+        res.status(202).send(budgets);
+      } else {
+        res.status(400).send("no tiene presuspuestos");
+      }
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.put("/budget", async (req, res) => {
   const { clientId, budgetId } = req.body;
   let budget = await Budget.findByPk(budgetId);
   let client = await Client.findOne({ where: { googleId: clientId } });
-
-  client.removeBudget(budget);
-  res.send("por favor anda");
+  try {
+    client.removeBudget(budget);
+    res.send("exito");
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
-  const client = await Client.findOne({ where: { googleId: req.params.id } });
-  res.send(client);
+  try {
+    const client = await Client.findOne({ where: { googleId: req.params.id } });
+    if (client) {
+      res.status(200).send(client);
+    } else {
+      req.status(400).send("no existe el cliente");
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 module.exports = router;

@@ -16,133 +16,130 @@ router.post("/", async (req, res) => {
     availableTime,
   } = req.body;
 
-  let newRequest = await Request.create({
-    clientId,
-    affair,
-    date,
-    description,
-    status,
-    address,
-    availableTime,
-  });
+  try {
+    let newRequest = await Request.create({
+      clientId,
+      affair,
+      date,
+      description,
+      status,
+      address,
+      availableTime,
+    });
 
-  res.send(newRequest);
+    res.status(201).send(newRequest);
+  } catch (error) {
+    res.status(400).send("faltan datos");
+  }
 });
 
 router.put("/:id", async (req, res) => {
-  await Request.update({ status: "active" }, { where: { id: req.params.id } });
+  try {
+    await Request.update(
+      { status: "active" },
+      { where: { id: req.params.id } }
+    );
 
-  res.send("ok");
+    res.status(202).send("ok");
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.put("/", async (req, res) => {
   const { googleId, idRequest } = req.body;
+  try {
+    const request = await Request.findOne({ where: { id: idRequest } });
+    const professional = await Professional.findOne({
+      where: { googleId },
+    });
 
-  const request = await Request.findOne({ where: { id: idRequest } });
-  const professional = await Professional.findOne({
-    where: { googleId },
-  });
+    await request.addProfessional(professional);
 
-  await request.addProfessional(professional);
-
-  res.send("Solicitud creada con exito");
+    res.status(2002).send("Solicitud creada con exito");
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 router.get("/", async (req, res) => {
   const { id } = req.query;
-  let request;
-  if (id) {
-    request = await Request.findOne({ where: { id } });
-    res.send(request);
-  } else {
-    request = await Request.findAll();
-    res.send(request);
+  try {
+    let request;
+    if (id) {
+      request = await Request.findOne({ where: { id } });
+      if (request) {
+        res.status(200).send(request);
+      } else {
+        res.status(400).send("no existe la request");
+      }
+    } else {
+      request = await Request.findAll();
+      res.send(request);
+    }
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
-// router.put('/:id', async (req, res) => {
-// 	const { id } = req.params;
-// 	const { googleId } = req.body;
-
-// 	const request = await Request.findOne({ where: { id } });
-// 	const professional = await Professional.findOne({
-// 		where: { googleId },
-// 	});
-
-// 	await request.addProfessional(professional);
-
-// 	res
-// 		.status(200)
-// 		.send(
-// 			`combinado la request ${request.id} y el profesional ${professional.googleId}`
-// 		);
-// });
-
 router.get("/professional", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
 
-  const requests = await Professional.findOne({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Request,
-        attributes: [
-          "affair",
-          "description",
-          "date",
-          "address",
-          "clientId",
-          "status",
-          "id",
-          "availableTime",
-        ],
+  try {
+    const requests = await Professional.findOne({
+      where: {
+        googleId: id,
       },
-    ],
-    attributes: ["name"],
-  });
-
-  res.send(requests);
+      include: [
+        {
+          model: Request,
+          attributes: [
+            "affair",
+            "description",
+            "date",
+            "address",
+            "clientId",
+            "status",
+            "id",
+            "availableTime",
+          ],
+        },
+      ],
+      attributes: ["name"],
+    });
+    if (!request) {
+      res.status(400).send("no existe ese profesional");
+    } else {
+      res.status(200).send(requests);
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 // MUESTRA LOS CLIENTES ASOCIADOS A LA REQUEST
 
 router.get("/client", async (req, res) => {
   const { id } = req.query;
-  const requests = await Client.findAll({
-    where: {
-      googleId: id,
-    },
-    include: [
-      {
-        model: Request,
-        as: "requests",
+  try {
+    const requests = await Client.findAll({
+      where: {
+        googleId: id,
       },
-    ],
-    attributes: ["name"],
-  });
-
-  console.log(requests);
-
-  res.send(requests);
-});
-
-// MUESTRA LOS  PROFESIONALES ASOCIADOS A LA REQUEST
-
-router.get("/professional", async (req, res) => {
-  const request = await Request.findAll({
-    include: [
-      {
-        model: Professional,
-        attributes: ["name", "province", "city"],
-      },
-    ],
-    attributes: ["affair", "description"],
-  });
-
-  res.send(request);
+      include: [
+        {
+          model: Request,
+          as: "requests",
+        },
+      ],
+      attributes: ["name"],
+    });
+    if (request) {
+      res.status(200).send(requests);
+    } else {
+      res.status(400).send("no existe el cliente");
+    }
+  } catch (error) {}
 });
 
 module.exports = router;
