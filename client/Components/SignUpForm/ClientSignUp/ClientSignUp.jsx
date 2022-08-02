@@ -40,10 +40,12 @@ const SignUpScreen = ({ navigation }) => {
 	//NOTIFICATIONS TOKEN
 
 	useEffect(() => {
-		registerForPushNotificationsAsync().then((token) =>
-			setExpoPushToken(token)
-		);
+		registerForPushNotificationsAsync().then((token) =>	
+		setExpoPushToken(token)
+		)
 	}, []);
+	
+	
 
 	async function registerForPushNotificationsAsync() {
 		if (Device.isDevice) {
@@ -59,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
 				return;
 			}
 			const token = (await Notifications.getExpoPushTokenAsync()).data;
-
+			
 			setInput({ ...input, expoToken: token });
 		} else {
 			alert('Must use physical device for Push Notifications');
@@ -200,6 +202,7 @@ const SignUpScreen = ({ navigation }) => {
 					<View style={STYLES.btnPrimary}>
 						<TouchableOpacity
 							onPress={() => {
+								dispatch(createClient(input));
 								navigation.navigate('ClientStack', {
 									screen: 'HomeClient',
 								});
