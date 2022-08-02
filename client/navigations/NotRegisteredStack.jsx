@@ -12,7 +12,6 @@ const NotRegisteredStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Group>
-
       <Stack.Screen
         name='OnBoarding'
         component={OnBoarding}
@@ -31,11 +30,6 @@ const NotRegisteredStack = () => {
       <Stack.Screen
         name='ClientSignUp'
         component={ClientSignUp}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name='HomeClient'
-        component={Tabs}
         options={{ headerShown: false }}
       />
       </Stack.Group>

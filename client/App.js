@@ -4,6 +4,7 @@ import store from "./Redux/Store";
 import Main from "./Components/Main/Main";
 
 export default function App() {
+  
   return (
     <Provider store={store}>
       <NavigationContainer>
