@@ -65,7 +65,7 @@ const SolutionScreen = ({ navigation }) => {
       ]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={{ marginTop: 15, fontWeigth: 500 }}>Asunto</Text>
+        <Text style={{ marginTop: 15}}>Asunto</Text>
         <View style={STYLES.inputContainer}>
           <TextInput
             placeholder="Asunto"
@@ -79,7 +79,7 @@ const SolutionScreen = ({ navigation }) => {
             style={STYLES.inputIcon}
           />
         </View>
-        <Text style={{ marginTop: 15, fontWeigth: 500 }}>Dirección</Text>
+        <Text style={{ marginTop: 15}}>Dirección</Text>
         <View style={STYLES.inputContainer}>
           <TextInput
             placeholder="Provincia, Ciudad, Calle"
@@ -93,7 +93,7 @@ const SolutionScreen = ({ navigation }) => {
             style={STYLES.inputIcon}
           />
         </View>
-        <Text style={{ marginTop: 25, fontWeigth: 500 }}>Fecha</Text>
+        <Text style={{ marginTop: 25}}>Fecha</Text>
         <View style={STYLES.inputContainer}>
           <TextInput
             placeholder="DD/MM/AAAA"
@@ -108,7 +108,7 @@ const SolutionScreen = ({ navigation }) => {
           />
         </View>
 
-        <Text style={{ marginTop: 25, fontweigth: 500 }}>Horario</Text>
+        <Text style={{ marginTop: 25}}>Horario</Text>
         <View style={{ marginTop: 15 }}>
           {/* <Picker
             selectedValue={Hour}
@@ -133,7 +133,7 @@ const SolutionScreen = ({ navigation }) => {
           />
         </View>
 
-        <Text style={{ marginTop: 25, fontweigth: 500 }}>Profesional</Text>
+        <Text style={{ marginTop: 25}}>Profesional</Text>
         <View style={{ marginTop: 15 }}>
           <Picker
             selectedValue={Professional}
@@ -147,7 +147,7 @@ const SolutionScreen = ({ navigation }) => {
             <Picker.Item label="Electricista" value="electricista" />
           </Picker>
         </View>
-        <Text style={{ marginTop: 15, fontweigth: 500 }}>Descripción</Text>
+        <Text style={{ marginTop: 15}}>Descripción</Text>
         <View style={{ marginTop: 15, alignItems: "center" }}>
           <TextInput
             multiline
@@ -184,7 +184,7 @@ const SolutionScreen = ({ navigation }) => {
             }}
             onPress={() => handleSubmit()}
           >
-            <Text style={{ paddingTop: 10, fontweigth: 700 }}>Continuar</Text>
+            <Text style={{ paddingTop: 10, fontWeigth: 700 }}>Continuar</Text>
           </TouchableOpacity> */}
           <PrimaryButton
             title={"Continuar"}
