@@ -26,6 +26,7 @@ export const GET_BUDGET_DETAIL = "GET_BUDGET_DETAIL";
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const GET_ALL_BUDGETS_CLIENT = "GET_ALL_BUDGETS_CLIENT";
 export const USER_DETAIL = "USER_DETAIL";
+export const PAYPAL_PRICE = "PAYPAL_PRICE";
 
 import storage from "../../Firebase/Firebase";
 import {
@@ -38,13 +39,13 @@ import { async } from "@firebase/util";
 
 // import db from "../../db.hardcode.json";
 
-const localhost = "192.168.0.11";
+const localhost = '192.168.0.161';
 
 export const googleLogin = (payload) => {
   // console.log("ESTOY EN LA ACTION", payload);
   return async (dispatch) => {
     let response = await axios.post(
-      `http://${localhost}:3000/userInfo`,
+      `https://fixy-backend.herokuapp.com//userInfo`,
       payload
     );
     return dispatch({
@@ -57,7 +58,7 @@ export const googleLogin = (payload) => {
 export const getAllProfessionals = (profession) => {
   return async (dispatch) => {
     const info = await axios.get(
-      `http://${localhost}:3000/professional?profession=${profession}`
+      `https://fixy-backend.herokuapp.com/professional?profession=${profession}`
     );
     return dispatch({
       type: GET_ALL_PROFESSIONALS,
@@ -68,7 +69,7 @@ export const getAllProfessionals = (profession) => {
 
 export const getAllClients = (id) => {
   return async (dispatch) => {
-    let response = await axios.get(`http://${localhost}:3000/client?id=${id}`);
+    let response = await axios.get(`https://fixy-backend.herokuapp.com/client?id=${id}`);
     return dispatch({
       type: GET_ALL_CLIENTS,
       payload: response.data,
@@ -110,7 +111,7 @@ export const createClient = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://${localhost}:3000/client/create`,
+        `https://fixy-backend.herokuapp.com/client/create`,
         payload
       );
       return dispatch({
@@ -127,7 +128,7 @@ export const createProfessional = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://${localhost}:3000/professional/create`,
+        `https://fixy-backend.herokuapp.com/professional/create`,
         payload
       );
       return dispatch({
@@ -151,7 +152,7 @@ export const createRequest = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.post(
-        `http://${localhost}:3000/request`,
+        `https://fixy-backend.herokuapp.com/request`,
         payload
       );
       return dispatch({
@@ -168,7 +169,7 @@ export const requestToProfessional = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.put(
-        `http://${localhost}:3000/request`,
+        `https://fixy-backend.herokuapp.com/request`,
         payload
       );
       return dispatch({
@@ -183,7 +184,7 @@ export const requestToProfessional = (payload) => {
 
 export const getRequestDetail = (id) => {
   return async (dispatch) => {
-    const info = await axios.get(`http://${localhost}:3000/request?id=${id}`);
+    const info = await axios.get(`https://fixy-backend.herokuapp.com/request?id=${id}`);
     return dispatch({
       type: GET_REQUEST_DETAIL,
       payload: info.data,
@@ -194,7 +195,7 @@ export const getRequestDetail = (id) => {
 export const getAllRequest = (user, id) => {
   return async (dispatch) => {
     const info = await axios.get(
-      `http://${localhost}:3000/request/${user}?id=${id}`
+      `https://fixy-backend.herokuapp.com/request/${user}?id=${id}`
     );
     console.log(info.data);
     return dispatch({
@@ -207,7 +208,7 @@ export const getAllRequest = (user, id) => {
 export const createReviewProfessional = (payload) => {
   return async (dispatch) => {
     const info = await axios.put(
-      `http://${localhost}:3000/reviews/professional`,
+      `https://fixy-backend.herokuapp.com/reviews/professional`,
       payload
     );
     return dispatch({
@@ -220,7 +221,7 @@ export const createReviewProfessional = (payload) => {
 export const createReviewClient = (payload) => {
   return async (dispatch) => {
     const info = await axios.put(
-      `http://${localhost}:3000/reviews/client`,
+      `https://fixy-backend.herokuapp.com/reviews/client`,
       payload
     );
     return dispatch({
@@ -232,7 +233,7 @@ export const createReviewClient = (payload) => {
 
 export const createBudget = (payload) => {
   return async (dispatch) => {
-    const info = await axios.post(`http://${localhost}:3000/budget`, payload);
+    const info = await axios.post(`https://fixy-backend.herokuapp.com/budget`, payload);
     return dispatch({
       type: CREATE_BUDGET,
       payload: info.data,
@@ -258,7 +259,7 @@ export const getAllBudgets = (id) => {
   return async (dispatch) => {
     try {
       let response = await axios.get(
-        `http://${localhost}:3000/professional/budget?id=${id}`
+        `https://fixy-backend.herokuapp.com/professional/budget?id=${id}`
       );
       return dispatch({
         type: GET_ALL_BUDGETS,
@@ -273,7 +274,7 @@ export const getAllBudgets = (id) => {
 export const getBudgetDetail = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+      let response = await axios.get(`https://fixy-backend.herokuapp.com/budget/${id}`);
       return dispatch({
         type: GET_BUDGET_DETAIL,
         payload: response.data,
@@ -287,7 +288,7 @@ export const getBudgetDetail = (id) => {
 export const deleteBudget = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+      let response = await axios.get(`https://fixy-backend.herokuapp.com/budget/${id}`);
       return dispatch({
         type: GET_BUDGET_DETAIL,
         payload: response.data,
@@ -301,7 +302,7 @@ export const deleteBudget = (id) => {
 export const deleteRequest = (id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.get(`http://${localhost}:3000/budget/${id}`);
+      let response = await axios.get(`https://fixy-backend.herokuapp.com/budget/${id}`);
       return dispatch({
         type: GET_BUDGET_DETAIL,
         payload: response.data,
@@ -316,7 +317,7 @@ export const editProfile = (payload) => {
   console.log("PAYLOAD ACTION", payload);
   return async (dispatch) => {
     let response = await axios.put(
-      `http://${localhost}:3000/client/profile`,
+      `https://fixy-backend.herokuapp.com/client/profile`,
       payload
     );
     return dispatch({
@@ -329,7 +330,7 @@ export const editProfile = (payload) => {
 export const getAllBudgetsClient = (id) => {
   return async (dispatch) => {
     let response = await axios.get(
-      `http://${localhost}:3000/client/budget?id=${id}`
+      `https://fixy-backend.herokuapp.com/client/budget?id=${id}`
     );
     return dispatch({
       type: GET_ALL_BUDGETS_CLIENT,
@@ -381,10 +382,38 @@ export const countAddition = (payload) => {
 
 export const userDetail = (id, user) => {
   return async (dispatch) => {
-    let response = await axios.get(`http://${localhost}:3000/${user}/${id}`);
+    let response = await axios.get(`https://fixy-backend.herokuapp.com/${user}/${id}`);
     return dispatch({
       type: USER_DETAIL,
       payload: response.data,
     });
+  };
+};
+
+export const paypalPrice = (price) => {
+  console.log("ACTION PRICE", price);
+  return async (dispatch) => {
+    let response = await axios.get(
+      `https://fixy-backend.herokuapp.com/paypal/paypal?price=${price}`
+    );
+    return dispatch({
+      type: PAYPAL_PRICE,
+      payload: response.data,
+    });
+  };
+};
+
+export const rejectBudgetClient = (payload) => {
+  return async (dispatch) => {
+    let response = await axios.put(
+      `https://fixy-backend.herokuapp.com/client/budget`,
+      payload
+    );
+  };
+};
+
+export const setStatusRequestToActive = (id) => {
+  return async (dispatch) => {
+    let response = await axios.put(`https://fixy-backend.herokuapp.com/request/${id}`);
   };
 };

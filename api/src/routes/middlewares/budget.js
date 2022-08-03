@@ -1,9 +1,11 @@
 const { Router } = require('express');
-const { Budget, Request, Professional, Op } = require('../../db');
-
+const { Budget, Request, Professional, Op, Client } = require('../../db');
+const {Expo} = require('expo-server-sdk');
 const router = Router();
 
-// CREA EL BUDGET
+let expo = new Expo;
+
+// CREA EL BUDGET(con noti)
 
 router.post('/', async (req, res) => {
 	const {
@@ -25,6 +27,52 @@ router.post('/', async (req, res) => {
 		professionalId,
 		clientId,
 	});
+
+	const client = await Client.findOne({where:{
+		googleId: clientId
+	}});
+
+	const professional = await Professional.findOne({where:{
+		googleId: professionalId
+	}});
+
+	const reqst = await Request.findOne({where:{
+		id: requestId
+	}})
+
+
+	//NOTIFICACION AL CLIENTE DEL BUDGET PROPUESTO POR EL PROFESIONAL
+	const expoPushToken = client.expoToken;
+    
+    let messages = [];
+   
+    messages.push({
+      to: expoPushToken,
+      sound: 'default',
+      body: `${professional.name} te ha enviado un presupuesto para el problema: ${reqst.affair}`,
+      data: { withSome: 'data' },
+    });
+
+    let chunks = expo.chunkPushNotifications(messages);
+    let tickets = [];
+    (async () => {
+      // Send the chunks to the Expo push notification service. There are
+      // different strategies you could use. A simple one is to send one chunk at a
+      // time, which nicely spreads the load out over time:
+      for (let chunk of chunks) {
+        try {
+          let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+          // console.log('tickettttt',ticketChunk);
+          tickets.push(...ticketChunk);
+          // NOTE: If a ticket contains an error code in ticket.details.error, you
+          // must handle it appropriately. The error codes are listed in the Expo
+          // documentation:
+          // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })();
 
 	res.status(201).send('budget Create');
 });

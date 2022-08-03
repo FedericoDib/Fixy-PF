@@ -276,12 +276,14 @@ const ProfessionalSignUp = ({ navigation }) => {
 
           <TouchableOpacity
             onPress={() =>
-              dispatch(
+              {dispatch(
                 createProfessional({
                   ...input,
                   availableTimes: [minTime, maxTime],
                 })
-              )
+                )
+                navigation.navigate('ProfessionalStack', {screen: 'HomeProfessional'})
+              }
             }
             style={STYLES.btnPrimary}
           >

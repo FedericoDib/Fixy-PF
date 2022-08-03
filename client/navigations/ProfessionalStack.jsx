@@ -10,15 +10,16 @@ import RequestDetail from "../Components/RequestDetail/RequestDetail";
 import Loader from "../Components/General/Loader";
 import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
 import UserDetail from "../Components/UserDetail/UserDetail";
+import Paypal from "../Components/Paypal/Paypal";
 
 const Stack = createNativeStackNavigator();
 
-const RegisteredStack = () => {
+const ProfessionalStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Group>
         <Stack.Screen
-          name="HomeClient"
+          name="HomeProfessional"
           component={Tabs}
           options={{ headerShown: false }}
         />
@@ -67,9 +68,14 @@ const RegisteredStack = () => {
           component={UserDetail}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Paypal"
+          component={Paypal}
+          options={{ headerShown: false }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
 };
 
-export default RegisteredStack;
+export default ProfessionalStack;
