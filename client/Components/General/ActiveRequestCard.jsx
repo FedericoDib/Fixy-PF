@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Home_Professional = () => {
+const ActiveRequestCard = (request) => {
   return (
     <View>
-      <Text>Home_Professional</Text>
+      <Text>ActiveRequestCard</Text>
     </View>
   )
 }
 
-export default Home_Professional
+export default ActiveRequestCard

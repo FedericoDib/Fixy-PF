@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Linking,
 } from "react-native";
-import { logOut, mercadoPago } from "../../Redux/Action";
+import { mercadoPago } from "../../Redux/Action/clientActions";
 import PrimaryButton from "../General/PrimaryButton";
 
 const Pay = () => {
@@ -19,7 +19,7 @@ const Pay = () => {
     dispatch(mercadoPago());
   }, [dispatch]);
 
-  console.log(url);
+
 
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.

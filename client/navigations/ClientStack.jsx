@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home_Client from "../Components/Home_Client/Home_Client";
+
 import Tabs from "../Components/BottomTabNavigation/BottomTabNavigation";
 import List from "../Components/List/List";
 import Resume from "../Components/Resume/Resume";

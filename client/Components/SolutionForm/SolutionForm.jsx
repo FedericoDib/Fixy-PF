@@ -18,11 +18,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   countOff,
   createRequest,
-  getAllProfessionals,
   averageReviewOff,
-} from "../../Redux/Action";
+} from "../../Redux/Action/clientActions";
 import PrimaryButton from "../General/PrimaryButton";
 import PrimarySlider from "../General/Slider/Slider";
+import { getAllProfessionals } from "../../Redux/Action/clientActions";
 
 const SolutionScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -36,9 +36,9 @@ const SolutionScreen = ({ navigation }) => {
   const [input, setInput] = useState({
     clientId: user.googleId,
   });
-  console.log("solution fomrm");
+
   const handleSubmit = () => {
-    console.log("continue del solution form");
+
     dispatch(averageReviewOff());
     dispatch(countOff());
     dispatch(
@@ -47,7 +47,6 @@ const SolutionScreen = ({ navigation }) => {
         availableTime: `${minTime} - ${maxTime}`,
       })
     );
-    // console.log({ ...input, availableTime: `${minTime} - ${maxTime}` });
     dispatch(getAllProfessionals(Professional));
     navigation.navigate("Loader");
   };

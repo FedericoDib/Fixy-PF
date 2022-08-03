@@ -14,13 +14,13 @@ import IconPhone from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import style from "./BudgetDetailStyle";
 import PrimaryButton from "../General/PrimaryButton";
-import { rejectBudgetClient } from "../../Redux/Action";
+import { rejectBudgetClient } from "../../Redux/Action/clientActions";
 
 export default function BudgetDetail({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const budgetDetail = useSelector((state) => state.budgetDetail);
-  console.log("SOY BUDGET", budgetDetail);
+
   return (
     <View style={style.mainContainer}>
       <View style={style.restContainer}>

@@ -2,11 +2,11 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
-import Home_Client from '../Home_Client/Home_Client';
 import Profile from '../Profile/Profile';
 import Calendar from '../Calendar/Calendar';
 import Explore from '../Explore/Explore';
 import List from '../List/List';
+import HomeClient from '../HomeClient/HomeClient';
 
 const Tabs = () => {
 	const Tab = createMaterialBottomTabNavigator();
@@ -16,7 +16,7 @@ const Tabs = () => {
 		>
 			<Tab.Screen
 				name='Home'
-				component={Home_Client}
+				component={HomeClient}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ color }) => (

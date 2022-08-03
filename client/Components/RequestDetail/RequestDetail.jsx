@@ -15,7 +15,7 @@ import style from "./RequestDetailStyle";
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
 import { useDispatch, useSelector } from "react-redux";
-import { userDetail } from "../../Redux/Action";
+import { userDetail } from "../../Redux/Action/generalActions";
 
 export default function RequestDetail({ navigation }) {
   const dispatch = useDispatch();
@@ -58,7 +58,6 @@ export default function RequestDetail({ navigation }) {
   //       ],
   //     },
   //   };
-  //console.log("CLIENTE ID", client);
   const handleSubmit = () => {
     dispatch(userDetail(client.googleId, "client"));
     navigation.navigate("ProfileDetail");

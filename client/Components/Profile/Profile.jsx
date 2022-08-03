@@ -12,7 +12,7 @@ import {
   Image,
   SafeAreaView,
 } from "react-native";
-import { editProfile, logOut } from "../../Redux/Action";
+import { editProfile, logOut } from "../../Redux/Action/generalActions";
 import PrimaryButton from "../General/PrimaryButton";
 import styles from "./ProfileStyles";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ const Profile = () => {
   const [inputText, setinputText] = useState();
   const [editItem, seteditItem] = useState();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.generalReducer.user);
   const DATA = [
     { id: 1, text: `${user.phoneNumber}` },
     { id: 2, text: `${user.province}` },
@@ -51,7 +51,6 @@ const Profile = () => {
   const handleEditItem = (editItem) => {
     const newData = data.map((item) => {
       if (item.id == editItem) {
-        //console.log("item text", item.id);
         item.text = inputText;
         return item;
       }

@@ -6,6 +6,7 @@ import LoginStack from '../../navigations/LoginStack';
 import InicialStack from '../../navigations/InicialStack';
 
 const Main = () => {
+
 	return (
 		<React.Fragment>
 			<InicialStack />
