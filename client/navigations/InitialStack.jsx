@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from '../Components/Login/LoginDev';
 import NotRegisteredStack from './NotRegisteredStack';
 import ClientStack from './ClientStack';
 import ProfessionalStack from './ProfessionalStack';
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
 import { googleLogin } from '../Redux/Action/generalActions';
-
+import LoginStack from './LoginStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,14 +17,14 @@ const InitialStack = () => {
 
 	//CHEQUEA SI HAY DATOS EN EL SECURE STORE
 	useEffect(() => {
-			if (__DEV__) {
-				getSecureData();
-				if (activeToken) {
-					fetchUserInfoSigned(activeToken);
-				}
+		if (__DEV__) {
+			getSecureData();
+			if (activeToken) {
+				fetchUserInfoSigned(activeToken);
 			}
-			return () => console.log('desmontado');
-		}, [activeToken])
+		}
+		return () => console.log('desmontado');
+	}, [activeToken]);
 
 	//TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
 	async function getSecureData() {
@@ -48,7 +47,7 @@ const InitialStack = () => {
 			return (
 				<Stack.Screen
 					name='Login'
-					component={Login}
+					component={LoginStack}
 					options={{ headerShown: false }}
 					initialParams={{ modo: __DEV__ ? 'dev' : 'prod' }}
 				/>

@@ -13,7 +13,7 @@ const LoginProd = () => {
 		initAsync();
 	}, []);
 
-	initAsync = async () => {
+	const initAsync = async () => {
 		await GoogleSignIn.initAsync({
 			clientId:
 				'302940809798-hp8en72fg1o8uiinc47q10oc92909f4a.apps.googleusercontent.com',
@@ -21,7 +21,7 @@ const LoginProd = () => {
 		_syncUserWithStateAsync();
 	};
 
-	_syncUserWithStateAsync = async () => {
+	const _syncUserWithStateAsync = async () => {
 		const userI = await GoogleSignIn.signInSilentlyAsync();
 		const userData = {
 			id: userI.uid,
@@ -31,7 +31,7 @@ const LoginProd = () => {
 		dispatch(googleLogin(userData));
 	};
 
-	signInAsync = async () => {
+	const signInAsync = async () => {
 		try {
 			await GoogleSignIn.askForPlayServicesAsync();
 			const { type, user } = await GoogleSignIn.signInAsync();

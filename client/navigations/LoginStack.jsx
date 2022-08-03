@@ -4,7 +4,8 @@ import LoginProd from '../Components/Login/LoginProd';
 
 const Stack = createNativeStackNavigator();
 
-const LoginStack = ({ modo }) => {
+const LoginStack = ({ route }) => {
+	const { modo } = route.params;
 	return (
 		<Stack.Navigator>
 			{modo === 'dev' ? (
