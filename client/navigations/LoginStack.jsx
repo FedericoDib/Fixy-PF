@@ -1,18 +1,25 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from '../Components/Login/Login';
+import LoginDev from '../Components/Login/LoginDev';
+import LoginProd from '../Components/Login/LoginProd';
 
 const Stack = createNativeStackNavigator();
 
-const LoginStack = () => {
+const LoginStack = ({ modo }) => {
 	return (
 		<Stack.Navigator>
-			<Stack.Group>
+			{modo === 'dev' ? (
 				<Stack.Screen
-					name='Login'
-					component={Login}
+					name='LoginDev'
+					component={LoginDev}
 					options={{ headerShown: false }}
 				/>
-			</Stack.Group>
+			) : (
+				<Stack.Screen
+					name='LoginProd'
+					component={LoginProd}
+					options={{ headerShown: false }}
+				/>
+			)}
 		</Stack.Navigator>
 	);
 };

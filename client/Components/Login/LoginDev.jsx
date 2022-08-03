@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Text, TouchableHighlight, View, Platform } from 'react-native';
 import { styles } from './LoginStyles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin } from '../../Redux/Action/generalActions';
 import Logo from '../../assets/FIXy.svg';
 import * as GoogleSignIn from 'expo-google-sign-in';
@@ -70,9 +70,10 @@ const redirectUri = AuthSession.makeRedirectUri({
 	path: 'InitialScreen',
 });
 
-const Login = ({ route, navigation }) => {
+const LoginDev = () => {
+
 	const [accesToken, setAccessToken] = useState(null);
-	//const [activeToken, setActiveToken] = useState(null);
+
 	const [isLogged, setIsLogged] = useState(false);
 	const [request, response, promptAsync] = isLogged
 		? null
@@ -83,33 +84,6 @@ const Login = ({ route, navigation }) => {
 
 	const dispatch = useDispatch();
 
-	//CHEQUEA SI HAY DATOS EN EL SECURE STORE
-	// useFocusEffect(() => {
-
-	//   getSecureData();
-	//   if (activeToken) {
-	//     fetchUserInfoSigned(activeToken);
-	//   }
-	// }, [navigation,activeToken]);
-
-	// //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
-	// async function getSecureData() {
-	//   let credentials = await SecureStore.getItemAsync("key");
-
-	//   if (credentials) setActiveToken(credentials);
-	// }
-
-	// //BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
-	// function fetchUserInfoSigned(token) {
-	//   fetch("https://www.googleapis.com/userinfo/v2/me", {
-	//     headers: { Authorization: `Bearer ${token} ` },
-	//   })
-	//     .then((response) => response.json())
-
-	//     .then((json) => dispatch(googleLogin(json)))
-	//     .catch((error) => console.error(error));
-	// }
-
 	useEffect(() => {
 		//CHEQUEA SI EL LOGUEO EN GOOGLE FUE CORRECTO, GUARDA LOS DATOS EN SECURE STORE Y PIDE DATOS DEL USUARIO
 		if (response?.type === 'success') {
@@ -117,6 +91,7 @@ const Login = ({ route, navigation }) => {
 			const storageValue = JSON.stringify(auth);
 
 			if (Platform.OS !== 'web') {
+        console.log('ESTOY SETEANDOOOOOOOO')
 				SecureStore.setItemAsync('key', storageValue);
 			}
 			const { authentication } = response;
@@ -133,9 +108,6 @@ const Login = ({ route, navigation }) => {
 			.then((response) => response.json())
 			.then((json) => dispatch(googleLogin(json)))
 			.catch((error) => console.error(error))
-			.finally(() =>
-				navigation.navigate('InitialScreen', { screen: 'InitialScreen' })
-			);
 	}
 
 	return (
@@ -159,4 +131,4 @@ const Login = ({ route, navigation }) => {
 	);
 };
 
-export default Login;
+export default LoginDev;
