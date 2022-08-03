@@ -13,7 +13,7 @@ import IconCalendar from 'react-native-vector-icons/EvilIcons';
 import IconPhone from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import style from './ResumeStyle';
-import { getBudgetDetail } from '../../Redux/Action';
+import { getBudgetDetail } from '../../Redux/Action/generalActions';
 
 export default function Resume({ navigation, route }) {
 	const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function Resume({ navigation, route }) {
 		dispatch(getBudgetDetail(item.id));
 	}, [item]);
 
-	console.log('---------------------', item, budgetDetail);
+
 
 	return (
 		<ScrollView style={style.mainContainer}>

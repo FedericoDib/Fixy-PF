@@ -1,12 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import styles from "./CardListStyle";
-import { useDispatch } from "react-redux";
-import Icon from "react-native-vector-icons/Entypo";
-import { getBudgetDetail } from "../../Redux/Action";
+// import { useDispatch } from "react-redux";
+// import Icon from "react-native-vector-icons/Entypo";
+// import { getBudgetDetail } from "../../Redux/Action";
 
 const RequestCard = ({ item, navigation }) => {
-  console.log("ITEM", item);
   return (
     <TouchableOpacity
       activeOpacity={0.9}

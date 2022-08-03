@@ -11,6 +11,8 @@ export const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "space-between",
     flex: 1,
+    backgroundColor: 'yellow',
+    width: "100%",
   },
   cardContainer: {
 		display: 'flex',

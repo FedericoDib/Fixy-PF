@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./CardListStyle";
 import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Entypo";
-import { getBudgetDetail } from "../../Redux/Action";
+import { getBudgetDetail } from "../../Redux/Action/generalActions";
 
 const BudgetCard = ({ item, navigation }) => {
   const dispatch = useDispatch();

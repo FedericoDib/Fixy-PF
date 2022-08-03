@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
-import { paypalPrice, setStatusRequestToActive } from "../../Redux/Action";
+import { paypalPrice, setStatusRequestToActive } from "../../Redux/Action/clientActions";
 
 const Paypal = ({ route, navigation }) => {
-  const budget = useSelector((state) => state.budgetDetail);
-  // console.log("ESTADO GLOBAL", requestDetail);
+  const budget = useSelector((state) => state.generalReducer.budgetDetail);
   const dispatch = useDispatch();
-  console.log(route.params.price);
   const [state, setState] = useState({
     showModal: false,
     status: "Pending",
@@ -16,7 +14,7 @@ const Paypal = ({ route, navigation }) => {
 
   const handleResponse = (data) => {
     if (data.title === "success") {
-      dispatch(setStatusRequestToActive(budget.requestId));
+      dispatch(setStatusRequestToActive(budget.id));
       setState({ showModal: false, status: "Complete" });
       navigation.popToTop();
     } else if (data.title === "cancel") {

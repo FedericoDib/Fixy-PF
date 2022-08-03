@@ -5,7 +5,7 @@ import PrimaryButton from '../General/PrimaryButton';
 import styles from './BudgetFormStyles';
 import { Picker } from '@react-native-picker/picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBudget } from '../../Redux/Action';
+import { createBudget } from '../../Redux/Action/professionalActions';
 
 const BudgetForm = ({ navigation }) => {
 	const dispatch = useDispatch();

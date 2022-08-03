@@ -2,7 +2,6 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from '../Components/OnBoarding/OnBoarding';
 import Selection from '../Components/Selection/Selection';
-import Home_Client from '../Components/Home_Client/Home_Client';
 import ClientSignUp from '../Components/SignUpForm/ClientSignUp/ClientSignUp';
 import ProfessionalSignUp from '../Components/SignUpForm/ProfessionalSignUp/ProfessionalSignUp';
 import Tabs from '../Components/BottomTabNavigation/BottomTabNavigation';

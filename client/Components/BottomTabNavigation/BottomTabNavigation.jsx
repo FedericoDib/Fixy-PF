@@ -2,21 +2,25 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
-import Home_Client from '../Home_Client/Home_Client';
 import Profile from '../Profile/Profile';
 import Calendar from '../Calendar/Calendar';
 import Explore from '../Explore/Explore';
 import List from '../List/List';
+import HomeClient from '../HomeClient/HomeClient';
+import { useSelector } from 'react-redux';
+import HomeProfessional from '../HomeProfessional/HomeProfessional';
 
 const Tabs = () => {
 	const Tab = createMaterialBottomTabNavigator();
+  const user = useSelector((state) => state.generalReducer.user)
+  
 	return (
 		<Tab.Navigator
 			barStyle={{ backgroundColor: '#493d8a', paddingVertical: 10 }}
 		>
 			<Tab.Screen
 				name='Home'
-				component={Home_Client}
+				component={(user.googleId[0]=== 'c')? HomeClient : HomeProfessional}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ color }) => (

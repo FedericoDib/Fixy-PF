@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, TouchableHighlight, View, Platform } from 'react-native';
 import { styles } from './LoginStyles';
 import { useDispatch } from 'react-redux';
-import { googleLogin } from '../../Redux/Action';
+import { googleLogin } from '../../Redux/Action/generalActions';
 import Logo from '../../assets/FIXy.svg';
 import * as GoogleSignIn from 'expo-google-sign-in';
 import * as WebBrowser from 'expo-web-browser';
@@ -65,7 +65,10 @@ import { useFocusEffect } from '@react-navigation/native';
 // }
 
 WebBrowser.maybeCompleteAuthSession();
-const redirectUri = AuthSession.makeRedirectUri({ useProxy: false, path: 'InitialScreen' });
+const redirectUri = AuthSession.makeRedirectUri({
+	useProxy: false,
+	path: 'InitialScreen',
+});
 
 const Login = ({ route, navigation }) => {
 	const [accesToken, setAccessToken] = useState(null);
@@ -89,14 +92,14 @@ const Login = ({ route, navigation }) => {
 	//   }
 	// }, [navigation,activeToken]);
 
-	//TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
+	// //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
 	// async function getSecureData() {
 	//   let credentials = await SecureStore.getItemAsync("key");
 
 	//   if (credentials) setActiveToken(credentials);
 	// }
 
-	// BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
+	// //BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
 	// function fetchUserInfoSigned(token) {
 	//   fetch("https://www.googleapis.com/userinfo/v2/me", {
 	//     headers: { Authorization: `Bearer ${token} ` },
@@ -129,10 +132,10 @@ const Login = ({ route, navigation }) => {
 		})
 			.then((response) => response.json())
 			.then((json) => dispatch(googleLogin(json)))
-			.catch((error) => console.error(error));
-		// .finally(() =>
-		// 	// navigation.navigate('InicialStack', { screen: 'InitialScreen' })
-		// );
+			.catch((error) => console.error(error))
+			.finally(() =>
+				navigation.navigate('InitialScreen', { screen: 'InitialScreen' })
+			);
 	}
 
 	return (

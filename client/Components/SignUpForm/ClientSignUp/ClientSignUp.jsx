@@ -1,38 +1,33 @@
-import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	SafeAreaView,
+  SafeAreaView,
 	View,
 	Text,
-	Button,
-	Image,
 	TextInput,
-	useWindowDimensions,
+	useWindowDimensions, ScrollView, TouchableOpacity
 } from 'react-native';
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import STYLES from './ClientSignUpStyles';
-import COLORS from './Colors';
-import { ScrollView, TouchableOpacity } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { createClient, uploadImage } from '../../../Redux/Action';
+import 'react-native-gesture-handler';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import { createClient } from '../../../Redux/Action/clientActions';
+import UsePickImage from '../UsePickImage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import COLORS from './Colors';
+import STYLES from './ClientSignUpStyles';
 
 const SignUpScreen = ({ navigation }) => {
-	const user = useSelector((state) => state.user);
-	const perfilPickarda = useSelector((state) => state.perfilPic);
+  const user = useSelector((state) => state.generalReducer.user);
+	const perfilPickarda = useSelector((state) => state.generalReducer.perfilPic);
 	const { width, height } = useWindowDimensions();
-	const [image, setImage] = useState(null);
+
 	const dispatch = useDispatch();
+  
 	const [input, setInput] = useState({
-		...user,
+    ...user,
 		isRegistered: true,
 		googleId: 'c' + user.googleId,
 		expoToken: expoPushToken,
-		// name: 'marianou',
-		// email: 'marianou@gmail.com',
 		perfilPic: perfilPickarda,
 	});
 	const [expoPushToken, setExpoPushToken] = useState('');
@@ -76,26 +71,7 @@ const SignUpScreen = ({ navigation }) => {
 		}
 	}
 
-	const pickImage = async () => {
-		// No permissions request is necessary for launching the image library
-		try {
-			let result = await ImagePicker.launchImageLibraryAsync({
-				mediaTypes: ImagePicker.MediaTypeOptions.All,
-				allowsEditing: true,
-				aspect: [4, 3],
-				quality: 1,
-			});
-
-			if (!result.cancelled) {
-				dispatch(uploadImage(result.uri));
-				setImage(result.uri);
-
-				console.log(perfilPickarda, 'soy la perfilpick loko');
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	
 
 	return (
 		<SafeAreaView
@@ -125,26 +101,7 @@ const SignUpScreen = ({ navigation }) => {
 						Registrate para continuar
 					</Text>
 				</View>
-				<View
-					style={{
-						flex: 1,
-						alignItems: 'center',
-						justifyContent: 'center',
-						marginTop: 20,
-					}}
-				>
-					<Button
-						style={STYLES.btnGalery}
-						title='Elige una foto de tu Galeria'
-						onPress={pickImage}
-					/>
-					{image && (
-						<Image
-							source={{ uri: image }}
-							style={{ width: 200, height: 200, marginTop: 10 }}
-						/>
-					)}
-				</View>
+        <UsePickImage/>
 				<View style={{ marginTop: 20 }}>
 					<View style={STYLES.inputContainer}>
 						<Icon
