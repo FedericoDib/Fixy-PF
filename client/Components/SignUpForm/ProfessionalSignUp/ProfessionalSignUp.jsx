@@ -20,7 +20,7 @@ import STYLES from './ProfessionalSignUpStyles';
 import COLORS from './Colors';
 
 const ProfessionalSignUp = ({ navigation }) => {
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.generalReducer.user);
 	const dispatch = useDispatch();
 	const { width, height } = useWindowDimensions();
 	const [image, setImage] = useState(null);

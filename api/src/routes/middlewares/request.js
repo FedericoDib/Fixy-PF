@@ -104,7 +104,7 @@ router.get("/professional", async (req, res) => {
     attributes: ["name"],
   });
 
-  res.send(requests);
+  res.send(requests.requests);
 });
 
 // MUESTRA LOS CLIENTES ASOCIADOS A LA REQUEST
@@ -126,7 +126,7 @@ router.get("/client", async (req, res) => {
 
   console.log(requests);
 
-  res.send(requests);
+  res.send(requests[0].requests);
 });
 
 // MUESTRA LOS  PROFESIONALES ASOCIADOS A LA REQUEST

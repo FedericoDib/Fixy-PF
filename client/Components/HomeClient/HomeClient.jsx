@@ -1,91 +1,48 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-
-import {
-	Flex,
-	Spacer,
-	Box,
-	Text,
-	IconButton,
-	Wrap,
-} from '@react-native-material/core';
+import { Flex, Box, Text, IconButton, Wrap } from '@react-native-material/core';
 import { useFocusEffect } from '@react-navigation/native';
-
-import { TouchableOpacity, View } from 'react-native';
-
+import { FlatList, TouchableOpacity, View } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialIcons';
 import Icon2 from '@expo/vector-icons/FontAwesome5';
 import { styles } from './HomeClientStyle';
 import PrimaryButton from '../General/PrimaryButton';
-
-// const HomeClient = ({ navigation }) => {
-// 	const user = useSelector((state) => state.generalReducer.user);
-// const requests = useSelector((state) => state.generalReducer.allRequests)
-//   const dispatch = useDispatch();
-
-//   useFocusEffect(
-//     useCallback(
-//       () => {
-//         dispatch(getAllRequest('client', user.googleId))
-//       },
-//       [user]
-//     )
-//   )
-
-// 	// const requests = useSelector((state) => state.allRequests);
-
-// 	// useEffect(() => {
-// 	// 	if (user.googleId.includes('p')) {
-// 	// 		dispatch(getAllRequest('professional', user.googleId));
-// 	// 	} else {
-// 	// 		dispatch(getAllRequest('client', user.googleId));
-// 	// 		//dispatch(getAllProfessionals('Unknown'));
-// 	// 		dispatch(getAllBudgetsClient(user.googleId));
-// 	// 	}
-// 	// }, [user]);
-
-// 	return (
-// 		<>
-
-//
-// 		</>
-// 	);
-// };
-
-// export default HomeClient;
-
 import { getAllRequest } from '../../Redux/Action/generalActions';
+import ActiveRequestCard from '../General/ActiveRequestCard';
 
 const HomeClient = () => {
 	const user = useSelector((state) => state.generalReducer.user);
 	const requests = useSelector((state) => state.generalReducer.allRequests);
-	const [activeRequests, setActiveRequests] = useState();
+	const [activeRequests, setActiveRequests] = useState([]);
 	const dispatch = useDispatch();
 
 	useFocusEffect(
 		useCallback(() => {
-			console.log('hola');
 			dispatch(getAllRequest('client', user.googleId));
 		}, [])
 	);
 
 	useFocusEffect(
 		useCallback(() => {
-			if (requests) {
-				activeRequests = requests.requests.filter((req) => {
-					req.status === 'active';
+			if (requests.length > 0) {
+				let aux = requests.filter((req) => {
+					return req.status === 'active';
 				});
+				setActiveRequests(aux);
 			}
 		}, [requests])
 	);
-	console.log('HOME', activeRequests);
+
+	const renderActiveCard = ({ item }) => {
+		return <ActiveRequestCard request={item} />;
+	};
 
 	return (
-		<View>
+		<View style={{ flex: 1, width: '100%', backgroundColor: 'pink' }}>
 			<View></View>
 			<View></View>
-			<View>
+			<View style={{ flex: 1, width: '100%', backgroundColor: 'blue' }}>
 				<Flex inline justify='space-between'>
 					<Box style={{ marginTop: 70 }} m={30}>
 						<Text variant='h6'>Hola, {user.name}</Text>
@@ -98,7 +55,10 @@ const HomeClient = () => {
 					</Box>
 				</Flex>
 				<Flex style={styles.wrapper} center fill>
-					<Wrap style={{ justifyContent: 'space-evenly' }} m={4}>
+					<Wrap
+						style={{ justifyContent: 'space-evenly', backgroundColor: 'green' }}
+						m={4}
+					>
 						<Box
 							ml={10}
 							w={180}
@@ -110,32 +70,30 @@ const HomeClient = () => {
 								borderRadius: 10,
 								overflow: 'hidden',
 							}}
-						></Box>
-						<Text>
-							Solicitudes activas: {activeRequests && activeRequests.length}
-						</Text>
+						>
+							<Text>
+								Solicitudes activas: {activeRequests && activeRequests.length}
+							</Text>
+						</Box>
 					</Wrap>
-					<PrimaryButton
-						onPress={() => navigation.navigate('SolutionForm')}
-						title='Necesito una solucion'
-						trailing={(props) => <Icon2 name='house-damage' {...props} />}
-					/>
 
 					<View style={styles.buttonContainer}>
-						<TouchableOpacity
-							onPress={() =>
-								navigation.navigate('List', { data: 'activeRequests' })
-							}
-							style={styles.button}
-						>
-							<View>
-								<Text style={styles.textButton}>Solicitudes activas</Text>
-							</View>
-						</TouchableOpacity>
+						{!activeRequests.length ? (
+							<Text>No tenes solicitudes activas</Text>
+						) : (
+							<FlatList
+								style={{ width: '100%', backgroundColor: 'cyan', flex: 1 }}
+								data={activeRequests}
+								renderItem={renderActiveCard}
+								keyExtractor={(item, index) => `activeReq-${index}`}
+								horizontal
+								showsHorizontalScrollIndicator={false}
+							/>
+						)}
 						<View style={styles.buttonWrapper}>
 							<TouchableOpacity
 								onPress={() =>
-									navigation.navigate('List', { data: 'pendingBudgets' })
+									navigation.navigate('BudgetList', { data: 'pendingBudgets' })
 								}
 								style={[styles.button, { width: '45%' }]}
 							>
@@ -145,7 +103,7 @@ const HomeClient = () => {
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => {
-									navigation.navigate('List', { data: 'pendingRequest' });
+									navigation.navigate('RequestList', { data: 'pendingRequest' });
 								}}
 								style={[styles.button, { width: '45%' }]}
 							>
@@ -155,6 +113,11 @@ const HomeClient = () => {
 							</TouchableOpacity>
 						</View>
 					</View>
+					<PrimaryButton
+						onPress={() => navigation.navigate('SolutionForm')}
+						title='Necesito una solucion'
+						trailing={(props) => <Icon2 name='house-damage' {...props} />}
+					/>
 				</Flex>
 			</View>
 		</View>

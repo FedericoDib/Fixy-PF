@@ -20,7 +20,7 @@ const initialState = {
 	user: {}, //*Trae datos propios
 	perfilPic: '',
 	userDetail: {}, //*Se usa para traer los datos del otro
-	allRequests: {},
+	allRequests: [],
 	requestDetail: {},
 	budgets: [],
 	budgetDetail: {},

@@ -7,16 +7,20 @@ import Calendar from '../Calendar/Calendar';
 import Explore from '../Explore/Explore';
 import List from '../List/List';
 import HomeClient from '../HomeClient/HomeClient';
+import { useSelector } from 'react-redux';
+import HomeProfessional from '../HomeProfessional/HomeProfessional';
 
 const Tabs = () => {
 	const Tab = createMaterialBottomTabNavigator();
+  const user = useSelector((state) => state.generalReducer.user)
+  
 	return (
 		<Tab.Navigator
 			barStyle={{ backgroundColor: '#493d8a', paddingVertical: 10 }}
 		>
 			<Tab.Screen
 				name='Home'
-				component={HomeClient}
+				component={(user.googleId[0]=== 'c')? HomeClient : HomeProfessional}
 				options={{
 					headerShown: false,
 					tabBarIcon: ({ color }) => (
