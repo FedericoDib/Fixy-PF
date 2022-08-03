@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './Redux/Store';
-import Main from './Components/Main/Main';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { useRef, useState, useEffect } from 'react';

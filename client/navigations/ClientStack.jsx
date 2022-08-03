@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Tabs from "../Components/BottomTabNavigation/BottomTabNavigation";
-import List from "../Components/List/List";
 import Resume from "../Components/Resume/Resume";
 import SolutionScreen from "../Components/SolutionForm/SolutionForm";
 import Pay from "../Components/Pay/Pay";

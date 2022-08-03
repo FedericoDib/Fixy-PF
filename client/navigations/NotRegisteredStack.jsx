@@ -4,7 +4,7 @@ import OnBoarding from '../Components/OnBoarding/OnBoarding';
 import Selection from '../Components/Selection/Selection';
 import ClientSignUp from '../Components/SignUpForm/ClientSignUp/ClientSignUp';
 import ProfessionalSignUp from '../Components/SignUpForm/ProfessionalSignUp/ProfessionalSignUp';
-import Tabs from '../Components/BottomTabNavigation/BottomTabNavigation';
+
 const Stack = createNativeStackNavigator();
 
 const NotRegisteredStack = () => {

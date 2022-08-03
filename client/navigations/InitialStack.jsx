@@ -3,10 +3,8 @@ import Login from '../Components/Login/LoginDev';
 import NotRegisteredStack from './NotRegisteredStack';
 import ClientStack from './ClientStack';
 import ProfessionalStack from './ProfessionalStack';
-import InitialScreen from '../Components/InitialScreen/InitialScreen';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useFocusEffect } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 import { googleLogin } from '../Redux/Action/generalActions';
 
@@ -17,7 +15,7 @@ const InitialStack = () => {
 	const user = useSelector((state) => state.generalReducer.user);
 	const [activeToken, setActiveToken] = useState(null);
 	const dispatch = useDispatch();
-  
+
 	//CHEQUEA SI HAY DATOS EN EL SECURE STORE
 	useEffect(() => {
 			if (__DEV__) {

@@ -4,65 +4,10 @@ import { styles } from './LoginStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin } from '../../Redux/Action/generalActions';
 import Logo from '../../assets/FIXy.svg';
-import * as GoogleSignIn from 'expo-google-sign-in';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AuthSession from 'expo-auth-session';
 import * as SecureStore from 'expo-secure-store';
-import { useFocusEffect } from '@react-navigation/native';
-
-// const Login = () => {
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {initAsync()},[]);
-
-//   initAsync= async () => {
-//     await GoogleSignIn.initAsync({
-//       clientId:"302940809798-hp8en72fg1o8uiinc47q10oc92909f4a.apps.googleusercontent.com"
-//     });
-//     _syncUserWithStateAsync();
-//   }
-
-//   _syncUserWithStateAsync = async () => {
-//     const userI = await GoogleSignIn.signInSilentlyAsync();
-//     const userData = {
-//       id: userI.uid,
-//       email: userI.email,
-//       name: userI.name
-//     };
-//     dispatch(googleLogin(userData));
-//   }
-
-//   signInAsync = async () => {
-//     try {
-//       await GoogleSignIn.askForPlayServicesAsync();
-//       const { type, user } = await GoogleSignIn.signInAsync();
-//       if (type === 'success') {
-//         _syncUserWithStateAsync();
-//       }
-//     } catch ({ message }) {
-//       alert('login: Error:' + message);
-//     }
-//   };
-
-//   return (
-//     <View style={styles.container}>
-//       <Logo />
-//       <View style={styles.wrapper}>
-//         <Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
-//         <Text style={styles.subTitle}>Ingresa o Registrate para continuar</Text>
-//         <TouchableHighlight
-//           onPress={signInAsync}
-//           activeOpacity={0.6}
-//           underlayColor="#ccc"
-//           style={styles.button}
-//         >
-//           <Text style={styles.textbutton}>Continuar con Google</Text>
-//         </TouchableHighlight>
-//       </View>
-//     </View>
-//   );
-// }
 
 WebBrowser.maybeCompleteAuthSession();
 const redirectUri = AuthSession.makeRedirectUri({
