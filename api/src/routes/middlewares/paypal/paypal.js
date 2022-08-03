@@ -32,8 +32,8 @@ app.get("/paypal", (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: `http://192.168.0.11:3000/paypal/success?price=${req.query.price}`,
-      cancel_url: "http://192.168.0.11:3000/paypal/cancel",
+      return_url: `https://fixy-backend.herokuapp.com/paypal/success?price=${req.query.price}`,
+      cancel_url: "https://fixy-backend.herokuapp.com/paypal/cancel",
     },
     transactions: [
       {

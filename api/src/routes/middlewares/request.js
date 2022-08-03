@@ -1,10 +1,13 @@
 const { Router, request } = require("express");
-const { Professional, Request, Client } = require("../../db");
+const { Professional, Request, Client, Budget } = require("../../db");
+const {Expo} = require('expo-server-sdk');
 
 const router = Router();
 
 const db = require("../../db.hardcode.json");
 
+let expo = new Expo
+//
 router.post("/", async (req, res) => {
   const {
     clientId,
@@ -33,12 +36,53 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+// SE NOTIFICA AL PROF Q SE ACEPTO UN PRESUPUESTO
 router.put("/:id", async (req, res) => {
+
   try {
+    const budget = await Budget.findOne({where:{id:req.params.id}});
+    const professional = await Professional.findOne({where:{googleId: budget.professionalId}});
+    console.log('dshajk',professional);
+    const client = await Client.findOne({where:{googleId:budget.clientId}});
+    const reqst = await Request.findOne({where: {id: budget.requestId}})
     await Request.update(
       { status: "active" },
-      { where: { id: req.params.id } }
+      { where: { id:budget.requestId } }
     );
+
+//NOTIFICACION AL PROFESIONAL DEL BUDGET ACEPTADO
+    const expoPushToken = professional.expoToken;
+        
+    let messages = [];
+    
+    messages.push({
+      to: expoPushToken,
+      sound: 'default',
+      body: `${client.name} ha aceptado tu presupuesto para el problema: ${reqst.affair}`,
+      data: { withSome: 'data' },
+    });
+
+    let chunks = expo.chunkPushNotifications(messages);
+    let tickets = [];
+    (async () => {
+      // Send the chunks to the Expo push notification service. There are
+      // different strategies you could use. A simple one is to send one chunk at a
+      // time, which nicely spreads the load out over time:
+      for (let chunk of chunks) {
+        try {
+          let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+          // console.log('tickettttt',ticketChunk);
+          tickets.push(...ticketChunk);
+          // NOTE: If a ticket contains an error code in ticket.details.error, you
+          // must handle it appropriately. The error codes are listed in the Expo
+          // documentation:
+          // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })();
 
     res.status(202).send("ok");
   } catch (error) {
@@ -56,6 +100,43 @@ router.put("/", async (req, res) => {
 
     await request.addProfessional(professional);
 
+    
+    
+
+    // NOTIFICATIONS
+    const expoPushToken = professional.expoToken;
+    
+    let messages = [];
+   
+    messages.push({
+      to: expoPushToken,
+      sound: 'default',
+      body: 'Tenes una nueva solicitud de presupuesto',
+      data: { withSome: 'data' },
+    });
+
+    let chunks = expo.chunkPushNotifications(messages);
+    let tickets = [];
+    (async () => {
+      // Send the chunks to the Expo push notification service. There are
+      // different strategies you could use. A simple one is to send one chunk at a
+      // time, which nicely spreads the load out over time:
+      for (let chunk of chunks) {
+        try {
+          let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+          // console.log('tickettttt',ticketChunk);
+          tickets.push(...ticketChunk);
+          // NOTE: If a ticket contains an error code in ticket.details.error, you
+          // must handle it appropriately. The error codes are listed in the Expo
+          // documentation:
+          // https://docs.expo.io/push-notifications/sending-notifications/#individual-errors
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    })();
+
+    //----------------------//
     res.status(2002).send("Solicitud creada con exito");
   } catch (error) {
     res.status(400).send(error);
