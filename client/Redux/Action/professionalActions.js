@@ -1,8 +1,8 @@
 import axios from "axios";
 import { CREATE_BUDGET, CREATE_PROFESSIONAL, CREATE_REVIEW_CLIENT, GET_ALL_BUDGETS, GET_ALL_BUDGETS_PROFESSIONAL, GET_ALL_CLIENTS, GET_BUDGET_DETAIL, GET_REQUEST_DETAIL } from "./actionTypes";
 
-//const url = 'https://fixy-backend.herokuapp.com'
-const URL = 'http://192.168.0.202:3000'
+const URL = 'https://fixy-backend.herokuapp.com'
+// const URL = 'http://192.168.0.202:3000'
 
 /* -------------------------------------------------------------------------- */
 /*                               GET CLIENT ID                             */
