@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
 			},
 			expoToken: {
 				type: DataTypes.STRING,
-				allowNull: true,
+				allowNull: false,
 			},
 			isRegistered: {
 				type: DataTypes.BOOLEAN,
@@ -54,8 +54,7 @@ module.exports = (sequelize) => {
 			},
 			reviews: {
 				type: DataTypes.ARRAY(DataTypes.JSON),
-				defaultValue: [{}],
-				allowNull: false,
+				defaultValue: [],
 			},
 		},
 		{
