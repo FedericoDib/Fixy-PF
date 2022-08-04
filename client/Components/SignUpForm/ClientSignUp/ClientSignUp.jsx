@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SafeAreaView,
@@ -7,6 +7,7 @@ import {
 	TextInput,
 	useWindowDimensions, ScrollView, TouchableOpacity
 } from 'react-native';
+import { useFocusEffect } from "@react-navigation/native";
 import 'react-native-gesture-handler';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -15,12 +16,15 @@ import UsePickImage from '../UsePickImage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './Colors';
 import STYLES from './ClientSignUpStyles';
+import UseGeolocation from '../UseGeolocation';
 
 const SignUpScreen = ({ navigation }) => {
   const user = useSelector((state) => state.generalReducer.user);
 	const perfilPickarda = useSelector((state) => state.generalReducer.perfilPic);
 	const { width, height } = useWindowDimensions();
-
+	const [place, setPlace] = useState(false)
+	const {address,location} = UseGeolocation()
+	console.log("Info locationssss",address,location)
 	const dispatch = useDispatch();
   
 	const [input, setInput] = useState({
@@ -38,10 +42,17 @@ const SignUpScreen = ({ navigation }) => {
 		registerForPushNotificationsAsync().then((token) =>	
 		setExpoPushToken(token)
 		)
+		
 	}, []);
 	
+	useFocusEffect(
+		useCallback(()=>{
+	 			if(address){setInput({...input, province: address.length<4?address[1]:address[2],city:address[1],address:address[0]})}
+				console.log("datos a guardar : ", input )
+		},[place])
+	);
 	
-
+	if(address && place=== false) setPlace(true)
 	async function registerForPushNotificationsAsync() {
 		if (Device.isDevice) {
 			const { status: existingStatus } =
@@ -70,8 +81,7 @@ const SignUpScreen = ({ navigation }) => {
 			});
 		}
 	}
-
-	
+	console.log("info inputsss: ",input)
 
 	return (
 		<SafeAreaView
@@ -124,7 +134,8 @@ const SignUpScreen = ({ navigation }) => {
 							style={STYLES.inputIcon}
 						/>
 						<TextInput
-							placeholder='Provincia'
+							placeholder= 'Provincia'
+							defaultValue={address? address.length<4 ? address[1]:address[2] : ""}
 							style={STYLES.input}
 							onChangeText={(text) => setInput({ ...input, province: text })}
 						/>
@@ -139,6 +150,7 @@ const SignUpScreen = ({ navigation }) => {
 						<TextInput
 							placeholder='Ciudad'
 							style={STYLES.input}
+							defaultValue={address? address[1] : ""}
 							onChangeText={(text) => setInput({ ...input, city: text })}
 						/>
 					</View>
@@ -152,13 +164,15 @@ const SignUpScreen = ({ navigation }) => {
 						<TextInput
 							placeholder='Dirección'
 							style={STYLES.input}
-							onChangeText={(text) => setInput({ ...input, address: text })}
+							defaultValue={address? address[0]: null}
+							onChangeText={(text) =>setInput({ ...input, address: text })}
 						/>
 					</View>
 
 					<View style={STYLES.btnPrimary}>
 						<TouchableOpacity
 							onPress={() => {
+								
 								dispatch(createClient(input));
 								navigation.navigate('ClientStack', {
 									screen: 'HomeClient',

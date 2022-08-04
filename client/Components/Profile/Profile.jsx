@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 import { useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import {
@@ -18,6 +18,8 @@ import styles from "./ProfileStyles";
 import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Feather";
 import * as GoogleSignIn from 'expo-google-sign-in'
+import { useFocusEffect } from "@react-navigation/native";
+import UseGeolocation from "../SignUpForm/UseGeolocation";
 
 
 const Profile = () => {
@@ -26,17 +28,18 @@ const Profile = () => {
   const [inputText, setinputText] = useState();
   const [editItem, seteditItem] = useState();
   const dispatch = useDispatch();
+  const {address,location} = UseGeolocation()
   const user = useSelector((state) => state.generalReducer.user);
   const DATA = [
-    { id: 1, text: `${user.phoneNumber}` },
-    { id: 2, text: `${user.province}` },
-    { id: 3, text: `${user.city}` },
-    { id: 4, text: `${user.address}` },
+    { id: 1,type:'phoneNumber', text: `${user.phoneNumber}` },
+    { id: 2,type:'province' ,text: `${user.province}` },
+    { id: 3,type:'city', text: `${user.city}` },
+    { id: 4,type:'address', text: `${user.address}` },
   ];
   const [data, setdata] = useState(DATA);
   const onPressItem = (item) => {
     setisModalVisible(true);
-    setinputText(item.text);
+    setinputText(setDefault(item));
     seteditItem(item.id);
   };
 
@@ -102,7 +105,19 @@ const Profile = () => {
       </View>
     );
   };
-
+function setDefault(item) {
+   if (item.type==='province') { 
+      if(!address[3]) return address[1]
+    return address[2]
+  } else if (item.type==='city') {
+    return address[1]
+  }else if (item.type==='address') {
+    return address[0]
+  }else{
+    return item.text
+  }
+console.log("info de item: ",item)
+}
   return (
     <SafeAreaView>
       <View style={{ marginTop: 70, alignItems: "center" }}>

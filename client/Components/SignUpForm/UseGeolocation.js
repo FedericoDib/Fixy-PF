@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Platform } from 'react-native'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import * as Location from 'expo-location'
-import MapView, { Marker, Polyline } from 'react-native-maps'
+//import MapView, { Marker, Polyline } from 'react-native-maps'
 
 
 
 const latitudeDelta = 0.01, longitudeDelta = 0.01
-export default function useGeolocation() {
+export default function UseGeolocation() {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [address, setAddress] = useState(null)
@@ -45,6 +45,7 @@ export default function useGeolocation() {
         if (address) {
             var x = address.split(',')
             if (x.length < 3) {
+                console.log("tamaño del arreglo de localizacion:", x.length)
                 x[1] = x[1].slice(9)
             }
 
@@ -54,20 +55,20 @@ export default function useGeolocation() {
 }
             /* <View style={styles.body}>
 
-      <MapView 
+<MapView 
 style= {styles.map} 
 // initialRegion={{latitude:location.latitude,longitude:location.longitude,latitudeDelta:location.latitudeDelta,longitudeDelta:location.longitudeDelta}}
 >
-  <Marker 
- draggable
- coordinate={location}
- onDragEnd={(direction)=> setLocation(direction.nativeEvent.coordinate)}
- />
+<Marker 
+draggable
+coordinate={location}
+onDragEnd={(direction)=> setLocation(direction.nativeEvent.coordinate)}
+/>
  
 
 </MapView>  
 
 
- </View>*/
+</View>*/
 
 
