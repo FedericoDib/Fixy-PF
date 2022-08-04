@@ -75,6 +75,11 @@ const Profile = () => {
 		setdata(newData);
 		//setisRender(!isRender);
 	};
+  const handleLogOut = () => {
+    GoogleSignIn.signOutAsync();
+    SecureStore.deleteItemAsync("key");
+    dispatch(logOut());
+  };
 
 	const onPressSaveEdit = () => {
 		handleEditItem(editItem); //guarda los cambios
@@ -99,11 +104,6 @@ const Profile = () => {
 			default:
 				break;
 		}
-	};
-
-	const handleLogOut = () => {
-		GoogleSignIn.signOutAsync();
-		dispatch(logOut());
 	};
 
 	const renderItem = ({ item, index }) => {
