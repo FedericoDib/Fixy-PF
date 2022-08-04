@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.20.0",
     "consolidate": "^0.16.0",
