@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	SafeAreaView,
@@ -18,6 +18,9 @@ import PrimarySlider from '../../General/Slider/Slider';
 import UsePickImage from '../UsePickImage';
 import STYLES from './ProfessionalSignUpStyles';
 import COLORS from './Colors';
+import UseGeolocation from '../UseGeolocation';
+import { useFocusEffect } from "@react-navigation/native";
+
 
 const ProfessionalSignUp = ({ navigation }) => {
 	const user = useSelector((state) => state.generalReducer.user);
@@ -26,6 +29,8 @@ const ProfessionalSignUp = ({ navigation }) => {
 	const [image, setImage] = useState(null);
 	const [minTime, setMinTime] = useState(0);
 	const [maxTime, setMaxTime] = useState(24);
+	const {address,location} = UseGeolocation()
+	const [place,setPlace] = useState(false)
 	const [input, setInput] = useState({
 		...user,
 		expoToken: expoPushToken,
@@ -39,6 +44,14 @@ const ProfessionalSignUp = ({ navigation }) => {
 			setExpoPushToken(token)
 		);
 	}, []);
+	useFocusEffect(
+		useCallback(()=>{
+	 			if(address){setInput({...input, province: address.length<4?address[1]:address[2],city:address[1],address:address[0]})}
+				console.log("datos a guardar : ", input )
+		},[place])
+	);
+	
+	if(address && !place) setPlace(true)
 
 	async function registerForPushNotificationsAsync() {
 		if (Device.isDevice) {
@@ -68,7 +81,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 			});
 		}
 	}
-
+	console.log("inputtttttttsssss: ",input)
 	return (
 		<SafeAreaView
 			style={[
@@ -197,6 +210,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 						<TextInput
 							placeholder='Provincia'
 							style={STYLES.input}
+							defaultValue={address? address.length<4 ? address[1]:address[2] : ""}
 							onChangeText={(text) => setInput({ ...input, province: text })}
 						/>
 					</View>
@@ -210,6 +224,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 						<TextInput
 							placeholder='Ciudad'
 							style={STYLES.input}
+							defaultValue={address? address[1] : ""}
 							onChangeText={(text) => setInput({ ...input, city: text })}
 						/>
 					</View>
@@ -223,6 +238,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 						<TextInput
 							placeholder='Dirección'
 							style={STYLES.input}
+							defaultValue={address? address[0] : ""}
 							onChangeText={(text) => setInput({ ...input, address: text })}
 						/>
 					</View>

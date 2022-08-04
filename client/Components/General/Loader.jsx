@@ -1,15 +1,6 @@
-import { useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import theme from '../../theme/theme';
 
-const Loader = ({ text, navigation }) => {
-	const professionals = useSelector((state) => state.professionals);
-
-	useEffect(() => {
-		if (professionals.length) navigation.navigate('List',{ data: '' });
-	}, []);
-
+const Loader = () => {
 	return (
 		<View style={styles.container}>
 			<Image source={require('../../assets/load.gif')} style={styles.image} />

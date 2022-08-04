@@ -41,16 +41,16 @@ const URL = 'http://192.168.0.202:3000'
 // }
 
 export const googleLogin = (payload) => {
-	return async (dispatch) => {
-		let response = await axios.post(
-			`${URL}/userInfo`,
-			payload
-		);
-		return dispatch({
-			type: GOOGLE_LOGIN,
-			payload: response.data,
-		});
-	};
+  return async (dispatch) => {
+    let response = await axios.post(
+      `${URL}/userInfo`,
+      payload
+    );
+    return dispatch({
+      type: GOOGLE_LOGIN,
+      payload: response.data,
+    });
+  };
 };
 
 /* -------------------------------------------------------------------------- */
