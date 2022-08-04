@@ -80,6 +80,14 @@ module.exports = (sequelize) => {
                 defaultValue: [{}],
                 allowNull: false,
             },
+            latitude: {
+                type: DataTypes.FLOAT,
+                defaultValue: "-",
+            },
+            longitude: {
+                type: DataTypes.FLOAT,
+                defaultValue: "-",
+            },
         },
         {
             createdAt: false,

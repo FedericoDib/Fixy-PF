@@ -7,15 +7,19 @@ import { searchProfessional } from "../../../Redux/Action/clientActions";
 import { useFocusEffect } from "@react-navigation/native";
 import ProfessionalCard from "./ProfessionalCard";
 
+let count = 0;
 export default function ProfessionalList({ navigation, route }) {
     const [refreshing, setRefreshing] = useState(false);
     const [data, setData] = useState([]);
     const professionals = useSelector(
         (state) => state.clientReducer.professionals
     );
+    const user = useSelector((state) => state.generalReducer.user);
 
     const dispatch = useDispatch();
-
+    if (refreshing) {
+        setRefreshing(false);
+    }
     useFocusEffect(
         useCallback(() => {
             setData(setAverageReviews(professionals));
@@ -31,23 +35,47 @@ export default function ProfessionalList({ navigation, route }) {
                 for (let j = 1; j < professional.reviews.length; j++) {
                     totalRating += professional.reviews[j].rating;
                 }
-                professionals[i].averageReviews =
-                    totalRating / professional.reviews.length;
+                professionals[i].averageReviews = (
+                    totalRating / professional.reviews.length
+                ).toFixed(1);
             } else {
                 professionals[i].averageReviews = 1;
             }
         }
+
+        for (let i = 0; i < professionals.length; i++) {
+            let diferenciaLatitud = user.latitude - professionals[i].latitude;
+            let resulat = Math.sign(diferenciaLatitud) * diferenciaLatitud;
+
+            let diferenciaLonguitud =
+                user.longitude - professionals[i].longitude;
+            let resulon = Math.sign(diferenciaLonguitud) * diferenciaLonguitud;
+
+            let resul = resulat + resulon;
+            professionals[i].distancia = resul;
+        }
+
+        professionals = professionals.filter(
+            (professional) => professional.distancia < 0.33684400000000636
+        );
         return professionals;
+    }
+
+    function sortByProximity() {
+        let aux = data.sort((a, b) => {
+            if (a.distancia < b.distancia) return -1;
+            if (a.distancia > b.distancia) return 1;
+            return 0;
+        });
+        setData(aux);
+        setRefreshing(true);
     }
 
     const handleChange = (e) => {
         dispatch(searchProfessional(e.text));
     };
 
-    const orderCity = (e) => {};
-
     const orderReview = (e) => {
-        setRefreshing(false);
         let aux = data.sort(function (a, b) {
             if (a.averageReviews > b.averageReviews) return -1;
             if (a.averageReviews < b.averageReviews) return 1;
@@ -88,7 +116,7 @@ export default function ProfessionalList({ navigation, route }) {
                         activeOpacity={0.6}
                         underlayColor="white"
                         onPress={(e) => {
-                            orderCity(e);
+                            sortByProximity(e);
                         }}
                     >
                         <View style={style.textButton}>
