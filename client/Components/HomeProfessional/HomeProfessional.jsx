@@ -17,7 +17,7 @@ import PrimaryButton from '../General/PrimaryButton';
 import { getAllRequest } from '../../Redux/Action/generalActions';
 import ActiveRequestCard from '../General/ActiveRequestCard';
 
-const HomeProfessional = () => {
+const HomeProfessional = ({ navigation}) => {
 	const user = useSelector((state) => state.generalReducer.user);
 	const requests = useSelector((state) => state.generalReducer.allRequests);
 	const [activeRequests, setActiveRequests] = useState([]);

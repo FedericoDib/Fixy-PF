@@ -28,7 +28,7 @@ const Tabs = () => {
 					),
 				}}
 			/>
-			<Tab.Screen
+			{/* <Tab.Screen
 				name='List'
 				component={List}
 				initialParams={{ data: 'holaaaa' }}
@@ -38,7 +38,7 @@ const Tabs = () => {
 						<FontAwesomeIcons name='search' color={color} size={22} />
 					),
 				}}
-			/>
+			/> */}
 			<Tab.Screen
 				name='Calendario'
 				component={Calendar}

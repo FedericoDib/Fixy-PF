@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import styles from "./CardListStyle";
+import styles from "../CardListStyle";
 import { useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Entypo";
-import { getBudgetDetail } from "../../Redux/Action/generalActions";
+import { getBudgetDetail } from "../../../Redux/Action/generalActions";
 
 const BudgetCard = ({ item, navigation }) => {
   const dispatch = useDispatch();

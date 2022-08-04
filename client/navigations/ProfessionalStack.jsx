@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Tabs from "../Components/BottomTabNavigation/BottomTabNavigation";
-import List from "../Components/List/List";
 import Resume from "../Components/Resume/Resume";
 import SolutionScreen from "../Components/SolutionForm/SolutionForm";
 import Pay from "../Components/Pay/Pay";
@@ -10,6 +9,7 @@ import Loader from "../Components/General/Loader";
 import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
 import UserDetail from "../Components/UserDetail/UserDetail";
 import Paypal from "../Components/Paypal/Paypal";
+import BudgetList from "../Components/List/BudgetList/BudgetList";
 
 const Stack = createNativeStackNavigator();
 
@@ -32,9 +32,14 @@ const ProfessionalStack = () => {
           component={SolutionScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="List"
           component={List}
+          options={{ headerShown: false }}
+        /> */}
+        <Stack.Screen
+          name="BudgetList"
+          component={BudgetList}
           options={{ headerShown: false }}
         />
         <Stack.Screen
