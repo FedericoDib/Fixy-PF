@@ -31,7 +31,7 @@ export default function ProfessionalCard({ item, navigation, route }) {
         navigation.navigate("ProfileDetail");
     };
 
-    console.log("tiemmmmmmmmmmmmm", item);
+    // console.log("tiemmmmmmmmmmmmm", item);
 
     return (
         <View>
