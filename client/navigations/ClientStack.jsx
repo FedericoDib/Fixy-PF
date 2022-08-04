@@ -61,7 +61,6 @@ const ClientStack = () => {
                 <Stack.Screen
                     name="BudgetDetail"
                     component={BudgetDetail}
-                    options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name="ProfileDetail"

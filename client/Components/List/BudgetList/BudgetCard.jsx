@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import styles from '../CardListStyle';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 import { getBudgetDetail } from '../../../Redux/Action/generalActions';
 
 const BudgetCard = ({ item, navigation }) => {
+	const user = useSelector((state) => state.generalReducer.user);
 	const dispatch = useDispatch();
 	return (
 		<TouchableOpacity
@@ -13,7 +14,9 @@ const BudgetCard = ({ item, navigation }) => {
 			underlayColor='white'
 			onPress={() => {
 				dispatch(getBudgetDetail(item.id));
-				navigation.navigate('BudgetDetail', { button: false });
+				navigation.navigate('BudgetDetail', {
+					buttons: user.googleId[0] === 'c' ? true : false,
+				});
 			}}
 		>
 			<View style={styles.cardContainer}>

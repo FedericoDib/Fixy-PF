@@ -16,10 +16,10 @@ import style from "./BudgetDetailStyle";
 import PrimaryButton from "../General/PrimaryButton";
 import { rejectBudgetClient } from "../../Redux/Action/clientActions";
 
-export default function BudgetDetail({ navigation }) {
+export default function BudgetDetail({ navigation, route }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const budgetDetail = useSelector((state) => state.budgetDetail);
+const {buttons} = route.params
+  const budgetDetail = useSelector((state) => state.generalReducer.budgetDetail);
 
   return (
     <View style={style.mainContainer}>
@@ -45,7 +45,7 @@ export default function BudgetDetail({ navigation }) {
       </View>
       <View style={style.buttonContainer}>
         <View style={{ flex: 1 }}>
-          {user.googleId[0] === "c" && (
+          {buttons&& (
             <PrimaryButton
               onPress={() =>
                 navigation.navigate("Paypal", { price: budgetDetail.price })
@@ -56,7 +56,7 @@ export default function BudgetDetail({ navigation }) {
           )}
         </View>
         <View style={{ flex: 1 }}>
-          {user.googleId[0] === "c" && (
+          {buttons(
             <PrimaryButton
               onPress={() => {
                 navigation.navigate("HomeClient");
