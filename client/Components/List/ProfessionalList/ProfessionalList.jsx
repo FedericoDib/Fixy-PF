@@ -1,11 +1,11 @@
-import { View, FlatList, TouchableHighlight, Text } from "react-native";
-import { TextInput } from "@react-native-material/core";
-import React, { useState, useCallback } from "react";
-import style from "../ListStyle";
-import { useSelector, useDispatch } from "react-redux";
-import { searchProfessional } from "../../../Redux/Action/clientActions";
-import { useFocusEffect } from "@react-navigation/native";
-import ProfessionalCard from "./ProfessionalCard";
+import { View, FlatList, TouchableHighlight, Text } from 'react-native';
+import { TextInput } from '@react-native-material/core';
+import React, { useState, useCallback } from 'react';
+import style from '../ListStyle';
+import { useSelector, useDispatch } from 'react-redux';
+import { searchProfessional } from '../../../Redux/Action/clientActions';
+import { useFocusEffect } from '@react-navigation/native';
+import ProfessionalCard from './ProfessionalCard';
 
 let count = 0;
 export default function ProfessionalList({ navigation, route }) {
@@ -17,18 +17,20 @@ export default function ProfessionalList({ navigation, route }) {
     const user = useSelector((state) => state.generalReducer.user);
 
     const dispatch = useDispatch();
-    if (refreshing) {
-        setRefreshing(false);
-    }
+    // if (refreshing) {
+    //     setRefreshing(false);
+    // }
     useFocusEffect(
         useCallback(() => {
-            setData(setAverageReviews(professionals));
+            setRefreshing(false);
+			setData(setAverageReviews(professionals));
+			setRefreshing(true);
         }, [professionals])
     );
 
-    function setAverageReviews(professionals) {
-        for (let i = 0; i < professionals.length; i++) {
-            let professional = professionals[i];
+	function setAverageReviews(professionals) {
+		for (let i = 0; i < professionals.length; i++) {
+			let professional = professionals[i];
 
             let totalRating = 0;
             if (professional.reviews.length > 1) {

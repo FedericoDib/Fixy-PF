@@ -11,6 +11,8 @@ import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
 import UserDetail from "../Components/UserDetail/UserDetail";
 import Paypal from "../Components/Paypal/Paypal";
 import ProfessionalList from "../Components/List/ProfessionalList/ProfessionalList";
+import BudgetList from "../Components/List/BudgetList/BudgetList";
+import RequestList from "../Components/List/RequestList/RequestList";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,8 +26,8 @@ const ClientStack = () => {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name="BudgetForm"
-                    component={BudgetForm}
+                    name="BudgetList"
+                    component={BudgetList}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
@@ -36,6 +38,11 @@ const ClientStack = () => {
                 <Stack.Screen
                     name="ProfessionalList"
                     component={ProfessionalList}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="RequestList"
+                    component={RequestList}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
@@ -61,7 +68,6 @@ const ClientStack = () => {
                 <Stack.Screen
                     name="BudgetDetail"
                     component={BudgetDetail}
-                    options={{ headerShown: false }}
                 />
                 <Stack.Screen
                     name="ProfileDetail"

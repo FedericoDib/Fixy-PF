@@ -12,10 +12,11 @@ import { getAllRequest } from "../../Redux/Action/generalActions";
 import ActiveRequestCard from "../General/ActiveRequestCard";
 
 const HomeClient = ({ navigation }) => {
-    const user = useSelector((state) => state.generalReducer.user);
-    const requests = useSelector((state) => state.generalReducer.allRequests);
-    const [activeRequests, setActiveRequests] = useState([]);
-    const dispatch = useDispatch();
+	const user = useSelector((state) => state.generalReducer.user);
+	const requests = useSelector((state) => state.generalReducer.allRequests);
+	const [activeRequests, setActiveRequests] = useState([]);
+	const [isRefreshing, setIsRefreshing] = useState(false);
+	const dispatch = useDispatch();
 
     useFocusEffect(
         useCallback(() => {
@@ -23,16 +24,18 @@ const HomeClient = ({ navigation }) => {
         }, [])
     );
 
-    useFocusEffect(
-        useCallback(() => {
-            if (requests.length > 0) {
-                let aux = requests.filter((req) => {
-                    return req.status === "active";
-                });
-                setActiveRequests(aux);
-            }
-        }, [requests])
-    );
+	useFocusEffect(
+		useCallback(() => {
+			setIsRefreshing(false);
+			if (requests.length > 0) {
+				let aux = requests.filter((req) => {
+					return req.status === 'active';
+				});
+				setActiveRequests(aux);
+			}
+			setIsRefreshing(true);
+		}, [requests])
+	);
 
     const renderActiveCard = ({ item }) => {
         return <ActiveRequestCard request={item} />;
@@ -83,67 +86,54 @@ const HomeClient = ({ navigation }) => {
                         </Box>
                     </Wrap>
 
-                    <View style={styles.buttonContainer}>
-                        {!activeRequests.length ? (
-                            <Text>No tenes solicitudes activas</Text>
-                        ) : (
-                            <FlatList
-                                style={{
-                                    width: "100%",
-                                    backgroundColor: "cyan",
-                                    flex: 1,
-                                }}
-                                data={activeRequests}
-                                renderItem={renderActiveCard}
-                                keyExtractor={(item, index) =>
-                                    `activeReq-${index}`
-                                }
-                                horizontal
-                                showsHorizontalScrollIndicator={false}
-                            />
-                        )}
-                        <View style={styles.buttonWrapper}>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigation.navigate("BudgetList", {
-                                        data: "pendingBudgets",
-                                    })
-                                }
-                                style={[styles.button, { width: "45%" }]}
-                            >
-                                <View>
-                                    <Text style={styles.textButton}>
-                                        Presupuestos recibidos
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    navigation.navigate("RequestList", {
-                                        data: "pendingRequest",
-                                    });
-                                }}
-                                style={[styles.button, { width: "45%" }]}
-                            >
-                                <View>
-                                    <Text style={styles.textButton}>
-                                        Solicitudes enviadas
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <PrimaryButton
-                        onPress={() => navigation.navigate("SolutionForm")}
-                        title="Necesito una solucion"
-                        trailing={(props) => (
-                            <Icon2 name="house-damage" {...props} />
-                        )}
-                    />
-                </Flex>
-            </View>
-        </View>
-    );
+					<View style={styles.buttonContainer}>
+						{!activeRequests.length ? (
+							<Text>No tenes solicitudes activas</Text>
+						) : (
+							<FlatList
+								style={{ width: '100%', backgroundColor: 'cyan', flex: 1 }}
+								data={activeRequests}
+								extraData={isRefreshing}
+								renderItem={renderActiveCard}
+								keyExtractor={(item, index) => `activeReq-${index}`}
+								horizontal
+								showsHorizontalScrollIndicator={false}
+							/>
+						)}
+						<View style={styles.buttonWrapper}>
+							<TouchableOpacity
+								onPress={() =>
+									navigation.navigate('BudgetList', { data: 'pendingBudgets' })
+								}
+								style={[styles.button, { width: '45%' }]}
+							>
+								<View>
+									<Text style={styles.textButton}>Presupuestos recibidos</Text>
+								</View>
+							</TouchableOpacity>
+							<TouchableOpacity
+								onPress={() => {
+									navigation.navigate('RequestList', {
+										data: 'pendingRequest',
+									});
+								}}
+								style={[styles.button, { width: '45%' }]}
+							>
+								<View>
+									<Text style={styles.textButton}>Solicitudes pendientes</Text>
+								</View>
+							</TouchableOpacity>
+						</View>
+					</View>
+					<PrimaryButton
+						onPress={() => navigation.navigate('SolutionForm')}
+						title='Necesito una solucion'
+						trailing={(props) => <Icon2 name='house-damage' {...props} />}
+					/>
+				</Flex>
+			</View>
+		</View>
+	);
 };
 
 export default HomeClient;

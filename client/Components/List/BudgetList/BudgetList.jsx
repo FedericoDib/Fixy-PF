@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 import { getAllBudgetsFromClient } from '../../../Redux/Action/clientActions';
 import { getAllBudgetsFromProfessional } from '../../../Redux/Action/professionalActions';
+import BudgetCard from './BudgetCard';
 
 // import { professionals, user, requests } from "./Hardcode";
 // import Loader from '../General/Loader';
@@ -144,7 +145,7 @@ export default function BudgetList({ navigation, route }) {
 			setIsRefreshing(true);
 		}, [])
 	);
-	console.log(budgets);
+
 	return (
 		<View style={style.mainContainer}>
 			<View style={{ flex: 6 }}>

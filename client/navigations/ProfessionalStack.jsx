@@ -10,6 +10,7 @@ import BudgetDetail from "../Components/BudgetDetail/BudgetDetail";
 import UserDetail from "../Components/UserDetail/UserDetail";
 import Paypal from "../Components/Paypal/Paypal";
 import BudgetList from "../Components/List/BudgetList/BudgetList";
+import RequestList from "../Components/List/RequestList/RequestList";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,10 @@ const ProfessionalStack = () => {
         <Stack.Screen
           name="BudgetDetail"
           component={BudgetDetail}
+        />
+        <Stack.Screen
+          name="RequestList"
+          component={RequestList}
           options={{ headerShown: false }}
         />
         <Stack.Screen
