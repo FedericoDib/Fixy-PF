@@ -87,6 +87,7 @@ const Profile = () => {
 
   const handleLogOut = () => {
     GoogleSignIn.signOutAsync();
+    SecureStore.deleteItemAsync("key");
     dispatch(logOut());
   };
 

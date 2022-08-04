@@ -34,16 +34,18 @@ const InitialStack = () => {
 
 	// BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
 	function fetchUserInfoSigned(token) {
+    console.log(token)
 		fetch('https://www.googleapis.com/userinfo/v2/me', {
 			headers: { Authorization: `Bearer ${token} ` },
 		})
 			.then((response) => response.json())
+      .then((json)=> console.log('JSON', json))
 			.then((json) => dispatch(googleLogin(json)))
 			.catch((error) => console.error(error));
 	}
 
 	const getStack = () => {
-		if (Object.getOwnPropertyNames(user).length === 0) {
+		if (user&&Object.getOwnPropertyNames(user).length === 0) {
 			return (
 				<Stack.Screen
 					name='Login'
@@ -53,7 +55,7 @@ const InitialStack = () => {
 				/>
 			);
 		} else {
-			if (user.isRegistered && user.googleId[0] === 'c') {
+			if (user&&user.isRegistered && user.googleId[0] === 'c') {
 				return (
 					<Stack.Screen
 						name='ClientStack'
@@ -61,7 +63,7 @@ const InitialStack = () => {
 						options={{ headerShown: false }}
 					/>
 				);
-			} else if (user.isRegistered && user.googleId[0] === 'p') {
+			} else if (user&&user.isRegistered && user.googleId[0] === 'p') {
 				return (
 					<Stack.Screen
 						name='ProfessionalStack'

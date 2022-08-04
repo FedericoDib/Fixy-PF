@@ -1,8 +1,8 @@
 import axios from "axios";
 import { AVERAGE_REVIEW, AVERAGE_REVIEW_OFF, COUNT_ADDITION, COUNT_OFF, CREATE_CLIENT, CREATE_REQUEST, CREATE_REVIEW_PROFESSIONAL, GET_ALL_BUDGETS_CLIENT, GET_ALL_PROFESSIONALS, GET_BUDGET_DETAIL, MERCADO_PAGO, ORDER_BY_CITY, ORDER_BY_REVIEW, PAYPAL_PRICE, REQUEST_TO_PROFESSIONAL, SEARCH_NAME_PROFESSIONAL } from "./actionTypes";
 
-const URL = 'https://fixy-backend.herokuapp.com'
- //const URL = 'http://192.168.0.202:3000'
+//const URL = 'https://fixy-backend.herokuapp.com'
+const URL = 'http://192.168.0.202:3000'
 
 /* -------------------------------------------------------------------------- */
 /*                            GET ALL PROFESSIONALS                           */
