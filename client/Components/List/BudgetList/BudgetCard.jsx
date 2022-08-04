@@ -15,7 +15,7 @@ const BudgetCard = ({ item, navigation }) => {
 			onPress={() => {
 				dispatch(getBudgetDetail(item.id));
 				navigation.navigate('BudgetDetail', {
-					buttons: user.googleId[0] === 'c' ? true : false,
+					buttons: (user.googleId[0] === 'c') ? 'true' : 'false',
 				});
 			}}
 		>

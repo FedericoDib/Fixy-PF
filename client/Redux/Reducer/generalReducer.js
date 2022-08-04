@@ -79,6 +79,7 @@ const generalReducer = (state = initialState, action) => {
 			};
 
       case GET_ALL_BUDGETS_CLIENT:
+        console.log('GET_ALL_BUDGETS_CLIENT', action.payload)
         return {
           ...state,
           budgets: action.payload.budgets,

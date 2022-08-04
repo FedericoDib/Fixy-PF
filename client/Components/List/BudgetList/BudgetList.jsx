@@ -145,7 +145,7 @@ export default function BudgetList({ navigation, route }) {
 			setIsRefreshing(true);
 		}, [])
 	);
-	console.log('BUDGETSSSSSS',budgets);
+
 	return (
 		<View style={style.mainContainer}>
 			<View style={{ flex: 6 }}>

@@ -11,10 +11,11 @@ import PrimaryButton from '../General/PrimaryButton';
 import { getAllRequest } from '../../Redux/Action/generalActions';
 import ActiveRequestCard from '../General/ActiveRequestCard';
 
-const HomeClient = () => {
+const HomeClient = ({ navigation }) => {
 	const user = useSelector((state) => state.generalReducer.user);
 	const requests = useSelector((state) => state.generalReducer.allRequests);
 	const [activeRequests, setActiveRequests] = useState([]);
+	const [isRefreshing, setIsRefreshing] = useState(false);
 	const dispatch = useDispatch();
 
 	useFocusEffect(
@@ -25,12 +26,14 @@ const HomeClient = () => {
 
 	useFocusEffect(
 		useCallback(() => {
+			setIsRefreshing(false);
 			if (requests.length > 0) {
 				let aux = requests.filter((req) => {
 					return req.status === 'active';
 				});
 				setActiveRequests(aux);
 			}
+			setIsRefreshing(true);
 		}, [requests])
 	);
 
@@ -84,6 +87,7 @@ const HomeClient = () => {
 							<FlatList
 								style={{ width: '100%', backgroundColor: 'cyan', flex: 1 }}
 								data={activeRequests}
+								extraData={isRefreshing}
 								renderItem={renderActiveCard}
 								keyExtractor={(item, index) => `activeReq-${index}`}
 								horizontal
@@ -103,12 +107,14 @@ const HomeClient = () => {
 							</TouchableOpacity>
 							<TouchableOpacity
 								onPress={() => {
-									navigation.navigate('RequestList', { data: 'pendingRequest' });
+									navigation.navigate('RequestList', {
+										data: 'pendingRequest',
+									});
 								}}
 								style={[styles.button, { width: '45%' }]}
 							>
 								<View>
-									<Text style={styles.textButton}>Solicitudes enviadas</Text>
+									<Text style={styles.textButton}>Solicitudes pendientes</Text>
 								</View>
 							</TouchableOpacity>
 						</View>
