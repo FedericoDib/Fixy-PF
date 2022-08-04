@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
-import { paypalPrice, setStatusRequestToActive } from "../../Redux/Action/clientActions";
+import {
+  paypalPrice,
+  setStatusRequestToActive,
+} from "../../Redux/Action/clientActions";
 
 const Paypal = ({ route, navigation }) => {
   const budget = useSelector((state) => state.generalReducer.budgetDetail);

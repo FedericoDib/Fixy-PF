@@ -1,81 +1,94 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-	View,
-	Text,
-	TouchableOpacity,
-	Image,
-	TouchableHighlight,
-	Alert,
-	ScrollView,
-} from 'react-native';
-import IconCalendar from 'react-native-vector-icons/EvilIcons';
-import IconPhone from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import style from './BudgetDetailStyle';
-import PrimaryButton from '../General/PrimaryButton';
-import { rejectBudgetClient } from '../../Redux/Action/clientActions';
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TouchableHighlight,
+  Alert,
+  ScrollView,
+} from "react-native";
+import IconCalendar from "react-native-vector-icons/EvilIcons";
+import IconPhone from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
+import style from "./BudgetDetailStyle";
+import PrimaryButton from "../General/PrimaryButton";
+import { rejectBudgetClient } from "../../Redux/Action/clientActions";
+import { deleteBudget } from "../../Redux/Action/professionalActions";
 
 export default function BudgetDetail({ navigation, route }) {
-  const user = useSelector((state) => state.generalReducer.user)
-	const dispatch = useDispatch();
-	const { buttons } = route.params;
-	const budgetDetail = useSelector(
-		(state) => state.generalReducer.budgetDetail
-	);
+  const user = useSelector((state) => state.generalReducer.user);
+  const dispatch = useDispatch();
+  const { buttons } = route.params;
+  const budgetDetail = useSelector(
+    (state) => state.generalReducer.budgetDetail
+  );
 
-	return (
-		<View style={style.mainContainer}>
-			<View style={style.restContainer}>
-				<View style={style.textContainer}>
-					<Text>Presupuesto Aproximado</Text>
-				</View>
-				<View style={style.endField}>
-					<Text>{budgetDetail.estimatedBudget}</Text>
-				</View>
-				<View style={style.textContainer}>
-					<Text>Comentarios</Text>
-					<View style={style.centerField}>
-						<Text>{budgetDetail.description}</Text>
-					</View>
-				</View>
-				<View style={style.textContainer}>
-					<Text>Precio de la visita</Text>
-				</View>
-				<View style={style.endField}>
-					<Text>$ {budgetDetail.price}</Text>
-				</View>
-			</View>
-			<View style={style.buttonContainer}>
-				<View style={{ flex: 1 }}>
-					{buttons === 'true' && (
-						<PrimaryButton
-							onPress={() =>
-								navigation.navigate('Paypal', { price: budgetDetail.price })
-							}
-							title='Aceptar'
-							trailing={(props) => <Icon2 name='house-damage' {...props} />}
-						/>
-					)}
-				</View>
-				<View style={{ flex: 1 }}>
-					{buttons === 'true' && (
-						<PrimaryButton
-							onPress={() => {
-								navigation.popToTop();
-								dispatch(
-									rejectBudgetClient({
-										clientId: user.googleId,
-										budgetId: budgetDetail.id,
-									})
-								);
-							}}
-							title='Rechazar'
-							trailing={(props) => <Icon2 name='house-damage' {...props} />}
-						/>
-					)}
-				</View>
-			</View>
-		</View>
-	);
+  return (
+    <View style={style.mainContainer}>
+      <View style={style.restContainer}>
+        <View style={style.textContainer}>
+          <Text>Presupuesto Aproximado</Text>
+        </View>
+        <View style={style.endField}>
+          <Text>{budgetDetail.estimatedBudget}</Text>
+        </View>
+        <View style={style.textContainer}>
+          <Text>Comentarios</Text>
+          <View style={style.centerField}>
+            <Text>{budgetDetail.description}</Text>
+          </View>
+        </View>
+        <View style={style.textContainer}>
+          <Text>Precio de la visita</Text>
+        </View>
+        <View style={style.endField}>
+          <Text>$ {budgetDetail.price}</Text>
+        </View>
+      </View>
+      <View style={style.buttonContainer}>
+        <View style={{ flex: 1 }}>
+          {buttons === "false" && (
+            <PrimaryButton
+              onPress={() => {
+                dispatch(deleteBudget(budgetDetail.id));
+                navigation.goBack();
+              }}
+              title="Eliminar presupuesto"
+              trailing={(props) => <Icon2 name="house-damage" {...props} />}
+            />
+          )}
+        </View>
+        <View style={{ flex: 1 }}>
+          {buttons === "true" && (
+            <PrimaryButton
+              onPress={() =>
+                navigation.navigate("Paypal", { price: budgetDetail.price })
+              }
+              title="Aceptar"
+              trailing={(props) => <Icon2 name="house-damage" {...props} />}
+            />
+          )}
+        </View>
+        <View style={{ flex: 1 }}>
+          {buttons === "true" && (
+            <PrimaryButton
+              onPress={() => {
+                navigation.popToTop();
+                dispatch(
+                  rejectBudgetClient({
+                    clientId: user.googleId,
+                    budgetId: budgetDetail.id,
+                  })
+                );
+              }}
+              title="Rechazar"
+              trailing={(props) => <Icon2 name="house-damage" {...props} />}
+            />
+          )}
+        </View>
+      </View>
+    </View>
+  );
 }
