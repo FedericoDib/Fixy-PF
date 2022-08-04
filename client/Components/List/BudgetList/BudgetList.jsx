@@ -29,7 +29,7 @@ import { getAllBudgetsFromProfessional } from '../../../Redux/Action/professiona
 export default function BudgetList({ navigation, route }) {
 	// const [inputSearch, setInputSearch] = useState('');
 	// const [filterData, setFilterData] = useState([]);
-	 const [data, setData] = useState([]);
+	const [data, setData] = useState([]);
 	// const [isRefreshing, setIsRefreshing] = useState(false);
 	// const professionals = useSelector((state) => state.professionals);
 	// const requests = useSelector((state) => state.allRequests);
@@ -128,20 +128,23 @@ export default function BudgetList({ navigation, route }) {
 	// 	dispatch(getAllRequest(user.googleId));
 	// };
 
-  const user = useSelector((state) => state.generalReducer.user)
-  const budgets = useSelector((state) => state.generalReducer.budgets)
-  const dispatch = useDispatch();
+	const user = useSelector((state) => state.generalReducer.user);
+	const budgets = useSelector((state) => state.generalReducer.budgets);
+	const dispatch = useDispatch();
+	const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      if(user&&user.googleId[0] === 'c'){
-        dispatch(getAllBudgetsFromClient(user.googleId))
-      }else if(user&&user.googleId[0] === 'p'){
-        dispatch(getAllBudgetsFromProfessional(user.googleId))
-      }
-    },[])
-  )
-  console.log(budgets)
+	useFocusEffect(
+		useCallback(() => {
+			setIsRefreshing(false);
+			if (user && user.googleId[0] === 'c') {
+				dispatch(getAllBudgetsFromClient(user.googleId));
+			} else if (user && user.googleId[0] === 'p') {
+				dispatch(getAllBudgetsFromProfessional(user.googleId));
+			}
+			setIsRefreshing(true);
+		}, [])
+	);
+	console.log(budgets);
 	return (
 		<View style={style.mainContainer}>
 			<View style={{ flex: 6 }}>
@@ -150,21 +153,12 @@ export default function BudgetList({ navigation, route }) {
 				) : (
 					<FlatList
 						data={budgets}
+						extraData={isRefreshing}
 						// onRefresh={onRefresh}
 						// refreshing={isRefreshing}
-						renderItem={({ item }) =>
-							item.estimatedBudget ? (
-								<BudgetCard item={item} navigation={navigation} />
-							) : item.status ? (
-								<RequestCard item={item} navigation={navigation} />
-							) : (
-								<CardList
-									navigation={navigation}
-									item={item}
-									route={route ? route.params.data : 'pending'}
-								/>
-							)
-						}
+						renderItem={({ item }) => (
+							<BudgetCard item={item} navigation={navigation} />
+						)}
 					/>
 				)}
 			</View>
