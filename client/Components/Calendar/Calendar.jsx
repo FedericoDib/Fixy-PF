@@ -62,10 +62,10 @@ LocaleConfig.defaultLocale = "es";
 // const apiCalendar = new ApiCalendar(config)
 
 const CalendarView = ({ navigation }) => {
-  let requests = useSelector((state) => state.allRequests);
-  requests = requests[0].requests.filter((r) => r.status === "active");
+  let requests = useSelector((state) => state.generalReducer.allRequests);
+  requests = requests.filter((r) => r.status === "active");
   // requests = requests[0];
-  console.log(requests);
+  // console.log(requests);
   const [events, setEvents] = useState([
     {
       affair: "Luz",
