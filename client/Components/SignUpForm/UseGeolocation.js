@@ -44,8 +44,8 @@ export default function UseGeolocation() {
         });
         if (address) {
             var x = address.split(',')
-            if (x.length < 3) {
-                console.log("tamaño del arreglo de localizacion:", x.length)
+            if (x.length === 3) {
+
                 x[1] = x[1].slice(9)
             }
 
@@ -70,5 +70,3 @@ onDragEnd={(direction)=> setLocation(direction.nativeEvent.coordinate)}
 
 
 </View>*/
-
-

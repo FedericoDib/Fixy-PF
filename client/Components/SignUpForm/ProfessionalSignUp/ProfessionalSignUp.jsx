@@ -38,11 +38,26 @@ const ProfessionalSignUp = ({ navigation }) => {
   });
   const [expoPushToken, setExpoPushToken] = useState("");
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
+    useEffect(() => {
+        registerForPushNotificationsAsync().then((token) =>
+            setExpoPushToken(token)
+        );
+    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            if (address) {
+                setInput({
+                    ...input,
+                    province: address.length === 3 ? address[1] : address[2],
+                    city: address[1],
+                    address: address[0],
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                });
+            }
+            console.log("datos a guardar : ", input);
+        }, [place])
     );
-  }, []);
   useFocusEffect(
     useCallback(() => {
       if (address) {
@@ -222,111 +237,129 @@ const ProfessionalSignUp = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <View style={STYLES.inputContainer}>
-            <Icon2
-              name="file-document-outline"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Matricula Profesional (Numero)"
-              style={STYLES.input}
-              onChangeText={(text) => setInput({ ...input, enrollment: text })}
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="phone-iphone"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Celular"
-              style={STYLES.input}
-              onChangeText={(text) => setInput({ ...input, phoneNumber: text })}
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="location-pin"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Provincia"
-              style={STYLES.input}
-              defaultValue={
-                address ? (address.length < 4 ? address[1] : address[2]) : ""
-              }
-              onChangeText={(text) => setInput({ ...input, province: text })}
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="location-pin"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Ciudad"
-              style={STYLES.input}
-              defaultValue={address ? address[1] : ""}
-              onChangeText={(text) => setInput({ ...input, city: text })}
-            />
-          </View>
-          <View style={STYLES.inputContainer}>
-            <Icon
-              name="home"
-              color={COLORS.light}
-              size={20}
-              style={STYLES.inputIcon}
-            />
-            <TextInput
-              placeholder="Dirección"
-              style={STYLES.input}
-              defaultValue={address ? address[0] : ""}
-              onChangeText={(text) => setInput({ ...input, address: text })}
-            />
-          </View>
-          <Text style={STYLES.input}>Horario laboral</Text>
-          <PrimarySlider
-            min={0}
-            max={24}
-            low={minTime}
-            high={maxTime}
-            setMinTime={setMinTime}
-            setMaxTime={setMaxTime}
-          />
+                    <View style={STYLES.inputContainer}>
+                        <Icon2
+                            name="file-document-outline"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput
+                            placeholder="Matricula Profesional (Numero)"
+                            style={STYLES.input}
+                            onChangeText={(text) =>
+                                setInput({ ...input, enrollment: text })
+                            }
+                        />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="phone-iphone"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput
+                            placeholder="Celular"
+                            style={STYLES.input}
+                            onChangeText={(text) =>
+                                setInput({ ...input, phoneNumber: text })
+                            }
+                        />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="location-pin"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput
+                            placeholder="Provincia"
+                            style={STYLES.input}
+                            defaultValue={
+                                address
+                                    ? address.length === 3
+                                        ? address[1]
+                                        : address[2]
+                                    : ""
+                            }
+                            onChangeText={(text) =>
+                                setInput({ ...input, province: text })
+                            }
+                        />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="location-pin"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput
+                            placeholder="Ciudad"
+                            style={STYLES.input}
+                            defaultValue={address ? address[1] : ""}
+                            onChangeText={(text) =>
+                                setInput({ ...input, city: text })
+                            }
+                        />
+                    </View>
+                    <View style={STYLES.inputContainer}>
+                        <Icon
+                            name="home"
+                            color={COLORS.light}
+                            size={20}
+                            style={STYLES.inputIcon}
+                        />
+                        <TextInput
+                            placeholder="Dirección"
+                            style={STYLES.input}
+                            defaultValue={address ? address[0] : ""}
+                            onChangeText={(text) =>
+                                setInput({ ...input, address: text })
+                            }
+                        />
+                    </View>
+                    <Text style={STYLES.input}>Horario laboral</Text>
+                    <PrimarySlider
+                        min={0}
+                        max={24}
+                        low={minTime}
+                        high={maxTime}
+                        setMinTime={setMinTime}
+                        setMaxTime={setMaxTime}
+                    />
 
-          <TouchableOpacity
-            onPress={() => {
-              dispatch(
-                createProfessional({
-                  ...input,
-                  availableTimes: [minTime, maxTime],
-                })
-              );
-            }}
-            style={STYLES.btnPrimary}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                fontSize: 18,
-              }}
-            >
-              Registrarse
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+                    <TouchableOpacity
+                        onPress={() => {
+                            if(input.phoneNumber && input.address && input.province && input.city && input.phoneNumber && input.enrollment && input.profession && minTime !== 0 && maxTime !== 24){
+                            dispatch(
+                                createProfessional({
+                                    ...input,
+                                    availableTimes: [minTime, maxTime],
+                                })
+                            );
+                            navigation.navigate("ClientStack", {
+                                screen: "HomeClient",
+                            });}else alert("Completar los datos solicitados")
+                        }}
+                        style={STYLES.btnPrimary}
+                    >
+                        <Text
+                            style={{
+                                color: "#fff",
+                                fontWeight: "bold",
+                                fontSize: 18,
+                            }}
+                        >
+                            Registrarse
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 export default ProfessionalSignUp;

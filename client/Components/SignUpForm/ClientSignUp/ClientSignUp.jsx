@@ -43,7 +43,11 @@ const ClientSignUp = ({ navigation }) => {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
-  }, []);
+    const { width, height } = useWindowDimensions();
+    const [place, setPlace] = useState(false);
+    const { address, location } = UseGeolocation();
+    
+    const dispatch = useDispatch();
 
   useFocusEffect(
     useCallback(() => {
@@ -190,27 +194,32 @@ const ClientSignUp = ({ navigation }) => {
             />
           </View>
 
-          <View style={STYLES.btnPrimary}>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(createClient(input));
-              }}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Registrate
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+                    <View style={STYLES.btnPrimary}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                if(input.phoneNumber && input.address && input.province && input.city){
+                                dispatch(createClient(input));
+                                navigation.navigate("ClientStack", {
+                                    screen: "HomeClient",
+                                });}else{alert("Completar todos los datos")}
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    fontSize: 18,
+                                }}
+                            >
+                                Registrate
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
+})
 };
 
 export default ClientSignUp;
