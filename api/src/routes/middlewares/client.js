@@ -18,7 +18,7 @@ router.post('/create', async (req, res) => {
 		province,
 		city,
 		address,
-		firstLogin,
+		// firstLogin,
 		latitude,
 		longitude,
 	} = req.body;
@@ -35,11 +35,12 @@ router.post('/create', async (req, res) => {
 			googleId,
 			name,
 			email,
-			firstLogin,
+			// firstLogin,
 			latitude,
 			longitude,
 		});
-		res.status(200).send(user);
+		console.log(user);
+		res.status(201).send(user);
 	} catch (error) {
 		res.status(400).send(error);
 	}
