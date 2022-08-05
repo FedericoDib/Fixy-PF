@@ -47,7 +47,6 @@ export const getAllProfessionals = (profession) => {
 //DEVUELVE:
 
 export const createClient = (payload) => {
-  console.log('esto le llega a la action',payload);
   return async (dispatch) => {
     try {
       let response = await axios.post(`${URL}/client/create`, payload);
@@ -55,6 +54,7 @@ export const createClient = (payload) => {
         type: CREATE_CLIENT,
         payload: response.data,
       });
+      
     } catch (e) {
       console.log(e);
     }
