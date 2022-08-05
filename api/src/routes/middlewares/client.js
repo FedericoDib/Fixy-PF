@@ -22,7 +22,7 @@ router.post('/create', async (req, res) => {
 		latitude,
 		longitude,
 	} = req.body;
-
+	console.log(req.body);
 	try {
 		let user = await Client.create({
 			isRegistered,
@@ -39,7 +39,6 @@ router.post('/create', async (req, res) => {
 			latitude,
 			longitude,
 		});
-		console.log(user);
 		res.status(201).send(user);
 	} catch (error) {
 		res.status(400).send(error);
