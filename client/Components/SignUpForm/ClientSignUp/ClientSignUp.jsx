@@ -28,7 +28,7 @@ const SignUpScreen = ({ navigation }) => {
     const { width, height } = useWindowDimensions();
     const [place, setPlace] = useState(false);
     const { address, location } = UseGeolocation();
-    console.log("Info locationssss", address, location);
+    
     const dispatch = useDispatch();
 
     const [input, setInput] = useState({
@@ -209,10 +209,11 @@ const SignUpScreen = ({ navigation }) => {
                     <View style={STYLES.btnPrimary}>
                         <TouchableOpacity
                             onPress={() => {
+                                if(input.phoneNumber && input.address && input.province && input.city){
                                 dispatch(createClient(input));
                                 navigation.navigate("ClientStack", {
                                     screen: "HomeClient",
-                                });
+                                });}else{alert("Completar todos los datos")}
                             }}
                         >
                             <Text

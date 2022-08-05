@@ -48,7 +48,7 @@ const ProfessionalSignUp = ({ navigation }) => {
             if (address) {
                 setInput({
                     ...input,
-                    province: address.length < 4 ? address[1] : address[2],
+                    province: address.length === 3 ? address[1] : address[2],
                     city: address[1],
                     address: address[0],
                     latitude: location.latitude,
@@ -269,7 +269,7 @@ const ProfessionalSignUp = ({ navigation }) => {
                             style={STYLES.input}
                             defaultValue={
                                 address
-                                    ? address.length < 4
+                                    ? address.length === 3
                                         ? address[1]
                                         : address[2]
                                     : ""
@@ -323,6 +323,7 @@ const ProfessionalSignUp = ({ navigation }) => {
 
                     <TouchableOpacity
                         onPress={() => {
+                            if(input.phoneNumber && input.address && input.province && input.city && input.phoneNumber && input.enrollment && input.profession && minTime !== 0 && maxTime !== 24){
                             dispatch(
                                 createProfessional({
                                     ...input,
@@ -331,7 +332,7 @@ const ProfessionalSignUp = ({ navigation }) => {
                             );
                             navigation.navigate("ClientStack", {
                                 screen: "HomeClient",
-                            });
+                            });}else alert("Completar los datos solicitados")
                         }}
                         style={STYLES.btnPrimary}
                     >
