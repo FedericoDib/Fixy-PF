@@ -20,8 +20,8 @@ import {
   GET_DELETE_REQUEST,
 } from "./actionTypes";
 
-//const URL = 'https://fixy-backend.herokuapp.com'
-const URL = "http://192.168.0.11:3000";
+const URL = 'https://fixy-backend.herokuapp.com'
+// const URL = "http://192.168.0.11:3000";
 
 /* -------------------------------------------------------------------------- */
 /*                            GET ALL PROFESSIONALS                           */
@@ -47,6 +47,7 @@ export const getAllProfessionals = (profession) => {
 //DEVUELVE:
 
 export const createClient = (payload) => {
+  console.log('esto le llega a la action',payload);
   return async (dispatch) => {
     try {
       let response = await axios.post(`${URL}/client/create`, payload);

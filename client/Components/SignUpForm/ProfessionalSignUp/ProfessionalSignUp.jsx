@@ -35,6 +35,7 @@ const ProfessionalSignUp = ({ navigation }) => {
     expoToken: expoPushToken,
     isRegistered: true,
     googleId: "p" + user.googleId,
+    perfilPic:"-"
   });
   const [expoPushToken, setExpoPushToken] = useState("");
 
@@ -340,10 +341,10 @@ const ProfessionalSignUp = ({ navigation }) => {
                                     availableTimes: [minTime, maxTime],
                                 })
                             );
-                            navigation.navigate("ClientStack", {
-                                screen: "HomeClient",
-                            });}else alert("Completar los datos solicitados")
-                        }}
+                          }
+                          
+                        }
+                      }
                         style={STYLES.btnPrimary}
                     >
                         <Text
