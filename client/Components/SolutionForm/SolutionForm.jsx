@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
 	SafeAreaView,
 	View,
@@ -23,6 +23,8 @@ import {
 import PrimaryButton from '../General/PrimaryButton';
 import PrimarySlider from '../General/Slider/Slider';
 import { getAllProfessionals } from '../../Redux/Action/clientActions';
+import DatePicker from 'react-native-datepicker';
+import { useFocusEffect } from '@react-navigation/native';
 
 const SolutionScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -36,6 +38,13 @@ const SolutionScreen = ({ navigation }) => {
 	const [input, setInput] = useState({
 		clientId: user.googleId,
 	});
+	const [date, setDate] = useState();
+
+	useFocusEffect(
+		useCallback(() => {
+			setDate(formatoFecha('yyyy-mm-dd'));
+		}, [])
+	);
 
 	const handleSubmit = () => {
 		dispatch(averageReviewOff());
@@ -45,6 +54,7 @@ const SolutionScreen = ({ navigation }) => {
 				...input,
 				availableTime: `${minTime} - ${maxTime}`,
 				category: Professional,
+				date: date,
 			})
 		);
 		dispatch(getAllProfessionals(Professional));
@@ -115,6 +125,17 @@ const SolutionScreen = ({ navigation }) => {
 	//                 />
 	//             </View>
 
+	const formatoFecha = (formato) => {
+		let fecha = new Date();
+		const map = {
+			dd: fecha.getDate(),
+			mm: fecha.getMonth() + 1,
+			yyyy: fecha.getFullYear(),
+		};
+
+		return formato.replace(/dd|mm|yyy/gi, (matched) => map[matched]);
+	};
+
 	return (
 		<SafeAreaView
 			style={[
@@ -148,6 +169,7 @@ const SolutionScreen = ({ navigation }) => {
 						placeholder='Provincia, Ciudad, Calle'
 						onChangeText={(text) => setInput({ ...input, address: text })}
 						style={STYLES.input}
+						defaultValue={user.address}
 					/>
 					<Icon
 						name='location-pin'
@@ -158,7 +180,7 @@ const SolutionScreen = ({ navigation }) => {
 				</View>
 				<Text style={{ marginTop: 25 }}>Fecha</Text>
 				<View style={STYLES.inputContainer}>
-					<TextInput
+					{/* <TextInput
 						placeholder='DD/MM/AAAA'
 						onChangeText={(text) => setInput({ ...input, date: text })}
 						style={STYLES.input}
@@ -168,6 +190,30 @@ const SolutionScreen = ({ navigation }) => {
 						color={COLORS.light}
 						size={20}
 						style={STYLES.inputIcon}
+					/> */}
+					<DatePicker
+						style={{ width: 200 }}
+						date={date}
+						mode='date'
+						placeholder='Selecciona la fecha'
+						format='YYYY-MM-DD'
+						minDate={date}
+						confirmBtnText='Confirmar'
+						cancelBtnText='Cancelar'
+						customStyles={{
+							dateIcon: {
+								position: 'absolute',
+								left: 0,
+								top: 4,
+								marginLeft: 0,
+							},
+							dateInput: {
+								marginLeft: 36,
+							},
+						}}
+						onDateChange={(date) => {
+							setDate(date);
+						}}
 					/>
 				</View>
 
