@@ -42,6 +42,7 @@
     "react-google-calendar-api": "^2.0.3",
     "react-native": "0.68.2",
     "react-native-calendars": "^1.1285.0",
+    "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "~2.2.1",
     "react-native-image-gallery": "^2.1.5",
     "react-native-paper": "^4.12.3",
