@@ -3,12 +3,20 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Flex, Box, Text, IconButton, Wrap } from "@react-native-material/core";
 import { useFocusEffect } from "@react-navigation/native";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  TouchableHighlight,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import Icon2 from "@expo/vector-icons/FontAwesome5";
 import { styles } from "./HomeProfessionalStyles";
 import PrimaryButton from "../General/PrimaryButton";
-import { getAllRequest } from "../../Redux/Action/generalActions";
+import {
+  getAllRequest,
+  getUserReview,
+} from "../../Redux/Action/generalActions";
 import ActiveRequestCard from "../General/ActiveRequestCard";
 
 const HomeProfessional = ({ navigation }) => {
@@ -16,6 +24,8 @@ const HomeProfessional = ({ navigation }) => {
   const requests = useSelector((state) => state.generalReducer.allRequests);
   const [activeRequests, setActiveRequests] = useState([]);
   const dispatch = useDispatch();
+
+  console.log(user);
 
   useFocusEffect(
     useCallback(() => {
@@ -36,6 +46,16 @@ const HomeProfessional = ({ navigation }) => {
 
   const renderActiveCard = ({ item }) => {
     return <ActiveRequestCard request={item} navigation={navigation} />;
+  };
+
+  const handlePress = () => {
+    dispatch(
+      getUserReview({
+        id: user.reviewsPending[0],
+        user: user.googleId[0] === "c" ? "client" : "professional",
+      })
+    );
+    navigation.navigate("Review");
   };
 
   return (
@@ -76,41 +96,53 @@ const HomeProfessional = ({ navigation }) => {
               </Text>
             </Box>
           </Wrap>
-
-          <View style={styles.buttonContainer}>
-            <FlatList
-              style={{ width: "100%", backgroundColor: "cyan", flex: 1 }}
-              data={activeRequests}
-              renderItem={renderActiveCard}
-              keyExtractor={(item, index) => `activeReq-${index}`}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-            />
-            <View style={styles.buttonWrapper}>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("BudgetList", { data: "sendBudgets" })
-                }
-                style={[styles.button, { width: "45%" }]}
-              >
-                <View>
-                  <Text style={styles.textButton}>Presupuestos enviados</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("RequestList", {
-                    data: "pendingRequests",
-                  });
-                }}
-                style={[styles.button, { width: "45%" }]}
-              >
-                <View>
-                  <Text style={styles.textButton}>Solicitudes recibidas</Text>
-                </View>
-              </TouchableOpacity>
+          {!user.reviewsPending.length ? (
+            <View style={styles.buttonContainer}>
+              <FlatList
+                style={{ width: "100%", backgroundColor: "cyan", flex: 1 }}
+                data={activeRequests}
+                renderItem={renderActiveCard}
+                keyExtractor={(item, index) => `activeReq-${index}`}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+              />
+              <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("BudgetList", { data: "sendBudgets" })
+                  }
+                  style={[styles.button, { width: "45%" }]}
+                >
+                  <View>
+                    <Text style={styles.textButton}>Presupuestos enviados</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("RequestList", {
+                      data: "pendingRequests",
+                    });
+                  }}
+                  style={[styles.button, { width: "45%" }]}
+                >
+                  <View>
+                    <Text style={styles.textButton}>Solicitudes recibidas</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          ) : (
+            <View style={{ flex: 1 }}>
+              <Text>FALTAN RESPONDER RESEÑAS</Text>
+              <TouchableHighlight
+                onPress={() => {
+                  handlePress();
+                }}
+              >
+                <Text>RESPONDER</Text>
+              </TouchableHighlight>
+            </View>
+          )}
         </Flex>
       </View>
     </View>

@@ -19,6 +19,7 @@ import {
   createReviewProfessional,
 } from "../../Redux/Action/clientActions";
 import { createReviewClient } from "../../Redux/Action/professionalActions";
+import { deleteReviewPending } from "../../Redux/Action/generalActions";
 
 const professionals = {
   googleId: "3",
@@ -78,11 +79,11 @@ export default function Review({ navigation }) {
   });
 
   const dispatch = useDispatch();
-  const userBack = useSelector((state) => state.generalReducer.user);
+  const user = useSelector((state) => state.generalReducer.user);
   const otherUser = useSelector((state) => state.generalReducer.userDetail);
 
-  console.log(userBack, otherUser, "USERRRRSSS");
-  const user = { googleId: "c165158165" };
+  console.log(user, otherUser, "USERRRRSSS");
+  //const user = { googleId: "c165158165" };
 
   if (otherUser.reviews && otherUser.reviews.length) {
     averageRating = otherUser.reviews.map((e) => e.rating);
@@ -162,6 +163,7 @@ export default function Review({ navigation }) {
           idClient: user.googleId,
         })
       );
+      dispatch(deleteReviewPending(user.googleId));
       navigation.navigate("HomeClient");
     } else {
       dispatch(
@@ -173,6 +175,7 @@ export default function Review({ navigation }) {
           idClient: otherUser.googleId,
         })
       );
+      dispatch(deleteReviewPending(user.googleId));
       navigation.navigate("HomeProfessional");
     }
   }

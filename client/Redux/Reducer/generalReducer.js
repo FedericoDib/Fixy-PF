@@ -15,6 +15,8 @@ import {
   USER_DETAIL,
   GET_DELETE_REQUEST,
   GET_DELETE_BUDGET,
+  DELETE_REVIEW_PENDING,
+  GET_USER_REVIEW,
 } from "../Action/actionTypes";
 
 const initialState = {
@@ -103,6 +105,16 @@ const generalReducer = (state = initialState, action) => {
       return {
         ...state,
         budgets: action.payload,
+      };
+    case DELETE_REVIEW_PENDING:
+      return {
+        ...state,
+        user: action.payload,
+      };
+    case GET_USER_REVIEW:
+      return {
+        ...state,
+        userDetail: action.payload,
       };
     default:
       return {
