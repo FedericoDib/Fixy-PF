@@ -44,6 +44,7 @@ const SolutionScreen = ({ navigation }) => {
 			createRequest({
 				...input,
 				availableTime: `${minTime} - ${maxTime}`,
+				category: Professional,
 			})
 		);
 		dispatch(getAllProfessionals(Professional));
