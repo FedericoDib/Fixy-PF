@@ -9,7 +9,7 @@ import {
 	Alert,
 	ScrollView,
 	TextInput,
-	Alert,
+	
 } from 'react-native';
 import IconCalendar from 'react-native-vector-icons/EvilIcons';
 import IconPhone from 'react-native-vector-icons/Feather';

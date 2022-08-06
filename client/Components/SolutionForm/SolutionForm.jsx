@@ -23,7 +23,7 @@ import {
 import PrimaryButton from '../General/PrimaryButton';
 import PrimarySlider from '../General/Slider/Slider';
 import { getAllProfessionals } from '../../Redux/Action/clientActions';
-import DatePicker from 'react-native-datepicker';
+// import DatePicker from 'react-native-datepicker';
 import { useFocusEffect } from '@react-navigation/native';
 
 const SolutionScreen = ({ navigation }) => {
@@ -191,7 +191,7 @@ const SolutionScreen = ({ navigation }) => {
 						size={20}
 						style={STYLES.inputIcon}
 					/> */}
-					<DatePicker
+					{/* <DatePicker
 						style={{ width: 200 }}
 						date={date}
 						mode='date'
@@ -214,7 +214,7 @@ const SolutionScreen = ({ navigation }) => {
 						onDateChange={(date) => {
 							setDate(date);
 						}}
-					/>
+					/> */}
 				</View>
 
 				<Text style={{ marginTop: 25 }}>Horario</Text>
