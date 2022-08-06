@@ -13,7 +13,11 @@ import IconCalendar from "react-native-vector-icons/EvilIcons";
 import IconPhone from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import style from "./ResumeStyle";
-import { getBudgetDetail, userDetail } from "../../Redux/Action/generalActions";
+import {
+  getBudgetDetail,
+  setBudgetAndRequestComplete,
+  userDetail,
+} from "../../Redux/Action/generalActions";
 
 export default function Resume({ navigation, route }) {
   const dispatch = useDispatch();
@@ -28,11 +32,9 @@ export default function Resume({ navigation, route }) {
   }, [item]);
 
   const handlePress = () => {
-    if (budgetDetail.clientId[0] === "c") {
-      dispatch(userDetail(budgetDetail.professionalId, "professional"));
-    } else {
-      dispatch(userDetail(budgetDetail.clientId, "client"));
-    }
+    dispatch(setBudgetAndRequestComplete(budgetDetail.id));
+    dispatch(userDetail(budgetDetail.clientId, "client"));
+
     navigation.navigate("Review");
   };
 

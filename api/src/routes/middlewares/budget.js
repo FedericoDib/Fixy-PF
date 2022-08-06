@@ -137,6 +137,68 @@ router.put("/:id", async (req, res) => {
   res.status(200).send("budget modified");
 });
 
+router.put("/complete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const budget = await Budget.findByPk(id);
+    await Request.update(
+      { status: "completed" },
+      { where: { id: budget.requestId } }
+    );
+    await budget.update({ status: "completed" });
+    const professional = await Professional.findByPk(budget.professionalId);
+    const client = await Client.findByPk(budget.clientId);
+
+    professional.update({
+      reviewsPending: [...professional.reviewsPending, budget.id],
+    });
+    client.update({
+      reviewsPending: [...client.reviewsPending, budget.id],
+    });
+
+    res.status(200).send("ok");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.put("/review/:id", async (req, res) => {
+  const { id } = req.params;
+  let user;
+  try {
+    if (id[0] === "c") {
+      user = await Client.findByPk(id);
+      let review = user.reviewsPending;
+      review.shift();
+      //console.log(review);
+      await Client.update(
+        { reviewsPending: review },
+        { where: { googleId: id } }
+      );
+
+      user = await Client.findByPk(id);
+
+      res.status(200).send(user);
+    } else {
+      user = await Professional.findByPk(id);
+      let review = user.reviewsPending;
+      review.shift();
+      //console.log(review);
+      await Professional.update(
+        { reviewsPending: review },
+        { where: { googleId: id } }
+      );
+
+      user = await Professional.findByPk(id);
+
+      res.status(200).send(user);
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 // ELIMINA UN BUDGET
 
 router.delete("/:id", async (req, res) => {
@@ -150,6 +212,23 @@ router.delete("/:id", async (req, res) => {
     await budgetDelete.destroy();
 
     res.status(200).send(budgets.budgets);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.get("/complete/review", async (req, res) => {
+  const { id, user } = req.query;
+
+  try {
+    const budget = await Budget.findByPk(id);
+    if (user === "client") {
+      const professional = await Professional.findByPk(budget.professionalId);
+      res.status(200).send(professional);
+    } else {
+      const client = await Client.findByPk(budget.clientId);
+      res.status(200).send(client);
+    }
   } catch (error) {
     res.status(400).send(error);
   }
