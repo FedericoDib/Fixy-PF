@@ -58,11 +58,19 @@ router.put("/:id", async (req, res) => {
   const professional = await Professional.findByPk(id);
   try {
     if (client) {
-      await client.update({ status: "disabled" });
-      res.status(200).send("listo");
+      if (client.active) {
+        await client.update({ active: false });
+      } else {
+        await client.update({ active: true });
+      }
+      res.status(200).send(client);
     } else if (professional) {
-      await professional.update({ status: "disabled" });
-      res.status(200).send("listo");
+      if (professional.active) {
+        await professional.update({ active: false });
+      } else {
+        await professional.update({ active: true });
+      }
+      res.status(200).send(professional);
     } else {
       res.status(400).send("no existe");
     }
