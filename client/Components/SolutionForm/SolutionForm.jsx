@@ -1,197 +1,197 @@
-import 'react-native-gesture-handler';
-import React, { useCallback, useState } from 'react';
+import "react-native-gesture-handler";
+import React, { useCallback, useState } from "react";
 import {
-	SafeAreaView,
-	View,
-	Text,
-	TextInput,
-	Image,
-	useWindowDimensions,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Icon1 from 'react-native-vector-icons/AntDesign';
-import STYLES from '../SignUpForm/ClientSignUp/ClientSignUpStyles';
-import COLORS from '../SignUpForm/ClientSignUp/Colors';
-import { ScrollView, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { useDispatch, useSelector } from 'react-redux';
+    SafeAreaView,
+    View,
+    Text,
+    TextInput,
+    Image,
+    useWindowDimensions,
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import Icon1 from "react-native-vector-icons/AntDesign";
+import STYLES from "../SignUpForm/ClientSignUp/ClientSignUpStyles";
+import COLORS from "../SignUpForm/ClientSignUp/Colors";
+import { ScrollView, TouchableOpacity } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { useDispatch, useSelector } from "react-redux";
 import {
-	countOff,
-	createRequest,
-	averageReviewOff,
-} from '../../Redux/Action/clientActions';
-import PrimaryButton from '../General/PrimaryButton';
-import PrimarySlider from '../General/Slider/Slider';
-import { getAllProfessionals } from '../../Redux/Action/clientActions';
+    countOff,
+    createRequest,
+    averageReviewOff,
+} from "../../Redux/Action/clientActions";
+import PrimaryButton from "../General/PrimaryButton";
+import PrimarySlider from "../General/Slider/Slider";
+import { getAllProfessionals } from "../../Redux/Action/clientActions";
 // import DatePicker from 'react-native-datepicker';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "@react-navigation/native";
 
 const SolutionScreen = ({ navigation }) => {
-	const dispatch = useDispatch();
-	const user = useSelector((state) => state.generalReducer.user);
-	const { width, height } = useWindowDimensions();
-	const [Hour, setHour] = useState('Unknown');
-	const [Professional, setProfessional] = useState('Unknown');
-	const [minTime, setMinTime] = useState(0);
-	const [maxTime, setMaxTime] = useState(24);
-	const [text, onChangeText] = React.useState(null);
-	const [input, setInput] = useState({
-		clientId: user.googleId,
-	});
-	const [date, setDate] = useState();
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.generalReducer.user);
+    const { width, height } = useWindowDimensions();
+    const [Hour, setHour] = useState("Unknown");
+    const [Professional, setProfessional] = useState("Unknown");
+    const [minTime, setMinTime] = useState(0);
+    const [maxTime, setMaxTime] = useState(24);
+    const [text, onChangeText] = React.useState(null);
+    const [input, setInput] = useState({
+        clientId: user.googleId,
+        address: user.address,
+    });
 
-	useFocusEffect(
-		useCallback(() => {
-			setDate(formatoFecha('yyyy-mm-dd'));
-		}, [])
-	);
+    const handleSubmit = () => {
+        dispatch(averageReviewOff());
+        dispatch(countOff());
+        dispatch(
+            createRequest({
+                ...input,
+                availableTime: `${minTime} - ${maxTime}`,
+                category: Professional,
+                status: "pending",
+            })
+        );
+        dispatch(getAllProfessionals(Professional));
+        navigation.navigate("ProfessionalList");
+    };
 
-	const handleSubmit = () => {
-		dispatch(averageReviewOff());
-		dispatch(countOff());
-		dispatch(
-			createRequest({
-				...input,
-				availableTime: `${minTime} - ${maxTime}`,
-				category: Professional,
-				date: date,
-			})
-		);
-		dispatch(getAllProfessionals(Professional));
-		navigation.navigate('ProfessionalList');
-	};
+    // return (
+    //     <SafeAreaView
+    //         style={[
+    //             {
+    //                 paddingHorizontal: 20,
+    //                 flex: 3,
+    //                 paddingVertical: 80,
+    //                 backgroundColor: "#fff",
+    //             },
+    //             { width, height },
+    //         ]}
+    //     >
+    //         <ScrollView showsVerticalScrollIndicator={false}>
+    //             <Text style={{ marginTop: 15, fontWeigth: 500 }}>Asunto</Text>
+    //             <View style={STYLES.inputContainer}>
+    //                 <TextInput
+    //                     placeholder="Asunto"
+    //                     onChangeText={(text) =>
+    //                         setInput({ ...input, affair: text })
+    //                     }
+    //                     style={STYLES.input}
+    //                 />
+    //                 <Icon
+    //                     name="location-pin"
+    //                     color={COLORS.light}
+    //                     size={20}
+    //                     style={STYLES.inputIcon}
+    //                 />
+    //             </View>
+    //             <Text style={{ marginTop: 15, fontWeigth: 500 }}>
+    //                 Dirección
+    //             </Text>
+    //             <View style={STYLES.inputContainer}>
+    //                 <TextInput
+    //                     placeholder="Provincia, Ciudad, Calle"
+    //                     onChangeText={(text) =>
+    //                         setInput({ ...input, address: text })
+    //                     }
+    //                     style={STYLES.input}
+    //                 />
+    //                 <Icon
+    //                     name="location-pin"
+    //                     color={COLORS.light}
+    //                     size={20}
+    //                     style={STYLES.inputIcon}
+    //                 />
+    //             </View>
+    //             <Text style={{ marginTop: 25, fontWeigth: 500 }}>Fecha</Text>
+    //             <View style={STYLES.inputContainer}>
+    //                 <TextInput
+    //                     placeholder="DD/MM/AAAA"
+    //                     onChangeText={(text) =>
+    //                         setInput({ ...input, date: text })
+    //                     }
+    //                     style={STYLES.input}
+    //                 />
+    //                 <Icon1
+    //                     name="calendar"
+    //                     color={COLORS.light}
+    //                     size={20}
+    //                     style={STYLES.inputIcon}
+    //                 />
+    //             </View>
 
-	// return (
-	//     <SafeAreaView
-	//         style={[
-	//             {
-	//                 paddingHorizontal: 20,
-	//                 flex: 3,
-	//                 paddingVertical: 80,
-	//                 backgroundColor: "#fff",
-	//             },
-	//             { width, height },
-	//         ]}
-	//     >
-	//         <ScrollView showsVerticalScrollIndicator={false}>
-	//             <Text style={{ marginTop: 15, fontWeigth: 500 }}>Asunto</Text>
-	//             <View style={STYLES.inputContainer}>
-	//                 <TextInput
-	//                     placeholder="Asunto"
-	//                     onChangeText={(text) =>
-	//                         setInput({ ...input, affair: text })
-	//                     }
-	//                     style={STYLES.input}
-	//                 />
-	//                 <Icon
-	//                     name="location-pin"
-	//                     color={COLORS.light}
-	//                     size={20}
-	//                     style={STYLES.inputIcon}
-	//                 />
-	//             </View>
-	//             <Text style={{ marginTop: 15, fontWeigth: 500 }}>
-	//                 Dirección
-	//             </Text>
-	//             <View style={STYLES.inputContainer}>
-	//                 <TextInput
-	//                     placeholder="Provincia, Ciudad, Calle"
-	//                     onChangeText={(text) =>
-	//                         setInput({ ...input, address: text })
-	//                     }
-	//                     style={STYLES.input}
-	//                 />
-	//                 <Icon
-	//                     name="location-pin"
-	//                     color={COLORS.light}
-	//                     size={20}
-	//                     style={STYLES.inputIcon}
-	//                 />
-	//             </View>
-	//             <Text style={{ marginTop: 25, fontWeigth: 500 }}>Fecha</Text>
-	//             <View style={STYLES.inputContainer}>
-	//                 <TextInput
-	//                     placeholder="DD/MM/AAAA"
-	//                     onChangeText={(text) =>
-	//                         setInput({ ...input, date: text })
-	//                     }
-	//                     style={STYLES.input}
-	//                 />
-	//                 <Icon1
-	//                     name="calendar"
-	//                     color={COLORS.light}
-	//                     size={20}
-	//                     style={STYLES.inputIcon}
-	//                 />
-	//             </View>
+    const formatoFecha = (formato) => {
+        let fecha = new Date();
+        const map = {
+            dd: fecha.getDate(),
+            mm: fecha.getMonth() + 1,
+            yyyy: fecha.getFullYear(),
+        };
 
-	const formatoFecha = (formato) => {
-		let fecha = new Date();
-		const map = {
-			dd: fecha.getDate(),
-			mm: fecha.getMonth() + 1,
-			yyyy: fecha.getFullYear(),
-		};
+        return formato.replace(/dd|mm|yyy/gi, (matched) => map[matched]);
+    };
 
-		return formato.replace(/dd|mm|yyy/gi, (matched) => map[matched]);
-	};
-
-	return (
-		<SafeAreaView
-			style={[
-				{
-					paddingHorizontal: 20,
-					flex: 3,
-					paddingVertical: 80,
-					backgroundColor: '#fff',
-				},
-				{ width, height },
-			]}
-		>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<Text style={{ marginTop: 15 }}>Asunto</Text>
-				<View style={STYLES.inputContainer}>
-					<TextInput
-						placeholder='Asunto'
-						onChangeText={(text) => setInput({ ...input, affair: text })}
-						style={STYLES.input}
-					/>
-					<Icon
-						name='location-pin'
-						color={COLORS.light}
-						size={20}
-						style={STYLES.inputIcon}
-					/>
-				</View>
-				<Text style={{ marginTop: 15 }}>Dirección</Text>
-				<View style={STYLES.inputContainer}>
-					<TextInput
-						placeholder='Provincia, Ciudad, Calle'
-						onChangeText={(text) => setInput({ ...input, address: text })}
-						style={STYLES.input}
-						defaultValue={user.address}
-					/>
-					<Icon
-						name='location-pin'
-						color={COLORS.light}
-						size={20}
-						style={STYLES.inputIcon}
-					/>
-				</View>
-				<Text style={{ marginTop: 25 }}>Fecha</Text>
-				<View style={STYLES.inputContainer}>
-					{/* <TextInput
-						placeholder='DD/MM/AAAA'
-						onChangeText={(text) => setInput({ ...input, date: text })}
-						style={STYLES.input}
-					/>
-					<Icon1
-						name='calendar'
-						color={COLORS.light}
-						size={20}
-						style={STYLES.inputIcon}
-					/> */}
-					{/* <DatePicker
+    return (
+        <SafeAreaView
+            style={[
+                {
+                    paddingHorizontal: 20,
+                    flex: 3,
+                    paddingVertical: 80,
+                    backgroundColor: "#fff",
+                },
+                { width, height },
+            ]}
+        >
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={{ marginTop: 15 }}>Asunto</Text>
+                <View style={STYLES.inputContainer}>
+                    <TextInput
+                        placeholder="Asunto"
+                        onChangeText={(text) =>
+                            setInput({ ...input, affair: text })
+                        }
+                        style={STYLES.input}
+                    />
+                    <Icon
+                        name="location-pin"
+                        color={COLORS.light}
+                        size={20}
+                        style={STYLES.inputIcon}
+                    />
+                </View>
+                <Text style={{ marginTop: 15 }}>Dirección</Text>
+                <View style={STYLES.inputContainer}>
+                    <TextInput
+                        placeholder="Provincia, Ciudad, Calle"
+                        onChangeText={(text) =>
+                            setInput({ ...input, address: text })
+                        }
+                        style={STYLES.input}
+                        defaultValue={user.address}
+                    />
+                    <Icon
+                        name="location-pin"
+                        color={COLORS.light}
+                        size={20}
+                        style={STYLES.inputIcon}
+                    />
+                </View>
+                <Text style={{ marginTop: 25 }}>Fecha</Text>
+                <View style={STYLES.inputContainer}>
+                    <TextInput
+                        placeholder="DD/MM/AAAA"
+                        onChangeText={(text) =>
+                            setInput({ ...input, date: text })
+                        }
+                        style={STYLES.input}
+                    />
+                    <Icon1
+                        name="calendar"
+                        color={COLORS.light}
+                        size={20}
+                        style={STYLES.inputIcon}
+                    />
+                    {/* <DatePicker
 						style={{ width: 200 }}
 						date={date}
 						mode='date'
@@ -215,11 +215,11 @@ const SolutionScreen = ({ navigation }) => {
 							setDate(date);
 						}}
 					/> */}
-				</View>
+                </View>
 
-				<Text style={{ marginTop: 25 }}>Horario</Text>
-				<View style={{ marginTop: 15 }}>
-					{/* <Picker
+                <Text style={{ marginTop: 25 }}>Horario</Text>
+                <View style={{ marginTop: 15 }}>
+                    {/* <Picker
             selectedValue={Hour}
             onValueChange={(value, index) => setHour(value)}
             mode="dropdown"
@@ -232,56 +232,64 @@ const SolutionScreen = ({ navigation }) => {
             <Picker.Item label="14 PM - 16 PM" value="16" />
             <Picker.Item label="16 PM - 18 PM" value="18" />
           </Picker> */}
-					<PrimarySlider
-						min={0}
-						max={24}
-						low={minTime}
-						high={maxTime}
-						setMinTime={setMinTime}
-						setMaxTime={setMaxTime}
-					/>
-				</View>
+                    <PrimarySlider
+                        min={0}
+                        max={24}
+                        low={minTime}
+                        high={maxTime}
+                        setMinTime={setMinTime}
+                        setMaxTime={setMaxTime}
+                    />
+                </View>
 
-				<Text style={{ marginTop: 25 }}>Profesional</Text>
-				<View style={{ marginTop: 15 }}>
-					<Picker
-						selectedValue={Professional}
-						onValueChange={(value, index) => setProfessional(value)}
-						mode='dropdown'
-						style={{ borderRadius: 5 }}
-					>
-						<Picker.Item label='Selecciona una categoría' value='Unknown' />
-						<Picker.Item label='Gasista' value='gasista' />
-						<Picker.Item label='Plomero' value='plomero' />
-						<Picker.Item label='Electricista' value='electricista' />
-					</Picker>
-				</View>
-				<Text style={{ marginTop: 15 }}>Descripción</Text>
-				<View style={{ marginTop: 15, alignItems: 'center' }}>
-					<TextInput
-						multiline
-						numberOfLines={5}
-						style={{
-							margin: 12,
-							borderWidth: 1,
-							borderRadius: 5,
-							width: 345,
-						}}
-						onChangeText={(text) => setInput({ ...input, description: text })}
-						value={text}
-						placeholder='Describe tu problema...'
-					/>
-				</View>
-				<View
-					style={{
-						flexDirection: 'row',
-						alignItems: 'flex-end',
-						justifyContent: 'center',
-						marginTop: 50,
-						marginBottom: 20,
-					}}
-				>
-					{/* <TouchableOpacity
+                <Text style={{ marginTop: 25 }}>Profesional</Text>
+                <View style={{ marginTop: 15 }}>
+                    <Picker
+                        selectedValue={Professional}
+                        onValueChange={(value, index) => setProfessional(value)}
+                        mode="dropdown"
+                        style={{ borderRadius: 5 }}
+                    >
+                        <Picker.Item
+                            label="Selecciona una categoría"
+                            value="Unknown"
+                        />
+                        <Picker.Item label="Gasista" value="gasista" />
+                        <Picker.Item label="Plomero" value="plomero" />
+                        <Picker.Item
+                            label="Electricista"
+                            value="electricista"
+                        />
+                    </Picker>
+                </View>
+                <Text style={{ marginTop: 15 }}>Descripción</Text>
+                <View style={{ marginTop: 15, alignItems: "center" }}>
+                    <TextInput
+                        multiline
+                        numberOfLines={5}
+                        style={{
+                            margin: 12,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                            width: 345,
+                        }}
+                        onChangeText={(text) =>
+                            setInput({ ...input, description: text })
+                        }
+                        value={text}
+                        placeholder="Describe tu problema..."
+                    />
+                </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "flex-end",
+                        justifyContent: "center",
+                        marginTop: 50,
+                        marginBottom: 20,
+                    }}
+                >
+                    {/* <TouchableOpacity
             style={{
               borderBottomWidth: 2,
               marginLeft: 6,
@@ -295,15 +303,15 @@ const SolutionScreen = ({ navigation }) => {
           >
             <Text style={{ paddingTop: 10, fontWeigth: 700 }}>Continuar</Text>
           </TouchableOpacity> */}
-					<PrimaryButton
-						title={'Continuar'}
-						color={'primary'}
-						onPress={() => handleSubmit()}
-					/>
-				</View>
-			</ScrollView>
-		</SafeAreaView>
-	);
+                    <PrimaryButton
+                        title={"Continuar"}
+                        color={"primary"}
+                        onPress={() => handleSubmit()}
+                    />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
 };
 
 export default SolutionScreen;
