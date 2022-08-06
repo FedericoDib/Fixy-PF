@@ -14,8 +14,12 @@ import style from "./ReviewStyle";
 import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
 import { useSelector, useDispatch } from "react-redux";
-// import createReviewClient from "../../Redux/Action"
-// import createReviewProfessional from "../../Redux/Action";
+import {
+  averageReview,
+  createReviewProfessional,
+} from "../../Redux/Action/clientActions";
+import { createReviewClient } from "../../Redux/Action/professionalActions";
+import { deleteReviewPending } from "../../Redux/Action/generalActions";
 
 const professionals = {
   googleId: "3",
@@ -65,7 +69,7 @@ let averageRating;
 export default function Review({ navigation }) {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
-  const [data, setData] = useState({});
+
   const [stars, setStars] = useState({
     one: false,
     two: false,
@@ -75,20 +79,24 @@ export default function Review({ navigation }) {
   });
 
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.user);
-  // const professionals = useSelector((state) => state.professionals);
-  const user = { googleId: "c165158165" };
-  if (!data.name) {
-    user.googleId[0] === "c" ? setData(professionals) : setData(client);
-  }
+  const user = useSelector((state) => state.generalReducer.user);
+  const otherUser = useSelector((state) => state.generalReducer.userDetail);
 
-  if (data.reviews) {
-    averageRating = data.reviews.map((e) => e.rating);
-    averageRating =
+  console.log(user, otherUser, "USERRRRSSS");
+  //const user = { googleId: "c165158165" };
+
+  if (otherUser.reviews && otherUser.reviews.length) {
+    averageRating = otherUser.reviews.map((e) => e.rating);
+    averageRating = (
       averageRating.reduce(
         (accumulator, currentValue) => accumulator + currentValue
-      ) / averageRating.length;
+      ) / averageRating.length
+    ).toFixed(1);
+  } else {
+    averageRating = 1;
   }
+
+  console.log(otherUser);
 
   function selectStars(number) {
     setRating(number);
@@ -145,26 +153,31 @@ export default function Review({ navigation }) {
   }
 
   function sendReview() {
-    // user.googleId[0] === "c"
-    //     ? dispatch(
-    //           createReviewProfessional({
-    //               rating: rating,
-    //               comment: comment,
-    //               nameClient: user.name,
-    //               idProfessional: data.googleId,
-    //               idClient: user.googleId,
-    //           })
-    //       )
-    //     : dispatch(
-    //           createReviewClient({
-    //               rating: rating,
-    //               comment: comment,
-    //               nameProfessional: user.name,
-    //               idProfessional: user.googleId,
-    //               idClient: data.googleId,
-    //           })
-    //       );
-    navigation.navigate("Tab");
+    if (user.googleId[0] === "c") {
+      dispatch(
+        createReviewProfessional({
+          rating: rating,
+          comment: comment,
+          nameClient: user.name,
+          idProfessional: otherUser.googleId,
+          idClient: user.googleId,
+        })
+      );
+      dispatch(deleteReviewPending(user.googleId));
+      navigation.navigate("HomeClient");
+    } else {
+      dispatch(
+        createReviewClient({
+          rating: rating,
+          comment: comment,
+          nameProfessional: user.name,
+          idProfessional: user.googleId,
+          idClient: otherUser.googleId,
+        })
+      );
+      dispatch(deleteReviewPending(user.googleId));
+      navigation.navigate("HomeProfessional");
+    }
   }
 
   return (
@@ -172,7 +185,11 @@ export default function Review({ navigation }) {
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="white"
-        onPress={() => navigation.navigate("Resume")}
+        onPress={() =>
+          navigation.navigate("ProfileDetail", {
+            averageReviews: item.averageReviews,
+          })
+        }
       >
         <View style={style.cardContainer}>
           <View style={style.imageContainer}>
@@ -183,13 +200,13 @@ export default function Review({ navigation }) {
           </View>
           <View style={style.textCardContainer}>
             <View style={style.nameAndReviewContainer}>
-              <Text style={style.textName}>{data.name}</Text>
+              <Text style={style.textName}>{otherUser.name}</Text>
               <View style={style.reviewContainer}>
                 <IconStart name="star" color="#E1C85A" size={19} />
                 <Text style={style.textName}>{averageRating}</Text>
               </View>
             </View>
-            <Text style={style.textProfession}>{data.address}</Text>
+            <Text style={style.textProfession}>{otherUser.address}</Text>
           </View>
         </View>
       </TouchableHighlight>

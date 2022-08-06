@@ -29,46 +29,28 @@ const Paypal = ({ route, navigation }) => {
         }
     };
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.mainContainer}>
             <Modal
                 visible={state.showModal}
                 onRequestClose={() => setState({ showModal: false })}
             >
                 <WebView
                     source={{
-                        uri: `http://192.168.0.11:3000/paypal/paypal?price=${
-                            500
-                            // route.params.price
-                        }`,
+                        uri: `http://192.168.0.11:3000/paypal/paypal?price=${route.params.price}`,
                     }}
                     onNavigationStateChange={(data) => handleResponse(data)}
                     injectedJavaScript={`document.f1.submit()`}
                 />
             </Modal>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignContent: "center",
-                }}
-            >
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     onPress={() => {
                         setState({ showModal: true });
-                        dispatch(
-                            paypalPrice(
-                                500
-                                // route.params.price
-                            )
-                        );
+                        dispatch(paypalPrice(route.params.price));
                     }}
                     style={[styles.button]}
                 >
-                    <View
-                        style={{
-                            flexDirection: "row",
-                        }}
-                    >
+                    <View style={styles.iconAndTextContainer}>
                         <Icon
                             onPress={() => {
                                 Alert.alert("Llamado");
@@ -77,21 +59,14 @@ const Paypal = ({ route, navigation }) => {
                             size={50}
                             color="#002E81"
                         ></Icon>
-                        <View style={{ marginTop: 12, marginLeft: 15 }}>
+                        <View style={styles.textButtonContainer}>
                             <Text style={styles.textButton}>
                                 Pagar con Paypal
                             </Text>
                         </View>
                     </View>
                 </TouchableOpacity>
-                <View
-                    style={[
-                        styles.centerField,
-                        {
-                            alignItems: "center",
-                        },
-                    ]}
-                >
+                <View style={[styles.centerField, styles.textContainer]}>
                     <Text>Estado del pago: {state.status}</Text>
                 </View>
             </View>

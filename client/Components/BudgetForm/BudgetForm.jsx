@@ -135,7 +135,7 @@ const BudgetForm = ({ navigation }) => {
                 ...input,
               })
             );
-            navigation.navigate("HomeClient");
+            navigation.popToTop();
           }}
         />
       </SafeAreaView>

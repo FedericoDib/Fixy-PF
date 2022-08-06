@@ -13,19 +13,30 @@ import IconCalendar from "react-native-vector-icons/EvilIcons";
 import IconPhone from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import style from "./ResumeStyle";
-import { getBudgetDetail } from "../../Redux/Action/generalActions";
+import {
+  getBudgetDetail,
+  setBudgetAndRequestComplete,
+  userDetail,
+} from "../../Redux/Action/generalActions";
 
 export default function Resume({ navigation, route }) {
   const dispatch = useDispatch();
   const budgetDetail = useSelector(
     (state) => state.generalReducer.budgetDetail
   );
-
+  console.log(budgetDetail, "budget");
   const item = route.params.item;
 
   useEffect(() => {
     dispatch(getBudgetDetail(item.id));
   }, [item]);
+
+  const handlePress = () => {
+    dispatch(setBudgetAndRequestComplete(budgetDetail.id));
+    dispatch(userDetail(budgetDetail.clientId, "client"));
+
+    navigation.navigate("Review");
+  };
 
   return (
     <ScrollView style={style.mainContainer}>
@@ -78,9 +89,7 @@ export default function Resume({ navigation, route }) {
         style={style.button}
         activeOpacity={0.6}
         underlayColor="#F9CE67"
-        onPress={() => {
-          navigation.navigate("HomeClient");
-        }}
+        onPress={() => handlePress()}
       >
         <View style={style.textButton}>
           <Text>Visita Finalizada</Text>
