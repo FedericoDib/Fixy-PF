@@ -14,6 +14,7 @@ import ProfessionalList from "../Components/List/ProfessionalList/ProfessionalLi
 import BudgetList from "../Components/List/BudgetList/BudgetList";
 import RequestList from "../Components/List/RequestList/RequestList";
 import Review from "../Components/Review/Review";
+import ShowImage from "../Components/ShowImage/ShowImage";
 
 const Stack = createNativeStackNavigator();
 
