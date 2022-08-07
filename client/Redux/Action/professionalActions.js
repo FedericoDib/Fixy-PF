@@ -22,12 +22,16 @@ const URL = 'https://fixy-backend.herokuapp.com';
 // DEVUELVE:
 export const getClientId = (id) => {
 	return async (dispatch) => {
-		let response = await axios.get(`${URL}/client?id=${id}`);
+		try {
+			let response = await axios.get(`${URL}/client?id=${id}`);
 
-		return dispatch({
-			type: GET_ALL_CLIENTS,
-			payload: response.data,
-		});
+			return dispatch({
+				type: GET_ALL_CLIENTS,
+				payload: response.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -102,11 +106,15 @@ export const createProfessional = (payload) => {
 // DEVUELVE:
 export const createReviewClient = (payload) => {
 	return async (dispatch) => {
-		const info = await axios.put(`${URL}/reviews/client`, payload);
-		return dispatch({
-			type: CREATE_REVIEW_CLIENT,
-			payload: info.data,
-		});
+		try {
+			const info = await axios.put(`${URL}/reviews/client`, payload);
+			return dispatch({
+				type: CREATE_REVIEW_CLIENT,
+				payload: info.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -117,11 +125,15 @@ export const createReviewClient = (payload) => {
 //DEVUELVE:
 export const createBudget = (payload) => {
 	return async (dispatch) => {
-		const info = await axios.post(`${URL}/budget`, payload);
-		return dispatch({
-			type: CREATE_BUDGET,
-			payload: info.data,
-		});
+		try {
+			const info = await axios.post(`${URL}/budget`, payload);
+			return dispatch({
+				type: CREATE_BUDGET,
+				payload: info.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 

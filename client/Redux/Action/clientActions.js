@@ -32,13 +32,17 @@ const URL = 'https://fixy-backend.herokuapp.com';
 //DEVUELVE: [profesionales completo o filtrado por profesion]
 export const getAllProfessionals = (profession) => {
 	return async (dispatch) => {
-		const info = await axios.get(
-			`${URL}/professional?profession=${profession}`
-		);
-		return dispatch({
-			type: GET_ALL_PROFESSIONALS,
-			payload: info.data,
-		});
+		try {
+			const info = await axios.get(
+				`${URL}/professional?profession=${profession}`
+			);
+			return dispatch({
+				type: GET_ALL_PROFESSIONALS,
+				payload: info.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -56,8 +60,8 @@ export const createClient = (payload) => {
 				type: CREATE_CLIENT,
 				payload: response.data,
 			});
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };
@@ -69,10 +73,14 @@ export const createClient = (payload) => {
 // DEVUELVE:
 
 export const searchProfessional = (name) => {
-	return {
-		type: SEARCH_NAME_PROFESSIONAL,
-		payload: name,
-	};
+	try {
+		return {
+			type: SEARCH_NAME_PROFESSIONAL,
+			payload: name,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 /* -------------------------------------------------------------------------- */
@@ -110,8 +118,8 @@ export const requestToProfessional = (payload) => {
 				type: REQUEST_TO_PROFESSIONAL,
 				payload: response.data,
 			});
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };
@@ -124,11 +132,15 @@ export const requestToProfessional = (payload) => {
 
 export const createReviewProfessional = (payload) => {
 	return async (dispatch) => {
-		const info = await axios.put(`${URL}/reviews/professional`, payload);
-		return dispatch({
-			type: CREATE_REVIEW_PROFESSIONAL,
-			payload: info.data,
-		});
+		try {
+			const info = await axios.put(`${URL}/reviews/professional`, payload);
+			return dispatch({
+				type: CREATE_REVIEW_PROFESSIONAL,
+				payload: info.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -145,8 +157,8 @@ export const mercadoPago = () => {
 				type: MERCADO_PAGO,
 				payload: response.data.body.sandbox_init_point,
 			});
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };
@@ -163,8 +175,8 @@ export const deleteRequest = (id) => {
 				type: GET_DELETE_REQUEST,
 				payload: response.data,
 			});
-		} catch (e) {
-			console.log(e);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };
@@ -174,11 +186,15 @@ export const deleteRequest = (id) => {
 /* -------------------------------------------------------------------------- */
 export const getAllBudgetsFromClient = (id) => {
 	return async (dispatch) => {
-		let response = await axios.get(`${URL}/client/budget?id=${id}`);
-		return dispatch({
-			type: GET_ALL_BUDGETS_CLIENT,
-			payload: response.data,
-		});
+		try {
+			let response = await axios.get(`${URL}/client/budget?id=${id}`);
+			return dispatch({
+				type: GET_ALL_BUDGETS_CLIENT,
+				payload: response.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -188,55 +204,79 @@ export const getAllBudgetsFromClient = (id) => {
 //RECIBE:
 //DEVUELVE:
 export const orderByCity = (payload) => {
-	return {
-		type: ORDER_BY_CITY,
-		payload,
-	};
+	try {
+		return {
+			type: ORDER_BY_CITY,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 //RECIBE:
 //DEVUELVE:
 export const orderByReview = (payload) => {
-	return {
-		type: ORDER_BY_REVIEW,
-		payload,
-	};
+	try {
+		return {
+			type: ORDER_BY_REVIEW,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 //RECIBE:
 //DEVUELVE:
 export const averageReview = (payload) => {
-	return {
-		type: AVERAGE_REVIEW,
-		payload,
-	};
+	try {
+		return {
+			type: AVERAGE_REVIEW,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 //RECIBE:
 //DEVUELVE:
 export const averageReviewOff = (payload) => {
-	return {
-		type: AVERAGE_REVIEW_OFF,
-		payload,
-	};
+	try {
+		return {
+			type: AVERAGE_REVIEW_OFF,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 //RECIBE:
 //DEVUELVE:
 export const countOff = (payload) => {
-	return {
-		type: COUNT_OFF,
-		payload,
-	};
+	try {
+		return {
+			type: COUNT_OFF,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 //RECIBE:
 //DEVUELVE:
 export const countAddition = (payload) => {
-	return {
-		type: COUNT_ADDITION,
-		payload,
-	};
+	try {
+		return {
+			type: COUNT_ADDITION,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 /* -------------------------------------------------------------------------- */
@@ -246,11 +286,15 @@ export const countAddition = (payload) => {
 //DEVUELVE:
 export const paypalPrice = (price) => {
 	return async (dispatch) => {
-		let response = await axios.get(`${URL}/paypal/paypal?price=${price}`);
-		return dispatch({
-			type: PAYPAL_PRICE,
-			payload: response.data,
-		});
+		try {
+			let response = await axios.get(`${URL}/paypal/paypal?price=${price}`);
+			return dispatch({
+				type: PAYPAL_PRICE,
+				payload: response.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -262,7 +306,11 @@ export const paypalPrice = (price) => {
 //DEVUELVE:
 export const rejectBudgetClient = (payload) => {
 	return async (dispatch) => {
-		let response = await axios.put(`${URL}/client/budget`, payload);
+		try {
+			let response = await axios.put(`${URL}/client/budget`, payload);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
@@ -273,13 +321,21 @@ export const rejectBudgetClient = (payload) => {
 //RECHAZA:
 export const setStatusRequestToActive = (id) => {
 	return async (dispatch) => {
-		let response = await axios.put(`${URL}/request/${id}`);
+		try {
+			let response = await axios.put(`${URL}/request/${id}`);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 };
 
 export const setRequest = (payload) => {
-	return {
-		type: SET_REQUEST,
-		payload,
-	};
+	try {
+		return {
+			type: SET_REQUEST,
+			payload,
+		};
+	} catch (error) {
+		console.log(error);
+	}
 };
