@@ -6,6 +6,7 @@ import * as Notifications from 'expo-notifications';
 import { useRef, useState, useEffect } from 'react';
 import InitialStack from './navigations/InitialStack';
 import registerNNPushToken from 'native-notify';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
 	const [expoPushToken, setExpoPushToken] = useState('');
@@ -80,9 +81,11 @@ export default function App() {
 
 	return (
 		<Provider store={store}>
-			<NavigationContainer>
-				<InitialStack />
-			</NavigationContainer>
+			<RootSiblingParent>
+				<NavigationContainer>
+					<InitialStack />
+				</NavigationContainer>
+			</RootSiblingParent>
 		</Provider>
 	);
 }
