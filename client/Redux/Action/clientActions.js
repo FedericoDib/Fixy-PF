@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 import {
   AVERAGE_REVIEW,
@@ -18,9 +19,10 @@ import {
   REQUEST_TO_PROFESSIONAL,
   SEARCH_NAME_PROFESSIONAL,
   GET_DELETE_REQUEST,
+  SET_REQUEST,
 } from "./actionTypes";
 
-//const URL = 'https://fixy-backend.herokuapp.com'
+//const URL = "https://fixy-backend.herokuapp.com";
 const URL = "http://192.168.0.11:3000";
 
 /* -------------------------------------------------------------------------- */
@@ -80,6 +82,7 @@ export const searchProfessional = (name) => {
 //DEVUELVE:
 
 export const createRequest = (payload) => {
+  console.log("estoy en action", payload);
   return async (dispatch) => {
     try {
       let response = await axios.post(`${URL}/request`, payload);
@@ -271,5 +274,12 @@ export const rejectBudgetClient = (payload) => {
 export const setStatusRequestToActive = (id) => {
   return async (dispatch) => {
     let response = await axios.put(`${URL}/request/${id}`);
+  };
+};
+
+export const setRequest = (payload) => {
+  return {
+    type: SET_REQUEST,
+    payload,
   };
 };

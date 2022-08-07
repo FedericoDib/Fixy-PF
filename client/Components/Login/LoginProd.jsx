@@ -5,9 +5,16 @@ import { useDispatch } from 'react-redux';
 import { googleLogin } from '../../Redux/Action/generalActions';
 import Logo from '../../assets/FIXy.svg';
 import * as GoogleSignIn from 'expo-google-sign-in';
+import { Platform } from 'react-native';
 
 const LoginProd = () => {
 	const dispatch = useDispatch();
+
+	const ios = "302940809798-7p2sl1hf6nb258ltkkfp7kb4oqnun290.apps.googleusercontent.com";
+	const android = '302940809798-hp8en72fg1o8uiinc47q10oc92909f4a.apps.googleusercontent.com';
+	
+	// Platform.OS === 'android' ? android : ios
+
 
 	useEffect(() => {
 		initAsync();
@@ -26,9 +33,10 @@ const LoginProd = () => {
 		const userData = {
 			id: userI.uid,
 			email: userI.email,
-			name: userI.name,
+			name: userI.displayName,
 		};
 		dispatch(googleLogin(userData));
+		// setLocalUser(userData);
 	};
 
 	const signInAsync = async () => {
@@ -57,6 +65,7 @@ const LoginProd = () => {
 				>
 					<Text style={styles.textbutton}>Continuar con Google</Text>
 				</TouchableHighlight>
+				
 			</View>
 		</View>
 	);

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "848798039216",
+    "project_id": "fixynotif",
+    "storage_bucket": "fixynotif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848798039216:android:be316191d3c959bfba8f75",
+        "android_client_info": {
+          "package_name": "com.pg.fixy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "848798039216-1mav2j61g2kqv3uu1tvdcra7o3nmf5cq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE7Cv3BjNr_liDFJ2ueNxAZUp7WCZTiKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "848798039216-1mav2j61g2kqv3uu1tvdcra7o3nmf5cq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

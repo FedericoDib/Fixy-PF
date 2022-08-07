@@ -24,7 +24,9 @@
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
 			},
-			"package":"com.pg.fixy"
+			"package":"com.pg.fixy",
+			"googleServicesFile":"./google-services.json"
+
 		},
 		"web": {
 			"favicon": "./assets/favicon.png"
