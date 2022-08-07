@@ -125,8 +125,9 @@ router.put('/professional', async (req,res) => {
     try{
 
          const readNotif = await Notification.update({status:'seen'},{where:{professionalId:googleId}});
+         const allNotif = await Notification.findAll({where:{professionalId:googleId }});
         
-         res.status(200).send('All notifications seen');
+         res.status(200).send(allNotif);
 
     }catch(e){
         console.log(e);

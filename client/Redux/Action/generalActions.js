@@ -11,6 +11,9 @@ import {
 	SET_BUDGET_REQUEST_COMPLETE,
 	DELETE_REVIEW_PENDING,
 	GET_USER_REVIEW,
+	GET_NOT_SEEN_NOTIF,
+	SET_SEEN_NOTIF,
+	GET_ALL_NOTIF
 } from './actionTypes';
 import storage from '../../Firebase/Firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -214,4 +217,37 @@ export const getUserReview = ({ id, user }) => {
 			payload: info.data,
 		});
 	};
+};
+
+export const getNotSeenNotif = (id) => {
+	return async (dispatch) => {
+		const notifications = await axios.get(`${URL}/notification/professional/notSeen?googleId=${id}`)
+	;
+	return dispatch({
+		type: GET_NOT_SEEN_NOTIF,
+		payload:notifications.data
+	})
+	}	
+};
+
+export const getAllNotif = (id) => {
+	return async (dispatch) => {
+		const notifications = await axios.get(`${URL}/notification/professional/all?googleId=${id}`)
+	;
+	return dispatch({
+		type: GET_ALL_NOTIF,
+		payload:notifications.data
+	})
+	}	
+};
+
+export const setSeenNotif = (id) => {
+	return async (dispatch) => {
+		const notifications = await axios.put(`${URL}/notification/professional?googleId=${id}`)
+	;
+	return dispatch({
+		type: SET_SEEN_NOTIF,
+		payload:notifications.data
+	})
+	}	
 };

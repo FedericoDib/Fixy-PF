@@ -17,6 +17,9 @@ import {
   GET_DELETE_BUDGET,
   DELETE_REVIEW_PENDING,
   GET_USER_REVIEW,
+  GET_NOT_SEEN_NOTIF,
+  GET_ALL_NOTIF,
+  SET_SEEN_NOTIF
 } from "../Action/actionTypes";
 
 const initialState = {
@@ -27,6 +30,7 @@ const initialState = {
   requestDetail: {},
   budgets: [],
   budgetDetail: {},
+  notifications: []
 };
 
 const generalReducer = (state = initialState, action) => {
@@ -116,6 +120,22 @@ const generalReducer = (state = initialState, action) => {
         ...state,
         userDetail: action.payload,
       };
+
+    case GET_NOT_SEEN_NOTIF:
+      return {
+        ...state,
+        notifications: action.payload
+      }
+      case GET_ALL_NOTIF:
+        return {
+          ...state,
+          notifications: action.payload
+        }
+      case SET_SEEN_NOTIF:
+        return{
+          ...state,
+          notifications:action.payload
+        } 
     default:
       return {
         ...state,
