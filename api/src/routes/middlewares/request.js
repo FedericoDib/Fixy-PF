@@ -99,11 +99,11 @@ router.put("/:id", async (req, res) => {
 
     //GUARDADO EN DB DE LA NOTIF ENVIADA
 
-    // const newNotifDb = await Notification.create({
-    // 	title:messages[0].body,
-    // 	clientId:client.googleId,
-    // 	professionalId:professional.googleId
-    // })
+    const newNotifDb = await Notification.create({
+    	title:messages[0].body,
+    	clientId:client.googleId,
+    	professionalId:professional.googleId
+    })
 
     res.status(202).send("ok");
   } catch (error) {

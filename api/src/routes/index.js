@@ -66,6 +66,7 @@ const mpRouter = require("./middlewares/mp/mp");
 const reviewsRouter = require("./middlewares/reviews");
 const paypalRouter = require("./middlewares/paypal/paypal");
 const adminRouter = require("./middlewares/admin");
+const notifications = require('./middlewares/notifications');
 
 router.use("/professional", professionalRouter);
 router.use("/client", clientRouter);
@@ -76,5 +77,6 @@ router.use("/mp", mpRouter);
 router.use("/reviews", reviewsRouter);
 router.use("/paypal", paypalRouter);
 router.use("/admin", adminRouter);
+router.use("/notification", notifications);
 
 module.exports = router;
