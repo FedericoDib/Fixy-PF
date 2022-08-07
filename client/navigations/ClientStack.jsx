@@ -42,6 +42,7 @@ const ClientStack = () => {
           component={ProfessionalList}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="ShowImage" component={ShowImage} />
         <Stack.Screen
           name="RequestList"
           component={RequestList}
