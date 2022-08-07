@@ -28,6 +28,7 @@ import { getAllProfessionals } from '../../Redux/Action/clientActions';
 // import DatePicker from 'react-native-datepicker';
 import { useFocusEffect } from '@react-navigation/native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import style from './SolutionFormStyle';
 
 const SolutionScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -135,19 +136,22 @@ const SolutionScreen = ({ navigation }) => {
 	};
 
 	const [date, setDate] = useState(new Date());
+	const [year, setYear] = useState(22);
 
 	const onChange = (event, selectedDate) => {
-		const currentDate = selectedDate;
+		let currentDate = selectedDate;
+		currentDate = currentDate.toLocaleDateString();
+		currentDate = currentDate.split('/');
+		currentDate = [currentDate[1], currentDate[0], currentDate[2]].join('/');
+		console.log(currentDate);
 		setDate(currentDate);
 	};
 
 	const showMode = (currentMode) => {
 		DateTimePickerAndroid.open({
-			value: date,
+			value: new Date(),
 			onChange,
 			mode: currentMode,
-			is24Hour: true,
-			dateFormat: 'dayofweek day month',
 		});
 	};
 
@@ -212,8 +216,9 @@ const SolutionScreen = ({ navigation }) => {
 					/> */}
 					<View>
 						<Pressable onPress={showDatepicker}>
-							<Text>{date.toLocaleDateString()}</Text>
-						</Pressable>
+							{/* full harcodeado */}
+							<Text>{typeof date === 'object' ? date.toLocaleDateString().split("/").reverse().slice(1).join("/").concat(`/${year}`) : date.toString()}</Text>
+						</Pressable> 
 					</View>
 					{/* <DatePicker
 						style={{ width: 200 }}
