@@ -79,4 +79,22 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const professional = await Professional.findByPk(id);
+    const client = await Client.findByPk(id);
+    if (professional) {
+      await professional.destroy();
+      res.status(200).send(await Professional.findAll());
+    } else {
+      await client.destroy();
+      res.status(200).send(await Client.findAll());
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;
