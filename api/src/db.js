@@ -8,6 +8,7 @@ const modelRequest = require("./models/Request");
 const modelUserDemo = require("./models/UserList");
 const modelBudget = require("./models/Budget");
 const modelAdmin = require("./models/Admin");
+const modelNotif = require('./models/Notification');
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
@@ -57,6 +58,7 @@ modelRequest(sequelize);
 modelUserDemo(sequelize);
 modelBudget(sequelize);
 modelAdmin(sequelize);
+modelNotif(sequelize);
 // Capitalizamos los nombres de los modelos ie: product => Product
 let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [
@@ -67,7 +69,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Client, Professional, Request, Budget } = sequelize.models;
+const { Client, Professional, Request, Budget, Notification } = sequelize.models;
 
 // Aca estan las relaciones
 
@@ -96,6 +98,14 @@ Budget.belongsTo(Professional, {
 // DE BUDGET A CLIENT
 Client.hasMany(Budget, { as: "budgets", foreignKey: "clientId" });
 Budget.belongsTo(Client, { foreignKey: "clientId", as: "clients" });
+
+// DE NOTIFICACIONES A CLIENTE Y PROFESIONAL
+
+Client.hasMany(Notification,{as:"notifications", foreignKey:"clientId"});
+Notification.belongsTo(Client,{foreignKey:"clientId", as:"clients"});
+Professional.hasMany(Notification,{as:"notifications", foreignKey:"professionalId"});
+Notification.belongsTo(Professional,{foreignKey:"professionalId", as:"professionals"});
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const { Client, Professional, Budget, Request } = require('../../db');
+const {
+	Client,
+	Professional,
+	Budget,
+	Request,
+	Notification,
+} = require('../../db');
 const { Expo } = require('expo-server-sdk');
 
 const router = Router();
@@ -65,7 +71,15 @@ router.get('/', async (req, res) => {
 });
 
 router.put('/profile', async (req, res) => {
-	const { id, phoneNumber, province, city, address } = req.body;
+	const {
+		id,
+		phoneNumber,
+		province,
+		city,
+		address,
+		availableTimes,
+		enrollment,
+	} = req.body;
 	const client = await Client.findOne({ where: { googleId: id } });
 	const professional = await Professional.findOne({
 		where: { googleId: id },
@@ -76,7 +90,14 @@ router.put('/profile', async (req, res) => {
 			client.update({ phoneNumber, province, city, address });
 			return res.status(202).send(client);
 		} else if (professional) {
-			professional.update({ phoneNumber, province, city, address });
+			professional.update({
+				phoneNumber,
+				province,
+				city,
+				address,
+				availableTimes,
+				enrollment,
+			});
 			return res.status(202).send(professional);
 		}
 	} catch (error) {
@@ -134,7 +155,7 @@ router.put('/budget', async (req, res) => {
 		const expoPushToken = professional.expoToken;
 
 		let messages = [];
-		console.log('sankj', client.name);
+		// console.log('sankj', client.name);
 		messages.push({
 			to: expoPushToken,
 			sound: 'default',
@@ -162,6 +183,14 @@ router.put('/budget', async (req, res) => {
 				}
 			}
 		})();
+
+		//GUARDADO EN DB DE LA NOTIF
+
+		const newNotifDb = await Notification.create({
+			title: messages[0].body,
+			clientId: client.googleId,
+			professionalId: professional.googleId,
+		});
 
 		res.send('exito');
 	} catch (error) {

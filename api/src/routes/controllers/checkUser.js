@@ -27,6 +27,7 @@ const checkUser = async ({ id, name, email }) => {
 				province: null,
 				city: null,
 				address: null,
+				reviews: null,
 				active: true,
 			};
 			return userFound;
