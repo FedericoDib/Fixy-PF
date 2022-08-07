@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Client, Professional, Budget, Request } = require('../../db');
+const { Client, Professional, Budget, Request,Notification } = require('../../db');
 const { Expo } = require('expo-server-sdk');
 
 const router = Router();
@@ -134,7 +134,7 @@ router.put('/budget', async (req, res) => {
 		const expoPushToken = professional.expoToken;
 
 		let messages = [];
-		console.log('sankj', client.name);
+		// console.log('sankj', client.name);
 		messages.push({
 			to: expoPushToken,
 			sound: 'default',
@@ -162,6 +162,14 @@ router.put('/budget', async (req, res) => {
 				}
 			}
 		})();
+
+		//GUARDADO EN DB DE LA NOTIF 
+
+		const newNotifDb = await Notification.create({
+			title:messages[0].body,
+			clientId:client.googleId,
+			professionalId:professional.googleId
+		})
 
 		res.send('exito');
 	} catch (error) {

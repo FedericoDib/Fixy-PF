@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Budget, Request, Professional, Op, Client } = require("../../db");
+const { Budget, Request, Professional, Op, Client,Notification } = require("../../db");
 const { Expo } = require("expo-server-sdk");
 const router = Router();
 
@@ -81,6 +81,12 @@ router.post("/", async (req, res) => {
     }
   })();
 
+  const newNotifDb = await Notification.create({
+    title:messages[0].body,
+    clientId:client.googleId,
+    professionalId:professional.googleId
+  });
+  
   res.status(201).send("budget Create");
 });
 

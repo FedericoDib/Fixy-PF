@@ -5,7 +5,7 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { useRef, useState, useEffect } from 'react';
 import InitialStack from './navigations/InitialStack';
-import registerNNPushToken from 'native-notify';
+// import registerNNPushToken from 'native-notify';
 
 export default function App() {
 	const [expoPushToken, setExpoPushToken] = useState('');
@@ -13,7 +13,7 @@ export default function App() {
 	const notificationListener = useRef();
 	const responseListener = useRef();
 
-	registerNNPushToken(3450, 'dusfilBYzRt0FhhYDJuT64');
+	// registerNNPushToken(3450, 'dusfilBYzRt0FhhYDJuT64');
 
 	//NOTIFICATIONS
 

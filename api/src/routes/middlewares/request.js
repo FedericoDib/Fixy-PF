@@ -1,5 +1,5 @@
 const { Router, request } = require('express');
-const { Professional, Request, Client, Budget } = require('../../db');
+const { Professional, Request, Client, Budget,Notification } = require('../../db');
 const { Expo } = require('expo-server-sdk');
 
 const router = Router();
@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
 
 // SE NOTIFICA AL PROF Q SE ACEPTO UN PRESUPUESTO
 router.put('/:id', async (req, res) => {
+	console.log('idss')
 	let code = Math.floor(Math.random() * (9999 - 1000) + 1000);
 	try {
 		const budget = await Budget.findOne({ where: { id: req.params.id } });
@@ -69,6 +70,7 @@ router.put('/:id', async (req, res) => {
 			data: { withSome: 'data' },
 		});
 
+
 		let chunks = expo.chunkPushNotifications(messages);
 		let tickets = [];
 		(async () => {
@@ -90,19 +92,30 @@ router.put('/:id', async (req, res) => {
 			}
 		})();
 
+		//GUARDADO EN DB DE LA NOTIF ENVIADA
+
+		// const newNotifDb = await Notification.create({
+		// 	title:messages[0].body,
+		// 	clientId:client.googleId,
+		// 	professionalId:professional.googleId
+		// })
+
+
 		res.status(202).send('ok');
 	} catch (error) {
 		res.status(400).send(error);
 	}
 });
 
-router.put('/', async (req, res) => {
+router.put('/h', async (req, res) => {
 	const { googleId, idRequest } = req.body;
+	
 	try {
 		const request = await Request.findOne({ where: { id: idRequest } });
 		const professional = await Professional.findOne({
 			where: { googleId },
 		});
+		const client = await Client.findOne({where:{googleId:request.clientId}})
 
 		await request.addProfessional(professional);
 
@@ -138,6 +151,16 @@ router.put('/', async (req, res) => {
 				}
 			}
 		})();
+
+		
+
+		// const newNotifDb = await Notification.create({
+		// 	title:messages[0].body,
+		// 	clientId:client.googleId,
+		// 	professionalId:professional.googleId
+		// });
+
+		// if(newNotifDb) console.log("OK NOTIF DB");
 
 		//----------------------//
 		res.status(200).send('Solicitud creada con exito');

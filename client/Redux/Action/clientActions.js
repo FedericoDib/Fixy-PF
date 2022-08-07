@@ -20,8 +20,8 @@ import {
   GET_DELETE_REQUEST,
 } from "./actionTypes";
 
-const URL = 'https://fixy-backend.herokuapp.com'
-// const URL = "http://192.168.0.11:3000";
+// const URL = 'https://fixy-backend.herokuapp.com'
+const URL = "http://192.168.0.22:3000";
 
 /* -------------------------------------------------------------------------- */
 /*                            GET ALL PROFESSIONALS                           */
