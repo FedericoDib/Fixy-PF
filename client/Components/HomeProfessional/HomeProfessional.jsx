@@ -16,6 +16,9 @@ import PrimaryButton from '../General/PrimaryButton';
 import {
 	getAllRequest,
 	getUserReview,
+	getNotSeenNotif,
+	getAllNotif,
+	setSeenNotif
 } from '../../Redux/Action/generalActions';
 import ActiveRequestCard from '../General/ActiveRequestCard';
 
@@ -24,14 +27,19 @@ const HomeProfessional = ({ navigation }) => {
 	const requests = useSelector((state) => state.generalReducer.allRequests);
 	const [activeRequests, setActiveRequests] = useState([]);
 	const dispatch = useDispatch();
-
-	console.log(user);
+	const notifications = useSelector((state) => state.generalReducer.notifications);
+	// console.log(user);
 
 	useFocusEffect(
 		useCallback(() => {
 			dispatch(getAllRequest('professional', user.googleId));
+			dispatch(getAllNotif(user.googleId));
 		}, [])
 	);
+
+	const notSeenNotif = notifications.filter(n => n.status ==='not_seen');
+
+	console.log('NOTIFICACIONES', notSeenNotif);
 
 	useFocusEffect(
 		useCallback(() => {
@@ -58,6 +66,10 @@ const HomeProfessional = ({ navigation }) => {
 		navigation.navigate('Review');
 	};
 
+	const handleReadNotif = () => {
+		dispatch(setSeenNotif(user.googleId));
+	}
+
 	return (
 		<View style={{ flex: 1, width: '100%', backgroundColor: 'pink' }}>
 			<View></View>
@@ -69,9 +81,22 @@ const HomeProfessional = ({ navigation }) => {
 						<Text>Cómo podemos ayudarte?</Text>
 					</Box>
 					<Box style={{ marginTop: 70 }} m={30}>
+						
+						<TouchableHighlight
+						onPress={() =>{handleReadNotif()}}
+						>
+						{notSeenNotif.length === 0?
+						(
 						<IconButton
-							icon={(props) => <Icon name='notifications' {...props} />}
+						icon={(props) => <Icon name='notifications' {...props} />}
 						/>
+						)
+						:
+						(
+						<Text>{notSeenNotif.length}</Text>
+						)
+						}
+						</TouchableHighlight>
 					</Box>
 				</Flex>
 				<Flex style={styles.wrapper} center fill>
