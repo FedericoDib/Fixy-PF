@@ -8,12 +8,15 @@ import {
   SAVE_PERFILPIC,
   USER_DETAIL,
   GET_REQUEST_DETAIL,
+  SET_BUDGET_REQUEST_COMPLETE,
+  DELETE_REVIEW_PENDING,
+  GET_USER_REVIEW,
 } from "./actionTypes";
 import storage from "../../Firebase/Firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { async } from "@firebase/util";
 
-//const URL = 'https://fixy-backend.herokuapp.com'
+//const URL = "https://fixy-backend.herokuapp.com";
 const URL = "http://192.168.0.11:3000";
 
 /* -------------------------------------------------------------------------- */
@@ -169,6 +172,45 @@ export const getRequestDetail = (id) => {
     const info = await axios.get(`${URL}/request?id=${id}`);
     return dispatch({
       type: GET_REQUEST_DETAIL,
+      payload: info.data,
+    });
+  };
+};
+
+/* -------------------------------------------------------------------------- */
+/*                             GET REQUEST DETAIL                             */
+/* -------------------------------------------------------------------------- */
+//RECIBE:
+//DEVUELVE:
+
+export const setBudgetAndRequestComplete = (id) => {
+  return async (dispatch) => {
+    const info = await axios.put(`${URL}/budget/complete/${id}`);
+    return dispatch({
+      type: SET_BUDGET_REQUEST_COMPLETE,
+      payload: info.data,
+    });
+  };
+};
+
+export const deleteReviewPending = (id) => {
+  console.log("action id", id);
+  return async (dispatch) => {
+    const info = await axios.put(`${URL}/budget/review/${id}`);
+    return dispatch({
+      type: DELETE_REVIEW_PENDING,
+      payload: info.data,
+    });
+  };
+};
+
+export const getUserReview = ({ id, user }) => {
+  return async (dispatch) => {
+    const info = await axios.get(
+      `${URL}/budget/complete/review?id=${id}&user=${user}`
+    );
+    return dispatch({
+      type: GET_USER_REVIEW,
       payload: info.data,
     });
   };
