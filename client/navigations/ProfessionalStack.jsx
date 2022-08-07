@@ -12,6 +12,7 @@ import Paypal from "../Components/Paypal/Paypal";
 import BudgetList from "../Components/List/BudgetList/BudgetList";
 import RequestList from "../Components/List/RequestList/RequestList";
 import Review from "../Components/Review/Review";
+import ShowImage from "../Components/ShowImage/ShowImage";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,7 @@ const ProfessionalStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="BudgetDetail" component={BudgetDetail} />
+        <Stack.Screen name="ShowImage" component={ShowImage} />
         <Stack.Screen
           name="RequestList"
           component={RequestList}
