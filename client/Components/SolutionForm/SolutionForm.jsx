@@ -29,6 +29,7 @@ import { getAllProfessionals } from '../../Redux/Action/clientActions';
 import { useFocusEffect } from '@react-navigation/native';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import style from './SolutionFormStyle';
+import UseChooseImage from './UseChooseImage';
 
 const SolutionScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -301,6 +302,8 @@ const SolutionScreen = ({ navigation }) => {
 						placeholder='Describe tu problema...'
 					/>
 				</View>
+				<Text>Puedes agregar fotos de tu problema</Text>
+       			<UseChooseImage navigation={navigation} />
 				<View
 					style={{
 						flexDirection: 'row',
