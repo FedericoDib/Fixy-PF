@@ -53,6 +53,8 @@ const ProfessionalStack = () => {
           component={Pay}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="ShowImage" component={ShowImage} />
+
         <Stack.Screen
           name="RequestDetail"
           component={RequestDetail}
@@ -63,10 +65,7 @@ const ProfessionalStack = () => {
           component={Loader}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="BudgetDetail"
-          component={BudgetDetail}
-        />
+        <Stack.Screen name="BudgetDetail" component={BudgetDetail} />
         <Stack.Screen
           name="RequestList"
           component={RequestList}
