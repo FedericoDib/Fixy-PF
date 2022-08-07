@@ -97,4 +97,24 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+router.put("/delete/review", async (req, res) => {
+  const { id, idProfessional, idClient } = req.body;
+
+  try {
+    const profesional = await Professional.findByPk(idProfessional);
+    const client = await Client.findByPk(idClient);
+    if (profesional.reviews.find((r) => r.id === id)) {
+      const reviews = profesional.reviews.filter((r) => r.id !== id);
+      await profesional.update({ reviews: reviews });
+      res.status(200).send(await Professional.findByPk(idProfessional));
+    } else {
+      const reviews = client.reviews.filter((r) => r.id !== id);
+      await client.update({ reviews: reviews });
+      res.status(200).send(await Client.findByPk(idClient));
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;

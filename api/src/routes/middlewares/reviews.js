@@ -6,6 +6,8 @@ const router = Router();
 router.put("/professional", async (req, res) => {
   const { rating, comment, idProfessional, nameClient, idClient } = req.body;
 
+  const id = idProfessional + Math.floor(Math.random() * (9999 - 1000) + 1000);
+
   try {
     let profesional = await Professional.findOne({
       where: { googleId: idProfessional },
@@ -15,6 +17,7 @@ router.put("/professional", async (req, res) => {
       reviews: [
         ...profesional.reviews,
         {
+          id: id,
           rating: rating,
           comment: comment,
           name: nameClient,
@@ -30,7 +33,7 @@ router.put("/professional", async (req, res) => {
 });
 
 router.put("/client", async (req, res) => {
-  const { rating, comment, idClient, nameProfessional, idProfessional } =
+  const { id, rating, comment, idClient, nameProfessional, idProfessional } =
     req.body;
 
   let client = await Client.findOne({ where: { googleId: idClient } });
@@ -39,6 +42,7 @@ router.put("/client", async (req, res) => {
     reviews: [
       ...client.reviews,
       {
+        id: id,
         rating: rating,
         comment: comment,
         name: nameProfessional,
