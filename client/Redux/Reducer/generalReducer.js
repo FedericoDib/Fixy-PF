@@ -49,6 +49,7 @@ const generalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: action.payload,
+                perfilPic: "",
             };
 
         case CREATE_CLIENT:

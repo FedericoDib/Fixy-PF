@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  SafeAreaView,
-  View,
-  Text,
-  TextInput,
-  useWindowDimensions,
-  TouchableOpacity,
+    SafeAreaView,
+    View,
+    Text,
+    TextInput,
+    useWindowDimensions,
+    TouchableOpacity,
 } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
@@ -20,24 +20,40 @@ import STYLES from "./ProfessionalSignUpStyles";
 import COLORS from "./Colors";
 import UseGeolocation from "../UseGeolocation";
 import { useFocusEffect } from "@react-navigation/native";
+import { professionalValidate } from "../Validator";
 
 const ProfessionalSignUp = ({ navigation }) => {
-  const user = useSelector((state) => state.generalReducer.user);
-  const dispatch = useDispatch();
-  const { width, height } = useWindowDimensions();
-  const [image, setImage] = useState(null);
-  const [minTime, setMinTime] = useState(0);
-  const [maxTime, setMaxTime] = useState(24);
-  const { address, location } = UseGeolocation();
-  const [place, setPlace] = useState(false);
-  const [input, setInput] = useState({
-    ...user,
-    expoToken: expoPushToken,
-    isRegistered: true,
-    googleId: "p" + user.googleId,
-    perfilPic:"-"
-  });
-  const [expoPushToken, setExpoPushToken] = useState("");
+    const user = useSelector((state) => state.generalReducer.user);
+    const dispatch = useDispatch();
+    const { width, height } = useWindowDimensions();
+    const [image, setImage] = useState(null);
+    const [minTime, setMinTime] = useState(0);
+    const [maxTime, setMaxTime] = useState(24);
+    const { address, location } = UseGeolocation();
+    const [place, setPlace] = useState(false);
+    const perfilPic = useSelector((state) => state.generalReducer.perfilPic);
+    const [input, setInput] = useState({
+        ...user,
+        expoToken: expoPushToken,
+        isRegistered: true,
+        googleId: "p" + user.googleId,
+        perfilPic: perfilPic,
+    });
+    const [expoPushToken, setExpoPushToken] = useState("");
+
+    const [error, setError] = useState({});
+
+    useFocusEffect(
+        useCallback(() => {
+            setInput({ ...input, perfilPic: perfilPic });
+        }, [perfilPic])
+    );
+
+    useFocusEffect(
+        useCallback(() => {
+            setError(professionalValidate(input));
+        }, [input])
+    );
 
     useEffect(() => {
         registerForPushNotificationsAsync().then((token) =>
@@ -59,184 +75,189 @@ const ProfessionalSignUp = ({ navigation }) => {
             console.log("datos a guardar : ", input);
         }, [place])
     );
-  useFocusEffect(
-    useCallback(() => {
-      if (address) {
-        setInput({
-          ...input,
-          province: address.length < 4 ? address[1] : address[2],
-          city: address[1],
-          address: address[0],
-          latitude: location.latitude,
-          longitude: location.longitude,
-        });
-      }
-      console.log("datos a guardar : ", input);
-    }, [place])
-  );
-
-  if (address && !place) setPlace(true);
-
-  async function registerForPushNotificationsAsync() {
-    if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
-      }
-      if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
-        return;
-      }
-      const token = (await Notifications.getExpoPushTokenAsync()).data;
-
-      setInput({ ...input, expoToken: token });
-    } else {
-      alert("Must use physical device for Push Notifications");
-    }
-    if (Platform.OS === "android") {
-      Notifications.setNotificationChannelAsync("default", {
-        name: "default",
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 0],
-        lightColor: "#FF231F7C",
-      });
-    }
-  }
-  console.log("inputtttttttsssss: ", input);
-  return (
-    <SafeAreaView
-      style={[
-        { paddingHorizontal: 40, flex: 3, backgroundColor: "#fff" },
-        { width, height },
-      ]}
-    >
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flexDirection: "row", marginTop: 40 }}></View>
-        <View style={{ marginTop: 20 }}>
-          <Text
-            style={{
-              fontSize: 27,
-              fontWeight: "bold",
-              color: COLORS.dark,
-            }}
-          >
-            Bienvenido
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: "bold",
-              color: "green",
-            }}
-          >
-            {user.name}
-          </Text>
-          <Text
-            style={{
-              marginTop: 30,
-              fontSize: 19,
-              fontWeight: "bold",
-              justifyContent: "center",
-              color: COLORS.light,
-            }}
-          >
-            Registrate para continuar
-          </Text>
-          <UsePickImage />
-          <View style={{ marginTop: 10 }}></View>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 20,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 15,
-                fontWeight: "bold",
-                color: "#28388f",
-              }}
-            >
-              Selecciona tu profesión
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <TouchableOpacity
-              style={STYLES.btnProfesion}
-              onPress={() =>
+    useFocusEffect(
+        useCallback(() => {
+            if (address) {
                 setInput({
-                  ...input,
-                  profession: "electricista",
-                })
-              }
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Electricista
-              </Text>
-              <Icon
-                name="electrical-services"
-                color={COLORS.dark}
-                size={20}
-                style={STYLES.iconProf}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={STYLES.btnProfesion}
-              onPress={() => setInput({ ...input, profession: "gasista" })}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Gasista
-              </Text>
-              <Icon2
-                name="gas-cylinder"
-                color={COLORS.dark}
-                size={20}
-                style={STYLES.iconProf}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={STYLES.btnProfesion}
-              onPress={() => setInput({ ...input, profession: "plomero" })}
-            >
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  fontSize: 18,
-                }}
-              >
-                Plomero
-              </Text>
-              <Icon2
-                name="water-pump"
-                color={COLORS.dark}
-                size={20}
-                style={STYLES.iconProf}
-              />
-            </TouchableOpacity>
-          </View>
+                    ...input,
+                    province: address.length < 4 ? address[1] : address[2],
+                    city: address[1],
+                    address: address[0],
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                });
+            }
+            console.log("datos a guardar : ", input);
+        }, [place])
+    );
+
+    if (address && !place) setPlace(true);
+
+    async function registerForPushNotificationsAsync() {
+        if (Device.isDevice) {
+            const { status: existingStatus } =
+                await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== "granted") {
+                const { status } =
+                    await Notifications.requestPermissionsAsync();
+                finalStatus = status;
+            }
+            if (finalStatus !== "granted") {
+                alert("Failed to get push token for push notification!");
+                return;
+            }
+            const token = (await Notifications.getExpoPushTokenAsync()).data;
+
+            setInput({ ...input, expoToken: token });
+        } else {
+            alert("Must use physical device for Push Notifications");
+        }
+        if (Platform.OS === "android") {
+            Notifications.setNotificationChannelAsync("default", {
+                name: "default",
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 0],
+                lightColor: "#FF231F7C",
+            });
+        }
+    }
+    console.log("inputtttttttsssss: ", input);
+    return (
+        <SafeAreaView
+            style={[
+                { paddingHorizontal: 40, flex: 3, backgroundColor: "#fff" },
+                { width, height },
+            ]}
+        >
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{ flexDirection: "row", marginTop: 40 }}></View>
+                <View style={{ marginTop: 20 }}>
+                    <Text
+                        style={{
+                            fontSize: 27,
+                            fontWeight: "bold",
+                            color: COLORS.dark,
+                        }}
+                    >
+                        Bienvenido
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: 15,
+                            fontWeight: "bold",
+                            color: "green",
+                        }}
+                    >
+                        {user.name}
+                    </Text>
+                    <Text
+                        style={{
+                            marginTop: 30,
+                            fontSize: 19,
+                            fontWeight: "bold",
+                            justifyContent: "center",
+                            color: COLORS.light,
+                        }}
+                    >
+                        Registrate para continuar
+                    </Text>
+                    <UsePickImage />
+                    <View style={{ marginTop: 10 }}></View>
+                    <View
+                        style={{
+                            flex: 1,
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: 20,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontSize: 15,
+                                fontWeight: "bold",
+                                color: "#28388f",
+                            }}
+                        >
+                            Selecciona tu profesión
+                        </Text>
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                        }}
+                    >
+                        <TouchableOpacity
+                            style={STYLES.btnProfesion}
+                            onPress={() =>
+                                setInput({
+                                    ...input,
+                                    profession: "electricista",
+                                })
+                            }
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    fontSize: 18,
+                                }}
+                            >
+                                Electricista
+                            </Text>
+                            <Icon
+                                name="electrical-services"
+                                color={COLORS.dark}
+                                size={20}
+                                style={STYLES.iconProf}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={STYLES.btnProfesion}
+                            onPress={() =>
+                                setInput({ ...input, profession: "gasista" })
+                            }
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    fontSize: 18,
+                                }}
+                            >
+                                Gasista
+                            </Text>
+                            <Icon2
+                                name="gas-cylinder"
+                                color={COLORS.dark}
+                                size={20}
+                                style={STYLES.iconProf}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={STYLES.btnProfesion}
+                            onPress={() =>
+                                setInput({ ...input, profession: "plomero" })
+                            }
+                        >
+                            <Text
+                                style={{
+                                    color: "#fff",
+                                    fontWeight: "bold",
+                                    fontSize: 18,
+                                }}
+                            >
+                                Plomero
+                            </Text>
+                            <Icon2
+                                name="water-pump"
+                                color={COLORS.dark}
+                                size={20}
+                                style={STYLES.iconProf}
+                            />
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={STYLES.inputContainer}>
                         <Icon2
@@ -261,6 +282,7 @@ const ProfessionalSignUp = ({ navigation }) => {
                             style={STYLES.inputIcon}
                         />
                         <TextInput
+                            keyboardType="phone-pad"
                             placeholder="Celular"
                             style={STYLES.input}
                             onChangeText={(text) =>
@@ -333,18 +355,16 @@ const ProfessionalSignUp = ({ navigation }) => {
                     />
 
                     <TouchableOpacity
+                        disabled={Object.getOwnPropertyNames(error).length}
                         onPress={() => {
-                            if(input.phoneNumber && input.address && input.province && input.city && input.phoneNumber && input.enrollment && input.profession && minTime !== 0 && maxTime !== 24){
-                            dispatch(
-                                createProfessional({
-                                    ...input,
-                                    availableTimes: [minTime, maxTime],
-                                })
-                            );
-                          }
-                          
-                        }
-                      }
+                            Object.getOwnPropertyNames(error).length === 0 &&
+                                dispatch(
+                                    createProfessional({
+                                        ...input,
+                                        availableTimes: [minTime, maxTime],
+                                    })
+                                );
+                        }}
                         style={STYLES.btnPrimary}
                     >
                         <Text
@@ -354,7 +374,9 @@ const ProfessionalSignUp = ({ navigation }) => {
                                 fontSize: 18,
                             }}
                         >
-                            Registrarse
+                            {Object.getOwnPropertyNames(error).length
+                                ? "Cargando..."
+                                : "Registrarse"}
                         </Text>
                     </TouchableOpacity>
                 </View>

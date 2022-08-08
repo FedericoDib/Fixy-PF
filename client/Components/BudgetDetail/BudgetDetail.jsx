@@ -59,10 +59,10 @@ export default function BudgetDetail({ navigation, route }) {
             >
                 <View style={style.cardContainer}>
                     <View style={style.imageContainer}>
-                        <Icon name="user" color="black" size={40} />
-                        {/* <Image
-        source={item.image}
-    /> */}
+                        {/* <Icon name="user" color="black" size={40} /> */}
+                        <Image
+                            source={{ uri: item.image, width: 65, height: 65 }}
+                        />
                     </View>
                     <View style={style.textCardContainer}>
                         <View style={style.nameAndReviewContainer}>
