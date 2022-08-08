@@ -1,14 +1,16 @@
 const { Router } = require("express");
-const { Client, Professional, Admin } = require("../../db");
+const { Client, Professional, Admin, Op } = require("../../db");
 const bcrypt = require("bcrypt");
 const router = Router();
+
+const { isAuthenticated } = require("../helpers/auth");
 
 router.post("/create", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
     const hash = await bcrypt.hash(password, 8);
-    const newAdmin = await Admin.create({ name, email, password: hash });
+    const newAdmin = await Admin.create({ name, email, password });
     console.log(newAdmin);
     res.status(201).send(newAdmin);
   } catch (error) {
@@ -16,7 +18,24 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/message", async (req, res) => {
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const admin = await Admin.findOne({
+      where: { email, password },
+    });
+    if (admin) {
+      res.status(200).send(admin);
+    } else {
+      res.status(404).send("no");
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.put("/message", isAuthenticated, async (req, res) => {
   const { idUser, idReview, message, asunto } = req.body;
 
   const admin = await Admin.findByPk(1);
@@ -39,7 +58,7 @@ router.put("/message", async (req, res) => {
   }
 });
 
-router.get("/clients", async (req, res) => {
+router.get("/clients", isAuthenticated, async (req, res) => {
   try {
     const clients = await Client.findAll();
     res.status(200).send(clients);
@@ -48,7 +67,7 @@ router.get("/clients", async (req, res) => {
   }
 });
 
-router.get("/professionals", async (req, res) => {
+router.get("/professionals", isAuthenticated, async (req, res) => {
   try {
     const professionals = await Professional.findAll();
     res.status(200).send(professionals);
@@ -57,7 +76,7 @@ router.get("/professionals", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -75,7 +94,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
 
   const client = await Client.findByPk(id);
@@ -103,7 +122,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -121,7 +140,7 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.put("/delete/review", async (req, res) => {
+router.put("/delete/review", isAuthenticated, async (req, res) => {
   const { id, idProfessional, idClient } = req.body;
 
   try {
