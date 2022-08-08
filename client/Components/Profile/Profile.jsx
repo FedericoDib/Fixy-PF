@@ -11,6 +11,8 @@ import {
   TextInput,
   Image,
   SafeAreaView,
+  Animated,
+  Dimensions,
 } from "react-native";
 import { editProfile, logOut } from "../../Redux/Action/generalActions";
 import PrimaryButton from "../General/PrimaryButton";
@@ -30,11 +32,17 @@ const Profile = () => {
   const [editItem, seteditItem] = useState();
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.generalReducer.user);
-  const [minTime, setMinTime] = useState(user.availableTimes[0]);
-  const [maxTime, setMaxTime] = useState(user.availableTimes[1]);
+  const [minTime, setMinTime] = useState(
+    user.googleId[0] === "c" ? null : user.availableTimes[0]
+  );
+  const [maxTime, setMaxTime] = useState(
+    user.googleId[0] === "c" ? null : user.availableTimes[1]
+  );
+  const { width, height } = Dimensions.get("screen");
   const dispatch = useDispatch();
   const { address, location } = UseGeolocation();
   const [refreshing, setRefreshing] = useState(false);
+  const [ref, setRef] = useState([]);
   const DATA =
     user.googleId[0] === "p"
       ? [
@@ -146,21 +154,24 @@ const Profile = () => {
       return item.text;
     }
   }
+
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <SafeAreaView>
+        <View>
           <View style={{ marginTop: 70, alignItems: "center" }}>
-            {/* <Image
+            <Image
               style={styles.image}
               source={{
                 uri: user.perfilPic.length
                   ? `${user.perfilPic}`
                   : "https://i.pinimg.com/originals/b8/08/07/b8080715de29eabbbba78c1b2c9d70be.png",
               }}
-            /> */}
+            />
             <Text style={styles.name}>{user.name}</Text>
             <Text style={{ marginBottom: 30 }}>{user.email}</Text>
           </View>
@@ -195,33 +206,34 @@ const Profile = () => {
                 </TouchableOpacity>
               </View>
             </Modal>
-            <PrimarySlider
-              min={0}
-              max={24}
-              low={minTime}
-              high={maxTime}
-              setMinTime={setMinTime}
-              setMaxTime={setMaxTime}
-            />
+            {user.googleId[0] === "c" ? null : (
+              <View>
+                <PrimarySlider
+                  min={0}
+                  max={24}
+                  low={minTime}
+                  high={maxTime}
+                  setMinTime={setMinTime}
+                  setMaxTime={setMaxTime}
+                />
 
-            <View>
-              <TouchableOpacity
-                onPress={() =>
-                  dispatch(
-                    editProfile({
-                      ...input,
-                      availableTimes: [minTime, maxTime],
-                    })
-                  )
-                }
-              >
-                <Text>Guardar nuevo horario</Text>
-              </TouchableOpacity>
-            </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      dispatch(
+                        editProfile({
+                          ...input,
+                          availableTimes: [minTime, maxTime],
+                        })
+                      )
+                    }
+                  >
+                    <Text>Guardar nuevo horario</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
 
-            {/* <TouchableHighlight onPress={handleLogOut}>
-            <Text>Log Out</Text>
-           </TouchableHighlight> */}
             <View
               style={{
                 alignItems: "center",
@@ -232,7 +244,8 @@ const Profile = () => {
               <PrimaryButton onPress={handleLogOut} title={"Cerrar Sesión"} />
             </View>
           </View>
-        </SafeAreaView>
+          {/* <Text>HOLAAAA</Text> */}
+        </View>
       )}
     </React.Fragment>
   );

@@ -5,8 +5,8 @@ module.exports = (sequelize) => {
     "admin",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
         primaryKey: true,
         allowNull: false,
       },
@@ -21,6 +21,10 @@ module.exports = (sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      message: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        defaultValue: [],
       },
     },
     {

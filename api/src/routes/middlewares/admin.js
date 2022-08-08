@@ -9,7 +9,31 @@ router.post("/create", async (req, res) => {
   try {
     const hash = await bcrypt.hash(password, 8);
     const newAdmin = await Admin.create({ name, email, password: hash });
+    console.log(newAdmin);
     res.status(201).send(newAdmin);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.put("/message", async (req, res) => {
+  const { idUser, idReview, message, asunto } = req.body;
+
+  const admin = await Admin.findByPk(1);
+
+  try {
+    if (idReview) {
+      const newMessage = await admin.update({
+        message: [...admin.message, { idUser, idReview, message, asunto }],
+      });
+
+      res.status(201).send(newMessage);
+    } else {
+      const newMessage = await admin.update({
+        message: [...admin.message, { idUser, message, asunto }],
+      });
+      res.status(201).send(newMessage);
+    }
   } catch (error) {
     res.status(400).send(error);
   }

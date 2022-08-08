@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Flex, Box, Text, IconButton, Wrap } from "@react-native-material/core";
 import { useFocusEffect } from "@react-navigation/native";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, TouchableOpacity, View, Image } from "react-native";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import Icon2 from "@expo/vector-icons/FontAwesome5";
 import { styles } from "./HomeClientStyle";

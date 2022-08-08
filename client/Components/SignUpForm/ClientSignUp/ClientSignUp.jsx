@@ -27,35 +27,37 @@ const ClientSignUp = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const { address, location } = UseGeolocation();
   const [place, setPlace] = useState(false);
+  const perfilPic = useSelector((state) => state.generalReducer.perfilPic);
+  console.log(perfilPic);
   const [input, setInput] = useState({
     ...user,
     expoToken: expoPushToken,
     isRegistered: true,
     googleId: "c" + user.googleId,
-    perfilPic:"-"
+    perfilPic: perfilPic,
   });
   const [expoPushToken, setExpoPushToken] = useState("");
 
-    useEffect(() => {
-        registerForPushNotificationsAsync().then((token) =>
-            setExpoPushToken(token)
-        );
-    }, []);
-    useFocusEffect(
-        useCallback(() => {
-            if (address) {
-                setInput({
-                    ...input,
-                    province: address.length === 3 ? address[1] : address[2],
-                    city: address[1],
-                    address: address[0],
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                });
-            }
-            console.log("datos a guardar : ", input);
-        }, [place])
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
     );
+  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      if (address) {
+        setInput({
+          ...input,
+          province: address.length === 3 ? address[1] : address[2],
+          city: address[1],
+          address: address[0],
+          latitude: location.latitude,
+          longitude: location.longitude,
+        });
+      }
+      console.log("datos a guardar : ", input);
+    }, [place])
+  );
   useFocusEffect(
     useCallback(() => {
       if (address) {
@@ -144,101 +146,88 @@ const ClientSignUp = ({ navigation }) => {
           </Text>
           <UsePickImage />
           <View style={{ marginTop: 10 }}></View>
-                  
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="phone-iphone"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon}
-                        />
-                        <TextInput
-                            placeholder="Celular"
-                            style={STYLES.input}
-                            onChangeText={(text) =>
-                                setInput({ ...input, phoneNumber: text })
-                            }
-                        />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="location-pin"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon}
-                        />
-                        <TextInput
-                            placeholder="Provincia"
-                            style={STYLES.input}
-                            defaultValue={
-                                address
-                                    ? address.length === 3
-                                        ? address[1]
-                                        : address[2]
-                                    : ""
-                            }
-                            onChangeText={(text) =>
-                                setInput({ ...input, province: text })
-                            }
-                        />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="location-pin"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon}
-                        />
-                        <TextInput
-                            placeholder="Ciudad"
-                            style={STYLES.input}
-                            defaultValue={address ? address[1] : ""}
-                            onChangeText={(text) =>
-                                setInput({ ...input, city: text })
-                            }
-                        />
-                    </View>
-                    <View style={STYLES.inputContainer}>
-                        <Icon
-                            name="home"
-                            color={COLORS.light}
-                            size={20}
-                            style={STYLES.inputIcon}
-                        />
-                        <TextInput
-                            placeholder="Dirección"
-                            style={STYLES.input}
-                            defaultValue={address ? address[0] : ""}
-                            onChangeText={(text) =>
-                                setInput({ ...input, address: text })
-                            }
-                        />
-                    </View>
 
-                    <TouchableOpacity
-                      onPress={
-                        () => {dispatch(createClient(input))}
-                        // () => {console.log('despache dljskgraakljvdhsalkjghjfk',input)}
-                      }
-                      
-                      style={STYLES.btnPrimary}
-                      
-                    >
-                        <Text
-                            style={{
-                                color: "#fff",
-                                fontWeight: "bold",
-                                fontSize: 18,
-                            }}
-                        >
-                            Registrarse
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
-}
+          <View style={STYLES.inputContainer}>
+            <Icon
+              name="phone-iphone"
+              color={COLORS.light}
+              size={20}
+              style={STYLES.inputIcon}
+            />
+            <TextInput
+              placeholder="Celular"
+              style={STYLES.input}
+              onChangeText={(text) => setInput({ ...input, phoneNumber: text })}
+            />
+          </View>
+          <View style={STYLES.inputContainer}>
+            <Icon
+              name="location-pin"
+              color={COLORS.light}
+              size={20}
+              style={STYLES.inputIcon}
+            />
+            <TextInput
+              placeholder="Provincia"
+              style={STYLES.input}
+              defaultValue={
+                address ? (address.length === 3 ? address[1] : address[2]) : ""
+              }
+              onChangeText={(text) => setInput({ ...input, province: text })}
+            />
+          </View>
+          <View style={STYLES.inputContainer}>
+            <Icon
+              name="location-pin"
+              color={COLORS.light}
+              size={20}
+              style={STYLES.inputIcon}
+            />
+            <TextInput
+              placeholder="Ciudad"
+              style={STYLES.input}
+              defaultValue={address ? address[1] : ""}
+              onChangeText={(text) => setInput({ ...input, city: text })}
+            />
+          </View>
+          <View style={STYLES.inputContainer}>
+            <Icon
+              name="home"
+              color={COLORS.light}
+              size={20}
+              style={STYLES.inputIcon}
+            />
+            <TextInput
+              placeholder="Dirección"
+              style={STYLES.input}
+              defaultValue={address ? address[0] : ""}
+              onChangeText={(text) => setInput({ ...input, address: text })}
+            />
+          </View>
 
+          <TouchableOpacity
+            onPress={
+              () => {
+                dispatch(createClient(input));
+              }
+              // () => {console.log('despache dljskgraakljvdhsalkjghjfk',input)}
+            }
+            style={STYLES.btnPrimary}
+          >
+            <Text
+              style={{
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: 18,
+              }}
+            >
+              Registrarse
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 export default ClientSignUp;
