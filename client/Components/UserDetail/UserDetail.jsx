@@ -13,6 +13,7 @@ import IconStar from 'react-native-vector-icons/Foundation';
 import styles from './UserDetailStyle';
 import { requestToProfessional } from '../../Redux/Action/clientActions';
 import { useDispatch, useSelector } from 'react-redux';
+import Toast from 'react-native-root-toast';
 
 const Review = ({ name, comment, review }) => (
 	<View style={styles.review}>
@@ -40,6 +41,19 @@ const UserDetail = ({ navigation, route }) => {
 				idRequest: request.id,
 			})
 		);
+		let toast = Toast.show('Solicitud enviada con exito!', {
+			duration: Toast.durations.LONG,
+			position: Toast.positions.BOTTOM,
+			shadow: true,
+			animation: true,
+			hideOnPress: true,
+			delay: 0,
+			backgroundColor: 'green',
+		});
+
+		setTimeout(function () {
+			Toast.hide(toast);
+		}, 1000);
 		navigation.popToTop();
 	};
 
