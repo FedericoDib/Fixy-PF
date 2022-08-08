@@ -1,16 +1,16 @@
 {
 	"expo": {
-		"name": "pf-fixy",
+		"name": "Fixy",
 		"slug": "fixy",
 		"scheme": "fixy",
 		"version": "1.0.0",
 		"orientation": "portrait",
-		"icon": "./assets/icon.png",
+		"icon": "./assets/fixyIcon.png",
 		"userInterfaceStyle": "light",
 		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
+			"image": "./assets/splashFixy.png",
+			"resizeMode":"contain",
+			"backgroundColor": "#4741A6"
 		},
 		"updates": {
 			"fallbackToCacheTimeout": 0
@@ -19,10 +19,19 @@
 		"ios": {
 			"supportsTablet": true
 		},
+		"plugins": [
+			[
+			  "expo-notifications",
+				{
+					"icon": "./assets/fixy-notification-icon.png",
+					"color": "#4741A6"		
+				}
+			]
+		],
 		"android": {
 			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
+				"foregroundImage": "./assets/fixy-adaptive-icon.png",
+				"backgroundColor": "#4741A6"
 			},
 			"package":"com.pg.fixy",
 			"googleServicesFile":"./google-services.json"
