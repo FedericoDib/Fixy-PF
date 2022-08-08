@@ -11,6 +11,8 @@ import {
   TextInput,
   Image,
   SafeAreaView,
+  Animated,
+  Dimensions,
 } from "react-native";
 import { editProfile, logOut } from "../../Redux/Action/generalActions";
 import PrimaryButton from "../General/PrimaryButton";
@@ -36,9 +38,11 @@ const Profile = () => {
   const [maxTime, setMaxTime] = useState(
     user.googleId[0] === "c" ? null : user.availableTimes[1]
   );
+  const { width, height } = Dimensions.get("screen");
   const dispatch = useDispatch();
   const { address, location } = UseGeolocation();
   const [refreshing, setRefreshing] = useState(false);
+  const [ref, setRef] = useState([]);
   const DATA =
     user.googleId[0] === "p"
       ? [
@@ -150,12 +154,15 @@ const Profile = () => {
       return item.text;
     }
   }
+
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <SafeAreaView>
+        <View>
           <View style={{ marginTop: 70, alignItems: "center" }}>
             <Image
               style={styles.image}
@@ -227,9 +234,6 @@ const Profile = () => {
               </View>
             )}
 
-            {/* <TouchableHighlight onPress={handleLogOut}>
-            <Text>Log Out</Text>
-           </TouchableHighlight> */}
             <View
               style={{
                 alignItems: "center",
@@ -240,7 +244,8 @@ const Profile = () => {
               <PrimaryButton onPress={handleLogOut} title={"Cerrar Sesión"} />
             </View>
           </View>
-        </SafeAreaView>
+          {/* <Text>HOLAAAA</Text> */}
+        </View>
       )}
     </React.Fragment>
   );

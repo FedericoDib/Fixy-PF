@@ -33,10 +33,12 @@ router.put("/professional", async (req, res) => {
 });
 
 router.put("/client", async (req, res) => {
-  const { id, rating, comment, idClient, nameProfessional, idProfessional } =
+  const { rating, comment, idClient, nameProfessional, idProfessional } =
     req.body;
 
   let client = await Client.findOne({ where: { googleId: idClient } });
+
+  const id = idClient + Math.floor(Math.random() * (9999 - 1000) + 1000);
 
   await client.update({
     reviews: [

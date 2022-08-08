@@ -13,6 +13,7 @@ import BudgetList from "../Components/List/BudgetList/BudgetList";
 import RequestList from "../Components/List/RequestList/RequestList";
 import Review from "../Components/Review/Review";
 import ShowImage from "../Components/ShowImage/ShowImage";
+import SupportForm from "../Components/SupportForm/SupportForm";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,11 @@ const ProfessionalStack = () => {
         <Stack.Screen
           name="Review"
           component={Review}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SupportForm"
+          component={SupportForm}
           options={{ headerShown: false }}
         />
       </Stack.Group>

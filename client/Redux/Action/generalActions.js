@@ -14,6 +14,7 @@ import {
   GET_NOT_SEEN_NOTIF,
   SET_SEEN_NOTIF,
   GET_ALL_NOTIF,
+  MESSAGE_TO_ADMIN,
 } from "./actionTypes";
 import storage from "../../Firebase/Firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -293,6 +294,16 @@ export const setSeenNotif = (id) => {
     return dispatch({
       type: SET_SEEN_NOTIF,
       payload: notifications.data,
+    });
+  };
+};
+
+export const messageToAdmin = (payload) => {
+  return async (dispatch) => {
+    const response = await axios.put(`${URL}/admin/message`, payload);
+    return dispatch({
+      type: MESSAGE_TO_ADMIN,
+      payload: response.date,
     });
   };
 };
