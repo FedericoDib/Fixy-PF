@@ -65,7 +65,8 @@ const CalendarView = ({ navigation }) => {
   let requests = useSelector((state) => state.generalReducer.allRequests);
   requests = requests.filter((r) => r.status === "active");
   // requests = requests[0];
-  // console.log(requests);
+  console.log("calendar", requests);
+
   const [events, setEvents] = useState([
     {
       affair: "Luz",
