@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Linking from 'expo-linking';
+import { useFocusEffect } from '@react-navigation/native';
 import {
 	View,
 	Text,
@@ -12,7 +14,8 @@ import {
 	
 } from 'react-native';
 import IconCalendar from 'react-native-vector-icons/EvilIcons';
-import IconPhone from 'react-native-vector-icons/Feather';
+import IconGmail from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconWhatsapp from 'react-native-vector-icons/FontAwesome';
 import style from './ResumeStyle';
 import {
 	getBudgetDetail,
@@ -22,17 +25,29 @@ import {
 
 export default function Resume({ navigation, route }) {
 	const user = useSelector((state) => state.generalReducer.user);
+	const detail = useSelector((state) => state.generalReducer.userDetail);
 	const dispatch = useDispatch();
 	const budgetDetail = useSelector(
 		(state) => state.generalReducer.budgetDetail
 	);
-	console.log(budgetDetail, 'budget');
+
 	const item = route.params.item;
 	const [code, setCode] = useState(null);
+	const [refreshing, setRefreshing] = useState(false);
 
 	useEffect(() => {
 		dispatch(getBudgetDetail(item.id));
 	}, [item]);
+
+	useFocusEffect(
+		useCallback(() => {
+			user.googleId[0] === "p" ? dispatch(userDetail(item.clientId, 'client')) : dispatch(userDetail(budgetDetail.professionalId, 'professional')) 
+		}, [refreshing]))
+
+	useFocusEffect(
+		useCallback(() => {
+			refreshing ? null : setRefreshing(true)
+		}, [detail]))
 
 	const handlePress = () => {
 		if (code == budgetDetail.validationCode) {
@@ -43,6 +58,14 @@ export default function Resume({ navigation, route }) {
 			Alert.alert('El codigo de validacion no es valido');
 		}
 	};
+
+	const handleWhatsapp = async () => {
+		await Linking.openURL('https://wa.me/' + detail.phoneNumber);
+	}
+
+	const handleEmail = async () => {
+		await Linking.openURL(`mailto:${detail.email}?subject=FIXY:%20${item.affair}&body=${budgetDetail.description}`);
+	}
 
 	return (
 		<ScrollView style={style.mainContainer}>
@@ -56,14 +79,22 @@ export default function Resume({ navigation, route }) {
 					></IconCalendar>
 				</View>
 				<View style={style.phoneContainer}>
-					<IconPhone
+					<IconWhatsapp
 						onPress={() => {
-							Alert.alert('Llamado');
+							handleWhatsapp();
 						}}
-						name='phone-call'
+						name='whatsapp'
 						size={30}
 						color='green'
-					></IconPhone>
+					></IconWhatsapp>
+					<IconGmail
+						onPress={() => {
+							handleEmail();
+						}}
+						name='gmail'
+						size={30}
+						color='red'
+					></IconGmail>
 				</View>
 			</View>
 			<View style={style.textContainer}>

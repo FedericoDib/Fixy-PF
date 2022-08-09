@@ -63,7 +63,7 @@ const Paypal = ({ route, navigation }) => {
 			>
 				<WebView
 					source={{
-						uri: `http://192.168.0.11:3000/paypal/paypal?price=${route.params.price}`,
+						uri: `https://fixy-backend.herokuapp.com/paypal/paypal?price=${route.params.price}`,
 					}}
 					onNavigationStateChange={(data) => handleResponse(data)}
 					injectedJavaScript={`document.f1.submit()`}

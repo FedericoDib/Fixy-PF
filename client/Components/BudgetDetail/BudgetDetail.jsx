@@ -61,7 +61,7 @@ export default function BudgetDetail({ navigation, route }) {
                     <View style={style.imageContainer}>
                         {/* <Icon name="user" color="black" size={40} /> */}
                         <Image
-                            source={{ uri: item.image, width: 65, height: 65 }}
+                            source={{ uri: professional.image, width: 65, height: 65 }}
                         />
                     </View>
                     <View style={style.textCardContainer}>
