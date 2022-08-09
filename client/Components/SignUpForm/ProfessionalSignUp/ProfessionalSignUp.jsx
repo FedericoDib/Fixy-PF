@@ -340,13 +340,13 @@ const ProfessionalSignUp = () => {
 					>
 						<Text
 							style={{
-								color: '#fff',
+								color: '#010101',
 								fontWeight: 'bold',
 								fontSize: 18,
 							}}
 						>
 							{Object.getOwnPropertyNames(error).length
-								? 'Cargando...'
+								? 'Aguardando datos...'
 								: 'Registrarse'}
 						</Text>
 					</TouchableOpacity>

@@ -120,7 +120,7 @@ const ClientSignUp = () => {
 	}
 
 	return (
-		<ScrollView showsVerticalScrollIndicator={false}>
+		<ScrollView showsVerticalScrollIndicator={false} bounces={false}>
 			<View style={STYLES.container}>
 				<View style={STYLES.titleWrapper}>
 					<View>
@@ -217,7 +217,7 @@ const ClientSignUp = () => {
 				>
 					<Text style={STYLES.buttonText}>
 						{Object.getOwnPropertyNames(error).length
-							? 'Cargando...'
+							? 'Aguardando datos...'
 							: 'Registrarse'}
 					</Text>
 				</TouchableOpacity>

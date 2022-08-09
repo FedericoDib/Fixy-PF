@@ -65,7 +65,7 @@ const STYLES = StyleSheet.create({
 
 	line: { height: 1, width: 30, backgroundColor: '#a5a5a5' },
 	buttonText: {
-		color: theme.colors.threePalet.primary,
+		color: '#010101',
 		fontWeight: 'bold',
 		fontSize: 18,
 	},
