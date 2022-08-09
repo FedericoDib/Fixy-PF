@@ -78,6 +78,8 @@ const SolutionScreen = ({ navigation }) => {
     console.log(input);
 
     const handleSubmit = () => {
+        let dat = date
+        dat = "20"+dat.split('/').reverse().join('-')
         dispatch(averageReviewOff());
         dispatch(countOff());
         dispatch(
@@ -86,7 +88,7 @@ const SolutionScreen = ({ navigation }) => {
                 availableTime: `${minTime} - ${maxTime}`,
                 category: Professional,
                 status: "pending",
-                date: date,
+                date: dat,
                 requestPic: requestPic,
             })
         );
@@ -170,7 +172,7 @@ const SolutionScreen = ({ navigation }) => {
     };
 
     const [date, setDate] = useState(new Date());
-    const [year, setYear] = useState(22);
+    const [year, setYear] = useState(2022);
 
     const onChange = (event, selectedDate) => {
         let currentDate = selectedDate;
