@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
 	root: {
 		alignItems: 'center',
 		padding: 8,
-		backgroundColor: theme.colors.threePalet.primary,
+		backgroundColor: theme.colors.threePalet.secondary,
 		borderRadius: 4,
 	},
 	text: {
 		fontSize: 16,
-		color: '#fff',
+		color: '#010101',
 	},
 });
 

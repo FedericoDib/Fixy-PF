@@ -34,6 +34,7 @@ import {
     getControllerPic,
     requestPicOff,
 } from "../../Redux/Action/generalActions";
+import { requestValidate } from "../SignUpForm/Validator";
 
 const SolutionScreen = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -54,12 +55,16 @@ const SolutionScreen = ({ navigation }) => {
     );
     const [changeButton, setChangeButton] = useState(true);
 
-    console.log("link a fotooooooooooooooooooo", requestPic.length);
-    console.log(controllerPic);
+    const [error, setError] = useState({});
 
     useFocusEffect(
         useCallback(() => {
-            console.log("request off");
+            setError(requestValidate(input));
+        }, [input])
+    );
+
+    useFocusEffect(
+        useCallback(() => {
             dispatch(requestPicOff());
             dispatch(getControllerPic(0));
         }, [])
@@ -67,13 +72,14 @@ const SolutionScreen = ({ navigation }) => {
     useFocusEffect(
         useCallback(() => {
             setChangeButton(controllerPic == requestPic.length);
-            console.log("change button", changeButton);
         }, [controllerPic, requestPic])
     );
 
-    console.log("change button", changeButton);
+    console.log(input);
 
     const handleSubmit = () => {
+        let dat = date
+        dat = "20"+dat.split('/').reverse().join('-')
         dispatch(averageReviewOff());
         dispatch(countOff());
         dispatch(
@@ -82,7 +88,7 @@ const SolutionScreen = ({ navigation }) => {
                 availableTime: `${minTime} - ${maxTime}`,
                 category: Professional,
                 status: "pending",
-                date: date,
+                date: dat,
                 requestPic: requestPic,
             })
         );
@@ -166,7 +172,7 @@ const SolutionScreen = ({ navigation }) => {
     };
 
     const [date, setDate] = useState(new Date());
-    const [year, setYear] = useState(22);
+    const [year, setYear] = useState(2022);
 
     const onChange = (event, selectedDate) => {
         let currentDate = selectedDate;
@@ -175,7 +181,6 @@ const SolutionScreen = ({ navigation }) => {
         currentDate = [currentDate[1], currentDate[0], currentDate[2]].join(
             "/"
         );
-        console.log(currentDate);
         setDate(currentDate);
     };
 
@@ -380,12 +385,28 @@ const SolutionScreen = ({ navigation }) => {
           >
             <Text style={{ paddingTop: 10, fontWeigth: 700 }}>Continuar</Text>
           </TouchableOpacity> */}
-                    {console.log(controllerPic == requestPic)}
+
+                    {console.log("changeButton", changeButton)}
                     <PrimaryButton
-                        disabled={changeButton ? false : true}
-                        title={changeButton ? "Continuar" : "Cargando..."}
+                        disabled={
+                            !controllerPic
+                                ? Object.getOwnPropertyNames(error).length &&
+                                  changeButton
+                                : !changeButton &&
+                                  Object.getOwnPropertyNames(error).length
+                        }
+                        title={
+                            changeButton &&
+                            !Object.getOwnPropertyNames(error).length
+                                ? "Continuar"
+                                : "Cargando..."
+                        }
                         color={"primary"}
-                        onPress={() => handleSubmit()}
+                        onPress={() =>
+                            changeButton &&
+                            !Object.getOwnPropertyNames(error).length &&
+                            handleSubmit()
+                        }
                     />
                 </View>
             </ScrollView>
