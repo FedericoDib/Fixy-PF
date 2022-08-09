@@ -50,34 +50,45 @@ const UsePickImage = () => {
 	return (
 		<View
 			style={{
-				flex: 1,
+				height: 250,
 				alignItems: 'center',
-				justifyContent: 'center',
-				marginVertical: 20,
+				justifyContent: 'space-between',
+				marginVertical: 10,
 				borderRadius: 20,
-				padding: 5,
 			}}
 		>
-			<Image
-				source={{
-					uri:
-						image ||
-						'https://s3.amazonaws.com/keybase_processed_uploads/398203e5f8b2e5dbb9be1421b4738405_360_360.png',
-				}}
-				style={{
-					width: 160,
-					height: 160,
-					marginBottom: 20,
-					borderRadius: 100,
-					borderWidth: 4,
-					borderColor: theme.colors.threePalet.secondary,
-				}}
-			/>
 			<View
 				style={{
+					flex: 2,
+					width: '100%',
+					alignItems: 'center',
+					paddingVertical: 10,
+					marginBottom: 10,
+				}}
+			>
+				<Image
+					source={{
+						uri:
+							image ||
+							'https://s3.amazonaws.com/keybase_processed_uploads/398203e5f8b2e5dbb9be1421b4738405_360_360.png',
+					}}
+					style={{
+						width: 160,
+						height: 160,
+						marginBottom: 20,
+						borderRadius: 100,
+						borderWidth: 4,
+						borderColor: theme.colors.threePalet.secondary,
+					}}
+				/>
+			</View>
+			<View
+				style={{
+					flex: 1,
 					flexDirection: 'row',
 					width: '100%',
 					justifyContent: 'space-around',
+					alignItems: 'center',
 				}}
 			>
 				<TouchableOpacity onPress={pickImage}>

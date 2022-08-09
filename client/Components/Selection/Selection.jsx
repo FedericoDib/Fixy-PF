@@ -11,7 +11,8 @@ export default function Selection({ navigation }) {
 	return (
 		<View style={style.mainContainer}>
 			<View style={style.titleContainer}>
-				<Text style={style.title}>Seleccione cómo desea registrarse</Text>
+				<Text style={style.title}>Seleccione cómo</Text>
+				<Text style={style.title}>desea registrarse</Text>
 			</View>
 			<View style={style.buttonsContainer}>
 				<View style={{ justifyContent: 'center', alignItems: 'center' }}>
