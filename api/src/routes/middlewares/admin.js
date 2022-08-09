@@ -3,13 +3,20 @@ const { Client, Professional, Admin, Op } = require("../../db");
 const bcrypt = require("bcrypt");
 const router = Router();
 
-const { isAuthenticated } = require("../helpers/auth");
+const {cadenaAleatoria} = require("../helpers/generateToken");
+
+//Middleware que chequea si el token enviado efectivamente corresponde a un usuario
+const {isAuth} = require("../helpers/checkToken");
+
+
+//---------------------- Rutas Admin -------------------------//
+
 
 router.post("/create", async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    const hash = await bcrypt.hash(password, 8);
+    // const hash = await bcrypt.hash(password, 8);
     const newAdmin = await Admin.create({ name, email, password });
     console.log(newAdmin);
     res.status(201).send(newAdmin);
@@ -18,24 +25,48 @@ router.post("/create", async (req, res) => {
   }
 });
 
+//Intenta auntenticar con el token guardado en LocalStorage del front
+
+router.get("/loggedWithToken", async (req,res) => {
+  const {token} = req.query;
+  try{
+    const user = await Admin.findOne({where:{accessToken:token}});
+    if (user) {
+      return res.status(200).send(user);
+    } else {
+      return res.status(400).send(false);
+    }
+  }catch(e){
+    return res.status(400).send(e);
+  }
+})
+
+//Autentica User-Password y genera un token que se guarda en la DB
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const admin = await Admin.findOne({
       where: { email, password },
     });
     if (admin) {
-      res.status(200).send(admin);
+      const token = cadenaAleatoria(4);
+      const userWithToken = await Admin.update({accessToken:token},{where:{email,password}});
+      const user = await Admin.findOne({
+        where: { email, password },
+      });
+      res.status(200).send(user);
     } else {
-      res.status(404).send("no");
+      res.status(404).send("User not exist");
     }
   } catch (error) {
+    console.log(error);
     res.status(400).send(error);
   }
 });
 
-router.put("/message", isAuthenticated, async (req, res) => {
+
+router.put("/message", isAuth, async (req, res) => {
   const { idUser, idReview, message, asunto } = req.body;
 
   const admin = await Admin.findByPk(1);
@@ -58,16 +89,20 @@ router.put("/message", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/clients", isAuthenticated, async (req, res) => {
-  try {
-    const clients = await Client.findAll();
-    res.status(200).send(clients);
-  } catch (error) {
-    res.status(404).send(error);
-  }
+router.get("/clients",isAuth, async (req, res) => {
+  
+    try{
+      
+      const clients = await Client.findAll();
+      return res.status(200).send(clients);
+    
+    }catch(e){
+        
+      return res.status(400).send(e);
+    }
 });
 
-router.get("/professionals", isAuthenticated, async (req, res) => {
+router.get("/professionals", isAuth, async (req, res) => {
   try {
     const professionals = await Professional.findAll();
     res.status(200).send(professionals);
@@ -76,7 +111,7 @@ router.get("/professionals", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/:id", isAuthenticated, async (req, res) => {
+router.get("/:id", isAuth, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -94,7 +129,7 @@ router.get("/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/:id", isAuthenticated, async (req, res) => {
+router.put("/:id", isAuth, async (req, res) => {
   const { id } = req.params;
 
   const client = await Client.findByPk(id);
@@ -122,7 +157,7 @@ router.put("/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", isAuthenticated, async (req, res) => {
+router.delete("/delete/:id", isAuth, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -140,7 +175,7 @@ router.delete("/delete/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-router.put("/delete/review", isAuthenticated, async (req, res) => {
+router.put("/delete/review", isAuth, async (req, res) => {
   const { id, idProfessional, idClient } = req.body;
 
   try {

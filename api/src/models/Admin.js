@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: 1,
+        defaultValue: Math.ceil((Math.random() * Math.random() * Math.random()) * 10000),
         primaryKey: true,
         allowNull: false,
       },
@@ -26,6 +26,9 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.JSON),
         defaultValue: [],
       },
+      accessToken: {
+        type: DataTypes.STRING,
+      }
     },
     {
       createdAt: false,
