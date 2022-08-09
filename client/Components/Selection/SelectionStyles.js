@@ -9,6 +9,7 @@ const style = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		backgroundColor: theme.colors.threePalet.light,
+		padding: 5,
 	},
 	titleContainer: {
 		flex: 0.5,
