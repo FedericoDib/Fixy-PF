@@ -55,9 +55,10 @@ const PrimarySlider = ({ min, max, low, high, setMinTime, setMaxTime }) => {
 const styles = StyleSheet.create({
 	root: {
 		alignItems: 'stretch',
-		padding: 12,
+		paddingHorizontal: 12,
 		height: 100,
 		justifyContent: 'flex-end',
+		width: '100%',
 	},
 	slider: {},
 	button: {},
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
 	},
 	valueText: {
 		width: 50,
-		color: theme.colors.firstPalet.primary,
+		color: '#f1f1f1',
 		fontSize: 14,
 		fontWeight: 'bold',
 	},
