@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.INTEGER,
-        defaultValue: Math.ceil((Math.random() * Math.random() * Math.random()) * 10000),
+        defaultValue: 11,
         primaryKey: true,
         allowNull: false,
       },
@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
       },
       accessToken: {
         type: DataTypes.STRING,
-      }
+      },
     },
     {
       createdAt: false,
