@@ -3,18 +3,19 @@ import { Text, TouchableHighlight, View } from 'react-native';
 import { styles } from './LoginStyles';
 import { useDispatch } from 'react-redux';
 import { googleLogin } from '../../Redux/Action/generalActions';
-import Logo from '../../assets/FIXy.svg';
 import * as GoogleSignIn from 'expo-google-sign-in';
-import { Platform } from 'react-native';
+import Logo from '../../assets/FIXy.svg';
+import GoogleLogo from '../../assets/google.svg';
 
 const LoginProd = () => {
 	const dispatch = useDispatch();
 
-	const ios = "302940809798-7p2sl1hf6nb258ltkkfp7kb4oqnun290.apps.googleusercontent.com";
-	const android = '302940809798-hp8en72fg1o8uiinc47q10oc92909f4a.apps.googleusercontent.com';
-	
-	// Platform.OS === 'android' ? android : ios
+	const ios =
+		'302940809798-7p2sl1hf6nb258ltkkfp7kb4oqnun290.apps.googleusercontent.com';
+	const android =
+		'302940809798-hp8en72fg1o8uiinc47q10oc92909f4a.apps.googleusercontent.com';
 
+	// Platform.OS === 'android' ? android : ios
 
 	useEffect(() => {
 		initAsync();
@@ -56,16 +57,17 @@ const LoginProd = () => {
 			<Logo />
 			<View style={styles.wrapper}>
 				<Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
-				<Text style={styles.subTitle}>Ingresa o Registrate para continuar</Text>
 				<TouchableHighlight
 					onPress={signInAsync}
 					activeOpacity={0.6}
 					underlayColor='#ccc'
-					style={styles.button}
+					style={{ borderRadius: 14 }}
 				>
-					<Text style={styles.textbutton}>Continuar con Google</Text>
+					<View style={styles.button}>
+						<GoogleLogo />
+						<Text style={styles.textbutton}>Continuar con Google</Text>
+					</View>
 				</TouchableHighlight>
-				
 			</View>
 		</View>
 	);
