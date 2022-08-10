@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import theme from "../../theme/theme";
 
 const ActiveRequestCard = ({ request, navigation }) => {
-  console.log("requesttttt dios", request);
   return (
     <TouchableHighlight
       onPress={() => navigation.navigate("Resume", { item: request })}

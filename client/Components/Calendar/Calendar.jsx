@@ -1,10 +1,11 @@
 import { View, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Calendar, Agenda } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 import theme from "../../theme/theme";
 import { Avatar, Card, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 LocaleConfig.locales["es"] = {
   monthNames: [
@@ -63,30 +64,7 @@ LocaleConfig.defaultLocale = "es";
 
 const CalendarView = ({ navigation }) => {
   let requests = useSelector((state) => state.generalReducer.allRequests);
-  requests = requests.filter((r) => r.status === "active");
-  // requests = requests[0];
-  // console.log(requests);
-  const [events, setEvents] = useState([
-    {
-      affair: "Luz",
-      description: "exploto el foco",
-      date: "2022-07-30",
-      availableTime: "10:00",
-    },
-    {
-      affair: "Gas",
-      description:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem, quisquam. Quisquam, quidem, quisquam. kjfgnjkhlbkdjfghlfdlhjlfkg",
-      date: "2022-07-27",
-      availableTime: "14:00",
-    },
-    {
-      affair: "Gas",
-      description: "caño fuga",
-      date: "2022-07-30",
-      availableTime: "16:00",
-    },
-  ]);
+  requests = requests.filter((r) => r.status === "active" || r.status === "completed");
   const [items, setItems] = useState({});
 
   useEffect(() => {
@@ -95,15 +73,35 @@ const CalendarView = ({ navigation }) => {
 
   const formatItem = (requests) => {
     requests?.map((request) => {
-      if (items.hasOwnProperty(request.date)) {
-        items[request.date].push(request);
+      let date;
+      if (request.date.length < 9) {
+        date = "20" + request.date.split("/").reverse().join("-");
       } else {
-        items[request.date] = [
+        date = request.date.slice(0, 10);
+      }
+      if (items.hasOwnProperty(date)) {
+        if (items[date][0].id === request.id) {
+          return;
+        } else {
+          const item = {
+              id: request.id,
+              affair: request.affair,
+              description: request.description,
+              date: date,
+              availableTime: request.budget[0].turn,
+              selectedColor: theme.colors.threePalet.primary,
+            }
+
+          items[date].push(item);
+        }
+      } else {
+        items[date] = [
           {
+            id: request.id,
             affair: request.affair,
             description: request.description,
-            date: request.date,
-            availableTime: request.availableTime,
+            date: date,
+            availableTime: request.budget[0].turn,
             selectedColor: theme.colors.threePalet.primary,
           },
         ];
@@ -153,8 +151,8 @@ const CalendarView = ({ navigation }) => {
     <View style={{ flex: 1, paddingTop: 30, backgroundColor: "#fff" }}>
       {items && (
         <Agenda
-          pastScrollRange={6}
-          futureScrollRange={6}
+          pastScrollRange={3}
+          futureScrollRange={3}
           items={items}
           renderItem={renderItem}
           renderEmptyData={renderEmptyData}
