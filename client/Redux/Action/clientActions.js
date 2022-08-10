@@ -22,8 +22,8 @@ import {
 	SET_REQUEST,
 } from './actionTypes';
 
-//const URL = 'https://fixy-backend.herokuapp.com';
-const URL = 'http://192.168.0.202:3000';
+const URL = 'https://fixy-backend.herokuapp.com';
+//const URL = 'http://192.168.0.202:3000';
 
 /* -------------------------------------------------------------------------- */
 /*                            GET ALL PROFESSIONALS                           */
