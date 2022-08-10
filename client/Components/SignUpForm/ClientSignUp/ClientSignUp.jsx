@@ -70,12 +70,10 @@ const ClientSignUp = () => {
 					longitude: location.longitude,
 				});
 			}
-			console.log('datos a guardar : ', input);
 		}, [place])
 	);
 
-	console.log(`adress original`, address );
-	console.log(`adress modificada`, input );
+
 
 	const splitProvince = (string) => {
 		const splittedArray = string.split(" ");
@@ -161,9 +159,7 @@ const ClientSignUp = () => {
 							placeholder='Provincia'
 							placeholderTextColor={'#f1f1f1'}
 							style={STYLES.input}
-							defaultValue={
-								input.province && input.province
-							}
+							defaultValue={input.province && input.province}
 							onChangeText={(text) => setInput({ ...input, province: text })}
 						/>
 					</View>
