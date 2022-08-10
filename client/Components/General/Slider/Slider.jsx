@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 		alignItems: 'stretch',
 		paddingHorizontal: 12,
 		height: 100,
-		justifyContent: 'flex-end',
+		justifyContent: 'center',
 		width: '100%',
 	},
 	slider: {},
