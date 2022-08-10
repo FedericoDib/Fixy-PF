@@ -44,12 +44,7 @@ export default function UseGeolocation() {
         });
         if (address) {
             var x = address.split(',')
-            if (x.length === 3) {
-
-                x[1] = x[1].slice(9)
-            }
-
-
+     
         }
     } return { address: x, location }
 }
