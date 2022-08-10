@@ -92,6 +92,7 @@ router.post('/', async (req, res) => {
 		title: messages[0].body,
 		clientId: client.googleId,
 		professionalId: professional.googleId,
+		user:"client"
 	});
 
 	res.status(201).send(budget);

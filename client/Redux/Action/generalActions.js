@@ -24,9 +24,9 @@ import storage from "../../Firebase/Firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { async } from "@firebase/util";
 
-const URL = "https://fixy-backend.herokuapp.com";
+//const URL = "https://fixy-backend.herokuapp.com";
 
-//const URL = "http://192.168.0.11:3001";
+const URL = "http://192.168.0.22:3000";
 
 /* -------------------------------------------------------------------------- */
 /*                                GOOGLE LOGIN                                */
@@ -318,10 +318,11 @@ export const getNotSeenNotif = (id) => {
   };
 };
 
-export const getAllNotif = (id) => {
+export const getAllNotif = (user,id) => {
   return async (dispatch) => {
+    
     const notifications = await axios.get(
-      `${URL}/notification/professional/all?googleId=${id}`
+      `${URL}/notification/${user}/all?googleId=${id}`
     );
     return dispatch({
       type: GET_ALL_NOTIF,
@@ -330,10 +331,10 @@ export const getAllNotif = (id) => {
   };
 };
 
-export const setSeenNotif = (id) => {
+export const setSeenNotif = (user,id) => {
   return async (dispatch) => {
     const notifications = await axios.put(
-      `${URL}/notification/professional?googleId=${id}`
+      `${URL}/notification/${user}?googleId=${id}`
     );
     return dispatch({
       type: SET_SEEN_NOTIF,

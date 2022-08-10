@@ -29,6 +29,7 @@ import ActiveRequestCard from "../General/ActiveRequestCard";
 import ModalPoup from "../General/Modal";
 import { FontAwesome5 } from "@expo/vector-icons";
 import theme from "../../theme/theme";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // const ModalPoup = ({ visible, children }) => {
 //   const [showModal, setShowModal] = React.useState(visible);
@@ -77,7 +78,8 @@ const HomeProfessional = ({ navigation }) => {
   const notifications = useSelector(
     (state) => state.generalReducer.notifications
   );
-  // console.log(user);
+  const [notSeenNotif,setNotSeenNotif] = useState([]);
+  
 
   const [visible, setVisible] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -87,13 +89,20 @@ const HomeProfessional = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       dispatch(getAllRequest("professional", user.googleId));
-      dispatch(getAllNotif(user.googleId));
+      dispatch(getAllNotif("professional",user.googleId));
     }, [])
   );
 
-  const notSeenNotif = notifications.filter((n) => n.status === "not_seen");
-
-  console.log("NOTIFICACIONES", notifications);
+  //Setea en estado local las notificaciones no vistas por el cliente
+  useFocusEffect(
+    useCallback(() => {
+    if (Array.isArray(notifications)) 
+    {const notSeen = notifications.filter((n) => n.status === "not_seen" && n.user === "professional")
+      setNotSeenNotif(notSeen);
+  }
+  },[notifications])
+  );
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -196,7 +205,7 @@ const HomeProfessional = ({ navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       setVisible(false);
-                      dispatch(setSeenNotif(user.googleId));
+                      dispatch(setSeenNotif("professional",user.googleId));
                     }}
                   >
                     <View
@@ -277,6 +286,39 @@ const HomeProfessional = ({ navigation }) => {
                   }}
                   name="notifications"
                 />
+                <View>
+                 { notSeenNotif.length !== 0? 
+                  <View
+                  style={{
+                    position:"absolute",
+                    bottom:17,
+                    right:7,
+                    borderRadius:90,
+                    backgroundColor:"white",
+                    height:10,
+                    width:10,
+                    
+                  }}
+                  >
+                  </View>
+                  : <View></View>
+                } 
+                  <MaterialCommunityIcons 
+                  name={notSeenNotif && notSeenNotif.length !== 0 ? `numeric-${notSeenNotif.length}-circle` : ""} 
+                  size={20} 
+                  color="red"
+                  
+                  style={{
+                    position:"absolute",
+                    bottom:13,
+                    right:1,
+                    
+                    height:20,
+                    width:20,
+                    
+                  }}
+                  />
+                </View>
               </View>
             </TouchableHighlight>
           </Box>

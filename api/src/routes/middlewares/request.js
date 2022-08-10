@@ -109,6 +109,7 @@ router.put("/:id", async (req, res) => {
       title: messages[0].body,
       clientId: client.googleId,
       professionalId: professional.googleId,
+      user:"professional"
     });
 
     res.status(202).send(requests);
@@ -168,6 +169,7 @@ router.put("/", async (req, res) => {
       title: messages[0].body,
       clientId: client.googleId,
       professionalId: professional.googleId,
+      user:"professional"
     });
 
     if (newNotifDb) console.log("OK NOTIF DB");
