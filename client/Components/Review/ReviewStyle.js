@@ -39,7 +39,6 @@ const style = StyleSheet.create({
 		padding: '2.5%',
 		borderRadius: 10,
 		alignItems: 'center',
-		fontSize: 18,
 	},
 	cardContainer: {
 		display: 'flex',
