@@ -71,10 +71,12 @@ router.put("/message", async (req, res) => {
 
   const admin = await Admin.findByPk(11);
 
+  const id = idReview + Math.floor(Math.random() * (9999 - 1000) + 1000);
+
   try {
     if (idReview) {
       const newMessage = await admin.update({
-        message: [...admin.message, { idUser, idReview, message, asunto }],
+        message: [...admin.message, { id, idUser, idReview, message, asunto }],
       });
 
       res.status(201).send(newMessage);
@@ -84,6 +86,22 @@ router.put("/message", async (req, res) => {
       });
       res.status(201).send(newMessage);
     }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.put("/message/delete", async (req, res) => {
+  const { id } = req.query;
+
+  const admin = await Admin.findByPk(11);
+
+  try {
+    const mensajes = admin.message.filter((m) => m.id !== id);
+    const adminActualizado = await admin.update({
+      message: mensajes,
+    });
+    res.status(201).send(adminActualizado);
   } catch (error) {
     res.status(400).send(error);
   }
