@@ -38,8 +38,6 @@ const ClientSignUp = () => {
 		perfilPic: perfilPic,
 	});
 
-	console.log(`INPUTTT`, input);
-
 	useFocusEffect(
 		useCallback(() => {
 			setInput({ ...input, perfilPic: perfilPic });
@@ -77,7 +75,6 @@ const ClientSignUp = () => {
 
 	const splitProvince = (string) => {
 		const splittedArray = string.split(" ");
-		console.log(`SPLITTT`,splittedArray);
 		return splittedArray[2];
 	}
 	
@@ -203,7 +200,6 @@ const ClientSignUp = () => {
 							Object.getOwnPropertyNames(error).length === 0 &&
 								dispatch(createClient(input));
 						}
-						// () => {console.log('despache dljskgraakljvdhsalkjghjfk',input)}
 					}
 					style={STYLES.btnPrimary}
 				>

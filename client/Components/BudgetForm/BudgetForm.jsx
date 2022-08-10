@@ -7,6 +7,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBudget } from '../../Redux/Action/professionalActions';
 import Toast from 'react-native-root-toast';
+import { clientValidate } from '../SignUpForm/Validator';
 
 const BudgetForm = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -37,6 +38,10 @@ const BudgetForm = ({ navigation }) => {
 		}
 		return turns;
 	};
+
+	const handleSubmit = () => {
+		
+	}
 
 	return (
 		<ScrollView>
@@ -124,8 +129,10 @@ const BudgetForm = ({ navigation }) => {
 						</View>
 					</View>
 				</View>
+				{console.log(input)}
 				<PrimaryButton
-					title='Enviar presupuesto'
+					title={!input.price && !input.description && !minBudget && !maxBudget ? 'Aguardando datos' : 'Enviar presupuesto'}
+					disabled={!input.price && !input.description && !minBudget && !maxBudget}
 					onPress={() => {
 						dispatch(
 							createBudget({

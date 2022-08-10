@@ -81,8 +81,6 @@ export default function Review({ navigation }) {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.generalReducer.user);
 	const otherUser = useSelector((state) => state.generalReducer.userDetail);
-
-	console.log(user, otherUser, 'USERRRRSSS');
 	//const user = { googleId: "c165158165" };
 
 	if (otherUser.reviews && otherUser.reviews.length) {
@@ -95,8 +93,6 @@ export default function Review({ navigation }) {
 	} else {
 		averageRating = 3;
 	}
-
-	console.log(otherUser);
 
 	function selectStars(number) {
 		setRating(number);

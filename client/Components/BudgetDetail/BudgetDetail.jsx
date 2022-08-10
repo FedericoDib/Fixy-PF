@@ -51,8 +51,6 @@ export default function BudgetDetail({ navigation, route }) {
     }, [])
   );
 
-  console.log(professional);
-
   return (
     <View style={style.mainContainer}>
       <TouchableHighlight

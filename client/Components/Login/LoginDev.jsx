@@ -34,7 +34,6 @@ const LoginDev = () => {
 			const storageValue = JSON.stringify(auth);
 
 			if (Platform.OS !== 'web') {
-				console.log('ESTOY SETEANDOOOOOOOO');
 				SecureStore.setItemAsync('key', storageValue);
 			}
 			const { authentication } = response;

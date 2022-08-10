@@ -32,8 +32,6 @@ export default function Resume({ navigation, route }) {
     (state) => state.generalReducer.budgetDetail
   );
 
-  console.log("resume", detail);
-
   const item = route.params.item;
   const [code, setCode] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
