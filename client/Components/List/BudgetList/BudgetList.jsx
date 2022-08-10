@@ -18,7 +18,10 @@ import { useSelector, useDispatch } from "react-redux";
 // 	orderByReview,
 // } from '../../Redux/Action/clientActions';
 import { useFocusEffect } from "@react-navigation/native";
-import { getAllBudgetsFromClient } from "../../../Redux/Action/clientActions";
+import {
+  cleanBudgets,
+  getAllBudgetsFromClient,
+} from "../../../Redux/Action/clientActions";
 import { getAllBudgetsFromProfessional } from "../../../Redux/Action/professionalActions";
 import BudgetCard from "./BudgetCard";
 
@@ -134,6 +137,8 @@ export default function BudgetList({ navigation, route }) {
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  console.log("BUDGETS", budgets);
+
   useFocusEffect(
     useCallback(() => {
       setIsRefreshing(false);
@@ -143,15 +148,18 @@ export default function BudgetList({ navigation, route }) {
         dispatch(getAllBudgetsFromProfessional(user.googleId));
       }
       setIsRefreshing(true);
+      // return () => {
+      //   dispatch(cleanBudgets());
+      // };
     }, [])
   );
 
-  console.log("BUDGET HDP", budgets);
+  console.log("BUDGET HfasdasdfDP", budgets);
 
   return (
     <View style={style.mainContainer}>
       <View style={{ flex: 6 }}>
-        {!budgets.length ? (
+        {budgets === undefined || !budgets.length ? (
           <Text>No se encontraron</Text>
         ) : (
           <FlatList

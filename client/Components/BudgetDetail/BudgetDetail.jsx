@@ -13,7 +13,10 @@ import IconCalendar from "react-native-vector-icons/EvilIcons";
 import IconPhone from "react-native-vector-icons/Feather";
 import style from "./BudgetDetailStyle";
 import PrimaryButton from "../General/PrimaryButton";
-import { rejectBudgetClient } from "../../Redux/Action/clientActions";
+import {
+  rejectBudgetClient,
+  cleanBudgets,
+} from "../../Redux/Action/clientActions";
 import { deleteBudget } from "../../Redux/Action/professionalActions";
 import { userDetail } from "../../Redux/Action/generalActions";
 import { useFocusEffect } from "@react-navigation/native";
@@ -55,7 +58,12 @@ export default function BudgetDetail({ navigation, route }) {
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="white"
-        onPress={() => navigation.navigate("ProfileDetail")}
+        onPress={() =>
+          navigation.navigate("ProfileDetail", {
+            averageReviews: averageRating,
+            button: "false",
+          })
+        }
       >
         <View style={style.cardContainer}>
           <View style={style.imageContainer}>
@@ -139,6 +147,7 @@ export default function BudgetDetail({ navigation, route }) {
                     budgetId: budgetDetail.id,
                   })
                 );
+
                 navigation.popToTop();
               }}
               title="Rechazar"

@@ -293,7 +293,7 @@ const HomeClient = ({ navigation }) => {
                   </View>
                 ) : (
                   <FlatList
-                    style={{ width: "100%" }}
+                    // style={{ width: "100%" }}
                     data={activeRequests}
                     extraData={isRefreshing}
                     renderItem={renderActiveCard}

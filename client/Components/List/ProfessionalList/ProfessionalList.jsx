@@ -39,15 +39,19 @@ export default function ProfessionalList({ navigation, route }) {
       let professional = professionals[i];
 
       let totalRating = 0;
-      if (professional.reviews.length > 1) {
-        for (let j = 1; j < professional.reviews.length; j++) {
+      if (professional.reviews.length > 0) {
+        for (let j = 0; j < professional.reviews.length; j++) {
           totalRating += professional.reviews[j].rating;
+          console.log(
+            "PROFESIONAL LIST HDP ANDA TOTITI",
+            professional.reviews[j].rating
+          );
         }
         professionals[i].averageReviews = (
           totalRating / professional.reviews.length
         ).toFixed(1);
       } else {
-        professionals[i].averageReviews = 1;
+        professionals[i].averageReviews = 3;
       }
     }
 
