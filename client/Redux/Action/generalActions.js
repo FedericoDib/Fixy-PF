@@ -24,6 +24,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { async } from "@firebase/util";
 
 const URL = "https://fixy-backend.herokuapp.com";
+
 //const URL = 'http://192.168.0.202:3000';
 
 /* -------------------------------------------------------------------------- */
