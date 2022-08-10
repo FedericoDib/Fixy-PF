@@ -63,32 +63,23 @@ const ProfessionalSignUp = () => {
 			if (address) {
 				setInput({
 					...input,
-					province: address.length === 3 ? address[1] : address[2],
-					city: address[1],
+					province: address.length === 3 ? splitProvince(address[1]) : address[2],
+					city: address.length === 3? splitProvince(address[1]) : /([0-9])/.test(address[1])? address[2] : address[1],
 					address: address[0],
 					latitude: location.latitude,
 					longitude: location.longitude,
 				});
-			}
-			console.log('datos a guardar : ', input);
+			}			
 		}, [place])
 	);
 
-	useFocusEffect(
-		useCallback(() => {
-			if (address) {
-				setInput({
-					...input,
-					province: address.length < 4 ? address[1] : address[2],
-					city: address[1],
-					address: address[0],
-					latitude: location.latitude,
-					longitude: location.longitude,
-				});
-			}
-			console.log('datos a guardar : ', input);
-		}, [place])
-	);
+
+
+	const splitProvince = (string) => {
+		const splittedArray = string.split(" ");
+		console.log(`SPLITTT`,splittedArray);
+		return splittedArray[2];
+	}
 
 	if (address && !place) setPlace(true);
 
@@ -263,9 +254,7 @@ const ProfessionalSignUp = () => {
 							placeholder='Provincia'
 							placeholderTextColor={'#f1f1f1'}
 							style={STYLES.input}
-							defaultValue={
-								address ? (address.length === 3 ? address[1] : address[2]) : ''
-							}
+							defaultValue={input.province && input.province}
 							onChangeText={(text) => setInput({ ...input, province: text })}
 						/>
 					</View>
@@ -280,7 +269,7 @@ const ProfessionalSignUp = () => {
 							placeholder='Ciudad'
 							placeholderTextColor={'#f1f1f1'}
 							style={STYLES.input}
-							defaultValue={address ? address[1] : ''}
+							defaultValue={input.city && input.city}
 							onChangeText={(text) => setInput({ ...input, city: text })}
 						/>
 					</View>

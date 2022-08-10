@@ -151,6 +151,16 @@ router.put('/budget', async (req, res) => {
 	try {
 		client.removeBudget(budget);
 
+		const budgets = await Client.findOne({
+			where: { googleId: clientId },
+			include: [
+				{
+					model: Budget,
+					as: 'budgets',
+				},
+			],
+		});
+
 		//NOTIFICACION AL PROFESIONAL DEL BUDGET RECHAZADO
 		const expoPushToken = professional.expoToken;
 
@@ -192,7 +202,7 @@ router.put('/budget', async (req, res) => {
 			professionalId: professional.googleId,
 		});
 
-		res.send('exito');
+		res.status(200).send(budgets);
 	} catch (error) {
 		res.status(400).send(error);
 	}

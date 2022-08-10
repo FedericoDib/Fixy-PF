@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 import {
-	CREATE_BUDGET,
-	CREATE_PROFESSIONAL,
-	CREATE_REVIEW_CLIENT,
-	GET_ALL_BUDGETS,
-	GET_ALL_BUDGETS_PROFESSIONAL,
-	GET_ALL_CLIENTS,
-	GET_BUDGET_DETAIL,
-	GET_REQUEST_DETAIL,
-	GET_DELETE_BUDGET,
-} from './actionTypes';
+  CREATE_BUDGET,
+  CREATE_PROFESSIONAL,
+  CREATE_REVIEW_CLIENT,
+  GET_ALL_BUDGETS,
+  GET_ALL_BUDGETS_PROFESSIONAL,
+  GET_ALL_CLIENTS,
+  GET_BUDGET_DETAIL,
+  GET_REQUEST_DETAIL,
+  GET_DELETE_BUDGET,
+} from "./actionTypes";
 
-//const URL = 'https://fixy-backend.herokuapp.com';
-const URL = 'http://192.168.0.202:3000';
+const URL = "https://fixy-backend.herokuapp.com";
+//const URL = 'http://192.168.0.202:3000';
 
 /* -------------------------------------------------------------------------- */
 /*                               GET CLIENT ID                             */
@@ -21,18 +21,18 @@ const URL = 'http://192.168.0.202:3000';
 // RECIBE:
 // DEVUELVE:
 export const getClientId = (id) => {
-	return async (dispatch) => {
-		try {
-			let response = await axios.get(`${URL}/client?id=${id}`);
+  return async (dispatch) => {
+    try {
+      let response = await axios.get(`${URL}/client?id=${id}`);
 
-			return dispatch({
-				type: GET_ALL_CLIENTS,
-				payload: response.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+      return dispatch({
+        type: GET_ALL_CLIENTS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 /* -------------------------------------------------------------------------- */
@@ -86,17 +86,17 @@ export const getClientId = (id) => {
 // }
 
 export const createProfessional = (payload) => {
-	return async (dispatch) => {
-		try {
-			let response = await axios.post(`${URL}/professional/create`, payload);
-			return dispatch({
-				type: CREATE_PROFESSIONAL,
-				payload: response.data,
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      let response = await axios.post(`${URL}/professional/create`, payload);
+      return dispatch({
+        type: CREATE_PROFESSIONAL,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 };
 
 /* -------------------------------------------------------------------------- */
@@ -105,17 +105,17 @@ export const createProfessional = (payload) => {
 //RECIBE:
 // DEVUELVE:
 export const createReviewClient = (payload) => {
-	return async (dispatch) => {
-		try {
-			const info = await axios.put(`${URL}/reviews/client`, payload);
-			return dispatch({
-				type: CREATE_REVIEW_CLIENT,
-				payload: info.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      const info = await axios.put(`${URL}/reviews/client`, payload);
+      return dispatch({
+        type: CREATE_REVIEW_CLIENT,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 /* -------------------------------------------------------------------------- */
@@ -124,17 +124,17 @@ export const createReviewClient = (payload) => {
 //RECIBE:
 //DEVUELVE:
 export const createBudget = (payload) => {
-	return async (dispatch) => {
-		try {
-			const info = await axios.post(`${URL}/budget`, payload);
-			return dispatch({
-				type: CREATE_BUDGET,
-				payload: info.data,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      const info = await axios.post(`${URL}/budget`, payload);
+      return dispatch({
+        type: CREATE_BUDGET,
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 /* -------------------------------------------------------------------------- */
@@ -143,17 +143,17 @@ export const createBudget = (payload) => {
 //RECIBE:
 //DEVUELVE:
 export const getAllBudgetsFromProfessional = (id) => {
-	return async (dispatch) => {
-		try {
-			let response = await axios.get(`${URL}/professional/budget?id=${id}`);
-			return dispatch({
-				type: GET_ALL_BUDGETS_PROFESSIONAL,
-				payload: response.data,
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      let response = await axios.get(`${URL}/professional/budget?id=${id}`);
+      return dispatch({
+        type: GET_ALL_BUDGETS_PROFESSIONAL,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 };
 
 //! REVISARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
@@ -163,15 +163,15 @@ export const getAllBudgetsFromProfessional = (id) => {
 //RECIBE:
 //DEVUELVE:
 export const deleteBudget = (id) => {
-	return async (dispatch) => {
-		try {
-			let response = await axios.delete(`${URL}/budget/${id}`);
-			return dispatch({
-				type: GET_DELETE_BUDGET,
-				payload: response.data,
-			});
-		} catch (e) {
-			console.log(e);
-		}
-	};
+  return async (dispatch) => {
+    try {
+      let response = await axios.delete(`${URL}/budget/${id}`);
+      return dispatch({
+        type: GET_DELETE_BUDGET,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 };
