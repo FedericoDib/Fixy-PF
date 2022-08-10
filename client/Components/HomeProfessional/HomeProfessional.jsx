@@ -80,6 +80,7 @@ const HomeProfessional = ({ navigation }) => {
   // console.log(user);
 
   const [visible, setVisible] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   console.log(visible);
 
@@ -96,12 +97,14 @@ const HomeProfessional = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
+      setIsRefreshing(false);
       if (requests.length > 0) {
         let aux = requests.filter((req) => {
           return req.status === "active";
         });
         setActiveRequests(aux);
       }
+      setIsRefreshing(true);
     }, [requests])
   );
 
@@ -338,7 +341,7 @@ const HomeProfessional = ({ navigation }) => {
                   </View>
                 ) : (
                   <FlatList
-                    style={{ width: "100%" }}
+                    // style={{ width: "100%" }}
                     data={activeRequests}
                     extraData={isRefreshing}
                     renderItem={renderActiveCard}

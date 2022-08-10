@@ -21,10 +21,11 @@ import {
   GET_DELETE_REQUEST,
   SET_REQUEST,
   REJECT_BUDGET_CLIENT,
+  CLEAN_BUDGETS,
 } from "./actionTypes";
 const URL = "https://fixy-backend.herokuapp.com";
 
-//const URL = 'http://192.168.0.202:3000';
+//const URL = "http://192.168.0.11:3001";
 
 /* -------------------------------------------------------------------------- */
 /*                            GET ALL PROFESSIONALS                           */
@@ -334,12 +335,23 @@ export const setStatusRequestToActive = (id) => {
   };
 };
 
-export const setRequest = (payload) => {
+export const setRequest = (payload) => (dispatch) => {
   try {
-    return {
+    return dispatch({
       type: SET_REQUEST,
       payload,
-    };
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const cleanBudgets = () => (dispatch) => {
+  try {
+    return dispatch({
+      type: CLEAN_BUDGETS,
+      payload: action.payload,
+    });
   } catch (error) {
     console.log(error);
   }

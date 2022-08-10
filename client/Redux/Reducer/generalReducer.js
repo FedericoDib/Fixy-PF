@@ -24,6 +24,7 @@ import {
   GET_ALL_NOTIF,
   SET_SEEN_NOTIF,
   REJECT_BUDGET_CLIENT,
+  CLEAN_BUDGETS,
 } from "../Action/actionTypes";
 
 const initialState = {
@@ -97,13 +98,13 @@ const generalReducer = (state = initialState, action) => {
     case GET_ALL_BUDGETS_PROFESSIONAL:
       return {
         ...state,
-        budgets: action.payload.budgets,
+        budgets: action.payload,
       };
 
     case GET_ALL_BUDGETS_CLIENT:
       return {
         ...state,
-        budgets: action.payload.budgets,
+        budgets: action.payload,
       };
 
     case GET_BUDGET_DETAIL:
@@ -162,6 +163,11 @@ const generalReducer = (state = initialState, action) => {
       return {
         ...state,
         budgets: action.payload,
+      };
+    case CLEAN_BUDGETS:
+      return {
+        ...state,
+        budgets: [],
       };
     default:
       return {

@@ -33,7 +33,7 @@ const UserDetail = ({ navigation, route }) => {
 
   const userDetail = useSelector((state) => state.generalReducer.userDetail);
 
-  const { averageReviews } = route.params;
+  const { averageReviews, button } = route.params;
 
   const handleSubmit = () => {
     dispatch(
@@ -208,7 +208,7 @@ const UserDetail = ({ navigation, route }) => {
         <View style={styles.flatListContainer}>
           <FlatList data={userDetail} renderItem={renderItem} />
         </View>
-        {user.googleId.includes("c") ? (
+        {button === "true" ? (
           <TouchableHighlight
             activeOpacity={0.9}
             underlayColor="white"

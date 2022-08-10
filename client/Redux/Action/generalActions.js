@@ -26,7 +26,7 @@ import { async } from "@firebase/util";
 
 const URL = "https://fixy-backend.herokuapp.com";
 
-//const URL = 'http://192.168.0.202:3000';
+//const URL = "http://192.168.0.11:3001";
 
 /* -------------------------------------------------------------------------- */
 /*                                GOOGLE LOGIN                                */

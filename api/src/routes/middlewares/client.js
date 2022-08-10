@@ -124,14 +124,15 @@ router.get("/budget", async (req, res) => {
       ],
       attributes: ["name"],
     });
+    console.log("BUDGETSSS", budgets);
     //console.log(budgets.__proto__);
     if (!budgets) {
-      res.status(400).send("no existe este cliente");
+      res.status(400).send([]);
     } else {
       if (budgets.budgets.length) {
-        res.status(202).send(budgets);
+        res.status(202).send(budgets.budgets);
       } else {
-        res.status(400).send("no tiene presuspuestos");
+        res.status(400).send([]);
       }
     }
   } catch (error) {

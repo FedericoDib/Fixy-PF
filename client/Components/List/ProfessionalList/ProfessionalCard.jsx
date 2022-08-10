@@ -32,12 +32,13 @@ export default function ProfessionalCard({ item, navigation, route }) {
   const dispatch = useDispatch();
   const request = useSelector((state) => state.clientReducer.request);
 
-  console.log(item);
+  // console.log(item);
   const onPress = () => {
     dispatch(userDetail(item.googleId, "professional"));
     setTimeout(() => {
       navigation.navigate("ProfileDetail", {
         averageReviews: item.averageReviews,
+        button: "true",
       });
     }, 1000);
   };
