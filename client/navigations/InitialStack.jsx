@@ -24,7 +24,6 @@ const InitialStack = () => {
         fetchUserInfoSigned(activeToken);
       }
     }
-    return () => console.log("desmontado");
   }, [activeToken]);
 
   //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
@@ -35,12 +34,10 @@ const InitialStack = () => {
 
   // BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
   function fetchUserInfoSigned(token) {
-    console.log(token);
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${token} ` },
     })
       .then((response) => response.json())
-      .then((json) => console.log("JSON", json))
       .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }
@@ -94,7 +91,6 @@ const InitialStack = () => {
     }
   };
 
-  console.log("INITIAL STACK DEJA DE JODER", user);
 
   // useEffect(() => {
   // 	if (Object.getOwnPropertyNames(user).length === 0) {

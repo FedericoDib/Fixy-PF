@@ -22,7 +22,6 @@ export default function ShowImage(props) {
         images.push({ source: { uri: props.route.params.image[i] } });
     }
 
-    console.log(images);
 
     return (
         <Gallery

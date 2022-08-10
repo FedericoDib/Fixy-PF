@@ -132,7 +132,6 @@ export default function RequestDetail({ navigation, route }) {
       </TouchableHighlight>
     );
   };
-  console.log("UUUUUSSSSSSSEEEEEERRRDDDDEEEETTT", requestDetail);
 
   return (
     <ScrollView style={style.mainContainer}>

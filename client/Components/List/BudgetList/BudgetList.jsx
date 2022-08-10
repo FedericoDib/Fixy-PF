@@ -137,7 +137,6 @@ export default function BudgetList({ navigation, route }) {
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  console.log("BUDGETS", budgets);
 
   useFocusEffect(
     useCallback(() => {
@@ -153,8 +152,6 @@ export default function BudgetList({ navigation, route }) {
       // };
     }, [])
   );
-
-  console.log("BUDGET HfasdasdfDP", budgets);
 
   return (
     <View style={style.mainContainer}>

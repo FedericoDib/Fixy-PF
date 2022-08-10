@@ -77,12 +77,10 @@ const HomeProfessional = ({ navigation }) => {
   const notifications = useSelector(
     (state) => state.generalReducer.notifications
   );
-  // console.log(user);
 
   const [visible, setVisible] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  console.log(visible);
 
   useFocusEffect(
     useCallback(() => {
@@ -93,7 +91,6 @@ const HomeProfessional = ({ navigation }) => {
 
   const notSeenNotif = notifications.filter((n) => n.status === "not_seen");
 
-  console.log("NOTIFICACIONES", notifications);
 
   useFocusEffect(
     useCallback(() => {
