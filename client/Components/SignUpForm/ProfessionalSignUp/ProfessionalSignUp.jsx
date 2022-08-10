@@ -77,7 +77,6 @@ const ProfessionalSignUp = () => {
 
 	const splitProvince = (string) => {
 		const splittedArray = string.split(" ");
-		console.log(`SPLITTT`,splittedArray);
 		return splittedArray[2];
 	}
 

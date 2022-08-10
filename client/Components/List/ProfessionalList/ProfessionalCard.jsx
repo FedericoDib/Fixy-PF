@@ -32,7 +32,6 @@ export default function ProfessionalCard({ item, navigation, route }) {
   const dispatch = useDispatch();
   const request = useSelector((state) => state.clientReducer.request);
 
-  // console.log(item);
   const onPress = () => {
     dispatch(userDetail(item.googleId, "professional"));
     setTimeout(() => {
@@ -59,8 +58,7 @@ export default function ProfessionalCard({ item, navigation, route }) {
       </View>
     );
   };
-  // console.log("itemmmmmmmmmmmmmmm",item);
-  // console.log("requestttttttttttttttttttttt", request);
+  
   return (
     // <View style={styles.background}>
     <GestureHandlerRootView>

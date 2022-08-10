@@ -19,8 +19,6 @@ const BudgetCard = ({ item, navigation }) => {
         }, [])
     );
 
-    console.log("item", item);
-    console.log("userDetailllllllllllllllllllllll", detail);
 
     return (
         <TouchableOpacity

@@ -6,7 +6,6 @@ import ReviewCard from "./ReviewCard";
 const ProfileReviews = () => {
   const reviews = useSelector((state) => state.generalReducer.user.reviews);
 
-  console.log("reviews", reviews);
   const renderItem = ({ item }) => (
     <ReviewCard
       id={item.id}
