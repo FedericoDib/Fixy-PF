@@ -72,22 +72,6 @@ const ClientSignUp = () => {
 		}, [place])
 	);
 
-	useFocusEffect(
-		useCallback(() => {
-			if (address) {
-				setInput({
-					...input,
-					province: address.length < 4 ? address[1] : address[2],
-					city: address[1],
-					address: address[0],
-					latitude: location.latitude,
-					longitude: location.longitude,
-				});
-			}
-			console.log('datos a guardar : ', input);
-		}, [place])
-	);
-
 	if (address && !place) setPlace(true);
 
 	async function registerForPushNotificationsAsync() {

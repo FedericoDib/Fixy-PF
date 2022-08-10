@@ -23,6 +23,7 @@ const theme = {
 			secondary: '#F2C677',
 			secondaryDark: '#A68241',
 			light: '#D6D4D8',
+			dark: '#1F2D38',
 		},
 	},
 	shadows: {
@@ -33,6 +34,16 @@ const theme = {
 				height: 7,
 			},
 			shadowOpacity: 0.41,
+			shadowRadius: 9.11,
+			elevation: 14,
+		},
+		superDark: {
+			shadowColor: '#74858c',
+			shadowOffset: {
+				width: 0,
+				height: 7,
+			},
+			shadowOpacity: 1,
 			shadowRadius: 9.11,
 			elevation: 14,
 		},
