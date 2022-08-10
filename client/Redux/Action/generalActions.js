@@ -18,6 +18,7 @@ import {
   SAVE_REQUESTPIC,
   REQUEST_PICK_OFF,
   GET_CONTROLLER_PIC,
+  REJECT_BUDGET_CLIENT,
 } from "./actionTypes";
 import storage from "../../Firebase/Firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";

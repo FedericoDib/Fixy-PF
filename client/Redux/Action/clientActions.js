@@ -20,6 +20,7 @@ import {
   SEARCH_NAME_PROFESSIONAL,
   GET_DELETE_REQUEST,
   SET_REQUEST,
+  REJECT_BUDGET_CLIENT,
 } from "./actionTypes";
 const URL = "https://fixy-backend.herokuapp.com";
 
@@ -308,6 +309,10 @@ export const rejectBudgetClient = (payload) => {
   return async (dispatch) => {
     try {
       let response = await axios.put(`${URL}/client/budget`, payload);
+      return dispatch({
+        type: REJECT_BUDGET_CLIENT,
+        payload: response.data,
+      });
     } catch (error) {
       console.log(error);
     }

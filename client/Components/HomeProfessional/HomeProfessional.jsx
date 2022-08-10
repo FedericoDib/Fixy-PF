@@ -17,6 +17,7 @@ import Icon from "@expo/vector-icons/MaterialIcons";
 import Icon2 from "@expo/vector-icons/FontAwesome5";
 import { styles } from "./HomeProfessionalStyles";
 import PrimaryButton from "../General/PrimaryButton";
+import { AntDesign } from "@expo/vector-icons";
 import {
   getAllRequest,
   getUserReview,
@@ -263,7 +264,7 @@ const HomeProfessional = ({ navigation }) => {
                     top: 0,
                     right: 0,
                     borderRadius: 100,
-                    display: notSeenNotif.length ? "inline-block" : "none",
+                    // display: notSeenNotif.length ? "inline" : "none",
                   }}
                 ></View>
                 <Icon
