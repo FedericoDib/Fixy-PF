@@ -202,7 +202,7 @@ router.put("/budget", async (req, res) => {
       professionalId: professional.googleId,
     });
 
-    res.status(200).send(budgets);
+    res.status(200).send(budgets.budgets);
   } catch (error) {
     res.status(400).send(error);
   }
