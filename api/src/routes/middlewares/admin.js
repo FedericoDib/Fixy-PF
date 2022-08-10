@@ -3,14 +3,12 @@ const { Client, Professional, Admin, Op } = require("../../db");
 const bcrypt = require("bcrypt");
 const router = Router();
 
-const {cadenaAleatoria} = require("../helpers/generateToken");
+const { cadenaAleatoria } = require("../helpers/generateToken");
 
 //Middleware que chequea si el token enviado efectivamente corresponde a un usuario
-const {isAuth} = require("../helpers/checkToken");
-
+const { isAuth } = require("../helpers/checkToken");
 
 //---------------------- Rutas Admin -------------------------//
-
 
 router.post("/create", async (req, res) => {
   const { name, email, password } = req.body;
@@ -27,19 +25,19 @@ router.post("/create", async (req, res) => {
 
 //Intenta auntenticar con el token guardado en LocalStorage del front
 
-router.get("/loggedWithToken", async (req,res) => {
-  const {token} = req.query;
-  try{
-    const user = await Admin.findOne({where:{accessToken:token}});
+router.get("/loggedWithToken", async (req, res) => {
+  const { token } = req.query;
+  try {
+    const user = await Admin.findOne({ where: { accessToken: token } });
     if (user) {
       return res.status(200).send(user);
     } else {
       return res.status(400).send(false);
     }
-  }catch(e){
+  } catch (e) {
     return res.status(400).send(e);
   }
-})
+});
 
 //Autentica User-Password y genera un token que se guarda en la DB
 
@@ -51,7 +49,10 @@ router.post("/login", async (req, res) => {
     });
     if (admin) {
       const token = cadenaAleatoria(4);
-      const userWithToken = await Admin.update({accessToken:token},{where:{email,password}});
+      const userWithToken = await Admin.update(
+        { accessToken: token },
+        { where: { email, password } }
+      );
       const user = await Admin.findOne({
         where: { email, password },
       });
@@ -65,11 +66,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-router.put("/message", isAuth, async (req, res) => {
+router.put("/message", async (req, res) => {
   const { idUser, idReview, message, asunto } = req.body;
 
-  const admin = await Admin.findByPk(1);
+  const admin = await Admin.findByPk(11);
 
   try {
     if (idReview) {
@@ -89,20 +89,16 @@ router.put("/message", isAuth, async (req, res) => {
   }
 });
 
-router.get("/clients",isAuth, async (req, res) => {
-  
-    try{
-      
-      const clients = await Client.findAll();
-      return res.status(200).send(clients);
-    
-    }catch(e){
-        
-      return res.status(400).send(e);
-    }
+router.get("/clients", async (req, res) => {
+  try {
+    const clients = await Client.findAll();
+    return res.status(200).send(clients);
+  } catch (e) {
+    return res.status(400).send(e);
+  }
 });
 
-router.get("/professionals", isAuth, async (req, res) => {
+router.get("/professionals", async (req, res) => {
   try {
     const professionals = await Professional.findAll();
     res.status(200).send(professionals);
@@ -111,7 +107,7 @@ router.get("/professionals", isAuth, async (req, res) => {
   }
 });
 
-router.get("/:id", isAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -129,7 +125,7 @@ router.get("/:id", isAuth, async (req, res) => {
   }
 });
 
-router.put("/:id", isAuth, async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
 
   const client = await Client.findByPk(id);
@@ -157,7 +153,7 @@ router.put("/:id", isAuth, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", isAuth, async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -175,7 +171,7 @@ router.delete("/delete/:id", isAuth, async (req, res) => {
   }
 });
 
-router.put("/delete/review", isAuth, async (req, res) => {
+router.put("/delete/review", async (req, res) => {
   const { id, idProfessional, idClient } = req.body;
 
   try {
