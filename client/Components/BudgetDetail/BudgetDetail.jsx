@@ -50,6 +50,8 @@ export default function BudgetDetail({ navigation, route }) {
         }, [])
     );
 
+    console.log(professional);
+
     return (
         <View style={style.mainContainer}>
             <TouchableHighlight
@@ -61,7 +63,12 @@ export default function BudgetDetail({ navigation, route }) {
                     <View style={style.imageContainer}>
                         {/* <Icon name="user" color="black" size={40} /> */}
                         <Image
-                            source={{ uri: professional.image, width: 65, height: 65 }}
+                            style={{ borderRadius: 100 }}
+                            source={{
+                                uri: professional.perfilPic,
+                                width: 65,
+                                height: 65,
+                            }}
                         />
                     </View>
                     <View style={style.textCardContainer}>

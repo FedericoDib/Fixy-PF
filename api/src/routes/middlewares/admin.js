@@ -107,6 +107,35 @@ router.get("/professionals", async (req, res) => {
   }
 });
 
+router.get("/report", async (req, res) => {
+  const { idUser, idReview } = req.query;
+
+  try {
+    //return res.send("hola");
+    const profesional = await Professional.findByPk(idUser);
+    const client = await Client.findByPk(idUser);
+    if (profesional.reviews.find((r) => r.id === idReview)) {
+      const review = profesional.reviews.find((r) => r.id === idReview);
+
+      res.status(200).send(review);
+    } else {
+      const review = client.reviews.find((r) => r.id === idReview);
+
+      res.status(200).send(review);
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+router.get("/reports", async (req, res) => {
+  try {
+    const admin = await Admin.findByPk(11);
+    res.status(200).send(admin.message);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
