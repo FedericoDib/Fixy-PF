@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import theme from "../../theme/theme";
 
 const ActiveRequestCard = ({ request, navigation }) => {
-  console.log("requesttttt", request);
+  console.log("requesttttt dios", request);
   return (
     <TouchableHighlight
       onPress={() => navigation.navigate("Resume", { item: request })}
@@ -28,7 +28,7 @@ const ActiveRequestCard = ({ request, navigation }) => {
         </View>
         <View>
           <Text style={styles.affair}>{request.affair}</Text>
-          <Text style={styles.turn}>HORA</Text>
+          <Text style={styles.turn}>{request.budget[0].turn}</Text>
           <Text style={styles.date}>{request.date}</Text>
         </View>
         <View>
