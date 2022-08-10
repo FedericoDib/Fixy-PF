@@ -1,21 +1,34 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import theme from '../../theme/theme';
+
+const { height, width } = Dimensions.get('screen');
 
 const style = StyleSheet.create({
 	mainContainer: {
-		flex: 1,
-		marginTop: '10%',
-		marginHorizontal: '5%',
+		width,
+		height,
+		backgroundColor: theme.colors.threePalet.primary,
+		padding: 20,
+	},
+	subContainer: {
+		backgroundColor: 'cyan',
+		height: '100%',
+		backgroundColor: theme.colors.firstPalet.light,
+		padding: 20,
+		borderRadius: 14,
+		justifyContent: 'space-between',
 	},
 	textContainer: {
 		marginVertical: '0.5%',
 	},
 	centerField: {
-		backgroundColor: '#9BBBFC',
+		backgroundColor: '#F9CE67',
 		padding: '2%',
 		borderRadius: 10,
 		alignItems: 'baseline',
 		justifyContent: 'flex-start',
 		marginTop: '2%',
+		height: '60%',
 	},
 	button: {
 		backgroundColor: '#F9CE67',
@@ -26,33 +39,35 @@ const style = StyleSheet.create({
 		padding: '2.5%',
 		borderRadius: 10,
 		alignItems: 'center',
+		fontSize: 18,
 	},
 	cardContainer: {
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
-		borderWidth: 1,
+		alignItems: 'center',
 		borderRadius: 10,
 		overflow: 'hidden',
 		marginVertical: '2%',
-		backgroundColor: '#FFFFFF',
+		padding: 10,
 	},
 	textName: {
 		fontSize: 15,
+		fontWeight: 'bold',
 	},
 	textProfession: {
 		fontSize: 15,
-		fontWeight: 'bold',
 	},
 	imageContainer: {
 		display: 'flex',
-		flex: 1,
+
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
 	textCardContainer: {
 		display: 'flex',
-		flex: 4,
+		width: '40%',
+		marginHorizontal: 25,
 	},
 	nameAndReviewContainer: {
 		flexDirection: 'row',
@@ -64,15 +79,19 @@ const style = StyleSheet.create({
 		backgroundColor: '#FFF5E7',
 		padding: '2%',
 		borderRadius: 10,
-		paddingHorizontal: '5%',
+		paddingHorizontal: '1%',
 		justifyContent: 'space-around',
-		width: '30%',
+		width: '12%',
 	},
 	starOff: {
 		color: '#C1C0C0',
 	},
 	starOn: {
 		color: '#E1C85A',
+	},
+	inputLabel: {
+		fontSize: 15,
+		marginVertical: 10,
 	},
 });
 

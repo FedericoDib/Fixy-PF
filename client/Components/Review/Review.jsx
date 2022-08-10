@@ -20,6 +20,7 @@ import {
 } from '../../Redux/Action/clientActions';
 import { createReviewClient } from '../../Redux/Action/professionalActions';
 import { deleteReviewPending } from '../../Redux/Action/generalActions';
+import theme from '../../theme/theme';
 
 const professionals = {
 	googleId: '3',
@@ -181,119 +182,127 @@ export default function Review({ navigation }) {
 	}
 
 	return (
-		<ScrollView style={style.mainContainer}>
-			<TouchableHighlight
-				activeOpacity={0.9}
-				underlayColor='white'
-				onPress={() =>
-					navigation.navigate('ProfileDetail', {
-						averageReviews: item.averageReviews,
-					})
-				}
-			>
-				<View style={style.cardContainer}>
-					<View style={style.imageContainer}>
-						<Icon name='user' color='black' size={40} />
-						{/* <Image
-        source={item.image}
-    /> */}
-					</View>
-					<View style={style.textCardContainer}>
-						<View style={style.nameAndReviewContainer}>
-							<Text style={style.textName}>{otherUser.name}</Text>
+		<View style={style.mainContainer}>
+			<View style={style.subContainer}>
+				<View>
+					<TouchableHighlight
+						activeOpacity={0.9}
+						underlayColor='white'
+						onPress={() =>
+							navigation.navigate('ProfileDetail', {
+								averageReviews: item.averageReviews,
+							})
+						}
+					>
+						<View style={[style.cardContainer, { ...theme.shadows.dark }]}>
+							<View style={style.imageContainer}>
+								<Image
+									style={{ borderRadius: 100 }}
+									source={{
+										uri: otherUser.perfilPic,
+										width: 65,
+										height: 65,
+									}}
+								/>
+							</View>
+							<View style={style.textCardContainer}>
+								<Text style={style.textName}>{otherUser.name}</Text>
+								<Text style={style.textProfession}>{otherUser.address}</Text>
+							</View>
+
 							<View style={style.reviewContainer}>
 								<IconStart name='star' color='#E1C85A' size={19} />
 								<Text style={style.textName}>{averageRating}</Text>
 							</View>
 						</View>
-						<Text style={style.textProfession}>{otherUser.address}</Text>
+					</TouchableHighlight>
+					<View style={style.textContainer}>
+						<Text style={style.inputLabel}>Cantidad de estrellas</Text>
+					</View>
+					<View style={{ flexDirection: 'row' }}>
+						<TouchableHighlight
+							activeOpacity={0.4}
+							underlayColor='#FFF5E7'
+							onPress={() => selectStars(1)}
+						>
+							<IconStart
+								style={stars.one ? style.starOn : style.starOff}
+								name='star'
+								size={25}
+							/>
+						</TouchableHighlight>
+						<TouchableHighlight
+							activeOpacity={0.4}
+							underlayColor='#FFF5E7'
+							onPress={() => selectStars(2)}
+						>
+							<IconStart
+								style={stars.two ? style.starOn : style.starOff}
+								name='star'
+								size={25}
+							/>
+						</TouchableHighlight>
+						<TouchableHighlight
+							activeOpacity={0.4}
+							underlayColor='#FFF5E7'
+							onPress={() => selectStars(3)}
+						>
+							<IconStart
+								style={stars.three ? style.starOn : style.starOff}
+								name='star'
+								size={25}
+							/>
+						</TouchableHighlight>
+						<TouchableHighlight
+							activeOpacity={0.4}
+							underlayColor='#FFF5E7'
+							onPress={() => selectStars(4)}
+						>
+							<IconStart
+								style={stars.four ? style.starOn : style.starOff}
+								name='star'
+								size={25}
+							/>
+						</TouchableHighlight>
+						<TouchableHighlight
+							activeOpacity={0.4}
+							underlayColor='#FFF5E7'
+							onPress={() => selectStars(5)}
+						>
+							<IconStart
+								style={stars.five ? style.starOn : style.starOff}
+								name='star'
+								size={25}
+							/>
+						</TouchableHighlight>
+					</View>
+					<View style={style.textContainer}>
+						<Text style={style.inputLabel}>Comentario</Text>
+						<View style={style.centerField}>
+							<TextInput
+								style={{ fontSize: 20 }}
+								onChangeText={(text) => setComment(text)}
+								placeholder='Escriba su comentario'
+								multiline
+								textAlignVertical='top'
+								numberOfLines={5}
+							></TextInput>
+						</View>
 					</View>
 				</View>
-			</TouchableHighlight>
-			<View style={style.textContainer}>
-				<Text>Cantidad de estrellas</Text>
-			</View>
-			<View style={{ flexDirection: 'row' }}>
 				<TouchableHighlight
-					activeOpacity={0.4}
-					underlayColor='#FFF5E7'
-					onPress={() => selectStars(1)}
+					style={style.button}
+					activeOpacity={0.6}
+					underlayColor='#F9CE67'
+					onPress={() => {
+						sendReview();
+					}}
 				>
-					<IconStart
-						style={stars.one ? style.starOn : style.starOff}
-						name='star'
-						size={19}
-					/>
-				</TouchableHighlight>
-				<TouchableHighlight
-					activeOpacity={0.4}
-					underlayColor='#FFF5E7'
-					onPress={() => selectStars(2)}
-				>
-					<IconStart
-						style={stars.two ? style.starOn : style.starOff}
-						name='star'
-						size={19}
-					/>
-				</TouchableHighlight>
-				<TouchableHighlight
-					activeOpacity={0.4}
-					underlayColor='#FFF5E7'
-					onPress={() => selectStars(3)}
-				>
-					<IconStart
-						style={stars.three ? style.starOn : style.starOff}
-						name='star'
-						size={19}
-					/>
-				</TouchableHighlight>
-				<TouchableHighlight
-					activeOpacity={0.4}
-					underlayColor='#FFF5E7'
-					onPress={() => selectStars(4)}
-				>
-					<IconStart
-						style={stars.four ? style.starOn : style.starOff}
-						name='star'
-						size={19}
-					/>
-				</TouchableHighlight>
-				<TouchableHighlight
-					activeOpacity={0.4}
-					underlayColor='#FFF5E7'
-					onPress={() => selectStars(5)}
-				>
-					<IconStart
-						style={stars.five ? style.starOn : style.starOff}
-						name='star'
-						size={19}
-					/>
+					<View style={style.textButton}>
+						<Text style={{ fontSize: 16 }}>Enviar review</Text>
+					</View>
 				</TouchableHighlight>
 			</View>
-			<View style={style.textContainer}>
-				<Text>Comentario</Text>
-				<View style={style.centerField}>
-					<TextInput
-						onChangeText={(text) => setComment(text)}
-						placeholder='Escriba su comentario'
-						multiline
-						textAlignVertical='top'
-						numberOfLines={5}
-					></TextInput>
-				</View>
-			</View>
-			<TouchableHighlight
-				style={style.button}
-				activeOpacity={0.6}
-				underlayColor='#F9CE67'
-				onPress={() => {
-					sendReview();
-				}}
-			>
-				<View style={style.textButton}>
-					<Text>Enviar review</Text>
-				</View>
-			</TouchableHighlight>
-		</ScrollView>
+		</View>
 	);
 }
