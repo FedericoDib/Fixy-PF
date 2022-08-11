@@ -8,6 +8,8 @@ import {
   TouchableHighlight,
   Alert,
   ScrollView,
+  Pressable,
+  ViewBase,
 } from "react-native";
 import IconCalendar from "react-native-vector-icons/EvilIcons";
 import IconPhone from "react-native-vector-icons/Feather";
@@ -20,8 +22,12 @@ import {
 import { deleteBudget } from "../../Redux/Action/professionalActions";
 import { userDetail } from "../../Redux/Action/generalActions";
 import { useFocusEffect } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/Entypo";
-import IconStart from "react-native-vector-icons/Foundation";
+import Icon from "react-native-vector-icons/Feather";
+import { Ionicons } from "@expo/vector-icons";
+import theme from "../../theme/theme";
+
+import Icon2 from "react-native-vector-icons/SimpleLineIcons";
+import Card from "../List/ClientCard";
 
 let averageRating;
 export default function BudgetDetail({ navigation, route }) {
@@ -32,7 +38,6 @@ export default function BudgetDetail({ navigation, route }) {
     (state) => state.generalReducer.budgetDetail
   );
   const professional = useSelector((state) => state.generalReducer.userDetail);
-
   if (professional.reviews && professional.reviews.length) {
     averageRating = professional.reviews.map((e) => e.rating);
     averageRating = (
@@ -41,8 +46,10 @@ export default function BudgetDetail({ navigation, route }) {
       ) / averageRating.length
     ).toFixed(1);
   } else {
-    averageRating = 1;
+    averageRating = 3;
   }
+
+  professional.averageReviews = averageRating;
 
   useFocusEffect(
     useCallback(() => {
@@ -52,108 +59,89 @@ export default function BudgetDetail({ navigation, route }) {
   );
 
   return (
-    <View style={style.mainContainer}>
-      <TouchableHighlight
-        activeOpacity={0.9}
-        underlayColor="white"
-        onPress={() =>
-          navigation.navigate("ProfileDetail", {
-            averageReviews: averageRating,
-            button: "false",
-          })
-        }
-      >
-        <View style={style.cardContainer}>
-          <View style={style.imageContainer}>
-            {/* <Icon name="user" color="black" size={40} /> */}
-            <Image
-              style={{ borderRadius: 100 }}
-              source={{
-                uri: professional.perfilPic,
-                width: 65,
-                height: 65,
-              }}
-            />
-          </View>
-          <View style={style.textCardContainer}>
-            <View style={style.nameAndReviewContainer}>
-              <Text style={style.textName}>{professional.name}</Text>
-              <View style={style.reviewContainer}>
-                <IconStart name="star" color="#E1C85A" size={19} />
-                <Text style={style.textName}>
-                  {averageRating && averageRating}
-                </Text>
+			<View style={style.mainContainer}>
+            <View style={style.container}>
+              <View style={style.titleContainer}>
+              <Pressable
+                onPress={() => navigation.goBack()}
+                style={{ paddingVertical: 5, marginBottom: 10}}
+                >
+                <Ionicons
+                  name="arrow-back"
+                  size={24}
+                  color={theme.colors.threePalet.primary}
+                />
+              </Pressable>
+              <Text style={style.mainTitle}>DETALLE DE PRESUPUESTO</Text>
+            </View>
+              <Card item={professional} navigation={navigation}></Card>
+              <View style={{marginTop: 10}}>
+                <Text style={style.label}>Precio de la visita</Text>
+              </View>
+              <View style={style.centerField}>
+                <Text style={style.desc}>$ {budgetDetail.price}</Text>
+              </View>
+              <View style={style.textContainer}>
+                <Text style={style.label}>Comentarios</Text>
+                <View style={style.centerField}>
+                  <Text style={style.desc}>{budgetDetail.description}</Text>
+                </View>
+              </View>
+              <View>
+                <Text style={style.label}>Presupuesto Aproximado</Text>
+              </View>
+              <View style={style.centerField}>
+                <Text style={style.desc}>{budgetDetail.estimatedBudget}</Text>
+              </View>
+              <View>
+                <Text style={style.label}>Horario:</Text>
+              </View>
+              <View style={style.centerField}>
+                <Text style={style.desc}>{budgetDetail.turn}</Text>
+              </View>
+            
+            <View style={style.buttonContainer}>
+              <View>
+                {buttons === "false" && (
+                  <TouchableHighlight
+                    onPress={() => {
+                      dispatch(deleteBudget(budgetDetail.id));
+                      navigation.goBack();
+                    }}
+                  ><><Text style={style.text}>Rechazar</Text><Icon2 style={{color: "#fff", fontSize: 18}} name="close" /></></TouchableHighlight>
+                )}
+              </View>
+              <View>
+                {buttons === "true" && (
+                  <TouchableHighlight
+                    style={style.button}
+                    onPress={() =>
+                      navigation.navigate("Paypal", {
+                        price: budgetDetail.price,
+                      })
+                    }
+                  ><><Text style={style.text}>Aceptar</Text><Icon style={{color: "#fff", fontSize: 18}} name="check-circle" /></></TouchableHighlight>
+                )}
+              </View>
+              <View>
+                {buttons === "true" && (
+                  <TouchableHighlight
+                    style={style.button}
+                    onPress={() => {
+                      dispatch(
+                        rejectBudgetClient({
+                          clientId: user.googleId,
+                          budgetId: budgetDetail.id,
+                        })
+                      );
+
+                      navigation.popToTop();
+                    }}
+                  ><><Text style={style.text}>Rechazar</Text><Icon2 style={{color: "#fff", fontSize: 18}} name="close" /></></TouchableHighlight>
+                )}
               </View>
             </View>
-            <Text style={style.textProfession}>{professional.address}</Text>
           </View>
-        </View>
-      </TouchableHighlight>
-      <View style={style.restContainer}>
-        <View style={style.textContainer}>
-          <Text>Presupuesto Aproximado</Text>
-        </View>
-        <View style={style.endField}>
-          <Text>{budgetDetail.estimatedBudget}</Text>
-        </View>
-        <View style={style.textContainer}>
-          <Text>Comentarios</Text>
-          <View style={style.centerField}>
-            <Text>{budgetDetail.description}</Text>
-          </View>
-        </View>
-        <View style={style.textContainer}>
-          <Text>Precio de la visita</Text>
-        </View>
-        <View style={style.endField}>
-          <Text>$ {budgetDetail.price}</Text>
-        </View>
-      </View>
-      <View style={style.buttonContainer}>
-        <View style={{ flex: 1 }}>
-          {buttons === "false" && (
-            <PrimaryButton
-              onPress={() => {
-                dispatch(deleteBudget(budgetDetail.id));
-                navigation.goBack();
-              }}
-              title="Eliminar presupuesto"
-              trailing={(props) => <Icon2 name="house-damage" {...props} />}
-            />
-          )}
-        </View>
-        <View style={{ flex: 1 }}>
-          {buttons === "true" && (
-            <PrimaryButton
-              onPress={() =>
-                navigation.navigate("Paypal", {
-                  price: budgetDetail.price,
-                })
-              }
-              title="Aceptar"
-              trailing={(props) => <Icon2 name="house-damage" {...props} />}
-            />
-          )}
-        </View>
-        <View style={{ flex: 1 }}>
-          {buttons === "true" && (
-            <PrimaryButton
-              onPress={() => {
-                dispatch(
-                  rejectBudgetClient({
-                    clientId: user.googleId,
-                    budgetId: budgetDetail.id,
-                  })
-                );
-
-                navigation.popToTop();
-              }}
-              title="Rechazar"
-              trailing={(props) => <Icon2 name="house-damage" {...props} />}
-            />
-          )}
-        </View>
-      </View>
     </View>
   );
 }
