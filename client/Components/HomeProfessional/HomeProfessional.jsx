@@ -29,6 +29,7 @@ import ActiveRequestCard from "../General/ActiveRequestCard";
 import ModalPoup from "../General/Modal";
 import { FontAwesome5 } from "@expo/vector-icons";
 import theme from "../../theme/theme";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // const ModalPoup = ({ visible, children }) => {
 //   const [showModal, setShowModal] = React.useState(visible);
@@ -77,18 +78,31 @@ const HomeProfessional = ({ navigation }) => {
   const notifications = useSelector(
     (state) => state.generalReducer.notifications
   );
+  const [notSeenNotif,setNotSeenNotif] = useState([]);
+  
 
   const [visible, setVisible] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  console.log(visible);
+
   useFocusEffect(
     useCallback(() => {
       dispatch(getAllRequest("professional", user.googleId));
-      dispatch(getAllNotif(user.googleId));
+      dispatch(getAllNotif("professional",user.googleId));
     }, [])
   );
 
-  const notSeenNotif = notifications.filter((n) => n.status === "not_seen");
+  //Setea en estado local las notificaciones no vistas por el cliente
+  useFocusEffect(
+    useCallback(() => {
+    if (Array.isArray(notifications)) 
+    {const notSeen = notifications.filter((n) => n.status === "not_seen" && n.user === "professional")
+      setNotSeenNotif(notSeen);
+  }
+  },[notifications])
+  );
+  
 
   useFocusEffect(
     useCallback(() => {
@@ -129,8 +143,6 @@ const HomeProfessional = ({ navigation }) => {
             justifyContent: "space-around",
             alignItems: "center",
             width: "100%",
-            height: 150,
-            padding: 20,
           }}
         >
           <View
@@ -171,7 +183,7 @@ const HomeProfessional = ({ navigation }) => {
               <Text
                 style={{ fontSize: 16, color: "#f1f1f1", fontWeight: "400" }}
               >
-                A quien ayudarás hoy?
+                Cómo podemos ayudarte?
               </Text>
             </View>
           </View>
@@ -193,7 +205,7 @@ const HomeProfessional = ({ navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       setVisible(false);
-                      dispatch(setSeenNotif(user.googleId));
+                      dispatch(setSeenNotif("professional",user.googleId));
                     }}
                   >
                     <View
@@ -274,6 +286,39 @@ const HomeProfessional = ({ navigation }) => {
                   }}
                   name="notifications"
                 />
+                <View>
+                 { notSeenNotif.length !== 0? 
+                  <View
+                  style={{
+                    position:"absolute",
+                    bottom:17,
+                    right:7,
+                    borderRadius:90,
+                    backgroundColor:"white",
+                    height:10,
+                    width:10,
+                    
+                  }}
+                  >
+                  </View>
+                  : <View></View>
+                } 
+                  <MaterialCommunityIcons 
+                  name={notSeenNotif && notSeenNotif.length !== 0 ? `numeric-${notSeenNotif.length}-circle` : ""} 
+                  size={20} 
+                  color="red"
+                  
+                  style={{
+                    position:"absolute",
+                    bottom:13,
+                    right:1,
+                    
+                    height:20,
+                    width:20,
+                    
+                  }}
+                  />
+                </View>
               </View>
             </TouchableHighlight>
           </Box>
@@ -385,37 +430,14 @@ const HomeProfessional = ({ navigation }) => {
             </View>
           ) : (
             <View style={styles.pendingReviews}>
-              <FontAwesome5
-                name="house-damage"
-                size={100}
-                color={theme.colors.threePalet.secondary}
-              />
-              <Text
-                style={{
-                  marginVertical: 30,
-                  fontSize: 22,
-                  fonteWeight: "800",
-                  color: "#fff",
-                }}
-              >
-                FALTAN RESPONDER RESEÑAS
-              </Text>
+              <FontAwesome5 name="house-damage" size={100} color="#f1f1f1" />
+              <Text>FALTAN RESPONDER RESEÑAS</Text>
               <TouchableHighlight
                 onPress={() => {
                   handlePress();
                 }}
               >
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: "bold",
-                    color: theme.colors.threePalet.dark,
-                    backgroundColor: theme.colors.threePalet.secondary,
-                    borderRadius: 24,
-                    paddingHorizontal: 20,
-                    paddingVertical: 10,
-                  }}
-                >
+                <Text style={{ fontSize: 40, fontWeight: "bold" }}>
                   RESPONDER
                 </Text>
               </TouchableHighlight>
