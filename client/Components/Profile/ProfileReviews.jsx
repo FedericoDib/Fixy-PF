@@ -16,7 +16,7 @@ const ProfileReviews = () => {
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ height: "100%" }}>
       <FlatList data={reviews} renderItem={renderItem} />
       {/* <FlatList
         data={reviews}

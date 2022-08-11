@@ -81,7 +81,6 @@ const HomeProfessional = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-
   useFocusEffect(
     useCallback(() => {
       dispatch(getAllRequest("professional", user.googleId));
@@ -90,7 +89,6 @@ const HomeProfessional = ({ navigation }) => {
   );
 
   const notSeenNotif = notifications.filter((n) => n.status === "not_seen");
-
 
   useFocusEffect(
     useCallback(() => {
@@ -131,6 +129,8 @@ const HomeProfessional = ({ navigation }) => {
             justifyContent: "space-around",
             alignItems: "center",
             width: "100%",
+            height: 150,
+            padding: 20,
           }}
         >
           <View
@@ -171,7 +171,7 @@ const HomeProfessional = ({ navigation }) => {
               <Text
                 style={{ fontSize: 16, color: "#f1f1f1", fontWeight: "400" }}
               >
-                Cómo podemos ayudarte?
+                A quien ayudarás hoy?
               </Text>
             </View>
           </View>
@@ -385,14 +385,37 @@ const HomeProfessional = ({ navigation }) => {
             </View>
           ) : (
             <View style={styles.pendingReviews}>
-              <FontAwesome5 name="house-damage" size={100} color="#f1f1f1" />
-              <Text>FALTAN RESPONDER RESEÑAS</Text>
+              <FontAwesome5
+                name="house-damage"
+                size={100}
+                color={theme.colors.threePalet.secondary}
+              />
+              <Text
+                style={{
+                  marginVertical: 30,
+                  fontSize: 22,
+                  fonteWeight: "800",
+                  color: "#fff",
+                }}
+              >
+                FALTAN RESPONDER RESEÑAS
+              </Text>
               <TouchableHighlight
                 onPress={() => {
                   handlePress();
                 }}
               >
-                <Text style={{ fontSize: 40, fontWeight: "bold" }}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: theme.colors.threePalet.dark,
+                    backgroundColor: theme.colors.threePalet.secondary,
+                    borderRadius: 24,
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}
+                >
                   RESPONDER
                 </Text>
               </TouchableHighlight>

@@ -91,29 +91,6 @@ const InitialStack = () => {
     }
   };
 
-
-  // useEffect(() => {
-  // 	if (Object.getOwnPropertyNames(user).length === 0) {
-
-  // 		setInitialRouteName('Login');
-  // 		return navigation.navigate('Login', {
-  // 			screen: 'Login',
-  // 			params: { user: user },
-  // 		});
-  // 	} else {
-  // 		if (user && user.googleId[0] === 'c') {
-
-  // 			return setInitialRouteName('ClientStack');
-  // 		} else if (user && user.googleId[0] === 'p') {
-
-  // 			return setInitialRouteName('ProfessionalStack');
-  // 		} else {
-
-  // 			return setInitialRouteName('NotRegisteredStack');
-  // 		}
-  // 	}
-  // }, [user]);
-
   return <Stack.Navigator>{getStack()}</Stack.Navigator>;
 };
 

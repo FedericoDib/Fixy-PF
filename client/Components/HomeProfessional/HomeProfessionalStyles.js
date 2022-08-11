@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
-		backgroundColor: '#f1f1f1',
+		backgroundColor: '#fff',
 	},
 	textButton: {
 		textAlign: 'center',

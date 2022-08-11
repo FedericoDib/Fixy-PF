@@ -43,13 +43,6 @@ export default function ProfessionalCard({ item, navigation, route }) {
     }, 1000);
   };
 
-  // closeInstantly = () => {
-  //     const { dragX, rowTranslation } = this.state;
-  //     dragX.setValue(0);
-  //     rowTranslation.setValue(0);
-  //     this.setState({ rowState: Math.sign(0) });
-  // };
-
   const leftSwipe = (progess, dragX) => {
     return (
       <View style={styles.background}>
@@ -59,9 +52,8 @@ export default function ProfessionalCard({ item, navigation, route }) {
       </View>
     );
   };
-  
+
   return (
-    // <View style={styles.background}>
     <GestureHandlerRootView>
       <Swipeable
         leftThreshold={1000}
@@ -84,7 +76,7 @@ export default function ProfessionalCard({ item, navigation, route }) {
 
           setTimeout(function () {
             Toast.hide(toast);
-          }, 1000);
+          }, 3000);
         }}
         overshootLeft={false}
         renderLeftActions={(progess, dragX) => leftSwipe(progess, dragX)}

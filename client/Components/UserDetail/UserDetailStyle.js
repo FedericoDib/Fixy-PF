@@ -5,9 +5,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: "absolute",
-    padding: 50,
+    padding: 6,
+    alignItems: "center",
+    paddingVertical: 30,
     width: "100%",
     height: "100%",
+  },
+  flatListContainer: {
+    height: "66%",
+    width: "100%",
+    borderWidth: 2,
+    borderRadius: 6,
+    borderColor: theme.colors.threePalet.secondary,
+    padding: 6,
+    paddingHorizontal: 16,
   },
   text: {
     color: theme.colors.threePalet.secondary,
@@ -51,11 +62,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
   },
+  reviewContainer: {
+    flexDirection: "row",
+    backgroundColor: "#FFF5E7",
+    padding: "2%",
+    borderRadius: 10,
+    paddingHorizontal: "1%",
+    justifyContent: "space-around",
+    width: "14%",
+  },
+  textName: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
   headerList: {
     flexDirection: "row",
-    marginHorizontal: 16,
-    marginVertical: 8,
+    marginHorizontal: 12,
+    marginVertical: 5,
     fontSize: 20,
+    fontWeight: "bold",
   },
   reviewHeader: {
     flexDirection: "row",
@@ -71,10 +96,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: theme.colors.threePalet.primary,
   },
-  name: {
+  comment: {
     fontSize: 18,
-    fontWeight: "500",
-    paddingHorizontal: 16,
+    marginLeft: 14,
+  },
+  name: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingHorizontal: 10,
     color: theme.colors.threePalet.primary,
   },
 });

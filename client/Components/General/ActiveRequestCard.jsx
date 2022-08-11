@@ -7,6 +7,7 @@ import theme from "../../theme/theme";
 const ActiveRequestCard = ({ request, navigation }) => {
   return (
     <TouchableHighlight
+      style={{ height: 180 }}
       onPress={() => navigation.navigate("Resume", { item: request })}
     >
       <View style={[styles.container, { ...theme.shadows.dark }]}>
@@ -26,7 +27,9 @@ const ActiveRequestCard = ({ request, navigation }) => {
           />
         </View>
         <View>
-          <Text style={styles.affair}>{request.affair}</Text>
+          <Text numberOfLines={1} style={styles.affair}>
+            {request.affair}
+          </Text>
           <Text style={styles.turn}>{request.budget[0].turn}</Text>
           <Text style={styles.date}>{request.date}</Text>
         </View>
