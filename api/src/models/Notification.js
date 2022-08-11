@@ -20,6 +20,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         defaultValue: "not_seen",
       },
+      user:{
+        type:DataTypes.STRING,
+        allowNull:false
+      }
     },
     {
       createdAt: false,

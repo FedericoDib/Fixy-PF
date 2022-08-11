@@ -24,9 +24,9 @@ import storage from '../../Firebase/Firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { async } from '@firebase/util';
 
-const URL = 'https://fixy-backend.herokuapp.com';
+//const URL = 'https://fixy-backend.herokuapp.com';
 
-//const URL = "http://192.168.0.11:3001";
+const URL = "http://192.168.0.22:3000";
 
 /* -------------------------------------------------------------------------- */
 /*                                GOOGLE LOGIN                                */
@@ -312,29 +312,30 @@ export const getNotSeenNotif = (id) => {
 	};
 };
 
-export const getAllNotif = (id) => {
-	return async (dispatch) => {
-		const notifications = await axios.get(
-			`${URL}/notification/professional/all?googleId=${id}`
-		);
-		return dispatch({
-			type: GET_ALL_NOTIF,
-			payload: notifications.data,
-		});
-	};
-};
-
-export const setSeenNotif = (id) => {
-	return async (dispatch) => {
-		const notifications = await axios.put(
-			`${URL}/notification/professional?googleId=${id}`
-		);
-		return dispatch({
-			type: SET_SEEN_NOTIF,
-			payload: notifications.data,
-		});
-	};
-};
+export const getAllNotif = (user,id) => {
+    return async (dispatch) => {
+      
+      const notifications = await axios.get(
+        `${URL}/notification/${user}/all?googleId=${id}`
+      );
+      return dispatch({
+        type: GET_ALL_NOTIF,
+        payload: notifications.data,
+      });
+    };
+  };
+  
+  export const setSeenNotif = (user,id) => {
+    return async (dispatch) => {
+      const notifications = await axios.put(
+        `${URL}/notification/${user}?googleId=${id}`
+      );
+      return dispatch({
+        type: SET_SEEN_NOTIF,
+        payload: notifications.data,
+      });
+    };
+  };
 
 export const messageToAdmin = (payload) => {
 	return async (dispatch) => {

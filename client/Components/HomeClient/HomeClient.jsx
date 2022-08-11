@@ -27,6 +27,7 @@ import ModalPoup from "../General/Modal";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import theme from "../../theme/theme";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const HomeClient = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -35,16 +36,29 @@ const HomeClient = ({ navigation }) => {
   const notifications = useSelector(
     (state) => state.generalReducer.notifications
   );
+  const [notSeenNotif,setNotSeenNotif] = useState([]);
   const [activeRequests, setActiveRequests] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [visible, setVisible] = useState(false);
-  const notSeenNotif = notifications.filter((n) => n.status === "not_seen");
+  
+
 
   useFocusEffect(
     useCallback(() => {
       dispatch(getAllRequest("client", user.googleId));
-      dispatch(getAllNotif(user.googleId));
+      dispatch(getAllNotif("client",user.googleId));
     }, [])
+  );
+
+  //Setea en estado local las notificaciones no vistas por el cliente
+  useFocusEffect(
+    useCallback(() => {
+    if (Array.isArray(notifications)) 
+    {const notSeen = notifications.filter((n) => n.status === "not_seen" && n.user === "client")
+      console.log("NOT SEEN", notSeen);
+      setNotSeenNotif(notSeen);
+  }
+  },[notifications])
   );
 
   useFocusEffect(
@@ -148,7 +162,8 @@ const HomeClient = ({ navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       setVisible(false);
-                      dispatch(setSeenNotif(user.googleId));
+                      dispatch(setSeenNotif("client",user.googleId));
+                      setNotSeenNotif([]);
                     }}
                   >
                     <View
@@ -219,18 +234,59 @@ const HomeClient = ({ navigation }) => {
                     top: 0,
                     right: 0,
                     borderRadius: 100,
-                    display: notSeenNotif.length ? "inline-block" : "none",
+                    //display: notSeenNotif.length ? "inline-block" : "none",
                   }}
-                ></View>
+                  
+                >
+                  
+                </View>
+                
                 <Icon
                   style={{
                     color: "#F2C677",
                     fontSize: 30,
+                    position:"relative"
                   }}
                   name="notifications"
                 />
+                <View>
+                 { notSeenNotif.length !== 0? 
+                  <View
+                  style={{
+                    position:"absolute",
+                    bottom:17,
+                    right:7,
+                    borderRadius:90,
+                    backgroundColor:"white",
+                    height:10,
+                    width:10,
+                    
+                  }}
+                  >
+                  </View>
+                  : <View></View>
+                } 
+                  <MaterialCommunityIcons 
+                  name={notSeenNotif && notSeenNotif.length !== 0 ? `numeric-${notSeenNotif.length}-circle` : ""} 
+                  size={20} 
+                  color="red"
+                  
+                  style={{
+                    position:"absolute",
+                    bottom:13,
+                    right:1,
+                    
+                    height:20,
+                    width:20,
+                    
+                  }}
+                  />
+                </View>
+
               </View>
+              
             </TouchableHighlight>
+            
           </Box>
         </View>
         <Flex style={styles.wrapper} center fill>

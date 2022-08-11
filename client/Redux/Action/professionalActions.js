@@ -11,8 +11,9 @@ import {
   GET_DELETE_BUDGET,
 } from "./actionTypes";
 
-const URL = "https://fixy-backend.herokuapp.com";
-//const URL = "http://192.168.0.11:3001";
+//const URL = 'https://fixy-backend.herokuapp.com';
+
+const URL = "http://192.168.0.22:3000";
 
 /* -------------------------------------------------------------------------- */
 /*                               GET CLIENT ID                             */
