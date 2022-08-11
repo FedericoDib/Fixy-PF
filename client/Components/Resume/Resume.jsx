@@ -11,6 +11,7 @@ import {
   Alert,
   ScrollView,
   TextInput,
+  Pressable,
 } from "react-native";
 import IconCalendar from "react-native-vector-icons/EvilIcons";
 import IconGmail from "react-native-vector-icons/MaterialCommunityIcons";
@@ -22,6 +23,9 @@ import {
   userDetail,
 } from "../../Redux/Action/generalActions";
 import IconStart from "react-native-vector-icons/Foundation";
+import Card from "../List/ClientCard";
+import { Ionicons } from "@expo/vector-icons";
+import theme from "../../theme/theme";
 
 let averageRating;
 export default function Resume({ navigation, route }) {
@@ -44,8 +48,15 @@ export default function Resume({ navigation, route }) {
       ) / averageRating.length
     ).toFixed(1);
   } else {
-    averageRating = 1;
+    averageRating = 3;
   }
+  let date;
+      if (item.date.length < 9) {
+        date = "20" + item.date.split("/").reverse().join("-");
+      } else {
+        date = item.date.slice(0, 10);
+      }
+  detail.averageReviews = averageRating;
 
   useEffect(() => {
     dispatch(getBudgetDetail(item.id));
@@ -86,106 +97,90 @@ export default function Resume({ navigation, route }) {
   };
 
   return (
-    <ScrollView style={style.mainContainer}>
-      <TouchableHighlight
-        style={{ marginBottom: 15 }}
-        activeOpacity={0.9}
-        underlayColor="white"
-        onPress={() =>
-          navigation.navigate("ProfileDetail", {
-            averageReviews: averageRating,
-            button: "false",
-          })
-        }
-      >
-        <View style={style.cardContainer}>
-          <View style={style.imageContainer}>
-            {/* <Icon name="user" color="black" size={40} /> */}
-            <Image
-              style={{ borderRadius: 100 }}
-              source={{
-                uri: detail.perfilPic,
-                width: 65,
-                height: 65,
-              }}
-            />
-          </View>
-          <View style={style.textCardContainer}>
-            <View style={style.nameAndReviewContainer}>
-              <Text style={style.textName}>{detail.name}</Text>
-              <View style={style.reviewContainer}>
-                <IconStart name="star" color="#E1C85A" size={19} />
-                <Text style={style.textName}>
-                  {averageRating && averageRating}
-                </Text>
-              </View>
-            </View>
-            <Text style={style.textProfession}>{detail.address}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
+    <ScrollView>
+    <View style={style.mainContainer}>
+      <View style={style.container}>
+        <View style={style.titleContainer}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={{ paddingVertical: 5, marginBottom: 10}}
+          >
+          <Ionicons
+            name="arrow-back"
+            size={24}
+            color={theme.colors.threePalet.primary}
+          />
+        </Pressable>
+        <Text style={style.mainTitle}>DETALLE DE VISITA</Text>
+      </View>
+      <Card item={detail} status={true} navigation={navigation}></Card>
       <View style={style.calendarPhoneContainer}>
         <View style={style.calendarContainer}>
-          <Text>{item.date}</Text>
           <IconCalendar
             name="calendar"
-            size={30}
-            color="#1a57d2"
+            size={35}
+            color={theme.colors.threePalet.primary}
           ></IconCalendar>
+          <Text style={{fontSize: 18, marginLeft: 10}}>{date}</Text>
         </View>
         <View style={style.phoneContainer}>
-          <IconWhatsapp
+          <IconWhatsapp style={{marginRight: 10}}
             onPress={() => {
               handleWhatsapp();
             }}
             name="whatsapp"
-            size={30}
-            color="green"
+            size={40}
+            color={theme.colors.threePalet.primary}
           ></IconWhatsapp>
-          <IconGmail
+          <IconGmail style={{marginRight: 10}}
             onPress={() => {
               handleEmail();
             }}
             name="gmail"
-            size={30}
-            color="red"
+            size={40}
+            color={theme.colors.threePalet.primary}
           ></IconGmail>
         </View>
       </View>
-      <View style={style.textContainer}>
-        <Text>Horario</Text>
-        <View style={style.centerField}>
-          <Text>{budgetDetail.turn}</Text>
-        </View>
+      <View style={{marginTop: 10}}>
+        <Text style={style.label}>Asunto:</Text>
       </View>
-
-      <View style={style.textContainer}>
-        <Text>Presupuesto Aproximado</Text>
+      <View style={style.centerField}>
+        <Text style={style.desc}>{item.affair}</Text>
       </View>
-      <View style={style.endField}>
-        <Text>${budgetDetail.estimatedBudget}</Text>
+      <View>
+        <Text style={style.label}>Horario:</Text>
       </View>
-      <View style={style.textContainer}>
-        <Text>Descripcion del problema</Text>
-        <View style={style.centerField}>
-          <Text>{item.description}</Text>
-        </View>
+      <View style={style.centerField}>
+        <Text style={style.desc}>{budgetDetail.turn}</Text>
       </View>
-      <View style={style.textContainer}>
-        <Text>Comentarios</Text>
-        <View style={style.centerField}>
-          <Text>{budgetDetail.description}</Text>
-        </View>
+      <View>
+        <Text style={style.label}>Presupuesto aproximado:</Text>
+      </View>
+      <View style={style.centerField}>
+        <Text style={style.desc}>{budgetDetail.estimatedBudget}</Text>
+      </View>
+      <View>
+        <Text style={style.label}>Descripcion del problema:</Text>
+      </View>
+      <View style={style.centerField}>
+        <Text style={style.desc}>{item.description}</Text>
+      </View>
+      <View>
+        <Text style={style.label}>Comentarios del profesional:</Text>
+      </View>
+      <View style={style.centerField}>
+        <Text style={style.desc}>{budgetDetail.description}</Text>
       </View>
       {user && user.googleId[0] === "c" ? (
-        <Text>
-          Brindale al profesional el siguiente codigo para finalizar la visita:{" "}
+        <Text style={style.label}>
+          Brindale al profesional el siguiente código para finalizar la visita:{" "}
           {budgetDetail.validationCode}
         </Text>
       ) : (
         <View>
-          <Text>Ingresa el codigo de validacion: </Text>
-          <TextInput onChangeText={(text) => setCode(text)} />
+          <Text style={style.label}>Ingresa el código de validacion: </Text>
+          <TextInput maxLength={4} style={style.code} onChangeText={(text) => setCode(text)} />
           <TouchableHighlight
             style={style.button}
             activeOpacity={0.6}
@@ -193,11 +188,13 @@ export default function Resume({ navigation, route }) {
             onPress={() => handlePress()}
           >
             <View style={style.textButton}>
-              <Text>Visita Finalizada</Text>
+              <Text style={style.text}>Visita Finalizada</Text>
             </View>
           </TouchableHighlight>
         </View>
       )}
+    </View>
+    </View>
     </ScrollView>
   );
 }

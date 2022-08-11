@@ -7,8 +7,8 @@ const style = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
 		alignItems: 'center',
-		width: '100%',
-		height: '100%',
+		width,
+		height,
 		paddingVertical: 30,
 		backgroundColor: theme.colors.threePalet.primary,
 		justifyContent: 'space-between',
@@ -32,12 +32,25 @@ const style = StyleSheet.create({
 		backgroundColor: theme.colors.threePalet.secondary,
 	},
 	label: {
+		marginTop: 10,
 		fontSize: 18,
 		fontWeight: 'bold',
 		color: theme.colors.threePalet.primary,
 	},
 	desc: {
 		fontSize: 18,
+	},
+	input: {
+		width: '100%',
+		fontSize: 18,
+		borderBottomWidth: 1,
+		borderColor: '#ccc',
+		paddingVertical: 2,
+	},
+	inputContainer: {
+		// backgroundColor: 'cyan',
+		flexDirection: 'row',
+		marginVertical: 20,
 	},
 	buttonContainer: {
 		width: '100%',
@@ -62,7 +75,7 @@ const style = StyleSheet.create({
 		paddingVertical: 10,
 		borderRadius: 15,
 		backgroundColor: theme.colors.threePalet.primary,
-		marginVertical: 10,
+		marginVertical: 20,
 	},
 	titleContainer: {
 		flexDirection: 'row',

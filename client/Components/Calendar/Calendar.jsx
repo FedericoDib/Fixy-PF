@@ -6,6 +6,9 @@ import theme from "../../theme/theme";
 import { Avatar, Card, Text } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconUser from 'react-native-vector-icons/FontAwesome5';
 
 LocaleConfig.locales["es"] = {
   monthNames: [
@@ -73,6 +76,7 @@ const CalendarView = ({ navigation }) => {
 
   const formatItem = (requests) => {
     requests?.map((request) => {
+      console.log("REQUEST", request);
       let date;
       if (request.date.length < 9) {
         date = "20" + request.date.split("/").reverse().join("-");
@@ -89,9 +93,9 @@ const CalendarView = ({ navigation }) => {
               description: request.description,
               date: date,
               availableTime: request.budget[0].turn,
+              category: request.category,
               selectedColor: theme.colors.threePalet.primary,
             }
-
           items[date].push(item);
         }
       } else {
@@ -102,6 +106,7 @@ const CalendarView = ({ navigation }) => {
             description: request.description,
             date: date,
             availableTime: request.budget[0].turn,
+            category: request.category,
             selectedColor: theme.colors.threePalet.primary,
           },
         ];
@@ -120,12 +125,13 @@ const CalendarView = ({ navigation }) => {
   };
 
   const renderItem = (item) => {
+    console.log(item)
     return (
       <TouchableOpacity
-        style={{ marginTop: 10, marginRight: 10 }}
-        onPress={() => navigation.navigate("Resume")}
+        style={{ marginTop: 10, marginRight: 10, height: "100%"}}
+        onPress={() => navigation.navigate("Resume", { item })}
       >
-        <Card>
+        <Card style={{backgroundColor: theme.colors.threePalet.secondary, borderRadius: 10}}>
           <Card.Content>
             <View
               style={{
@@ -134,12 +140,28 @@ const CalendarView = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ marginRight: 15 }}>{item.affair}</Text>
-              <Text style={{ marginRight: 15, flex: 2 }} numberOfLines={2}>
+              <Text style={{ paddingRight: 15, fontSize: 20, borderRightWidth: 1, borderRightColor: theme.colors.threePalet.primary}}>{item.affair}</Text>
+              <Text style={{ paddingHorizontal: 15, flex: 2, fontSize: 18, borderRightWidth: 1, borderRightColor: theme.colors.threePalet.primary  }} numberOfLines={2}>
                 {item.description}
               </Text>
-              <Text style={{ marginRight: 15 }}>{item.availableTime}</Text>
-              <Avatar.Text label="F" />
+              <Text style={{ paddingHorizontal: 15, fontSize: 20 }}>{item.availableTime} hs</Text>
+              {item.category === "electricista" ? (<Icon
+								name='electrical-services'
+								color={theme.colors.threePalet.primary}
+								size={60}
+							/>) : item.category === "gasista" ? (<Icon2
+								name='gas-cylinder'
+								color={theme.colors.threePalet.primary}
+								size={60}
+							/>) : item.category === "plomero" ? (<Icon2
+								name='water-pump'
+								color={theme.colors.threePalet.primary}
+								size={60}
+							/>) : <IconUser
+              name='house-user'
+              color={theme.colors.threePalet.primary}
+              size={60}
+            />}
             </View>
           </Card.Content>
         </Card>

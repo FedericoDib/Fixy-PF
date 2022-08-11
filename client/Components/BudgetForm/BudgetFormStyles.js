@@ -1,71 +1,59 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import theme from '../../theme/theme';
+
+const { width, height } = Dimensions.get('screen');
 
 const styles = StyleSheet.create({
 	mainContainer: {
-		flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding:15
-	},
-	backgroundContainer: {
-		position: 'absolute',
-		top: 0,
-		bottom: 0,
-		right: 0,
-		left: 0,
-		zIndex: -1,
-	},
-	background1: {
-		height: '30%',
-    backgroundColor: theme.colors.threePalet.primary,
-	},
-	background2: {
-		flex:1,
-		backgroundColor: '#f1f1f1',
+		width,
+		backgroundColor: theme.colors.threePalet.primary,
+		paddingVertical: 30,
 	},
 	container: {
-		zIndex: 2,
-    height:'auto',
-    width:'90%',
-    backgroundColor: '#f1f1f1',
-    padding: 15,
-    borderRadius: 14,
-    overflow: 'hidden',
-    ...theme.shadows.dark,
-    border:0.5,
-    borderColor: '#ccc'
+		backgroundColor: '#f1f1f1',
+		width: '95%',
+		marginBottom: 10,
+		borderRadius: 18,
+		paddingVertical: 10,
+		paddingHorizontal: 20,
+		height: '100%',
 	},
-	title: {
-		alignSelf: 'flex-start',
-		fontSize: 25,
+	mainTitle: {
+		fontSize: 20,
 		fontWeight: 'bold',
+		color: theme.colors.threePalet.primary,
+		width: '90%',
+		textAlign: 'center',
 	},
-	wrapper: {
-		flex: 1,
-		paddingVertical: 30,
-		...theme.shadows.dark,
-	},
-	horizontalWrapper: {
+	titleContainer: {
 		flexDirection: 'row',
-		justifyContent: 'space-between',
 		alignItems: 'center',
+		// justifyContent: 'flex-start',
+	},
+	label: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: theme.colors.threePalet.dark,
 	},
 	inputContainer: {
+		// backgroundColor: 'cyan',
+		flexDirection: 'row',
 		marginVertical: 20,
 	},
-	text: {
-		fontSize: 18,
-		color: theme.colors.threePalet.primary,
-		fontWeight: 'bold',
+	inputIcon: {
+		color: theme.colors.threePalet.secondary,
+		marginRight: 10,
 	},
 	input: {
+		width: '90%',
 		fontSize: 18,
-		paddingVertical: 5,
-		paddingHorizontal: 15,
-		textAlign: 'center',
-		borderRadius: 14,
-		...theme.shadows.dark,
+		borderBottomWidth: 1,
+		borderColor: '#ccc',
+		paddingVertical: 2,
+	},
+	minmaxInput: {
+		width: '50%',
+		fontSize: 18,
 	},
 });
 

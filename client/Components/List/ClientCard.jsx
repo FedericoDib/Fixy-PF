@@ -14,21 +14,14 @@ import {
   //getClientId,
   getRequestDetail,
   userDetail,
-} from "../../../Redux/Action/generalActions";
-import {
-  averageReview,
-  countAddition,
-  requestToProfessional,
-} from "../../../Redux/Action/clientActions";
-import styles from "../CardListStyle";
+} from "../../Redux/Action/generalActions";
+
+import styles from "./CardListStyle";
 // import { professionals, user } from "./Hardcode";
-import Swipeable from "react-native-gesture-handler/Swipeable";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import Toast from "react-native-root-toast";
-import theme from "../../../theme/theme";
+import theme from "../../theme/theme";
 
 let rating;
-export default function ProfessionalCard({ item, navigation, route }) {
+export default function ClientCard({ item, navigation, route, status }) {
   console.log("item", item);
   const dispatch = useDispatch();
   const request = useSelector((state) => state.clientReducer.request);
@@ -49,46 +42,9 @@ export default function ProfessionalCard({ item, navigation, route }) {
   //     rowTranslation.setValue(0);
   //     this.setState({ rowState: Math.sign(0) });
   // };
-
-  const leftSwipe = (progess, dragX) => {
-    return (
-      <View style={styles.background}>
-        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-          Enviando solicitud
-        </Text>
-      </View>
-    );
-  };
   
   return (
     // <View style={styles.background}>
-    <GestureHandlerRootView>
-      <Swipeable
-        leftThreshold={1000}
-        onSwipeableWillClose={(left) => {
-          dispatch(
-            requestToProfessional({
-              googleId: item.googleId,
-              idRequest: request.id,
-            })
-          );
-          let toast = Toast.show("Solicitud enviada!", {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.BOTTOM,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-            backgroundColor: "green",
-          });
-
-          setTimeout(function () {
-            Toast.hide(toast);
-          }, 1000);
-        }}
-        overshootLeft={false}
-        renderLeftActions={(progess, dragX) => leftSwipe(progess, dragX)}
-      >
         <TouchableHighlight
           activeOpacity={0.9}
           style={{ width: "100%" }}
@@ -109,6 +65,7 @@ export default function ProfessionalCard({ item, navigation, route }) {
             <View style={styles.textContainer}>
               <Text style={styles.textName}>{item.name}</Text>
               <Text style={styles.textProfession}>{item.profession}</Text>
+              { status ? (<Text style={styles.textProfession}>{item.address}</Text>) : null}
             </View>
             <View style={styles.reviewContainer}>
               <IconStart name="star" color="#E1C85A" size={19} />
@@ -116,8 +73,5 @@ export default function ProfessionalCard({ item, navigation, route }) {
             </View>
           </View>
         </TouchableHighlight>
-      </Swipeable>
-    </GestureHandlerRootView>
-    // </View>
   );
 }

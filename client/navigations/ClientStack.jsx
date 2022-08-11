@@ -43,7 +43,7 @@ const ClientStack = () => {
 					component={ProfessionalList}
 					options={{ headerShown: false }}
 				/>
-				<Stack.Screen name='ShowImage' component={ShowImage} />
+				<Stack.Screen name='ShowImage' component={ShowImage} options={{ headerShown: false }} />
 				<Stack.Screen
 					name='RequestList'
 					component={RequestList}
@@ -69,7 +69,7 @@ const ClientStack = () => {
 					component={Loader}
 					options={{ headerShown: false }}
 				/>
-				<Stack.Screen name='BudgetDetail' component={BudgetDetail} />
+				<Stack.Screen name='BudgetDetail' component={BudgetDetail} options={{ headerShown: false }} />
 				<Stack.Screen
 					name='ProfileDetail'
 					component={UserDetail}
