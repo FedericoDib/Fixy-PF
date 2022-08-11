@@ -92,7 +92,6 @@ export const searchProfessional = (name) => {
 //DEVUELVE:
 
 export const createRequest = (payload) => {
-	console.log('estoy en action', payload);
 	return async (dispatch) => {
 		try {
 			let response = await axios.post(`${URL}/request`, payload);

@@ -58,11 +58,11 @@ const LoginDev = () => {
       <View style={styles.wrapper}>
         <Text style={styles.mainTitle}>¡Bienvenido/a!</Text>
         <TouchableHighlight
+          underlayColor="transparent"
           onPress={() => {
             promptAsync({ redirectUri });
           }}
           activeOpacity={0.6}
-          underlayColor="#ccc"
           style={{ borderRadius: 14 }}
         >
           <View style={styles.button}>

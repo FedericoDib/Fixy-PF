@@ -4,7 +4,7 @@ const Loader = () => {
 	return (
 		<View style={styles.container}>
 			<Image source={require('../../assets/load.gif')} style={styles.image} />
-			<Text style={styles.text}>Buscando profesionales</Text>
+			<Text style={styles.text}>Cargando tus datos...</Text>
 		</View>
 	);
 };

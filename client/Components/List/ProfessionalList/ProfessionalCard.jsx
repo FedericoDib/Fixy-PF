@@ -29,7 +29,7 @@ import theme from '../../../theme/theme';
 
 let rating;
 export default function ProfessionalCard({ item, navigation, route }) {
-	console.log('item', item);
+	
 	const dispatch = useDispatch();
 	const request = useSelector((state) => state.clientReducer.request);
 

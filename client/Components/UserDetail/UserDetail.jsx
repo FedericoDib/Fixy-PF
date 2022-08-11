@@ -152,10 +152,11 @@ const UserDetail = ({ navigation, route }) => {
                           fontSize: 16,
                           color: theme.colors.threePalet.primaryLight,
                           marginLeft: 7,
+                          textTransform: "uppercase",
                         },
                       ]}
                     >
-                      {userDetail && userDetail.profession.toUpperCase()}
+                      {userDetail && userDetail.profession}
                     </Text>
                   </View>
                 ) : null}
@@ -179,10 +180,11 @@ const UserDetail = ({ navigation, route }) => {
                           fontSize: 16,
                           color: theme.colors.threePalet.primaryLight,
                           marginLeft: 7,
+                          textTransform: "uppercase",
                         },
                       ]}
                     >
-                      {userDetail && userDetail.city.toUpperCase()}
+                      {userDetail && userDetail.city}
                     </Text>
                   </View>
                 ) : (
@@ -193,10 +195,11 @@ const UserDetail = ({ navigation, route }) => {
                         fontSize: 20,
                         color: theme.colors.threePalet.primaryLight,
                         marginLeft: 7,
+                        textTransform: "uppercase", 
                       },
                     ]}
                   >
-                    {userDetail && userDetail.city.toUpperCase()}
+                    {userDetail && userDetail.city}
                   </Text>
                 )}
               </React.Fragment>

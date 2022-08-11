@@ -7,6 +7,7 @@ import theme from '../../theme/theme';
 const ActiveRequestCard = ({ request, navigation }) => {
 	return (
 		<TouchableHighlight
+			underlayColor="transparent"
 			style={{ height: 180 }}
 			onPress={() => navigation.navigate('Resume', { item: request })}
 		>

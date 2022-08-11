@@ -55,7 +55,6 @@ const HomeClient = ({ navigation }) => {
 				const notSeen = notifications.filter(
 					(n) => n.status === 'not_seen' && n.user === 'client'
 				);
-				console.log('NOT SEEN', notSeen);
 				setNotSeenNotif(notSeen);
 			}
 		}, [notifications])
@@ -87,7 +86,7 @@ const HomeClient = ({ navigation }) => {
 		);
 		navigation.navigate('Review');
 	};
-	console.log('REVIEWWWWW', user);
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.background1}></View>
@@ -400,13 +399,14 @@ const HomeClient = ({ navigation }) => {
 					) : (
 						<View style={styles.pendingReviews}>
 							<FontAwesome5 name='house-damage' size={100} color='#f1f1f1' />
-							<Text>FALTAN RESPONDER RESEÑAS</Text>
+							<Text style={{marginVertical: 40, fontSize: 30, color: "#f1f1f1"}}>FALTAN RESPONDER RESEÑAS</Text>
 							<TouchableHighlight
+								style={{backgroundColor: theme.colors.threePalet.secondary, padding: 20, borderRadius: 10}}
 								onPress={() => {
 									handlePress();
 								}}
 							>
-								<Text style={{ fontSize: 40, fontWeight: 'bold' }}>
+								<Text style={{ fontSize: 40, fontWeight: 'bold'}}>
 									RESPONDER
 								</Text>
 							</TouchableHighlight>

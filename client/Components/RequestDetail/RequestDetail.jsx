@@ -58,25 +58,38 @@ export default function RequestDetail({ navigation, route }) {
     }, [])
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = (item) => {
+    console.log("id", item)
     if (user && user.googleId[0] === "p") {
-      dispatch(userDetail(item.clientId, "client"));
+      dispatch(userDetail(item.googleId, "client"));
+      setTimeout(() => {
       navigation.navigate("ProfileDetail", {
         averageReviews: averageRating,
         button: "false",
       });
+      }, 1000);
+    } else {
+      dispatch(userDetail(item.googleId, "professional"));
+      setTimeout(() => {
+      navigation.navigate("ProfileDetail", {
+        averageReviews: averageRating,
+        button: "false",
+      });
+    }, 1000);
     }
   };
+
+  console.log("requestDetail", requestDetail);
   const ProfileCard = ({item}) => {
-    console.log("EDTRPIGBSHRTGKBJISRPOTG", item)
+    console.log("item", item);
     return (
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="white"
-        onPress={() => handleSubmit()}
+        onPress={() => handleSubmit(item)}
         style={{marginHorizontal: 20}}
       >
-        <View style={{flexDirection: "row", flex: 1, padding:10, backgroundColor: '#FFF5E7', borderRadius: 20, borderWidth: 1, borderColor: theme
+        <View style={{flexDirection: "row", alignItems: "flex-start", flex: 1, padding:10, backgroundColor: '#FFF5E7', borderRadius: 20, borderWidth: 1, borderColor: theme
       .colors.threePalet.secondary}}>
           <View style={style.imageContainer}>
             <Image
@@ -90,13 +103,7 @@ export default function RequestDetail({ navigation, route }) {
           </View>
           <View style={style.textCardContainer}>
             <Text style={style.textName}>{item.name}</Text>
-            <Text style={style.textProfession}>{item.address}</Text>
-          </View>
-
-          <View style={style.reviewContainer}>
-            <IconStart style={{marginHorizontal: 10}} name="star" color="#E1C85A" size={19} />
-            <Text style={{fontSize: 15,
-		fontWeight: 'bold', marginRight: 20}}>{averageRating}</Text>
+            <Text style={style.textProfession}>{item.city}</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -192,7 +199,7 @@ export default function RequestDetail({ navigation, route }) {
 						<Text style={style.label}>Rango horario</Text>
             </View>
             <View style={style.centerField}>
-              <Text style={style.desc}>{requestDetail.availableTime}</Text>
+              <Text style={style.desc}>{requestDetail.availableTime} hs</Text>
             </View>
               {requestDetail.requestPic && requestDetail.requestPic.length ? (
                 <View style={{ alignItems: "center" }}>

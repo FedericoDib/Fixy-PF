@@ -34,6 +34,8 @@ export default function ProfessionalList({ navigation, route }) {
     }, [professionals])
   );
 
+  // console.log("professionals", professionals);
+
   function setAverageReviews(professionals) {
     for (let i = 0; i < professionals.length; i++) {
       let professional = professionals[i];
@@ -92,6 +94,12 @@ export default function ProfessionalList({ navigation, route }) {
     setRefreshing(true);
   };
 
+  if (refreshing) {
+    setRefreshing(false);
+  }
+
+  console.log("data", data);
+
   return (
     <View style={style.mainContainer}>
       <View style={{ paddingVertical: 20 }}>
@@ -115,6 +123,7 @@ export default function ProfessionalList({ navigation, route }) {
           }}
         >
           <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <Text style={{ fontSize: 14, color: theme.colors.threePalet.dark, width: "100%", textAlign: "center", fontWeight: "bold", marginTop: 15, color: theme.colors.threePalet.primary}}>PROFESIONALES EN UN RADIO DE 30KM DE TU UBICACIÓN</Text>
             <Text
               style={{
                 fontSize: 17,

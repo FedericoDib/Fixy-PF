@@ -60,7 +60,7 @@ const LoginProd = () => {
 				<TouchableHighlight
 					onPress={signInAsync}
 					activeOpacity={0.6}
-					underlayColor='#ccc'
+					underlayColor="transparent"
 					style={{ borderRadius: 14 }}
 				>
 					<View style={styles.button}>

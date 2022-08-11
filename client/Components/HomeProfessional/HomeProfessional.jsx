@@ -84,7 +84,6 @@ const HomeProfessional = ({ navigation }) => {
   const [visible, setVisible] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  console.log(visible);
 
   useFocusEffect(
     useCallback(() => {
@@ -430,18 +429,19 @@ const HomeProfessional = ({ navigation }) => {
             </View>
           ) : (
             <View style={styles.pendingReviews}>
-              <FontAwesome5 name="house-damage" size={100} color="#f1f1f1" />
-              <Text>FALTAN RESPONDER RESEÑAS</Text>
-              <TouchableHighlight
-                onPress={() => {
-                  handlePress();
-                }}
-              >
-                <Text style={{ fontSize: 40, fontWeight: "bold" }}>
-                  RESPONDER
-                </Text>
-              </TouchableHighlight>
-            </View>
+							<FontAwesome5 name='house-damage' size={100} color='#f1f1f1' />
+							<Text style={{marginVertical: 40, fontSize: 30, color: "#f1f1f1"}}>FALTAN RESPONDER RESEÑAS</Text>
+							<TouchableHighlight
+								style={{backgroundColor: theme.colors.threePalet.secondary, padding: 20, borderRadius: 10}}
+								onPress={() => {
+									handlePress();
+								}}
+							>
+								<Text style={{ fontSize: 40, fontWeight: 'bold'}}>
+									RESPONDER
+								</Text>
+							</TouchableHighlight>
+						</View>
           )}
         </Flex>
       </View>

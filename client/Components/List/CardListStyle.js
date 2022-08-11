@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
 	background: {
 		borderWidth: 1,
 		borderRadius: 10,
-		backgroundColor: 'green',
-		height: 80,
+		backgroundColor: theme.colors.threePalet.primary,
+		height: 120,
 		flex: 1,
 		marginVertical: 14,
 		justifyContent: 'center',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 10,
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
-		width: 50,
+		width: 60,
 		marginRight: 10,
 	},
 });

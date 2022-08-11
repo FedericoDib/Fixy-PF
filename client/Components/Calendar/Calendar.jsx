@@ -76,7 +76,6 @@ const CalendarView = ({ navigation }) => {
 
   const formatItem = (requests) => {
     requests?.map((request) => {
-      console.log("REQUEST", request);
       let date;
       if (request.date.length < 9) {
         date = "20" + request.date.split("/").reverse().join("-");
@@ -125,7 +124,6 @@ const CalendarView = ({ navigation }) => {
   };
 
   const renderItem = (item) => {
-    console.log(item)
     return (
       <TouchableOpacity
         style={{ marginTop: 10, marginRight: 10, height: "100%"}}

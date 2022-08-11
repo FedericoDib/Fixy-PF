@@ -22,7 +22,6 @@ import theme from '../../theme/theme';
 
 let rating;
 export default function ClientCard({ item, navigation, route, status }) {
-	console.log('item', item);
 	const dispatch = useDispatch();
 	const request = useSelector((state) => state.clientReducer.request);
 
