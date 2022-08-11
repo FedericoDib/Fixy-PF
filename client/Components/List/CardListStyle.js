@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     marginVertical: 10,
-    height: 80,
+    height: 120,
     width: "100%",
     marginVertical: 14,
   },
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   textProfession: {
-    fontSize: 15,
+    fontSize: 20,
+    fontWeight: "bold",
   },
   imageContainer: {
     display: "flex",
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginRight: 10,
-    backgroundColor: "red",
+    fontWeight: "bold",
   },
   reviewContainer: {
     flexDirection: "row",

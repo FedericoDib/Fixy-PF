@@ -85,7 +85,7 @@ export default function ProfessionalCard({ item, navigation, route }) {
 
           setTimeout(function () {
             Toast.hide(toast);
-          }, 1000);
+          }, 3000);
         }}
         overshootLeft={false}
         renderLeftActions={(progess, dragX) => leftSwipe(progess, dragX)}
