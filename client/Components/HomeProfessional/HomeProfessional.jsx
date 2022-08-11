@@ -182,7 +182,7 @@ const HomeProfessional = ({ navigation }) => {
               <Text
                 style={{ fontSize: 16, color: "#f1f1f1", fontWeight: "400" }}
               >
-                Cómo podemos ayudarte?
+                A quién ayudarás hoy?
               </Text>
             </View>
           </View>

@@ -186,7 +186,7 @@ export default function Resume({ navigation, route }) {
 								maxLength={4}
 								style={style.code}
 								onChangeText={(text) => setCode(text)}
-								placeholder='Código de validación'
+								placeholder='Código...'
 							/>
 							<TouchableHighlight
 								style={style.button}

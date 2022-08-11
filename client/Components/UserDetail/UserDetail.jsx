@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   Image,
   FlatList,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import IconStar from "react-native-vector-icons/Foundation";
@@ -15,7 +16,6 @@ import Toast from "react-native-root-toast";
 import theme from "../../theme/theme";
 import Icon2 from "react-native-vector-icons/FontAwesome5";
 import IconStart from "react-native-vector-icons/Foundation";
-import { ScrollView } from "react-native-gesture-handler";
 
 const Review = ({ name, comment, review }) => (
   <View style={styles.review}>
@@ -206,25 +206,17 @@ const UserDetail = ({ navigation, route }) => {
             </View>
           </React.Fragment>
         </View>
-        <View style={{ marginBottom: 100, width: "100%" }}>
+        <View style={{ marginBottom: 100, width: "100%", backgroundColor: '#fff', borderRadius: 10}}>
           <View style={styles.flatListContainer}>
             <Text style={styles.headerList}>Reseñas: </Text>
-            <FlatList data={userDetail.reviews} renderItem={renderItem} />
+            {userDetail && userDetail.reviews.length > 0 ? (
+            <FlatList data={userDetail.reviews} renderItem={renderItem} /> ) : (<Text style={styles.headerList}>Este usuario no tiene reseñas</Text>)}
+            
           </View>
         </View>
         {button === "true" ? (
-          <View
-            style={{
-              width: "90%",
-              position: "absolute",
-              bottom: 10,
-              height: 70,
-              borderRadius: 15,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: theme.colors.threePalet.secondary,
-            }}
-          >
+          <View style={{position: "absolute",
+          height: 50, bottom: 100, backgroundColor: theme.colors.threePalet.secondary, borderRadius: 15, justifyContent: "center", paddingHorizontal: 20 }}>
             <TouchableHighlight
               activeOpacity={0.9}
               underlayColor="white"

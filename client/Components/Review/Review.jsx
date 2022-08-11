@@ -283,8 +283,6 @@ export default function Review({ navigation }) {
 								numberOfLines={5}
 							></TextInput>
 						</View>
-					</View>
-				</View>
 				<TouchableHighlight
 					style={style.button}
 					activeOpacity={0.6}
@@ -297,6 +295,8 @@ export default function Review({ navigation }) {
 						<Text style={{ fontSize: 16 }}>Enviar review</Text>
 					</View>
 				</TouchableHighlight>
+					</View>
+				</View>
 			</View>
 		</View>
 	);

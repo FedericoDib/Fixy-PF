@@ -139,9 +139,6 @@ const CalendarView = ({ navigation }) => {
               }}
             >
               <Text style={{ paddingRight: 15, fontSize: 20, borderRightWidth: 1, borderRightColor: theme.colors.threePalet.primary}}>{item.affair}</Text>
-              <Text style={{ paddingHorizontal: 15, flex: 2, fontSize: 18, borderRightWidth: 1, borderRightColor: theme.colors.threePalet.primary  }} numberOfLines={2}>
-                {item.description}
-              </Text>
               <Text style={{ paddingHorizontal: 15, fontSize: 20 }}>{item.availableTime} hs</Text>
               {item.category === "electricista" ? (<Icon
 								name='electrical-services'

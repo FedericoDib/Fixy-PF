@@ -3,7 +3,9 @@ import theme from '../../theme/theme';
 
 const styles = StyleSheet.create({
 	mainContainer: {
-		padding: 100,
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingVertical: '30%',
 		flex: 1,
 		backgroundColor: theme.colors.threePalet.primary,
 	},
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
 	iconAndTextContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
+		paddingHorizontal: 30,
 	},
 	button: {
 		height: 90,
