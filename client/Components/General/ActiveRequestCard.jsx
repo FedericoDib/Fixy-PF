@@ -31,7 +31,10 @@ const ActiveRequestCard = ({ request, navigation }) => {
             {request.affair}
           </Text>
           <Text style={styles.turn}>{request.budget[0].turn}</Text>
-          <Text style={styles.date}>{request.date}</Text>
+          <Text style={styles.date}>{request.date && request.date.length < 9
+                      ? "20" + request.date.split("/").reverse().join("-")
+                      : request.date && request.date.slice(0, 10)}</Text>
+          
         </View>
         <View>
           <Icon name="keyboard-arrow-right" color={"#010101"} size={30} />

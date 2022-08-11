@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -25,6 +25,7 @@ import {
 } from "../../Redux/Action/clientActions";
 import theme from "../../theme/theme";
 import { Ionicons } from "@expo/vector-icons";
+import Card from "../List/ClientCard";
 
 let averageRating;
 export default function RequestDetail({ navigation, route }) {
@@ -35,6 +36,13 @@ export default function RequestDetail({ navigation, route }) {
     (state) => state.generalReducer.requestDetail
   );
   const { item, buttons } = route.params;
+
+
+  const [refreshing, setRefreshing] = useState(false);
+
+
+
+
 
   if (client.reviews && client.reviews.length) {
     averageRating = client.reviews.map((e) => e.rating);
@@ -49,7 +57,9 @@ export default function RequestDetail({ navigation, route }) {
 
   useFocusEffect(
     useCallback(() => {
+      setRefreshing(false)
       dispatch(getRequestDetail(item.id));
+      setRefreshing(true)
     }, [])
   );
 
@@ -62,15 +72,16 @@ export default function RequestDetail({ navigation, route }) {
       });
     }
   };
-
-  const profileCard = (item) => {
+  const ProfileCard = ({item}) => {
+    console.log("EDTRPIGBSHRTGKBJISRPOTG", item)
     return (
       <TouchableHighlight
         activeOpacity={0.9}
         underlayColor="white"
         onPress={() => handleSubmit()}
+        style={{marginHorizontal: 20}}
       >
-        <View style={[style.cardContainer, { ...theme.shadows.dark }]}>
+        <View style={[{flexDirection: "row", flex: 1}, {...theme.shadows.dark}]}>
           <View style={style.imageContainer}>
             <Image
               style={{ borderRadius: 100 }}
@@ -94,15 +105,16 @@ export default function RequestDetail({ navigation, route }) {
       </TouchableHighlight>
     );
   };
+  console.log("AAAA", requestDetail?.professionals?.length)
 
   return (
     <View
       style={{
         backgroundColor: theme.colors.threePalet.primary,
         height: "100%",
-        width: "100%",
         paddingHorizontal: 20,
         paddingVertical: 35,
+        flex: 1,
       }}
     >
       <ScrollView style={style.mainContainer}>
@@ -119,25 +131,42 @@ export default function RequestDetail({ navigation, route }) {
           </Pressable>
           <Text style={style.mainTitle}>DETALLE DE SOLICITUD</Text>
         </View>
-        <React.Fragment>
+        <View style={{flex: 1}}>
+          {/* <ScrollView horizontal style={{flexDirection: "row", height: "100%"}}>
+            <View style={{flexDirection: "row", height: "100%"}}>
+              {requestDetail && requestDetail?.professionals?.map((e) => (
+                <ProfileCard item={e} />
+              ))}
+            </View>
+          </ScrollView> */}
           {user && user.googleId[0] === "p" ? (
-            profileCard(client)
+            <ProfileCard item={client}/>
           ) : (
-            <View>
+            <View style={{flex: 1}}>
+              {requestDetail && requestDetail?.professionals?.length ? (
               <FlatList
-                style={{
-                  width: "100%",
-                  backgroundColor: "cyan",
-                  flex: 1,
-                }}
+                extraData={refreshing}
+                data={requestDetail?.professionals}
+                renderItem={({item}) => <ProfileCard item={item}/>}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={(item) => item.id}
+                horizontal
+              /> ) : null }
+            </View>
+          )}
+          {/* {user && user.googleId[0] === "p" ? (
+            <Card item={client} navigation={navigation}/>
+          ) : (
+            <View style={{width: "100%"}}>
+              <FlatList
                 data={requestDetail.professionals}
-                renderItem={({ item }) => profileCard(item)}
+                renderItem={({ item }) => <Card item={item} navigation={navigation}/>}
                 showsHorizontalScrollIndicator={false}
                 horizontal
               />
             </View>
-          )}
-        </React.Fragment>
+          )} */}
+        </View>
         <React.Fragment>
           {requestDetail ? (
             <View>

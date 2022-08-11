@@ -22,16 +22,20 @@ const RequestCard = ({ item, navigation }) => {
       underlayColor="white"
       onPress={() => {
         if (user && user.googleId[0] === "c") {
+          setTimeout(() => {
           navigation.navigate("RequestDetail", {
             item: item,
             buttons: "client",
           });
+          }, 1000);
         } else if (user && user.googleId[0] === "p") {
           dispatch(userDetail(item.clientId, "client"));
-          navigation.navigate("RequestDetail", {
-            item: item,
-            buttons: "prof",
-          });
+          setTimeout(() => {
+            navigation.navigate("RequestDetail", {
+              item: item,
+              buttons: "prof",
+            });
+          }, 1000);  
         }
       }}
     >

@@ -16,6 +16,7 @@ import RequestList from "../Components/List/RequestList/RequestList";
 import Review from "../Components/Review/Review";
 import ShowImage from "../Components/ShowImage/ShowImage";
 import SupportForm from "../Components/SupportForm/SupportForm";
+import theme from "../theme/theme";
 
 const Stack = createNativeStackNavigator();
 

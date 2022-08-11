@@ -15,6 +15,7 @@ import Toast from "react-native-root-toast";
 import theme from "../../theme/theme";
 import Icon2 from "react-native-vector-icons/FontAwesome5";
 import IconStart from "react-native-vector-icons/Foundation";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Review = ({ name, comment, review }) => (
   <View style={styles.review}>
@@ -66,7 +67,7 @@ const UserDetail = ({ navigation, route }) => {
   );
 
   return (
-    <View style={{ justifyContent: "center" }}>
+    <View style={{ justifyContent: "center", height: "100%" }}>
       <View
         style={{
           backgroundColor: theme.colors.threePalet.primary,
@@ -202,7 +203,7 @@ const UserDetail = ({ navigation, route }) => {
             </View>
           </React.Fragment>
         </View>
-        <View style={{ marginTop: 45, width: "100%" }}>
+        <View style={{ marginBottom: 100, width: "100%" }}>
           <View style={styles.flatListContainer}>
             <Text style={styles.headerList}>Reseñas: </Text>
             <FlatList data={userDetail.reviews} renderItem={renderItem} />

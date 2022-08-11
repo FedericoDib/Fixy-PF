@@ -227,13 +227,14 @@ const SolutionScreen = ({ navigation }) => {
               borderWidth: 2,
               borderRadius: 5,
               width: "100%",
-              height: 300,
               borderColor: theme.colors.threePalet.secondary,
               padding: 10,
+              textAlignVertical: "top",
             }}
             onChangeText={(text) => setInput({ ...input, description: text })}
             value={text}
             placeholder="Describe tu problema..."
+            maxLength={1000}
           />
         </View>
         <Text style={[style.label, { marginVertical: 20 }]}>
