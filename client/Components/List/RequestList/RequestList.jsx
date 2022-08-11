@@ -29,7 +29,7 @@ export default function RequestList({ navigation, route }) {
   return (
     <View style={style.mainContainer}>
       <View style={{ flex: 6 }}>
-        {!requests.length ? (
+        {!requests.length || requests.some(request => request.status === "active") && !(requests.some(request => request.status === "pending"))  ? (
           <View
             style={{
               flex: 1,

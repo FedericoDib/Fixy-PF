@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -9,6 +9,7 @@ import {
 import styles from './PayPalStyle';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast from 'react-native-root-toast';
+import Logo from '../../assets/FIXy.svg'
 
 const Paypal = ({ route, navigation }) => {
 	const budget = useSelector((state) => state.generalReducer.budgetDetail);
@@ -57,6 +58,7 @@ const Paypal = ({ route, navigation }) => {
 	};
 	return (
 		<View style={styles.mainContainer}>
+			<Logo />
 			<Modal
 				visible={state.showModal}
 				onRequestClose={() => setState({ showModal: false })}
@@ -91,7 +93,7 @@ const Paypal = ({ route, navigation }) => {
 						</View>
 					</View>
 				</TouchableOpacity>
-				<Text>Payment Status: {state.status}</Text>
+				<Text style={{display: 'none'}}>Payment Status: {state.status}</Text>
 			</View>
 		</View>
 	);

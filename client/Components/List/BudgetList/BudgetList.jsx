@@ -26,11 +26,16 @@ export default function BudgetList({ navigation, route }) {
       setIsRefreshing(true);
     }, [])
   );
-
+  console.log("budgets", budgets, budgets.length);
   return (
     <View style={style.mainContainer}>
       <View style={{ flex: 6 }}>
-        {budgets === undefined || !budgets.length ? (
+        {/*HAGANME ACORDAR DE ESTO POR FAVORRRRRR*/}
+        {/*HAGANME ACORDAR DE ESTO POR FAVORRRRRR*/}
+        {/*HAGANME ACORDAR DE ESTO POR FAVORRRRRR*/}
+        {/*HAGANME ACORDAR DE ESTO POR FAVORRRRRR*/}
+        {/*HAGANME ACORDAR DE ESTO POR FAVORRRRRR*/}
+        {budgets === undefined || !budgets.length || budgets.some(budget => budget.status === "active") && !(budgets.some(budget => budget.status === "pending")) ? (
           <View
             style={{
               flex: 1,

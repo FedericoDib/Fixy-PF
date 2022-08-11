@@ -3,6 +3,7 @@ import theme from '../../theme/theme';
 
 const styles = StyleSheet.create({
 	mainContainer: {
+		padding: 100,
 		flex: 1,
 		backgroundColor: theme.colors.threePalet.primary,
 	},

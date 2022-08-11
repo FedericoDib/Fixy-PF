@@ -37,12 +37,7 @@ export default function RequestDetail({ navigation, route }) {
   );
   const { item, buttons } = route.params;
 
-
   const [refreshing, setRefreshing] = useState(false);
-
-
-
-
 
   if (client.reviews && client.reviews.length) {
     averageRating = client.reviews.map((e) => e.rating);
@@ -52,7 +47,7 @@ export default function RequestDetail({ navigation, route }) {
       ) / averageRating.length
     ).toFixed(1);
   } else {
-    averageRating = 1;
+    averageRating = 3;
   }
 
   useFocusEffect(
@@ -81,14 +76,15 @@ export default function RequestDetail({ navigation, route }) {
         onPress={() => handleSubmit()}
         style={{marginHorizontal: 20}}
       >
-        <View style={[{flexDirection: "row", flex: 1}, {...theme.shadows.dark}]}>
+        <View style={{flexDirection: "row", flex: 1, padding:10, backgroundColor: '#FFF5E7', borderRadius: 20, borderWidth: 1, borderColor: theme
+      .colors.threePalet.secondary}}>
           <View style={style.imageContainer}>
             <Image
               style={{ borderRadius: 100 }}
               source={{
                 uri: item.perfilPic,
-                width: 65,
-                height: 65,
+                width: 60,
+                height: 60,
               }}
             />
           </View>
@@ -98,14 +94,14 @@ export default function RequestDetail({ navigation, route }) {
           </View>
 
           <View style={style.reviewContainer}>
-            <IconStart name="star" color="#E1C85A" size={19} />
-            <Text style={style.textName}>{averageRating}</Text>
+            <IconStart style={{marginHorizontal: 10}} name="star" color="#E1C85A" size={19} />
+            <Text style={{fontSize: 15,
+		fontWeight: 'bold', marginRight: 20}}>{averageRating}</Text>
           </View>
         </View>
       </TouchableHighlight>
     );
   };
-  console.log("AAAA", requestDetail?.professionals?.length)
 
   return (
     <View
@@ -170,34 +166,34 @@ export default function RequestDetail({ navigation, route }) {
         <React.Fragment>
           {requestDetail ? (
             <View>
-              <View style={style.textContainer}>
-                <Text style={style.textos}>Asunto</Text>
+              <View style={{marginTop: 10}}>
+                <Text style={style.label}>Asunto</Text>
                 <View style={style.centerField}>
-                  <Text>{requestDetail.affair}</Text>
+                  <Text style={style.desc}>{requestDetail.affair}</Text>
                 </View>
               </View>
-              <View style={style.textContainer}>
-                <Text style={style.textos}>Descripcion del problema</Text>
+              <View>
+                <Text style={style.label}>Descripcion del problema</Text>
                 <View style={style.centerField}>
-                  <Text>{requestDetail.description}</Text>
+                  <Text style={style.desc}>{requestDetail.description}</Text>
                 </View>
               </View>
-              <View style={style.textContainer}>
-                <Text style={style.textos}>Fecha</Text>
+              <View >
+                <Text style={style.label}>Fecha</Text>
                 <View style={style.centerField}>
-                  <Text>
+                  <Text style={style.desc}>
                     {requestDetail.date && requestDetail.date.length < 9
                       ? "20" + requestDetail.date.split("/").reverse().join("-")
                       : requestDetail.date && requestDetail.date.slice(0, 10)}
                   </Text>
                 </View>
               </View>
-              <View style={style.textContainer}>
-                <Text style={style.textos}>Rango horario</Text>
-                <View style={style.centerField}>
-                  <Text>{requestDetail.availableTime} hs</Text>
-                </View>
-              </View>
+              <View>
+						<Text style={style.label}>Rango horario</Text>
+            </View>
+            <View style={style.centerField}>
+              <Text style={style.desc}>{requestDetail.availableTime}</Text>
+            </View>
               {requestDetail.requestPic && requestDetail.requestPic.length ? (
                 <View style={{ alignItems: "center" }}>
                   {requestDetail.requestPic.map((photo) => {
@@ -233,8 +229,8 @@ export default function RequestDetail({ navigation, route }) {
                     navigation.navigate("BudgetForm");
                   }}
                 >
-                  <View style={style.textButton}>
-                    <Text style={style.textButton}>Enviar Presupuesto</Text>
+                  <View style={style.button}>
+                    <Text style={style.text}>Enviar Presupuesto</Text>
                   </View>
                 </TouchableHighlight>
               ) : (
@@ -251,8 +247,8 @@ export default function RequestDetail({ navigation, route }) {
                       navigation.navigate("ProfessionalList");
                     }}
                   >
-                    <View style={style.textButton}>
-                      <Text>Enviar solicitud a otros profesionales</Text>
+                    <View>
+                      <Text style={style.text}>Enviar solicitud a otros profesionales</Text>
                     </View>
                   </TouchableHighlight>
                   <TouchableHighlight
@@ -265,7 +261,7 @@ export default function RequestDetail({ navigation, route }) {
                     }}
                   >
                     <View style={style.textButton}>
-                      <Text>Eliminar solicitud</Text>
+                      <Text style={style.text}>Eliminar solicitud</Text>
                     </View>
                   </TouchableHighlight>
                 </View>
