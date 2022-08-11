@@ -18,6 +18,8 @@ const style = StyleSheet.create({
 		borderRadius: 10,
 		alignItems: 'center',
 		marginTop: '2%',
+		borderWidth: 1,
+		borderColor: theme.colors.threePalet.primary,
 	},
 	button: {
 		backgroundColor: theme.colors.threePalet.primary,
@@ -75,7 +77,8 @@ const style = StyleSheet.create({
 		borderRadius: 10,
 		paddingHorizontal: '1%',
 		justifyContent: 'space-around',
-		width: '14%',
+		alignItems: 'center',
+		width: '8%',
 	},
 	textos: {
 		fontWeight: 'bold',

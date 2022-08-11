@@ -7,13 +7,11 @@ import { Picker } from '@react-native-picker/picker';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBudget } from '../../Redux/Action/professionalActions';
 import Toast from 'react-native-root-toast';
-import { Ionicons } from "@expo/vector-icons";
-import theme from "../../theme/theme";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Icon1 from "react-native-vector-icons/AntDesign";
-import COLORS from "../SignUpForm/ClientSignUp/Colors";
-
-
+import { Ionicons } from '@expo/vector-icons';
+import theme from '../../theme/theme';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon1 from 'react-native-vector-icons/AntDesign';
+import COLORS from '../SignUpForm/ClientSignUp/Colors';
 
 const BudgetForm = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -45,25 +43,23 @@ const BudgetForm = ({ navigation }) => {
 		return turns;
 	};
 
-	const handleSubmit = () => {
-		
-	}
+	const handleSubmit = () => {};
 
 	return (
 		<ScrollView
 			style={styles.mainContainer}
 			showsVerticalScrollIndicator={false}
 			bounces={false}
-			contentContainerStyle={{ alignItems: "center" }}
+			contentContainerStyle={{ alignItems: 'center' }}
 		>
 			<View style={styles.container}>
 				<View style={styles.titleContainer}>
 					<Pressable
 						onPress={() => navigation.goBack()}
-						style={{ paddingVertical: 5, marginBottom: 10}}
-						>
+						style={{ paddingVertical: 5, marginBottom: 10 }}
+					>
 						<Ionicons
-							name="arrow-back"
+							name='arrow-back'
 							size={24}
 							color={theme.colors.threePalet.primary}
 						/>
@@ -73,40 +69,40 @@ const BudgetForm = ({ navigation }) => {
 				<Text style={styles.label}>Precio de la visita:</Text>
 				<View style={styles.inputContainer}>
 					<Icon
-						name="attach-money"
+						name='attach-money'
 						color={COLORS.light}
 						size={30}
 						style={styles.inputIcon}
 					/>
 					<TextInput
-						placeholder="Precio..."
+						placeholder='Precio...'
 						onChangeText={(text) => setInput({ ...input, price: text })}
 						style={styles.input}
 					/>
 				</View>
 				<View>
 					<Text style={styles.label}>Comentarios:</Text>
-					<View style={{ marginTop: 15, alignItems: "center", width: "100%" }}>
+					<View style={{ marginTop: 15, alignItems: 'center', width: '100%' }}>
 						<TextInput
 							multiline
 							numberOfLines={5}
 							style={{
-							margin: 12,
-							borderWidth: 2,
-							borderRadius: 5,
-							width: "100%",
-							height: 250,
-							borderColor: theme.colors.threePalet.secondary,
-							padding: 10,
-							textAlignVertical: "top",
+								margin: 12,
+								borderWidth: 2,
+								borderRadius: 5,
+								width: '100%',
+								height: 250,
+								borderColor: theme.colors.threePalet.secondary,
+								padding: 10,
+								textAlignVertical: 'top',
 							}}
 							onChangeText={(text) => setInput({ ...input, description: text })}
-							placeholder="Agregue comentarios..."
+							placeholder='Agregue comentarios...'
 						/>
 					</View>
 				</View>
 				<View>
-					<Text style={styles.label}>Presupuesto total estimado:</Text>				
+					<Text style={styles.label}>Presupuesto total estimado:</Text>
 					<View
 						style={[
 							styles.inputContainer,
@@ -123,7 +119,7 @@ const BudgetForm = ({ navigation }) => {
 						>
 							<Text style={styles.text}>Min</Text>
 							<Icon
-								name="attach-money"
+								name='attach-money'
 								color={COLORS.light}
 								size={20}
 								style={styles.inputIcon}
@@ -132,6 +128,7 @@ const BudgetForm = ({ navigation }) => {
 								placeholder='Precio'
 								style={styles.minmaxInput}
 								onChangeText={(text) => setMinBudget(text)}
+								keyboardType='numeric'
 							/>
 						</View>
 						<View
@@ -144,7 +141,7 @@ const BudgetForm = ({ navigation }) => {
 						>
 							<Text style={styles.text}>Max</Text>
 							<Icon
-								name="attach-money"
+								name='attach-money'
 								color={COLORS.light}
 								size={20}
 								style={styles.inputIcon}
@@ -153,10 +150,11 @@ const BudgetForm = ({ navigation }) => {
 								placeholder='Precio'
 								style={styles.minmaxInput}
 								onChangeText={(text) => setMaxBudget(text)}
+								keyboardType='numeric'
 							/>
 						</View>
 					</View>
-					<Text style={{marginBottom: 20}}>
+					<Text style={{ marginBottom: 20 }}>
 						El presupuesto estimado incluye los posibles costos de reparacion.
 						Es netamente informativo
 					</Text>
@@ -170,19 +168,31 @@ const BudgetForm = ({ navigation }) => {
 						>
 							{professional &&
 								handleTurns().map((item) => (
-									<Picker.Item
-										label={item}
-										value={item}
-										key={`turn-${item}`}
-									/>
+									<Picker.Item label={item} value={item} key={`turn-${item}`} />
 								))}
 						</Picker>
 					</View>
 				</View>
-				<View style={{flex: 1,width: "100%", justifyContent: "center", alignItems: "center", marginVertical: 10}}>
+				<View
+					style={{
+						flex: 1,
+						width: '100%',
+						justifyContent: 'center',
+						alignItems: 'center',
+						marginVertical: 10,
+					}}
+				>
 					<PrimaryButton
-						title={input.price && input.description && minBudget && maxBudget ? 'Enviar presupuesto' : 'Aguardando datos'}
-						disabled={input.price && input.description && minBudget && maxBudget ? false : true}
+						title={
+							input.price && input.description && minBudget && maxBudget
+								? 'Enviar presupuesto'
+								: 'Aguardando datos'
+						}
+						disabled={
+							input.price && input.description && minBudget && maxBudget
+								? false
+								: true
+						}
 						onPress={() => {
 							dispatch(
 								createBudget({
@@ -192,9 +202,9 @@ const BudgetForm = ({ navigation }) => {
 									turn: turn,
 									...input,
 								})
-								);
-								let toast = Toast.show('Presupuesto enviado!', {
-									duration: Toast.durations.LONG,
+							);
+							let toast = Toast.show('Presupuesto enviado!', {
+								duration: Toast.durations.LONG,
 								position: Toast.positions.BOTTOM,
 								shadow: true,
 								animation: true,
@@ -202,13 +212,13 @@ const BudgetForm = ({ navigation }) => {
 								delay: 0,
 								backgroundColor: 'green',
 							});
-							
+
 							setTimeout(function () {
 								Toast.hide(toast);
 							}, 1000);
 							navigation.popToTop();
-						}}/>
-						
+						}}
+					/>
 				</View>
 			</View>
 		</ScrollView>
