@@ -9,7 +9,6 @@ import {
   FlatList,
 } from "react-native";
 import style from "./RequestDetailStyle";
-import Icon from "react-native-vector-icons/Entypo";
 import IconStart from "react-native-vector-icons/Foundation";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
@@ -54,42 +53,6 @@ export default function RequestDetail({ navigation, route }) {
     }, [])
   );
 
-  //   const request = {
-  //     id: "fe5398dc-666b-4fa3-a970-a1c6775e716d",
-  //     affair: "exploto el foco",
-  //     date: "26/07/2022",
-  //     description: "prendi la luz y exploto",
-  //     status: "pending",
-  //     budget: null,
-  //     clientId: "3",
-  //     availableTime: "10:00 - 12:00",
-  //     photo: [
-  //       "https://loremflickr.com/320/240",
-  //       "https://loremflickr.com/320/240",
-  //       "https://loremflickr.com/320/240",
-  //       "https://loremflickr.com/320/240",
-  //       "https://loremflickr.com/320/240",
-  //       "https://loremflickr.com/320/240",
-  //     ],
-  //     client: {
-  //       googleId: "3",
-  //       expoToken: "1",
-  //       isRegistered: null,
-  //       firstLogin: true,
-  //       email: "jose@fixy.com",
-  //       name: "Maximiliano Silva",
-  //       phoneNumber: "1142451823",
-  //       perfilPic: "unafoto",
-  //       province: "cordoba",
-  //       city: "berazategui",
-  //       address: "Guemes 1234",
-  //       reviews: [
-  //         {
-  //           rating: 5,
-  //         },
-  //       ],
-  //     },
-  //   };
   const handleSubmit = () => {
     if (user && user.googleId[0] === "p") {
       dispatch(userDetail(item.clientId, "client"));
@@ -131,7 +94,6 @@ export default function RequestDetail({ navigation, route }) {
       </TouchableHighlight>
     );
   };
-  console.log("UUUUUSSSSSSSEEEEEERRRDDDDEEEETTT", requestDetail);
 
   return (
     <View

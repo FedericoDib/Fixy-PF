@@ -91,24 +91,7 @@ const Paypal = ({ route, navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-        <View style={[styles.centerField, styles.textContainer]}>
-          <Text>Estado del pago: {state.status}</Text>
-        </View>
       </View>
-      {/* <TouchableOpacity
-                style={{ width: 300, height: 100 }}
-                onPress={() => {
-                    setState({ showModal: true });
-                    dispatch(
-                        paypalPrice(
-                            500
-                            // route.params.price
-                        )
-                    );
-                }}
-            >
-                <Text>Pay with Paypal</Text>
-            </TouchableOpacity> */}
     </View>
   );
 };

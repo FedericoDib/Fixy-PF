@@ -16,7 +16,6 @@ const RequestCard = ({ item, navigation }) => {
     }, [])
   );
 
-  console.log("item", item);
   return (
     <TouchableOpacity
       activeOpacity={0.9}
@@ -38,7 +37,6 @@ const RequestCard = ({ item, navigation }) => {
     >
       <View style={[styles.cardContainer, { ...theme.shadows.dark }]}>
         <View style={styles.imageContainer}>
-          {console.log("detail", detail)}
           <Image
             style={{ borderRadius: 100 }}
             source={{

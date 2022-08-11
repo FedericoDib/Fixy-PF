@@ -13,14 +13,17 @@ import { requestToProfessional } from "../../Redux/Action/clientActions";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-root-toast";
 import theme from "../../theme/theme";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import Icon2 from "react-native-vector-icons/FontAwesome5";
+import IconStart from "react-native-vector-icons/Foundation";
 
 const Review = ({ name, comment, review }) => (
   <View style={styles.review}>
     <View style={styles.reviewHeader}>
       <Text style={styles.name}>{name}</Text>
-      <Text style={styles.name}>{review}</Text>
+      <View style={styles.reviewContainer}>
+        <IconStart name="star" color="#E1C85A" size={19} />
+        <Text style={styles.textName}>{review}</Text>
+      </View>
     </View>
     <Text style={styles.comment}>{comment}</Text>
   </View>
@@ -59,15 +62,11 @@ const UserDetail = ({ navigation, route }) => {
   };
 
   const renderItem = ({ item }) => (
-    <Review
-      name={item.review.name}
-      comment={item.review.comment}
-      review={item.review.rating}
-    />
+    <Review name={item.name} comment={item.comment} review={item.rating} />
   );
 
   return (
-    <SafeAreaView style={{ justifyContent: "center" }}>
+    <View style={{ justifyContent: "center" }}>
       <View
         style={{
           backgroundColor: theme.colors.threePalet.primary,
@@ -203,22 +202,44 @@ const UserDetail = ({ navigation, route }) => {
             </View>
           </React.Fragment>
         </View>
-
-        <Text style={styles.headerList}>Reseñas: </Text>
-        <View style={styles.flatListContainer}>
-          <FlatList data={userDetail} renderItem={renderItem} />
+        <View style={{ marginTop: 45, width: "100%" }}>
+          <View style={styles.flatListContainer}>
+            <Text style={styles.headerList}>Reseñas: </Text>
+            <FlatList data={userDetail.reviews} renderItem={renderItem} />
+          </View>
         </View>
         {button === "true" ? (
-          <TouchableHighlight
-            activeOpacity={0.9}
-            underlayColor="white"
-            onPress={() => handleSubmit()}
+          <View
+            style={{
+              width: "90%",
+              position: "absolute",
+              bottom: 10,
+              height: 70,
+              borderRadius: 15,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: theme.colors.threePalet.secondary,
+            }}
           >
-            <Text>Enviar Solicitud</Text>
-          </TouchableHighlight>
+            <TouchableHighlight
+              activeOpacity={0.9}
+              underlayColor="white"
+              onPress={() => handleSubmit()}
+            >
+              <Text
+                style={{
+                  fontSize: 19,
+                  color: theme.colors.threePalet.dark,
+                  fontWeight: "bold",
+                }}
+              >
+                Enviar Solicitud
+              </Text>
+            </TouchableHighlight>
+          </View>
         ) : null}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

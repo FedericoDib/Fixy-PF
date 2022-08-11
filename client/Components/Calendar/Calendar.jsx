@@ -48,24 +48,10 @@ LocaleConfig.locales["es"] = {
   today: "Hoy",
 };
 LocaleConfig.defaultLocale = "es";
-// import ApiCalendar from 'react-google-calendar-api';
-
-// const config = {
-//   "clientId": "302940809798-bb9fvtjipv232sglpnrglc228fp28r1q.apps.googleusercontent.com",
-//   "apiKey": "AIzaSyDF0_LtJF7Ct04VBorVRloJ-MB1Ofj2OHY",
-//   "scope": "https://www.googleapis.com/auth/calendar",
-//   "discoveryDocs": [
-//     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"
-//   ]
-// }
-
-// const apiCalendar = new ApiCalendar(config)
 
 const CalendarView = ({ navigation }) => {
   let requests = useSelector((state) => state.generalReducer.allRequests);
   requests = requests.filter((r) => r.status === "active");
-  // requests = requests[0];
-  // console.log(requests);
   const [events, setEvents] = useState([
     {
       affair: "Luz",

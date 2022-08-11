@@ -32,7 +32,6 @@ export default function ProfessionalCard({ item, navigation, route }) {
   const dispatch = useDispatch();
   const request = useSelector((state) => state.clientReducer.request);
 
-  // console.log(item);
   const onPress = () => {
     dispatch(userDetail(item.googleId, "professional"));
     setTimeout(() => {
@@ -43,13 +42,6 @@ export default function ProfessionalCard({ item, navigation, route }) {
     }, 1000);
   };
 
-  // closeInstantly = () => {
-  //     const { dragX, rowTranslation } = this.state;
-  //     dragX.setValue(0);
-  //     rowTranslation.setValue(0);
-  //     this.setState({ rowState: Math.sign(0) });
-  // };
-
   const leftSwipe = (progess, dragX) => {
     return (
       <View style={styles.background}>
@@ -59,10 +51,8 @@ export default function ProfessionalCard({ item, navigation, route }) {
       </View>
     );
   };
-  // console.log("itemmmmmmmmmmmmmmm",item);
-  // console.log("requestttttttttttttttttttttt", request);
+
   return (
-    // <View style={styles.background}>
     <GestureHandlerRootView>
       <Swipeable
         leftThreshold={1000}

@@ -67,8 +67,6 @@ const Profile = () => {
     seteditItem(item.id);
   };
 
-  console.log("userrrrrrrrrrrrrrrrrrrrrrr", user);
-
   const [input, setInput] = useState({
     id: user.googleId,
     phoneNumber: user.phoneNumber,
@@ -135,7 +133,6 @@ const Profile = () => {
   };
 
   const renderItem = ({ item, index }) => {
-    console.log("ITEMMMM", item);
     return (
       <View
         style={{

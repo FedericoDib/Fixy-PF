@@ -24,7 +24,6 @@ const InitialStack = () => {
         fetchUserInfoSigned(activeToken);
       }
     }
-    return () => console.log("desmontado");
   }, [activeToken]);
 
   //TRAE DATOS DEL SECURE STORE DATOS DEL USUARIO
@@ -35,12 +34,10 @@ const InitialStack = () => {
 
   // BUSCA EN API DE GOOGLE CON TOKEN DE UN LOGUEO ANTERIOR
   function fetchUserInfoSigned(token) {
-    console.log(token);
     fetch("https://www.googleapis.com/userinfo/v2/me", {
       headers: { Authorization: `Bearer ${token} ` },
     })
       .then((response) => response.json())
-      .then((json) => console.log("JSON", json))
       .then((json) => dispatch(googleLogin(json)))
       .catch((error) => console.error(error));
   }
@@ -93,30 +90,6 @@ const InitialStack = () => {
       }
     }
   };
-
-  console.log("INITIAL STACK DEJA DE JODER", user);
-
-  // useEffect(() => {
-  // 	if (Object.getOwnPropertyNames(user).length === 0) {
-
-  // 		setInitialRouteName('Login');
-  // 		return navigation.navigate('Login', {
-  // 			screen: 'Login',
-  // 			params: { user: user },
-  // 		});
-  // 	} else {
-  // 		if (user && user.googleId[0] === 'c') {
-
-  // 			return setInitialRouteName('ClientStack');
-  // 		} else if (user && user.googleId[0] === 'p') {
-
-  // 			return setInitialRouteName('ProfessionalStack');
-  // 		} else {
-
-  // 			return setInitialRouteName('NotRegisteredStack');
-  // 		}
-  // 	}
-  // }, [user]);
 
   return <Stack.Navigator>{getStack()}</Stack.Navigator>;
 };
